@@ -306,16 +306,6 @@ MediaPlayer.dependencies.ProtectionExtensions.prototype = {
         //
         return [
             {
-                schemeIdUri: "urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95",
-                keysTypeString: "com.microsoft.playready",
-                isSupported: function (data) {
-                    return this.schemeIdUri === data.schemeIdUri.toLowerCase();},
-                needToAddKeySession: playReadyNeedToAddKeySession,
-                getInitData: playreadyGetInitData,
-                getUpdate: playreadyGetUpdate,
-                cdmData: playReadyCdmData
-            },
-            {
                 schemeIdUri: "urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed",
                 keysTypeString: "com.widevine.alpha",
                 isSupported: function (data) {
@@ -328,14 +318,12 @@ MediaPlayer.dependencies.ProtectionExtensions.prototype = {
                 cdmData: function() {return null;}
             },
             {
-                schemeIdUri: "urn:mpeg:dash:mp4protection:2011",
+                schemeIdUri: "urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95",
                 keysTypeString: "com.microsoft.playready",
                 isSupported: function (data) {
-                    return this.schemeIdUri === data.schemeIdUri.toLowerCase() && data.value.toLowerCase() === "cenc";},
+                    return this.schemeIdUri === data.schemeIdUri.toLowerCase();},
                 needToAddKeySession: playReadyNeedToAddKeySession,
-                getInitData: function (/*data*/) {
-                    // the cenc element in mpd does not contain initdata
-                    return null;},
+                getInitData: playreadyGetInitData,
                 getUpdate: playreadyGetUpdate,
                 cdmData: playReadyCdmData
             },
@@ -350,6 +338,18 @@ MediaPlayer.dependencies.ProtectionExtensions.prototype = {
                     return null;},
                 getUpdate: widevineGetUpdate,
                 cdmData: function() {return null;}
+            },
+            {
+                schemeIdUri: "urn:mpeg:dash:mp4protection:2011",
+                keysTypeString: "com.microsoft.playready",
+                isSupported: function (data) {
+                    return this.schemeIdUri === data.schemeIdUri.toLowerCase() && data.value.toLowerCase() === "cenc";},
+                needToAddKeySession: playReadyNeedToAddKeySession,
+                getInitData: function (/*data*/) {
+                    // the cenc element in mpd does not contain initdata
+                    return null;},
+                getUpdate: playreadyGetUpdate,
+                cdmData: playReadyCdmData
             },
             {
                 schemeIdUri: "urn:uuid:00000000-0000-0000-0000-000000000000",
