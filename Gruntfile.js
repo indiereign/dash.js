@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     uglify : {
       min : {
         files: {
-          "dash.min.js" : [
+          "dist/dash.min.js" : [
             "app/js/streaming/MediaPlayer.js",
             "app/js/streaming/Context.js",
             "app/js/dash/Dash.js",
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       },
       all : {
         files: {
-          "dash.all.js" : [
+          "dist/dash.all.js" : [
             "./app/lib/xml2json.js",
             "./app/lib/objectiron.js",
             "./app/lib/dijon.js",

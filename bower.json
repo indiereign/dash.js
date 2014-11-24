@@ -1,0 +1,33 @@
+{
+  "name": "dash.js",
+  "version": "1.3.0-rc1",
+  "dependencies": { 
+  },
+  "devDependencies": {
+  },
+  "authors": [
+    "Assorted"
+  ],
+  "description": "Dash.js - Community player for dash",
+  "main": "dist/dash.all.js",
+  "keywords": [
+    "dash"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    ".grunt",
+    "bower_components",
+    "app",
+    "chromecast",
+    "contrib",
+    "jsdoc",
+    "node_modules",
+    "reports",
+    "samples",
+    ".jshintrc",
+    "*.html",
+    "*.js",
+    "web.config"
+  ]
+}
