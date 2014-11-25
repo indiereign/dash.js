@@ -16,6 +16,26 @@ module.exports = function(grunt) {
         jshintrc: ".jshintrc"
       }
     },
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: [
+            "./app/lib/xml2json.js",
+            "./app/lib/objectiron.js",
+            "./app/lib/dijon.js",
+            "./app/lib/Math.js",
+            "./app/lib/long.js",
+            "./app/lib/base64.js",
+            "./app/js/streaming/MediaPlayer.js",
+            "./app/js/streaming/Context.js",
+            "./app/js/dash/Dash.js",
+            "./app/js/dash/DashContext.js",
+            "./app/js/*/**/*.js"],
+        dest: 'dist/dash.all.js',
+      },
+    },
     uglify : {
       min : {
         files: {
@@ -109,8 +129,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-jsdoc');
 
   // Define tasks
-  grunt.registerTask('default', ['jshint','connect:default_options','jasmine','uglify', 'jsdoc']);
+  grunt.registerTask('default', ['jshint','connect:default_options','jasmine','uglify:min', 'concat', 'jsdoc']);
 };

@@ -1,7 +1,15579 @@
-function X2JS(a,b,c){function d(a){var b=a.localName;return null==b&&(b=a.baseName),(null==b||""==b)&&(b=a.nodeName),b}function e(a){return a.prefix}function f(a){return"string"==typeof a?a.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#x27;").replace(/\//g,"&#x2F;"):a}function g(a){return a.replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#x27;/g,"'").replace(/&#x2F;/g,"/")}function h(f){if(f.nodeType==u.DOCUMENT_NODE){var i,j,k,l=f.firstChild;for(j=0,k=f.childNodes.length;k>j;j+=1)if(f.childNodes[j].nodeType!==u.COMMENT_NODE){l=f.childNodes[j];break}if(c)i=h(l);else{i={};var m=d(l);i[m]=h(l)}return i}if(f.nodeType==u.ELEMENT_NODE){var i=new Object;i.__cnt=0;for(var n=f.childNodes,o=0;o<n.length;o++){var l=n.item(o),m=d(l);if(i.__cnt++,null==i[m])i[m]=h(l),i[m+"_asArray"]=new Array(1),i[m+"_asArray"][0]=i[m];else{if(null!=i[m]&&!(i[m]instanceof Array)){var p=i[m];i[m]=new Array,i[m][0]=p,i[m+"_asArray"]=i[m]}for(var q=0;null!=i[m][q];)q++;i[m][q]=h(l)}}for(var r=0;r<f.attributes.length;r++){var s=f.attributes.item(r);i.__cnt++;for(var v=s.value,w=0,x=a.length;x>w;w++){var y=a[w];y.test.call(this,s.value)&&(v=y.converter.call(this,s.value))}i[b+s.name]=v}var z=e(f);return null!=z&&""!=z&&(i.__cnt++,i.__prefix=z),1==i.__cnt&&null!=i["#text"]&&(i=i["#text"]),null!=i["#text"]&&(i.__text=i["#text"],t&&(i.__text=g(i.__text)),delete i["#text"],delete i["#text_asArray"]),null!=i["#cdata-section"]&&(i.__cdata=i["#cdata-section"],delete i["#cdata-section"],delete i["#cdata-section_asArray"]),(null!=i.__text||null!=i.__cdata)&&(i.toString=function(){return(null!=this.__text?this.__text:"")+(null!=this.__cdata?this.__cdata:"")}),i}return f.nodeType==u.TEXT_NODE||f.nodeType==u.CDATA_SECTION_NODE?f.nodeValue:f.nodeType==u.COMMENT_NODE?null:void 0}function i(a,b,c,d){var e="<"+(null!=a&&null!=a.__prefix?a.__prefix+":":"")+b;if(null!=c)for(var f=0;f<c.length;f++){var g=c[f],h=a[g];e+=" "+g.substr(1)+"='"+h+"'"}return e+=d?"/>":">"}function j(a,b){return"</"+(null!=a.__prefix?a.__prefix+":":"")+b+">"}function k(a,b){return-1!==a.indexOf(b,a.length-b.length)}function l(a,b){return k(b.toString(),"_asArray")||0==b.toString().indexOf("_")||a[b]instanceof Function?!0:!1}function m(a){var b=0;if(a instanceof Object)for(var c in a)l(a,c)||b++;return b}function n(a){var b=[];if(a instanceof Object)for(var c in a)-1==c.toString().indexOf("__")&&0==c.toString().indexOf("_")&&b.push(c);return b}function o(a){var b="";return null!=a.__cdata&&(b+="<![CDATA["+a.__cdata+"]]>"),null!=a.__text&&(b+=t?f(a.__text):a.__text),b}function p(a){var b="";return a instanceof Object?b+=o(a):null!=a&&(b+=t?f(a):a),b}function q(a,b,c){var d="";if(0==a.length)d+=i(a,b,c,!0);else for(var e=0;e<a.length;e++)d+=i(a[e],b,n(a[e]),!1),d+=r(a[e]),d+=j(a[e],b);return d}function r(a){var b="",c=m(a);if(c>0)for(var d in a)if(!l(a,d)){var e=a[d],f=n(e);if(null==e||void 0==e)b+=i(e,d,f,!0);else if(e instanceof Object)if(e instanceof Array)b+=q(e,d,f);else{var g=m(e);g>0||null!=e.__text||null!=e.__cdata?(b+=i(e,d,f,!1),b+=r(e),b+=j(e,d)):b+=i(e,d,f,!0)}else b+=i(e,d,f,!1),b+=p(e),b+=j(e,d)}return b+=p(a)}(null===b||void 0===b)&&(b="_"),(null===c||void 0===c)&&(c=!1);var s="1.0.11",t=!1,u={ELEMENT_NODE:1,TEXT_NODE:3,CDATA_SECTION_NODE:4,COMMENT_NODE:8,DOCUMENT_NODE:9};this.parseXmlString=function(a){var b;if(window.DOMParser){var c=new window.DOMParser;b=c.parseFromString(a,"text/xml")}else 0==a.indexOf("<?")&&(a=a.substr(a.indexOf("?>")+2)),b=new ActiveXObject("Microsoft.XMLDOM"),b.async="false",b.loadXML(a);return b},this.xml2json=function(a){return h(a)},this.xml_str2json=function(a){var b=this.parseXmlString(a);return this.xml2json(b)},this.json2xml_str=function(a){return r(a)},this.json2xml=function(a){var b=this.json2xml_str(a);return this.parseXmlString(b)},this.getVersion=function(){return s},this.escapeMode=function(a){t=a}}function ObjectIron(a){var b;for(b=[],i=0,len=a.length;len>i;i+=1)b.push(a[i].isRoot?"root":a[i].name);var c=function(a,b){var c;if(null!==a&&null!==b)for(c in a)a.hasOwnProperty(c)&&(b.hasOwnProperty(c)||(b[c]=a[c]))},d=function(a,b,d){var e,f,g,h,i;if(null!==a&&0!==a.length)for(e=0,f=a.length;f>e;e+=1)g=a[e],b.hasOwnProperty(g.name)&&(d.hasOwnProperty(g.name)?g.merge&&(h=b[g.name],i=d[g.name],"object"==typeof h&&"object"==typeof i?c(h,i):d[g.name]=null!=g.mergeFunction?g.mergeFunction(h,i):h+i):d[g.name]=b[g.name])},e=function(a,b){var c,f,g,h,i,j,k,l=a;if(null!==l.children&&0!==l.children.length)for(c=0,f=l.children.length;f>c;c+=1)if(j=l.children[c],b.hasOwnProperty(j.name))if(j.isArray)for(i=b[j.name+"_asArray"],g=0,h=i.length;h>g;g+=1)k=i[g],d(l.properties,b,k),e(j,k);else k=b[j.name],d(l.properties,b,k),e(j,k)},f=function(c){var d,g,h,i,j,k,l;if(null===c)return c;if("object"!=typeof c)return c;for(d=0,g=b.length;g>d;d+=1)"root"===b[d]&&(j=a[d],k=c,e(j,k));for(i in c)if(c.hasOwnProperty(i)){if(h=b.indexOf(i),-1!==h)if(j=a[h],j.isArray)for(l=c[i+"_asArray"],d=0,g=l.length;g>d;d+=1)k=l[d],e(j,k);else k=c[i],e(j,k);f(c[i])}return c};return{run:f}}if(function(a){"use strict";var b={VERSION:"0.5.3"};b.System=function(){this._mappings={},this._outlets={},this._handlers={},this.strictInjections=!0,this.autoMapOutlets=!1,this.postInjectionHook="setup"},b.System.prototype={_createAndSetupInstance:function(a,b){var c=new b;return this.injectInto(c,a),c},_retrieveFromCacheOrCreate:function(a,b){"undefined"==typeof b&&(b=!1);var c;if(!this._mappings.hasOwnProperty(a))throw new Error(1e3);var d=this._mappings[a];return!b&&d.isSingleton?(null==d.object&&(d.object=this._createAndSetupInstance(a,d.clazz)),c=d.object):c=d.clazz?this._createAndSetupInstance(a,d.clazz):d.object,c},mapOutlet:function(a,b,c){if("undefined"==typeof a)throw new Error(1010);return b=b||"global",c=c||a,this._outlets.hasOwnProperty(b)||(this._outlets[b]={}),this._outlets[b][c]=a,this},getObject:function(a){if("undefined"==typeof a)throw new Error(1020);return this._retrieveFromCacheOrCreate(a)},mapValue:function(a,b){if("undefined"==typeof a)throw new Error(1030);return this._mappings[a]={clazz:null,object:b,isSingleton:!0},this.autoMapOutlets&&this.mapOutlet(a),this.hasMapping(a)&&this.injectInto(b,a),this},hasMapping:function(a){if("undefined"==typeof a)throw new Error(1040);return this._mappings.hasOwnProperty(a)},mapClass:function(a,b){if("undefined"==typeof a)throw new Error(1050);if("undefined"==typeof b)throw new Error(1051);return this._mappings[a]={clazz:b,object:null,isSingleton:!1},this.autoMapOutlets&&this.mapOutlet(a),this},mapSingleton:function(a,b){if("undefined"==typeof a)throw new Error(1060);if("undefined"==typeof b)throw new Error(1061);return this._mappings[a]={clazz:b,object:null,isSingleton:!0},this.autoMapOutlets&&this.mapOutlet(a),this},instantiate:function(a){if("undefined"==typeof a)throw new Error(1070);return this._retrieveFromCacheOrCreate(a,!0)},injectInto:function(a,b){if("undefined"==typeof a)throw new Error(1080);if("object"==typeof a){var c=[];this._outlets.hasOwnProperty("global")&&c.push(this._outlets.global),"undefined"!=typeof b&&this._outlets.hasOwnProperty(b)&&c.push(this._outlets[b]);for(var d in c){var e=c[d];for(var f in e){var g=e[f];(!this.strictInjections||f in a)&&(a[f]=this.getObject(g))}}"setup"in a&&a.setup.call(a)}return this},unmap:function(a){if("undefined"==typeof a)throw new Error(1090);return delete this._mappings[a],this},unmapOutlet:function(a,b){if("undefined"==typeof a)throw new Error(1100);if("undefined"==typeof b)throw new Error(1101);return delete this._outlets[a][b],this},mapHandler:function(a,b,c,d,e){if("undefined"==typeof a)throw new Error(1110);return b=b||"global",c=c||a,"undefined"==typeof d&&(d=!1),"undefined"==typeof e&&(e=!1),this._handlers.hasOwnProperty(a)||(this._handlers[a]={}),this._handlers[a].hasOwnProperty(b)||(this._handlers[a][b]=[]),this._handlers[a][b].push({handler:c,oneShot:d,passEvent:e}),this},unmapHandler:function(a,b,c){if("undefined"==typeof a)throw new Error(1120);if(b=b||"global",c=c||a,this._handlers.hasOwnProperty(a)&&this._handlers[a].hasOwnProperty(b)){var d=this._handlers[a][b];for(var e in d){var f=d[e];if(f.handler===c){d.splice(e,1);break}}}return this},notify:function(a){if("undefined"==typeof a)throw new Error(1130);var b=Array.prototype.slice.call(arguments),c=b.slice(1);if(this._handlers.hasOwnProperty(a)){var d=this._handlers[a];for(var e in d){var f,g=d[e];"global"!==e&&(f=this.getObject(e));var h,i,j=[];for(h=0,i=g.length;i>h;h++){var k,l=g[h];k=f&&"string"==typeof l.handler?f[l.handler]:l.handler,l.oneShot&&j.unshift(h),l.passEvent?k.apply(f,b):k.apply(f,c)}for(h=0,i=j.length;i>h;h++)g.splice(j[h],1)}}return this}},a.dijon=b}(this),"undefined"==typeof utils)var utils={};"undefined"==typeof utils.Math&&(utils.Math={}),utils.Math.to64BitNumber=function(a,b){var c,d,e;return c=new goog.math.Long(0,b),d=new goog.math.Long(a,0),e=c.add(d),e.toNumber()},goog={},goog.math={},goog.math.Long=function(a,b){this.low_=0|a,this.high_=0|b},goog.math.Long.IntCache_={},goog.math.Long.fromInt=function(a){if(a>=-128&&128>a){var b=goog.math.Long.IntCache_[a];if(b)return b}var c=new goog.math.Long(0|a,0>a?-1:0);return a>=-128&&128>a&&(goog.math.Long.IntCache_[a]=c),c},goog.math.Long.fromNumber=function(a){return isNaN(a)||!isFinite(a)?goog.math.Long.ZERO:a<=-goog.math.Long.TWO_PWR_63_DBL_?goog.math.Long.MIN_VALUE:a+1>=goog.math.Long.TWO_PWR_63_DBL_?goog.math.Long.MAX_VALUE:0>a?goog.math.Long.fromNumber(-a).negate():new goog.math.Long(a%goog.math.Long.TWO_PWR_32_DBL_|0,a/goog.math.Long.TWO_PWR_32_DBL_|0)},goog.math.Long.fromBits=function(a,b){return new goog.math.Long(a,b)},goog.math.Long.fromString=function(a,b){if(0==a.length)throw Error("number format error: empty string");var c=b||10;if(2>c||c>36)throw Error("radix out of range: "+c);if("-"==a.charAt(0))return goog.math.Long.fromString(a.substring(1),c).negate();if(a.indexOf("-")>=0)throw Error('number format error: interior "-" character: '+a);for(var d=goog.math.Long.fromNumber(Math.pow(c,8)),e=goog.math.Long.ZERO,f=0;f<a.length;f+=8){var g=Math.min(8,a.length-f),h=parseInt(a.substring(f,f+g),c);if(8>g){var i=goog.math.Long.fromNumber(Math.pow(c,g));e=e.multiply(i).add(goog.math.Long.fromNumber(h))}else e=e.multiply(d),e=e.add(goog.math.Long.fromNumber(h))}return e},goog.math.Long.TWO_PWR_16_DBL_=65536,goog.math.Long.TWO_PWR_24_DBL_=1<<24,goog.math.Long.TWO_PWR_32_DBL_=goog.math.Long.TWO_PWR_16_DBL_*goog.math.Long.TWO_PWR_16_DBL_,goog.math.Long.TWO_PWR_31_DBL_=goog.math.Long.TWO_PWR_32_DBL_/2,goog.math.Long.TWO_PWR_48_DBL_=goog.math.Long.TWO_PWR_32_DBL_*goog.math.Long.TWO_PWR_16_DBL_,goog.math.Long.TWO_PWR_64_DBL_=goog.math.Long.TWO_PWR_32_DBL_*goog.math.Long.TWO_PWR_32_DBL_,goog.math.Long.TWO_PWR_63_DBL_=goog.math.Long.TWO_PWR_64_DBL_/2,goog.math.Long.ZERO=goog.math.Long.fromInt(0),goog.math.Long.ONE=goog.math.Long.fromInt(1),goog.math.Long.NEG_ONE=goog.math.Long.fromInt(-1),goog.math.Long.MAX_VALUE=goog.math.Long.fromBits(-1,2147483647),goog.math.Long.MIN_VALUE=goog.math.Long.fromBits(0,-2147483648),goog.math.Long.TWO_PWR_24_=goog.math.Long.fromInt(1<<24),goog.math.Long.prototype.toInt=function(){return this.low_},goog.math.Long.prototype.toNumber=function(){return this.high_*goog.math.Long.TWO_PWR_32_DBL_+this.getLowBitsUnsigned()},goog.math.Long.prototype.toString=function(a){var b=a||10;if(2>b||b>36)throw Error("radix out of range: "+b);if(this.isZero())return"0";if(this.isNegative()){if(this.equals(goog.math.Long.MIN_VALUE)){var c=goog.math.Long.fromNumber(b),d=this.div(c),e=d.multiply(c).subtract(this);return d.toString(b)+e.toInt().toString(b)}return"-"+this.negate().toString(b)}for(var f=goog.math.Long.fromNumber(Math.pow(b,6)),e=this,g="";;){var h=e.div(f),i=e.subtract(h.multiply(f)).toInt(),j=i.toString(b);if(e=h,e.isZero())return j+g;for(;j.length<6;)j="0"+j;g=""+j+g}},goog.math.Long.prototype.getHighBits=function(){return this.high_},goog.math.Long.prototype.getLowBits=function(){return this.low_},goog.math.Long.prototype.getLowBitsUnsigned=function(){return this.low_>=0?this.low_:goog.math.Long.TWO_PWR_32_DBL_+this.low_},goog.math.Long.prototype.getNumBitsAbs=function(){if(this.isNegative())return this.equals(goog.math.Long.MIN_VALUE)?64:this.negate().getNumBitsAbs();for(var a=0!=this.high_?this.high_:this.low_,b=31;b>0&&0==(a&1<<b);b--);return 0!=this.high_?b+33:b+1},goog.math.Long.prototype.isZero=function(){return 0==this.high_&&0==this.low_},goog.math.Long.prototype.isNegative=function(){return this.high_<0},goog.math.Long.prototype.isOdd=function(){return 1==(1&this.low_)},goog.math.Long.prototype.equals=function(a){return this.high_==a.high_&&this.low_==a.low_},goog.math.Long.prototype.notEquals=function(a){return this.high_!=a.high_||this.low_!=a.low_},goog.math.Long.prototype.lessThan=function(a){return this.compare(a)<0},goog.math.Long.prototype.lessThanOrEqual=function(a){return this.compare(a)<=0},goog.math.Long.prototype.greaterThan=function(a){return this.compare(a)>0},goog.math.Long.prototype.greaterThanOrEqual=function(a){return this.compare(a)>=0},goog.math.Long.prototype.compare=function(a){if(this.equals(a))return 0;var b=this.isNegative(),c=a.isNegative();return b&&!c?-1:!b&&c?1:this.subtract(a).isNegative()?-1:1},goog.math.Long.prototype.negate=function(){return this.equals(goog.math.Long.MIN_VALUE)?goog.math.Long.MIN_VALUE:this.not().add(goog.math.Long.ONE)},goog.math.Long.prototype.add=function(a){var b=this.high_>>>16,c=65535&this.high_,d=this.low_>>>16,e=65535&this.low_,f=a.high_>>>16,g=65535&a.high_,h=a.low_>>>16,i=65535&a.low_,j=0,k=0,l=0,m=0;return m+=e+i,l+=m>>>16,m&=65535,l+=d+h,k+=l>>>16,l&=65535,k+=c+g,j+=k>>>16,k&=65535,j+=b+f,j&=65535,goog.math.Long.fromBits(l<<16|m,j<<16|k)},goog.math.Long.prototype.subtract=function(a){return this.add(a.negate())},goog.math.Long.prototype.multiply=function(a){if(this.isZero())return goog.math.Long.ZERO;if(a.isZero())return goog.math.Long.ZERO;if(this.equals(goog.math.Long.MIN_VALUE))return a.isOdd()?goog.math.Long.MIN_VALUE:goog.math.Long.ZERO;if(a.equals(goog.math.Long.MIN_VALUE))return this.isOdd()?goog.math.Long.MIN_VALUE:goog.math.Long.ZERO;if(this.isNegative())return a.isNegative()?this.negate().multiply(a.negate()):this.negate().multiply(a).negate();if(a.isNegative())return this.multiply(a.negate()).negate();if(this.lessThan(goog.math.Long.TWO_PWR_24_)&&a.lessThan(goog.math.Long.TWO_PWR_24_))return goog.math.Long.fromNumber(this.toNumber()*a.toNumber());var b=this.high_>>>16,c=65535&this.high_,d=this.low_>>>16,e=65535&this.low_,f=a.high_>>>16,g=65535&a.high_,h=a.low_>>>16,i=65535&a.low_,j=0,k=0,l=0,m=0;return m+=e*i,l+=m>>>16,m&=65535,l+=d*i,k+=l>>>16,l&=65535,l+=e*h,k+=l>>>16,l&=65535,k+=c*i,j+=k>>>16,k&=65535,k+=d*h,j+=k>>>16,k&=65535,k+=e*g,j+=k>>>16,k&=65535,j+=b*i+c*h+d*g+e*f,j&=65535,goog.math.Long.fromBits(l<<16|m,j<<16|k)},goog.math.Long.prototype.div=function(a){if(a.isZero())throw Error("division by zero");if(this.isZero())return goog.math.Long.ZERO;if(this.equals(goog.math.Long.MIN_VALUE)){if(a.equals(goog.math.Long.ONE)||a.equals(goog.math.Long.NEG_ONE))return goog.math.Long.MIN_VALUE;if(a.equals(goog.math.Long.MIN_VALUE))return goog.math.Long.ONE;var b=this.shiftRight(1),c=b.div(a).shiftLeft(1);if(c.equals(goog.math.Long.ZERO))return a.isNegative()?goog.math.Long.ONE:goog.math.Long.NEG_ONE;var d=this.subtract(a.multiply(c)),e=c.add(d.div(a));return e}if(a.equals(goog.math.Long.MIN_VALUE))return goog.math.Long.ZERO;if(this.isNegative())return a.isNegative()?this.negate().div(a.negate()):this.negate().div(a).negate();if(a.isNegative())return this.div(a.negate()).negate();for(var f=goog.math.Long.ZERO,d=this;d.greaterThanOrEqual(a);){for(var c=Math.max(1,Math.floor(d.toNumber()/a.toNumber())),g=Math.ceil(Math.log(c)/Math.LN2),h=48>=g?1:Math.pow(2,g-48),i=goog.math.Long.fromNumber(c),j=i.multiply(a);j.isNegative()||j.greaterThan(d);)c-=h,i=goog.math.Long.fromNumber(c),j=i.multiply(a);i.isZero()&&(i=goog.math.Long.ONE),f=f.add(i),d=d.subtract(j)}return f},goog.math.Long.prototype.modulo=function(a){return this.subtract(this.div(a).multiply(a))},goog.math.Long.prototype.not=function(){return goog.math.Long.fromBits(~this.low_,~this.high_)},goog.math.Long.prototype.and=function(a){return goog.math.Long.fromBits(this.low_&a.low_,this.high_&a.high_)},goog.math.Long.prototype.or=function(a){return goog.math.Long.fromBits(this.low_|a.low_,this.high_|a.high_)},goog.math.Long.prototype.xor=function(a){return goog.math.Long.fromBits(this.low_^a.low_,this.high_^a.high_)},goog.math.Long.prototype.shiftLeft=function(a){if(a&=63,0==a)return this;var b=this.low_;if(32>a){var c=this.high_;return goog.math.Long.fromBits(b<<a,c<<a|b>>>32-a)}return goog.math.Long.fromBits(0,b<<a-32)},goog.math.Long.prototype.shiftRight=function(a){if(a&=63,0==a)return this;var b=this.high_;if(32>a){var c=this.low_;return goog.math.Long.fromBits(c>>>a|b<<32-a,b>>a)}return goog.math.Long.fromBits(b>>a-32,b>=0?0:-1)},goog.math.Long.prototype.shiftRightUnsigned=function(a){if(a&=63,0==a)return this;var b=this.high_;if(32>a){var c=this.low_;return goog.math.Long.fromBits(c>>>a|b<<32-a,b>>>a)}return 32==a?goog.math.Long.fromBits(b,0):goog.math.Long.fromBits(b>>>a-32,0)};var UTF8={};UTF8.encode=function(a){for(var b=[],c=0;c<a.length;++c){var d=a.charCodeAt(c);128>d?b.push(d):2048>d?(b.push(192|d>>6),b.push(128|63&d)):65536>d?(b.push(224|d>>12),b.push(128|63&d>>6),b.push(128|63&d)):(b.push(240|d>>18),b.push(128|63&d>>12),b.push(128|63&d>>6),b.push(128|63&d))}return b},UTF8.decode=function(a){for(var b=[],c=0;c<a.length;){var d=a[c++];128>d||(224>d?(d=(31&d)<<6,d|=63&a[c++]):240>d?(d=(15&d)<<12,d|=(63&a[c++])<<6,d|=63&a[c++]):(d=(7&d)<<18,d|=(63&a[c++])<<12,d|=(63&a[c++])<<6,d|=63&a[c++])),b.push(String.fromCharCode(d))}return b.join("")};var BASE64={};if(function(b){var c=function(a){for(var c=0,d=[],e=0|a.length/3;0<e--;){var f=(a[c]<<16)+(a[c+1]<<8)+a[c+2];c+=3,d.push(b.charAt(63&f>>18)),d.push(b.charAt(63&f>>12)),d.push(b.charAt(63&f>>6)),d.push(b.charAt(63&f))}if(2==a.length-c){var f=(a[c]<<16)+(a[c+1]<<8);d.push(b.charAt(63&f>>18)),d.push(b.charAt(63&f>>12)),d.push(b.charAt(63&f>>6)),d.push("=")}else if(1==a.length-c){var f=a[c]<<16;d.push(b.charAt(63&f>>18)),d.push(b.charAt(63&f>>12)),d.push("==")}return d.join("")},d=function(){for(var a=[],c=0;c<b.length;++c)a[b.charCodeAt(c)]=c;return a["=".charCodeAt(0)]=0,a}(),e=function(a){for(var b=0,c=[],e=0|a.length/4;0<e--;){var f=(d[a.charCodeAt(b)]<<18)+(d[a.charCodeAt(b+1)]<<12)+(d[a.charCodeAt(b+2)]<<6)+d[a.charCodeAt(b+3)];c.push(255&f>>16),c.push(255&f>>8),c.push(255&f),b+=4}return c&&("="==a.charAt(b-2)?(c.pop(),c.pop()):"="==a.charAt(b-1)&&c.pop()),c},f={};f.encode=function(a){for(var b=[],c=0;c<a.length;++c)b.push(a.charCodeAt(c));return b},f.decode=function(){for(var b=0;b<s.length;++b)a[b]=String.fromCharCode(a[b]);return a.join("")},BASE64.decodeArray=function(a){var b=e(a);return new Uint8Array(b)},BASE64.encodeASCII=function(a){var b=f.encode(a);return c(b)},BASE64.decodeASCII=function(a){var b=e(a);return f.decode(b)},BASE64.encode=function(a){var b=UTF8.encode(a);return c(b)},BASE64.decode=function(a){var b=e(a);return UTF8.decode(b)}}("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"),void 0===btoa)var btoa=BASE64.encode;if(void 0===atob)var atob=BASE64.decode;MediaPlayer=function(a){"use strict";var b,c,d,e,f,g,h,i,j,k,l,m,n="1.3.0 (refactor)",o=a,p=null,q=!1,r=!1,s=!0,t=!1,u=MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED,v=function(){return!!e&&!!f},w=function(){if(!q)throw"MediaPlayer not initialized!";if(!this.capabilities.supportsMediaSource())return void this.errHandler.capabilityError("mediasource");if(!e||!f)throw"Missing view or source.";r=!0,g=b.getObject("streamController"),g.subscribe(g.eventList.ENAME_STREAMS_COMPOSED,i),c.subscribe(c.eventList.ENAME_MANIFEST_LOADED,g),c.subscribe(c.eventList.ENAME_MANIFEST_LOADED,i),g.setVideoModel(m),g.setAutoPlay(s),g.setProtectionData(p),g.load(f),b.mapValue("scheduleWhilePaused",t),b.mapOutlet("scheduleWhilePaused","stream"),b.mapOutlet("scheduleWhilePaused","scheduleController"),b.mapValue("bufferMax",u),b.mapOutlet("bufferMax","bufferController"),h.initialize()},x=function(){v()&&w.call(this)},y=function(){var a=l.getReadOnlyMetricsFor("video")||l.getReadOnlyMetricsFor("audio");return k.getCurrentDVRInfo(a)},z=function(){return y.call(this).manifestInfo.DVRWindowSize},A=function(a){var b=y.call(this),c=b.range.start+a;return c>b.range.end&&(c=b.range.end),c},B=function(a){m.getElement().currentTime=this.getDVRSeekOffset(a)},C=function(){var a=y.call(this);return null===a?0:this.duration()-(a.range.end-a.time)},D=function(){var a,b=y.call(this);return null===b?0:(a=b.range.end-b.range.start,a<b.manifestInfo.DVRWindowSize?a:b.manifestInfo.DVRWindowSize)},E=function(){var a,b,c=y.call(this);return null===c?0:(a=c.manifestInfo.availableFrom.getTime()/1e3,b=this.time()+(a+c.range.start))},F=function(){var a,b,c=y.call(this);return null===c?0:(a=c.manifestInfo.availableFrom.getTime()/1e3,b=a+c.range.start+this.duration())},G=function(a,b,c){var d=new Date(1e3*a),e=d.toLocaleDateString(b),f=d.toLocaleTimeString(b,{hour12:c});return f+" "+e},H=function(a){a=Math.max(a,0);var b=Math.floor(a/3600),c=Math.floor(a%3600/60),d=Math.floor(a%3600%60);return(0===b?"":10>b?"0"+b.toString()+":":b.toString()+":")+(10>c?"0"+c.toString():c.toString())+":"+(10>d?"0"+d.toString():d.toString())},I=function(a,b,c){b&&void 0!==a&&null!==a&&(c?h.setRules(a,b):h.addRules(a,b))},J=function(){r&&g&&(g.unsubscribe(g.eventList.ENAME_STREAMS_COMPOSED,i),c.unsubscribe(c.eventList.ENAME_MANIFEST_LOADED,g),c.unsubscribe(c.eventList.ENAME_MANIFEST_LOADED,i),g.reset(),d.reset(),h.reset(),g=null,r=!1)};return b=new dijon.System,b.mapValue("system",b),b.mapOutlet("system"),b.injectInto(o),{notifier:void 0,debug:void 0,eventBus:void 0,capabilities:void 0,adapter:void 0,errHandler:void 0,tokenAuthentication:void 0,uriQueryFragModel:void 0,videoElementExt:void 0,setup:function(){k=b.getObject("metricsExt"),c=b.getObject("manifestLoader"),i=b.getObject("manifestUpdater"),d=b.getObject("abrController"),h=b.getObject("rulesController"),l=b.getObject("metricsModel"),j=b.getObject("protectionController")},addEventListener:function(a,b,c){this.eventBus.addEventListener(a,b,c)},removeEventListener:function(a,b,c){this.eventBus.removeEventListener(a,b,c)},getVersion:function(){return n},startup:function(){q||(b.injectInto(this),q=!0)},getDebug:function(){return this.debug},getVideoModel:function(){return m},setAutoPlay:function(a){s=a},getAutoPlay:function(){return s},setScheduleWhilePaused:function(a){t=a},getScheduleWhilePaused:function(){return t},setTokenAuthentication:function(a,b){this.tokenAuthentication.setTokenAuthentication({name:a,type:b})},setBearerToken:function(a,b){j.setBearerToken({keySystem:a,token:b})},setBufferMax:function(a){u=a},getBufferMax:function(){return u},getMetricsExt:function(){return k},getMetricsFor:function(a){var b=l.getReadOnlyMetricsFor(a);return b},getQualityFor:function(a){return d.getQualityFor(a,g.getActiveStreamInfo())},setQualityFor:function(a,b){d.setPlaybackQuality(a,g.getActiveStreamInfo(),b)},getAutoSwitchQuality:function(){return d.getAutoSwitchBitrate()},setAutoSwitchQuality:function(a){d.setAutoSwitchBitrate(a)},setSchedulingRules:function(a){I.call(this,h.SCHEDULING_RULE,a,!0)},addSchedulingRules:function(a){I.call(this,h.SCHEDULING_RULE,a,!1)},setABRRules:function(a){I.call(this,h.ABR_RULE,a,!0)},addABRRules:function(a){I.call(this,h.ABR_RULE,a,!1)},attachView:function(a){if(!q)throw"MediaPlayer not initialized!";e=a,m=null,e&&(m=b.getObject("videoModel"),m.setElement(e)),J.call(this),v.call(this)&&x.call(this)},attachSource:function(a){if(!q)throw"MediaPlayer not initialized!";this.uriQueryFragModel.reset(),f=this.uriQueryFragModel.parseURI(a),J.call(this),v.call(this)&&x.call(this)},attachProtectionData:function(a){p=a},reset:function(){this.attachSource(null),this.attachView(null)},play:w,isReady:v,seek:B,time:C,duration:D,timeAsUTC:E,durationAsUTC:F,getDVRWindowSize:z,getDVRSeekOffset:A,formatUTC:G,convertToTimeCode:H}},MediaPlayer.prototype={constructor:MediaPlayer},MediaPlayer.dependencies={},MediaPlayer.utils={},MediaPlayer.models={},MediaPlayer.vo={},MediaPlayer.vo.metrics={},MediaPlayer.rules={},MediaPlayer.di={},MediaPlayer.di.Context=function(){"use strict";return{system:void 0,setup:function(){this.system.autoMapOutlets=!0,this.system.mapSingleton("debug",MediaPlayer.utils.Debug),this.system.mapSingleton("tokenAuthentication",MediaPlayer.utils.TokenAuthentication),this.system.mapSingleton("eventBus",MediaPlayer.utils.EventBus),this.system.mapSingleton("capabilities",MediaPlayer.utils.Capabilities),this.system.mapSingleton("textTrackExtensions",MediaPlayer.utils.TextTrackExtensions),this.system.mapSingleton("vttParser",MediaPlayer.utils.VTTParser),this.system.mapSingleton("ttmlParser",MediaPlayer.utils.TTMLParser),this.system.mapClass("videoModel",MediaPlayer.models.VideoModel),this.system.mapSingleton("manifestModel",MediaPlayer.models.ManifestModel),this.system.mapSingleton("metricsModel",MediaPlayer.models.MetricsModel),this.system.mapSingleton("uriQueryFragModel",MediaPlayer.models.URIQueryAndFragmentModel),this.system.mapClass("protectionModel",MediaPlayer.models.ProtectionModel),this.system.mapSingleton("textSourceBuffer",MediaPlayer.dependencies.TextSourceBuffer),this.system.mapSingleton("mediaSourceExt",MediaPlayer.dependencies.MediaSourceExtensions),this.system.mapSingleton("sourceBufferExt",MediaPlayer.dependencies.SourceBufferExtensions),this.system.mapSingleton("abrController",MediaPlayer.dependencies.AbrController),this.system.mapSingleton("errHandler",MediaPlayer.dependencies.ErrorHandler),this.system.mapSingleton("protectionExt",MediaPlayer.dependencies.ProtectionExtensions),this.system.mapSingleton("videoExt",MediaPlayer.dependencies.VideoModelExtensions),this.system.mapSingleton("protectionController",MediaPlayer.dependencies.ProtectionController),this.system.mapClass("playbackController",MediaPlayer.dependencies.PlaybackController),this.system.mapSingleton("liveEdgeFinder",MediaPlayer.dependencies.LiveEdgeFinder),this.system.mapClass("metrics",MediaPlayer.models.MetricsList),this.system.mapClass("downloadRatioRule",MediaPlayer.rules.DownloadRatioRule),this.system.mapClass("insufficientBufferRule",MediaPlayer.rules.InsufficientBufferRule),this.system.mapClass("limitSwitchesRule",MediaPlayer.rules.LimitSwitchesRule),this.system.mapSingleton("abrRulesCollection",MediaPlayer.rules.ABRRulesCollection),this.system.mapSingleton("rulesController",MediaPlayer.rules.RulesController),this.system.mapClass("liveEdgeBinarySearchRule",MediaPlayer.rules.LiveEdgeBinarySearchRule),this.system.mapClass("bufferLevelRule",MediaPlayer.rules.BufferLevelRule),this.system.mapClass("pendingRequestsRule",MediaPlayer.rules.PendingRequestsRule),this.system.mapClass("playbackTimeRule",MediaPlayer.rules.PlaybackTimeRule),this.system.mapClass("sameTimeRequestRule",MediaPlayer.rules.SameTimeRequestRule),this.system.mapSingleton("scheduleRulesCollection",MediaPlayer.rules.ScheduleRulesCollection),this.system.mapClass("streamProcessor",MediaPlayer.dependencies.StreamProcessor),this.system.mapClass("eventController",MediaPlayer.dependencies.EventController),this.system.mapClass("textController",MediaPlayer.dependencies.TextController),this.system.mapClass("bufferController",MediaPlayer.dependencies.BufferController),this.system.mapSingleton("manifestLoader",MediaPlayer.dependencies.ManifestLoader),this.system.mapSingleton("manifestUpdater",MediaPlayer.dependencies.ManifestUpdater),this.system.mapClass("fragmentController",MediaPlayer.dependencies.FragmentController),this.system.mapClass("fragmentLoader",MediaPlayer.dependencies.FragmentLoader),this.system.mapClass("fragmentModel",MediaPlayer.dependencies.FragmentModel),this.system.mapSingleton("streamController",MediaPlayer.dependencies.StreamController),this.system.mapClass("stream",MediaPlayer.dependencies.Stream),this.system.mapClass("scheduleController",MediaPlayer.dependencies.ScheduleController),this.system.mapSingleton("notifier",MediaPlayer.dependencies.Notifier)}}},Dash=function(){"use strict";return{modules:{},dependencies:{},vo:{},di:{}}}(),Dash.di.DashContext=function(){"use strict";return{system:void 0,setup:function(){Dash.di.DashContext.prototype.setup.call(this),this.system.mapClass("parser",Dash.dependencies.DashParser),this.system.mapClass("indexHandler",Dash.dependencies.DashHandler),this.system.mapSingleton("baseURLExt",Dash.dependencies.BaseURLExtensions),this.system.mapClass("fragmentExt",Dash.dependencies.FragmentExtensions),this.system.mapClass("trackController",Dash.dependencies.RepresentationController),this.system.mapSingleton("manifestExt",Dash.dependencies.DashManifestExtensions),this.system.mapSingleton("metricsExt",Dash.dependencies.DashMetricsExtensions),this.system.mapSingleton("timelineConverter",Dash.dependencies.TimelineConverter),this.system.mapSingleton("adapter",Dash.dependencies.DashAdapter)}}},Dash.di.DashContext.prototype=new MediaPlayer.di.Context,Dash.di.DashContext.prototype.constructor=Dash.di.DashContext,Dash.dependencies.BaseURLExtensions=function(){"use strict";var a=function(a,b){for(var c,d,e,f,g,h,i,j,k,l,m=new DataView(a),n={},o=0;"sidx"!==j&&o<m.byteLength;){for(k=m.getUint32(o),o+=4,j="",f=0;4>f;f+=1)l=m.getInt8(o),j+=String.fromCharCode(l),o+=1;"moof"!==j&&"traf"!==j&&"sidx"!==j?o+=k-8:"sidx"===j&&(o-=8)}if(e=m.getUint32(o,!1)+o,e>a.byteLength)throw"sidx terminates after array buffer";for(n.version=m.getUint8(o+8),o+=12,n.timescale=m.getUint32(o+4,!1),o+=8,0===n.version?(n.earliest_presentation_time=m.getUint32(o,!1),n.first_offset=m.getUint32(o+4,!1),o+=8):(n.earliest_presentation_time=utils.Math.to64BitNumber(m.getUint32(o+4,!1),m.getUint32(o,!1)),n.first_offset=(m.getUint32(o+8,!1)<<32)+m.getUint32(o+12,!1),o+=16),n.first_offset+=e+(b||0),n.reference_count=m.getUint16(o+2,!1),o+=4,n.references=[],c=n.first_offset,d=n.earliest_presentation_time,f=0;f<n.reference_count;f+=1)h=m.getUint32(o,!1),g=h>>>31,h=2147483647&h,i=m.getUint32(o+4,!1),o+=12,n.references.push({size:h,type:g,offset:c,duration:i,time:d,timescale:n.timescale}),c+=h,d+=i;if(o!==e)throw"Error: final pos "+o+" differs from SIDX end "+e;return n},b=function(b,c,d){var e,f,g,h,i,j,k,l;for(e=a.call(this,b,d),f=e.references,g=[],i=0,j=f.length;j>i;i+=1)h=new Dash.vo.Segment,h.duration=f[i].duration,h.media=c,h.startTime=f[i].time,h.timescale=f[i].timescale,k=f[i].offset,l=f[i].offset+f[i].size-1,h.mediaRange=k+"-"+l,g.push(h);return this.debug.log("Parsed SIDX box: "+g.length+" segments."),g},c=function(a,b,d){var e,f,g,h,i,j,k,l,m,n=new DataView(a),o=0,p="",q=0,r=!1,s=this;for(s.debug.log("Searching for initialization.");"moov"!==p&&o<n.byteLength;){for(q=n.getUint32(o),o+=4,p="",j=0;4>j;j+=1)k=n.getInt8(o),p+=String.fromCharCode(k),o+=1;"ftyp"===p&&(e=o-8),"moov"===p&&(f=o-8),"moov"!==p&&(o+=q-8)}i=n.byteLength-o,"moov"!==p?(s.debug.log("Loading more bytes to find initialization."),b.range.start=0,b.range.end=b.bytesLoaded+b.bytesToLoad,l=new XMLHttpRequest,l.onloadend=function(){r||d.call(s,null,new Error("Error loading initialization."))},l.onload=function(){r=!0,b.bytesLoaded=b.range.end,c.call(s,l.response,function(a){d.call(s,a)})},l.onerror=function(){d.call(s,null,new Error("Error loading initialization."))},l.open("GET",s.tokenAuthentication.addTokenAsQueryArg(b.url)),l.responseType="arraybuffer",l.setRequestHeader("Range","bytes="+b.range.start+"-"+b.range.end),l=s.tokenAuthentication.setTokenInRequestHeader(l),l.send(null)):(g=void 0===e?f:e,h=f+q-1,m=g+"-"+h,s.debug.log("Found the initialization.  Range: "+m),d.call(s,m))},d=function(a){var b=new XMLHttpRequest,d=!0,e=this,f=a.adaptation.period.mpd.manifest.Period_asArray[a.adaptation.period.index].AdaptationSet_asArray[a.adaptation.index].Representation_asArray[a.index].BaseURL,g={url:f,range:{},searching:!1,bytesLoaded:0,bytesToLoad:1500,request:b};
-e.debug.log("Start searching for initialization."),g.range.start=0,g.range.end=g.bytesToLoad,b.onload=function(){b.status<200||b.status>299||(d=!1,g.bytesLoaded=g.range.end,c.call(e,b.response,g,function(b){a.range=b,a.initialization=f,e.notify(e.eventList.ENAME_INITIALIZATION_LOADED,a)}))},b.onloadend=b.onerror=function(){d&&(d=!1,e.errHandler.downloadError("initialization",g.url,b),e.notify(e.eventList.ENAME_INITIALIZATION_LOADED,a))},b.open("GET",e.tokenAuthentication.addTokenAsQueryArg(g.url)),b.responseType="arraybuffer",b.setRequestHeader("Range","bytes="+g.range.start+"-"+g.range.end),b=e.tokenAuthentication.setTokenInRequestHeader(b),b.send(null),e.debug.log("Perform init search: "+g.url)},e=function(a,c,d,g){var h,i,j,k,l,m,n,o,p,q=new DataView(a),r=new XMLHttpRequest,s=0,t="",u=0,v=!0,w=!1,x=this;for(x.debug.log("Searching for SIDX box."),x.debug.log(c.bytesLoaded+" bytes loaded.");"sidx"!==t&&s<q.byteLength;){for(u=q.getUint32(s),s+=4,t="",m=0;4>m;m+=1)n=q.getInt8(s),t+=String.fromCharCode(n),s+=1;"sidx"!==t&&(s+=u-8)}if(i=q.byteLength-s,"sidx"!==t)g.call(x);else if(u-8>i)x.debug.log("Found SIDX but we don't have all of it."),c.range.start=0,c.range.end=c.bytesLoaded+(u-i),r.onload=function(){r.status<200||r.status>299||(v=!1,c.bytesLoaded=c.range.end,e.call(x,r.response,c,d,g))},r.onloadend=r.onerror=function(){v&&(v=!1,x.errHandler.downloadError("SIDX",c.url,r),g.call(x))},r.open("GET",x.tokenAuthentication.addTokenAsQueryArg(c.url)),r.responseType="arraybuffer",r.setRequestHeader("Range","bytes="+c.range.start+"-"+c.range.end),r=x.tokenAuthentication.setTokenInRequestHeader(r),r.send(null);else if(c.range.start=s-8,c.range.end=c.range.start+u,x.debug.log("Found the SIDX box.  Start: "+c.range.start+" | End: "+c.range.end),j=new ArrayBuffer(c.range.end-c.range.start),l=new Uint8Array(j),k=new Uint8Array(a,c.range.start,c.range.end-c.range.start),l.set(k),o=this.parseSIDX.call(this,j,c.range.start),p=o.references,null!==p&&void 0!==p&&p.length>0&&(w=1===p[0].type),w){x.debug.log("Initiate multiple SIDX load.");var y,z,A,B,C,D=[],E=0,F=function(a){a?(D=D.concat(a),E+=1,E>=z&&g.call(x,D)):g.call(x)};for(y=0,z=p.length;z>y;y+=1)A=p[y].offset,B=p[y].offset+p[y].size-1,C=A+"-"+B,f.call(x,d,null,C,F)}else x.debug.log("Parsing segments from SIDX."),h=b.call(x,j,c.url,c.range.start),g.call(x,h)},f=function(a,c,d,f){var g,h,i=new XMLHttpRequest,j=a.adaptation.period.mpd.manifest.Period_asArray[a.adaptation.period.index].AdaptationSet_asArray[a.adaptation.index].Representation_asArray[a.index].BaseURL,k=!0,l=this,m={url:j,range:{},searching:!1,bytesLoaded:0,bytesToLoad:1500,request:i};null===d?(l.debug.log("No known range for SIDX request."),m.searching=!0,m.range.start=0,m.range.end=m.bytesToLoad):(h=d.split("-"),m.range.start=parseFloat(h[0]),m.range.end=parseFloat(h[1])),i.onload=function(){i.status<200||i.status>299||(k=!1,m.searching?(m.bytesLoaded=m.range.end,e.call(l,i.response,m,a,function(b){b&&f.call(l,b,a,c)})):(g=b.call(l,i.response,m.url,m.range.start),f.call(l,g,a,c)))},i.onloadend=i.onerror=function(){k&&(k=!1,l.errHandler.downloadError("SIDX",m.url,i),f.call(l,null,a,c))},i.open("GET",l.tokenAuthentication.addTokenAsQueryArg(m.url)),i.responseType="arraybuffer",i.setRequestHeader("Range","bytes="+m.range.start+"-"+m.range.end),i=l.tokenAuthentication.setTokenInRequestHeader(i),i.send(null),l.debug.log("Perform SIDX load: "+m.url)},g=function(a,b,c){var d=this;a?d.notify(d.eventList.ENAME_SEGMENTS_LOADED,a,b,c):d.notify(d.eventList.ENAME_SEGMENTS_LOADED,null,b,c,new Error("error loading segments"))};return{debug:void 0,errHandler:void 0,tokenAuthentication:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_INITIALIZATION_LOADED:"initializationLoaded",ENAME_SEGMENTS_LOADED:"segmentsLoaded"},loadSegments:function(a,b,c){f.call(this,a,b,c,g.bind(this))},loadInitialization:d,parseSegments:b,parseSIDX:a,findSIDX:e}},Dash.dependencies.BaseURLExtensions.prototype={constructor:Dash.dependencies.BaseURLExtensions},Dash.dependencies.DashAdapter=function(){"use strict";var a=[],b={},c=function(a,b){return b.getRepresentationForQuality(a.quality)},d=function(a){return b[a.streamInfo.id][a.index]},e=function(b){var c,d=a.length,e=0;for(e;d>e;e+=1)if(c=a[e],b.id===c.id)return c;return null},f=function(a){var b=new MediaPlayer.vo.TrackInfo,c=a.adaptation.period.mpd.manifest.Period_asArray[a.adaptation.period.index].AdaptationSet_asArray[a.adaptation.index],d=this.manifestExt.getRepresentationFor(a.index,c);return b.id=a.id,b.quality=a.index,b.bandwidth=this.manifestExt.getBandwidth(d),b.DVRWindow=a.segmentAvailabilityRange,b.fragmentDuration=a.segmentDuration||(a.segments&&a.segments.length>0?a.segments[0].duration:0/0),b.MSETimeOffset=a.MSETimeOffset,b.useCalculatedLiveEdgeTime=a.useCalculatedLiveEdgeTime,b.mediaInfo=g.call(this,a.adaptation),b},g=function(a){var b=new MediaPlayer.vo.MediaInfo,c=this,d=a.period.mpd.manifest.Period_asArray[a.period.index].AdaptationSet_asArray[a.index];return b.id=a.id,b.index=a.index,b.type=a.type,b.streamInfo=h.call(this,a.period),b.trackCount=this.manifestExt.getRepresentationCount(d),b.lang=this.manifestExt.getLanguageForAdaptation(d),b.codec=this.manifestExt.getCodec(d),b.mimeType=this.manifestExt.getMimeType(d),b.contentProtection=this.manifestExt.getContentProtectionData(d),b.contentProtection&&b.contentProtection.forEach(function(a){a.KID=c.manifestExt.getKID(a)}),b.isText=this.manifestExt.getIsTextTrack(b.mimeType),b},h=function(a){var b=new MediaPlayer.vo.StreamInfo,c=1;return b.id=a.id,b.index=a.index,b.start=a.start,b.duration=a.duration,b.manifestInfo=i.call(this,a.mpd),b.isLast=Math.abs(b.start+b.duration-b.manifestInfo.duration)<c,b},i=function(a){var b=new MediaPlayer.vo.ManifestInfo,c=this.manifestModel.getValue();return b.DVRWindowSize=a.timeShiftBufferDepth,b.loadedTime=a.manifest.loadedTime,b.availableFrom=a.availabilityStartTime,b.minBufferTime=a.manifest.minBufferTime,b.maxFragmentDuration=a.maxSegmentDuration,b.duration=this.manifestExt.getDuration(c),b.isDynamic=this.manifestExt.getIsDynamic(c),b},j=function(a,c,d){var f,h=e(c),i=h.id,j=this.manifestExt.getAdaptationForType(a,c.index,d);return j?(f=this.manifestExt.getIndexForAdaptation(j,a,c.index),b[i]=b[i]||this.manifestExt.getAdaptationsForPeriod(a,h),g.call(this,b[i][f])):null},k=function(c){var d,e,f,g=[];if(!c)return null;for(d=this.manifestExt.getMpd(c),a=this.manifestExt.getRegularPeriods(c,d),b={},e=a.length,f=0;e>f;f+=1)g.push(h.call(this,a[f]));return g},l=function(a){var b=this.manifestExt.getMpd(a);return i.call(this,b)},m=function(a,b){var c=a.trackController.getRepresentationForQuality(b);return a.indexHandler.getInitRequest(c)},n=function(a,b){var d=c(b,a.trackController);return a.indexHandler.getNextSegmentRequest(d)},o=function(a,b,d,e){var f=c(b,a.trackController);return a.indexHandler.getSegmentRequestForTime(f,d,e)},p=function(a,b,d){var e=c(b,a.trackController),f=a.indexHandler.generateSegmentRequestForTime(e,d);return f},q=function(a){return a.indexHandler.getCurrentTime()},r=function(a,b){return a.indexHandler.setCurrentTime(b)},s=function(a){var b,c,f=e(a.getStreamInfo()),g=a.getMediaInfo(),h=d(g),i=this.manifestModel.getValue(),j=a.getType();b=g.id,c=b?this.manifestExt.getAdaptationForId(b,i,f.index):this.manifestExt.getAdaptationForIndex(g.index,i,f.index),a.setMediaInfo(g),a.trackController.updateData(c,h,j)},t=function(a,b){var c=a.getRepresentationForQuality(b);return c?f.call(this,c):null},u=function(a){var b=a.getCurrentRepresentation();return b?f.call(this,b):null},v=function(a,b,c){var d=new Dash.vo.Event,e=a[0],f=a[1],g=a[2],h=a[3],i=a[4],j=a[5],k=a[6],l=c*g+h;return b[e]?(d.eventStream=b[e],d.eventStream.value=f,d.eventStream.timescale=g,d.duration=i,d.id=j,d.presentationTime=l,d.messageData=k,d.presentationTimeDelta=h,d):null},w=function(a,b){var f=this.manifestModel.getValue(),g=[];return a instanceof MediaPlayer.vo.StreamInfo?g=this.manifestExt.getEventsForPeriod(f,e(a)):a instanceof MediaPlayer.vo.MediaInfo?g=this.manifestExt.getEventStreamForAdaptationSet(f,d(a)):a instanceof MediaPlayer.vo.TrackInfo&&(g=this.manifestExt.getEventStreamForRepresentation(f,c(a,b.trackController))),g};return{system:void 0,manifestExt:void 0,manifestModel:void 0,timelineConverter:void 0,metricsList:{TCP_CONNECTION:"TcpConnection",HTTP_REQUEST:"HttpRequest",HTTP_REQUEST_TRACE:"HttpRequestTrace",TRACK_SWITCH:"RepresentationSwitch",BUFFER_LEVEL:"BufferLevel",DVR_INFO:"DVRInfo",DROPPED_FRAMES:"DroppedFrames",SCHEDULING_INFO:"SchedulingInfo",MANIFEST_UPDATE:"ManifestUpdate",MANIFEST_UPDATE_STREAM_INFO:"ManifestUpdatePeriodInfo",MANIFEST_UPDATE_TRACK_INFO:"ManifestUpdateRepresentationInfo",PLAY_LIST:"PlayList",PLAY_LIST_TRACE:"PlayListTrace"},convertDataToTrack:f,convertDataToMedia:g,convertDataToStream:h,getDataForTrack:c,getDataForMedia:d,getDataForStream:e,getStreamsInfo:k,getManifestInfo:l,getMediaInfoForType:j,getCurrentTrackInfo:u,getTrackInfoForQuality:t,updateData:s,getInitRequest:m,getNextFragmentRequest:n,getFragmentRequestForTime:o,generateFragmentRequestForTime:p,getIndexHandlerTime:q,setIndexHandlerTime:r,getEventsFor:w,getEvent:v,reset:function(){a=[],b={}}}},Dash.dependencies.DashAdapter.prototype={constructor:Dash.dependencies.DashAdapter},Dash.dependencies.DashHandler=function(){"use strict";var a,b,c,d=-1,e=0,f=function(a,b){for(;a.length<b;)a="0"+a;return a},g=function(a,b,c){for(var d,e,g,h,i=0,j=0,k=b.length,l="%0",m=l.length;;){if(i=a.indexOf("$"+b),0>i)return a;if(j=a.indexOf("$",i+k),0>j)return a;if(d=a.indexOf(l,i+k),d>i&&j>d)switch(e=a.charAt(j-1),g=parseInt(a.substring(d+m,j-1),10),e){case"d":case"i":case"u":h=f(c.toString(),g);break;case"x":h=f(c.toString(16),g);break;case"X":h=f(c.toString(16),g).toUpperCase();break;case"o":h=f(c.toString(8),g);break;default:return this.debug.log("Unsupported/invalid IEEE 1003.1 format identifier string in URL"),a}else h=c;a=a.substring(0,i)+h+a.substring(j+1)}},h=function(a){return a.split("$$").join("$")},i=function(a,b){if(null===b||-1===a.indexOf("$RepresentationID$"))return a;var c=b.toString();return a.split("$RepresentationID$").join(c)},j=function(a,b){return a.representation.startNumber+b},k=function(a,b){var c,d=b.adaptation.period.mpd.manifest.Period_asArray[b.adaptation.period.index].AdaptationSet_asArray[b.adaptation.index].Representation_asArray[b.index].BaseURL;return c=a===d?a:-1!==a.indexOf("http://")?a:d+a},l=function(a,c){var d,e,f=this,g=new MediaPlayer.vo.FragmentRequest;return d=a.adaptation.period,g.mediaType=c,g.type="Initialization Segment",g.url=k(a.initialization,a),g.range=a.range,e=d.start,g.availabilityStartTime=f.timelineConverter.calcAvailabilityStartTimeFromPresentationTime(e,a.adaptation.period.mpd,b),g.availabilityEndTime=f.timelineConverter.calcAvailabilityEndTimeFromPresentationTime(e+d.duration,d.mpd,b),g.quality=a.index,g},m=function(a){var b,d=this;return a?b=l.call(d,a,c):null},n=function(a){var c,e,f,g=a.adaptation.period,h=!1;return b?h=!1:0>d?h=!1:d<a.availableSegmentsNumber?(e=A(d,a),e&&(f=e.presentationStartTime-g.start,c=a.adaptation.period.duration,this.debug.log(a.segmentInfoType+": "+f+" / "+c),h=f>=c)):h=!0,h},o=function(a,c){var d,e,f,g,h=this;return e=a.segmentDuration,f=a.adaptation.period.start+c*e,g=f+e,d=new Dash.vo.Segment,d.representation=a,d.duration=e,d.presentationStartTime=f,d.mediaStartTime=h.timelineConverter.calcMediaTimeFromPresentationTime(d.presentationStartTime,a),d.availabilityStartTime=h.timelineConverter.calcAvailabilityStartTimeFromPresentationTime(d.presentationStartTime,a.adaptation.period.mpd,b),d.availabilityEndTime=h.timelineConverter.calcAvailabilityEndTimeFromPresentationTime(g,a.adaptation.period.mpd,b),d.wallStartTime=h.timelineConverter.calcWallTimeForSegment(d,b),d.replacementNumber=j(d,c),d.availabilityIdx=c,d},p=function(b){var c,d,e,f,g,h,i,j,k,l,m,n,o,p,q=this,r=b.adaptation.period.mpd.manifest.Period_asArray[b.adaptation.period.index].AdaptationSet_asArray[b.adaptation.index].Representation_asArray[b.index].SegmentTemplate,u=r.SegmentTimeline,v=b.availableSegmentsNumber>0,w=10,x=[],y=0,z=0,A=-1,B=function(a){return t.call(q,b,y,a.d,p,r.media,a.mediaRange,A)};for(p=b.timescale,c=u.S_asArray,k=s.call(q,b),k?(n=k.start,o=k.end):m=q.timelineConverter.calcMediaTimeFromPresentationTime(a||0,b),e=0,f=c.length;f>e;e+=1)if(d=c[e],h=0,d.hasOwnProperty("r")&&(h=d.r),d.hasOwnProperty("t")&&(y=d.t,z=y/p),0>h&&(j=c[e+1],j&&j.hasOwnProperty("t")?i=j.t/p:(i=q.timelineConverter.calcMediaTimeFromPresentationTime(b.segmentAvailabilityRange.end,b),b.segmentDuration=d.d/p),h=Math.ceil((i-z)/(d.d/p))-1),l){if(v)break;A+=h+1}else for(g=0;h>=g;g+=1){if(A+=1,k){if(A>o){if(l=!0,v)break;continue}A>=n&&x.push(B.call(q,d))}else{if(x.length>w){if(l=!0,v)break;continue}z>=m-d.d/p&&x.push(B.call(q,d))}y+=d.d,z=y/p}return v||(b.availableSegmentsNumber=A+1),x},q=function(a){var b,c,d,e,f,h=[],i=this,j=a.adaptation.period.mpd.manifest.Period_asArray[a.adaptation.period.index].AdaptationSet_asArray[a.adaptation.index].Representation_asArray[a.index].SegmentTemplate,k=a.segmentDuration,l=a.segmentAvailabilityRange,m=null,n=null;for(f=a.startNumber,b=r.call(i,a),d=b.start,e=b.end,c=d;e>=c;c+=1)m=o.call(i,a,c),m.replacementTime=(f+c-1)*a.segmentDuration,n=j.media,n=g(n,"Number",m.replacementNumber),n=g(n,"Time",m.replacementTime),m.media=n,h.push(m),m=null;return a.availableSegmentsNumber=Math.ceil((l.end-l.start)/k),h},r=function(c){var e,f,g,h=this,i=c.segmentDuration,j=c.adaptation.period.mpd.manifest.minBufferTime,k=c.segmentAvailabilityRange,l={start:h.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(c,k.start),end:h.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(c,k.end)},m=0/0,n=null,o=c.segments,p=2*i,q=Math.max(2*j,10*i);return l||(l=h.timelineConverter.calcSegmentAvailabilityRange(c,b)),b&&!h.timelineConverter.isTimeSyncCompleted()?(e=Math.floor(l.start/i),f=Math.floor(l.end/i),g={start:e,end:f}):(o?(n=A(d,c),m=n?h.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(c,n.presentationStartTime):d>0?d*i:h.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(c,a||o[0].presentationStartTime)):m=d>0?d*i:b?l.end:l.start,e=Math.floor(Math.max(m-p,l.start)/i),f=Math.floor(Math.min(e+q/i,l.end/i)),g={start:e,end:f})},s=function(){var c,e,f,g=2,h=10,i=0,j=Number.POSITIVE_INFINITY;return b&&!this.timelineConverter.isTimeSyncCompleted()?f={start:i,end:j}:!b&&a||0>d?null:(c=Math.max(d-g,i),e=Math.min(d+h,j),f={start:c,end:e})},t=function(a,c,d,e,f,h,i){var k,l,m,n=this,o=c/e,p=Math.min(d/e,a.adaptation.period.mpd.maxSegmentDuration);return k=n.timelineConverter.calcPresentationTimeFromMediaTime(o,a),l=k+p,m=new Dash.vo.Segment,m.representation=a,m.duration=p,m.mediaStartTime=o,m.presentationStartTime=k,m.availabilityStartTime=a.adaptation.period.mpd.manifest.loadedTime,m.availabilityEndTime=n.timelineConverter.calcAvailabilityEndTimeFromPresentationTime(l,a.adaptation.period.mpd,b),m.wallStartTime=n.timelineConverter.calcWallTimeForSegment(m,b),m.replacementTime=c,m.replacementNumber=j(m,i),f=g(f,"Number",m.replacementNumber),f=g(f,"Time",m.replacementTime),m.media=f,m.mediaRange=h,m.availabilityIdx=i,m},u=function(a){var b,c,d,e,f,g,h,i=this,j=[],k=a.adaptation.period.mpd.manifest.Period_asArray[a.adaptation.period.index].AdaptationSet_asArray[a.adaptation.index].Representation_asArray[a.index].SegmentList,l=k.SegmentURL_asArray.length;for(h=a.startNumber,e=r.call(i,a),f=Math.max(e.start,0),g=Math.min(e.end,k.SegmentURL_asArray.length-1),b=f;g>=b;b+=1)d=k.SegmentURL_asArray[b],c=o.call(i,a,b),c.replacementTime=(h+b-1)*a.segmentDuration,c.media=d.media,c.mediaRange=d.mediaRange,c.index=d.index,c.indexRange=d.indexRange,j.push(c),c=null;return a.availableSegmentsNumber=l,j},v=function(a){var b,c=this,d=a.segmentInfoType;return"SegmentBase"!==d&&"BaseURL"!==d&&B.call(c,a)?("SegmentTimeline"===d?b=p.call(c,a):"SegmentTemplate"===d?b=q.call(c,a):"SegmentList"===d&&(b=u.call(c,a)),w.call(c,a,b)):b=a.segments,b},w=function(a,c){var d,e,f,g;a.segments=c,d=c.length-1,b&&isNaN(this.timelineConverter.getExpectedLiveEdge())&&(g=c[d],e=g.presentationStartTime+g.duration,f=this.metricsModel.getMetricsFor("stream"),this.timelineConverter.setExpectedLiveEdge(e),this.metricsModel.updateManifestUpdateInfo(this.metricsExt.getCurrentManifestUpdate(f),{presentationStartTime:e}))},x=function(a){var b=this;if(!a)throw new Error("no representation");return a.segments=null,v.call(b,a),a},y=function(a,e){var f=this,g=a.initialization,h="BaseURL"!==a.segmentInfoType&&"SegmentBase"!==a.segmentInfoType;a.segmentAvailabilityRange=f.timelineConverter.calcSegmentAvailabilityRange(a,b),e||(d=-1),x.call(f,a),g||f.baseURLExt.loadInitialization(a),h||f.baseURLExt.loadSegments(a,c,a.indexRange),g&&h&&f.notify(f.eventList.ENAME_REPRESENTATION_UPDATED,a)},z=function(a,b){var c,d,e,f,g=b.segments,h=g?g.length:null,i=-1;if(g&&h>0)for(f=0;h>f;f+=1)if(c=g[f],d=c.presentationStartTime,e=c.duration,a+e/2>=d&&d+e>a-e/2){i=c.availabilityIdx;break}return i},A=function(a,b){if(!b||!b.segments)return null;var c,d,e=b.segments.length;for(d=0;e>d;d+=1)if(c=b.segments[d],c.availabilityIdx===a)return c;return null},B=function(a){var b,c,e=!1,f=a.segments;return f&&0!==f.length?(c=f[0].availabilityIdx,b=f[f.length-1].availabilityIdx,e=c>d||d>b):e=!0,e},C=function(a){if(null===a||void 0===a)return null;var b,d=new MediaPlayer.vo.FragmentRequest,e=a.representation,f=e.adaptation.period.mpd.manifest.Period_asArray[e.adaptation.period.index].AdaptationSet_asArray[e.adaptation.index].Representation_asArray[e.index].bandwidth;return b=k(a.media,e),b=g(b,"Number",a.replacementNumber),b=g(b,"Time",a.replacementTime),b=g(b,"Bandwidth",f),b=i(b,e.id),b=h(b),d.mediaType=c,d.type="Media Segment",d.url=b,d.range=a.mediaRange,d.startTime=a.presentationStartTime,d.duration=a.duration,d.timescale=e.timescale,d.availabilityStartTime=a.availabilityStartTime,d.availabilityEndTime=a.availabilityEndTime,d.wallStartTime=a.wallStartTime,d.quality=e.index,d.index=a.availabilityIdx,d},D=function(b,e,f){var g,h,i,j=d,k=this;return b?(a=e,k.debug.log("Getting the request for time: "+e),d=z.call(k,e,b),v.call(k,b),0>d&&(d=z.call(k,e,b)),k.debug.log("Index for time "+e+" is "+d),i=n.call(k,b),i?(g=new MediaPlayer.vo.FragmentRequest,g.action=g.ACTION_COMPLETE,g.index=d,g.mediaType=c,k.debug.log("Signal complete."),k.debug.log(g)):(h=A(d,b),g=C.call(k,h)),f&&(d=j),g):null},E=function(a,b){var c=(a.segmentAvailabilityRange.end-a.segmentAvailabilityRange.start)/2;return a.segments=null,a.segmentAvailabilityRange={start:b-c,end:b+c},D.call(this,a,b,!1)},F=function(b){var e,f,g,h,i=this;if(!b)return null;if(-1===d)throw"You must call getSegmentRequestForTime first.";return a=null,d+=1,h=d,g=n.call(i,b),g?(e=new MediaPlayer.vo.FragmentRequest,e.action=e.ACTION_COMPLETE,e.index=h,e.mediaType=c,i.debug.log("Signal complete.")):(v.call(i,b),f=A(h,b),e=C.call(i,f)),e},G=function(a,b){b.segments&&this.notify(this.eventList.ENAME_REPRESENTATION_UPDATED,b)},H=function(a,b,d,e,f){if(!f&&c===e){var g,h,i,j,k=this,l=[],m=0;for(g=0,h=b.length;h>g;g+=1)i=b[g],j=t.call(k,d,i.startTime,i.duration,i.timescale,i.media,i.mediaRange,m),l.push(j),j=null,m+=1;d.segmentAvailabilityRange={start:l[0].presentationStartTime,end:l[h-1].presentationStartTime},d.availableSegmentsNumber=h,w.call(k,d,l),d.initialization&&this.notify(this.eventList.ENAME_REPRESENTATION_UPDATED,d)}};return{debug:void 0,baseURLExt:void 0,timelineConverter:void 0,metricsModel:void 0,metricsExt:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_REPRESENTATION_UPDATED:"representationUpdated"},setup:function(){this.initializationLoaded=G,this.segmentsLoaded=H},initialize:function(a){this.subscribe(this.eventList.ENAME_REPRESENTATION_UPDATED,a.trackController),c=a.getType(),b=a.isDynamic(),this.streamProcessor=a},getType:function(){return c},setType:function(a){c=a},getIsDynamic:function(){return b},setIsDynamic:function(a){b=a},setCurrentTime:function(a){e=a},getCurrentTime:function(){return e},reset:function(){e=0,a=void 0,d=-1,this.unsubscribe(this.eventList.ENAME_REPRESENTATION_UPDATED,this.streamProcessor.trackController)},getInitRequest:m,getSegmentRequestForTime:D,getNextSegmentRequest:F,generateSegmentRequestForTime:E,updateRepresentation:y}},Dash.dependencies.DashHandler.prototype={constructor:Dash.dependencies.DashHandler},Dash.dependencies.DashManifestExtensions=function(){"use strict";this.timelineConverter=void 0},Dash.dependencies.DashManifestExtensions.prototype={constructor:Dash.dependencies.DashManifestExtensions,getIsTypeOf:function(a,b){"use strict";var c,d,e,f=a.ContentComponent_asArray,g=new RegExp("text"!==b?b:"(vtt|ttml)"),h=!1,i=!1;if(f)for(c=0,d=f.length;d>c;c+=1)f[c].contentType===b&&(h=!0,i=!0);if(a.hasOwnProperty("mimeType")&&(h=g.test(a.mimeType),i=!0),!i)for(c=0,d=a.Representation_asArray.length;!i&&d>c;)e=a.Representation_asArray[c],e.hasOwnProperty("mimeType")&&(h=g.test(e.mimeType),i=!0),c+=1;return h},getIsAudio:function(a){"use strict";return this.getIsTypeOf(a,"audio")},getIsVideo:function(a){"use strict";return this.getIsTypeOf(a,"video")},getIsText:function(a){"use strict";return this.getIsTypeOf(a,"text")},getIsTextTrack:function(a){return"text/vtt"===a||"application/ttml+xml"===a},getLanguageForAdaptation:function(a){var b="";return a.hasOwnProperty("lang")&&(b=a.lang),b},getIsMain:function(){"use strict";return!1},processAdaptation:function(a){"use strict";return void 0!==a.Representation_asArray&&null!==a.Representation_asArray&&a.Representation_asArray.sort(function(a,b){return a.bandwidth-b.bandwidth}),a},getAdaptationForId:function(a,b,c){"use strict";var d,e,f=b.Period_asArray[c].AdaptationSet_asArray;for(d=0,e=f.length;e>d;d+=1)if(f[d].hasOwnProperty("id")&&f[d].id===a)return f[d];return null},getAdaptationForIndex:function(a,b,c){"use strict";var d=b.Period_asArray[c].AdaptationSet_asArray;return d[a]},getIndexForAdaptation:function(a,b,c){"use strict";var d,e,f=b.Period_asArray[c].AdaptationSet_asArray;for(d=0,e=f.length;e>d;d+=1)if(f[d]===a)return d;return-1},getAdaptationsForType:function(a,b,c){"use strict";var d,e,f=this,g=a.Period_asArray[b].AdaptationSet_asArray,h=[];for(d=0,e=g.length;e>d;d+=1)this.getIsTypeOf(g[d],c)&&h.push(f.processAdaptation(g[d]));return h},getAdaptationForType:function(a,b,c){"use strict";var d,e,f,g=this;if(f=this.getAdaptationsForType(a,b,c),!f||0===f.length)return null;for(d=0,e=f.length;e>d;d+=1)if(g.getIsMain(f[d]))return f[d];return f[0]},getCodec:function(a){"use strict";var b=a.Representation_asArray[0],c=b.mimeType+';codecs="'+b.codecs+'"';return c},getMimeType:function(a){"use strict";return a.Representation_asArray[0].mimeType},getKID:function(a){"use strict";return a&&a.hasOwnProperty("cenc:default_KID")?a["cenc:default_KID"]:null},getContentProtectionData:function(a){"use strict";var b=null;a&&a.hasOwnProperty("ContentProtection_asArray")&&0!==a.ContentProtection_asArray.length&&(b=a.ContentProtection_asArray);for(var c=0;c<a.Representation_asArray.length;c+=1)a.Representation_asArray[c].hasOwnProperty("ContentProtection_asArray")&&0!==a.Representation_asArray[c].length&&(b=a.Representation_asArray[c].ContentProtection_asArray);return b},getIsDynamic:function(a){"use strict";var b=!1,c="dynamic";return a.hasOwnProperty("type")&&(b=a.type===c),b},getIsDVR:function(a){"use strict";var b,c,d=this.getIsDynamic(a);return b=!isNaN(a.timeShiftBufferDepth),c=d&&b},getIsOnDemand:function(a){"use strict";var b=!1;return a.profiles&&a.profiles.length>0&&(b=-1!==a.profiles.indexOf("urn:mpeg:dash:profile:isoff-on-demand:2011")),b},getDuration:function(a){var b;return b=a.hasOwnProperty("mediaPresentationDuration")?a.mediaPresentationDuration:Number.POSITIVE_INFINITY},getBandwidth:function(a){"use strict";return a.bandwidth},getRefreshDelay:function(a){"use strict";var b=0/0,c=2;return a.hasOwnProperty("minimumUpdatePeriod")&&(b=Math.max(parseFloat(a.minimumUpdatePeriod),c)),b},getRepresentationCount:function(a){"use strict";return a.Representation_asArray.length},getRepresentationFor:function(a,b){"use strict";return b.Representation_asArray[a]},getRepresentationsForAdaptation:function(a,b){for(var c,d,e,f,g,h=this,i=h.processAdaptation(a.Period_asArray[b.period.index].AdaptationSet_asArray[b.index]),j=[],k=0;k<i.Representation_asArray.length;k+=1)f=i.Representation_asArray[k],c=new Dash.vo.Representation,c.index=k,c.adaptation=b,f.hasOwnProperty("id")&&(c.id=f.id),f.hasOwnProperty("SegmentBase")?(e=f.SegmentBase,c.segmentInfoType="SegmentBase"):f.hasOwnProperty("SegmentList")?(e=f.SegmentList,c.segmentInfoType="SegmentList",c.useCalculatedLiveEdgeTime=!0):f.hasOwnProperty("SegmentTemplate")?(e=f.SegmentTemplate,e.hasOwnProperty("SegmentTimeline")?(c.segmentInfoType="SegmentTimeline",g=e.SegmentTimeline.S_asArray[e.SegmentTimeline.S_asArray.length-1],(!g.hasOwnProperty("r")||g.r>=0)&&(c.useCalculatedLiveEdgeTime=!0)):c.segmentInfoType="SegmentTemplate",e.hasOwnProperty("initialization")&&(c.initialization=e.initialization.split("$Bandwidth$").join(f.bandwidth).split("$RepresentationID$").join(f.id))):(e=f.BaseURL,c.segmentInfoType="BaseURL"),e.hasOwnProperty("Initialization")?(d=e.Initialization,d.hasOwnProperty("sourceURL")?c.initialization=d.sourceURL:d.hasOwnProperty("range")&&(c.initialization=f.BaseURL,c.range=d.range)):f.hasOwnProperty("mimeType")&&h.getIsTextTrack(f.mimeType)&&(c.initialization=f.BaseURL,c.range=0),e.hasOwnProperty("timescale")&&(c.timescale=e.timescale),e.hasOwnProperty("duration")&&(c.segmentDuration=e.duration/c.timescale),e.hasOwnProperty("startNumber")&&(c.startNumber=e.startNumber),e.hasOwnProperty("indexRange")&&(c.indexRange=e.indexRange),e.hasOwnProperty("presentationTimeOffset")&&(c.presentationTimeOffset=e.presentationTimeOffset/c.timescale),c.MSETimeOffset=h.timelineConverter.calcMSETimeOffset(c),j.push(c);return j},getAdaptationsForPeriod:function(a,b){for(var c,d,e=a.Period_asArray[b.index],f=[],g=0;g<e.AdaptationSet_asArray.length;g+=1)d=e.AdaptationSet_asArray[g],c=new Dash.vo.AdaptationSet,d.hasOwnProperty("id")&&(c.id=d.id),c.index=g,c.period=b,c.type=this.getIsAudio(d)?"audio":this.getIsVideo(d)?"video":"text",f.push(c);return f},getRegularPeriods:function(a,b){var c,d,e=this,f=[],g=e.getIsDynamic(a),h=null,i=null,j=null,k=null;for(c=0,d=a.Period_asArray.length;d>c;c+=1)i=a.Period_asArray[c],i.hasOwnProperty("start")?(k=new Dash.vo.Period,k.start=i.start):null!==h&&i.hasOwnProperty("duration")?(k=new Dash.vo.Period,k.start=j.start+j.duration,k.duration=i.duration):0!==c||g||(k=new Dash.vo.Period,k.start=0),null!==j&&isNaN(j.duration)&&(j.duration=k.start-j.start),null!==k&&i.hasOwnProperty("id")&&(k.id=i.id),null!==k&&i.hasOwnProperty("duration")&&(k.duration=i.duration),null!==k&&(k.index=c,k.mpd=b,f.push(k)),h=i,i=null,j=k,k=null;return 0===f.length?f:(b.checkTime=e.getCheckTime(a,f[0]),null!==j&&isNaN(j.duration)&&(j.duration=e.getEndTimeForLastPeriod(b)-j.start),f)},getMpd:function(a){var b=new Dash.vo.Mpd;return b.manifest=a,b.availabilityStartTime=new Date(a.hasOwnProperty("availabilityStartTime")?a.availabilityStartTime.getTime():a.loadedTime.getTime()),a.hasOwnProperty("availabilityEndTime")&&(b.availabilityEndTime=new Date(a.availabilityEndTime.getTime())),a.hasOwnProperty("suggestedPresentationDelay")&&(b.suggestedPresentationDelay=a.suggestedPresentationDelay),a.hasOwnProperty("timeShiftBufferDepth")&&(b.timeShiftBufferDepth=a.timeShiftBufferDepth),a.hasOwnProperty("maxSegmentDuration")&&(b.maxSegmentDuration=a.maxSegmentDuration),b},getFetchTime:function(a,b){var c=this.timelineConverter.calcPresentationTimeFromWallTime(a.loadedTime,b);return c},getCheckTime:function(a,b){var c,d=this,e=0/0;return a.hasOwnProperty("minimumUpdatePeriod")&&(c=d.getFetchTime(a,b),e=c+a.minimumUpdatePeriod),e},getEndTimeForLastPeriod:function(a){var b;if(a.manifest.mediaPresentationDuration)b=a.manifest.mediaPresentationDuration;else{if(isNaN(a.checkTime))throw new Error("Must have @mediaPresentationDuration or @minimumUpdatePeriod on MPD or an explicit @duration on the last period.");b=a.checkTime}return b},getEventsForPeriod:function(a,b){var c=a.Period_asArray,d=c[b.index].EventStream_asArray,e=[];if(d)for(var f=0;f<d.length;f+=1){var g=new Dash.vo.EventStream;if(g.period=b,g.timescale=1,!d[f].hasOwnProperty("schemeIdUri"))throw"Invalid EventStream. SchemeIdUri has to be set";g.schemeIdUri=d[f].schemeIdUri,d[f].hasOwnProperty("timescale")&&(g.timescale=d[f].timescale),d[f].hasOwnProperty("value")&&(g.value=d[f].value);for(var h=0;h<d[f].Event_asArray.length;h+=1){var i=new Dash.vo.Event;i.presentationTime=0,i.eventStream=g,d[f].Event_asArray[h].hasOwnProperty("presentationTime")&&(i.presentationTime=d[f].Event_asArray[h].presentationTime),d[f].Event_asArray[h].hasOwnProperty("duration")&&(i.duration=d[f].Event_asArray[h].duration),d[f].Event_asArray[h].hasOwnProperty("id")&&(i.id=d[f].Event_asArray[h].id),e.push(i)}}return e},getEventStreamForAdaptationSet:function(a,b){var c=[],d=a.Period_asArray[b.period.index].AdaptationSet_asArray[b.index].InbandEventStream_asArray;if(d)for(var e=0;e<d.length;e+=1){var f=new Dash.vo.EventStream;if(f.timescale=1,!d[e].hasOwnProperty("schemeIdUri"))throw"Invalid EventStream. SchemeIdUri has to be set";f.schemeIdUri=d[e].schemeIdUri,d[e].hasOwnProperty("timescale")&&(f.timescale=d[e].timescale),d[e].hasOwnProperty("value")&&(f.value=d[e].value),c.push(f)}return c},getEventStreamForRepresentation:function(a,b){var c=[],d=a.Period_asArray[b.adaptation.period.index].AdaptationSet_asArray[b.adaptation.index].Representation_asArray[b.index].InbandEventStream_asArray;if(d)for(var e=0;e<d.length;e++){var f=new Dash.vo.EventStream;if(f.timescale=1,f.representation=b,!d[e].hasOwnProperty("schemeIdUri"))throw"Invalid EventStream. SchemeIdUri has to be set";f.schemeIdUri=d[e].schemeIdUri,d[e].hasOwnProperty("timescale")&&(f.timescale=d[e].timescale),d[e].hasOwnProperty("value")&&(f.value=d[e].value),c.push(f)}return c}},Dash.dependencies.DashMetricsExtensions=function(){"use strict";var a=function(a,b){var c,d,e,f,g,h,i,j;for(h=0;h<a.length;h+=1)for(c=a[h],e=c.AdaptationSet_asArray,i=0;i<e.length;i+=1)for(d=e[i],g=d.Representation_asArray,j=0;j<g.length;j+=1)if(f=g[j],b===f.id)return j;return-1},b=function(a,b){var c,d,e,f,g,h,i,j;for(h=0;h<a.length;h+=1)for(c=a[h],e=c.AdaptationSet_asArray,i=0;i<e.length;i+=1)for(d=e[i],g=d.Representation_asArray,j=0;j<g.length;j+=1)if(f=g[j],b===f.id)return f;return null},c=function(a,b){return this.manifestExt.getIsTypeOf(a,b)},d=function(a,b){var d,e,f,g,h,i;for(h=0;h<a.length;h+=1)for(d=a[h],f=d.AdaptationSet_asArray,i=0;i<f.length;i+=1)if(e=f[i],g=e.Representation_asArray,c.call(this,e,b))return g.length;return-1},e=function(a){var c,d=this,e=d.manifestModel.getValue(),f=e.Period_asArray;return c=b.call(d,f,a),null===c?null:c.bandwidth},f=function(b){var c,d=this,e=d.manifestModel.getValue(),f=e.Period_asArray;return c=a.call(d,f,b)},g=function(a){var b,c=this,e=c.manifestModel.getValue(),f=e.Period_asArray;return b=d.call(this,f,a)},h=function(a){if(null===a)return null;var b,c,d,e=a.RepSwitchList;return null===e||e.length<=0?null:(b=e.length,c=b-1,d=e[c])},i=function(a){if(null===a)return null;var b,c,d,e=a.BufferLevel;return null===e||e.length<=0?null:(b=e.length,c=b-1,d=e[c])},j=function(a){if(null===a)return null;var b,c,d=a.PlayList;return null===d||d.length<=0?null:(b=d[d.length-1].trace,null===b||b.length<=0?null:c=b[b.length-1].playbackspeed)},k=function(a){if(null===a)return null;var b,c,d=a.HttpList,e=null;if(null===d||d.length<=0)return null;for(b=d.length,c=b-1;c>0;){if(d[c].responsecode){e=d[c];break}c-=1}return e},l=function(a){return null===a?[]:a.HttpList?a.HttpList:[]},m=function(a){if(null===a)return null;var b,c,d,e=a.DroppedFrames;return null===e||e.length<=0?null:(b=e.length,c=b-1,d=e[c])},n=function(a){if(null===a)return null;var b,c,d,e=a.SchedulingInfo;return null===e||e.length<=0?null:(b=e.length,c=b-1,d=e[c])
-},o=function(a){if(null===a)return null;var b,c,d,e=a.ManifestUpdate;return null===e||e.length<=0?null:(b=e.length,c=b-1,d=e[c])},p=function(a){if(null===a)return null;var b,c=a.DVRInfo,d=null;return null===c||c.length<=0?null:(b=c.length-1,d=c[b])};return{manifestModel:void 0,manifestExt:void 0,getBandwidthForRepresentation:e,getIndexForRepresentation:f,getMaxIndexForBufferType:g,getCurrentRepresentationSwitch:h,getCurrentBufferLevel:i,getCurrentPlaybackRate:j,getCurrentHttpRequest:k,getHttpRequests:l,getCurrentDroppedFrames:m,getCurrentSchedulingInfo:n,getCurrentDVRInfo:p,getCurrentManifestUpdate:o}},Dash.dependencies.DashMetricsExtensions.prototype={constructor:Dash.dependencies.DashMetricsExtensions},Dash.dependencies.DashParser=function(){"use strict";var a=31536e3,b=2592e3,c=86400,d=3600,e=60,f=60,g=1e3,h=/^P(([\d.]*)Y)?(([\d.]*)M)?(([\d.]*)D)?T?(([\d.]*)H)?(([\d.]*)M)?(([\d.]*)S)?/,i=/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})(?::([0-9]*)(\.[0-9]*)?)?(?:([+-])([0-9]{2})([0-9]{2}))?/,j=/^[-+]?[0-9]+[.]?[0-9]*([eE][-+]?[0-9]+)?$/,k=[{type:"duration",test:function(a){return h.test(a)},converter:function(f){var g=h.exec(f);return parseFloat(g[2]||0)*a+parseFloat(g[4]||0)*b+parseFloat(g[6]||0)*c+parseFloat(g[8]||0)*d+parseFloat(g[10]||0)*e+parseFloat(g[12]||0)}},{type:"datetime",test:function(a){return i.test(a)},converter:function(a){var b,c=i.exec(a);if(b=Date.UTC(parseInt(c[1],10),parseInt(c[2],10)-1,parseInt(c[3],10),parseInt(c[4],10),parseInt(c[5],10),c[6]&&parseInt(c[6],10)||0,c[7]&&parseFloat(c[7])*g||0),c[9]&&c[10]){var d=parseInt(c[9],10)*f+parseInt(c[10],10);b+=("+"===c[8]?-1:1)*d*e*g}return new Date(b)}},{type:"numeric",test:function(a){return j.test(a)},converter:function(a){return parseFloat(a)}}],l=function(){var a,b,c,d;return d=[{name:"profiles",merge:!1},{name:"width",merge:!1},{name:"height",merge:!1},{name:"sar",merge:!1},{name:"frameRate",merge:!1},{name:"audioSamplingRate",merge:!1},{name:"mimeType",merge:!1},{name:"segmentProfiles",merge:!1},{name:"codecs",merge:!1},{name:"maximumSAPPeriod",merge:!1},{name:"startsWithSap",merge:!1},{name:"maxPlayoutRate",merge:!1},{name:"codingDependency",merge:!1},{name:"scanType",merge:!1},{name:"FramePacking",merge:!0},{name:"AudioChannelConfiguration",merge:!0},{name:"ContentProtection",merge:!0}],a={},a.name="AdaptationSet",a.isRoot=!1,a.isArray=!0,a.parent=null,a.children=[],a.properties=d,b={},b.name="Representation",b.isRoot=!1,b.isArray=!0,b.parent=a,b.children=[],b.properties=d,a.children.push(b),c={},c.name="SubRepresentation",c.isRoot=!1,c.isArray=!0,c.parent=b,c.children=[],c.properties=d,b.children.push(c),a},m=function(){var a,b,c,d;return d=[{name:"SegmentBase",merge:!0},{name:"SegmentTemplate",merge:!0},{name:"SegmentList",merge:!0}],a={},a.name="Period",a.isRoot=!1,a.isArray=!0,a.parent=null,a.children=[],a.properties=d,b={},b.name="AdaptationSet",b.isRoot=!1,b.isArray=!0,b.parent=a,b.children=[],b.properties=d,a.children.push(b),c={},c.name="Representation",c.isRoot=!1,c.isArray=!0,c.parent=b,c.children=[],c.properties=d,b.children.push(c),a},n=function(){var a,b,c,d,e;return e=[{name:"BaseURL",merge:!0,mergeFunction:function(a,b){var c;return c=0===b.indexOf("http://")?b:a+b}}],a={},a.name="mpd",a.isRoot=!0,a.isArray=!0,a.parent=null,a.children=[],a.properties=e,b={},b.name="Period",b.isRoot=!1,b.isArray=!0,b.parent=null,b.children=[],b.properties=e,a.children.push(b),c={},c.name="AdaptationSet",c.isRoot=!1,c.isArray=!0,c.parent=b,c.children=[],c.properties=e,b.children.push(c),d={},d.name="Representation",d.isRoot=!1,d.isArray=!0,d.parent=c,d.children=[],d.properties=e,c.children.push(d),a},o=function(){var a=[];return a.push(l()),a.push(m()),a.push(n()),a},p=function(a,b){var c,d=new X2JS(k,"",!0),e=new ObjectIron(o()),f=new Date,g=null,h=null;try{c=d.xml_str2json(a),g=new Date,c.hasOwnProperty("BaseURL")?(c.BaseURL=c.BaseURL_asArray[0],0!==c.BaseURL.toString().indexOf("http")&&(c.BaseURL=b+c.BaseURL)):c.BaseURL=b,e.run(c),h=new Date,this.debug.log("Parsing complete: ( xml2json: "+(g.getTime()-f.getTime())+"ms, objectiron: "+(h.getTime()-g.getTime())+"ms, total: "+(h.getTime()-f.getTime())/1e3+"s)")}catch(i){return this.errHandler.manifestError("parsing the manifest failed","parse",a),null}return c};return{debug:void 0,errHandler:void 0,parse:p}},Dash.dependencies.DashParser.prototype={constructor:Dash.dependencies.DashParser},Dash.dependencies.FragmentExtensions=function(){"use strict";var a=function(a){for(var b,c,d,e,f,g,h=new DataView(a),i=0;"tfdt"!==e&&i<h.byteLength;){for(d=h.getUint32(i),i+=4,e="",f=0;4>f;f+=1)g=h.getInt8(i),e+=String.fromCharCode(g),i+=1;"moof"!==e&&"traf"!==e&&"tfdt"!==e&&(i+=d-8)}if(i===h.byteLength)throw"Error finding live offset.";return c=h.getUint8(i),this.debug.log("position: "+i),0===c?(i+=4,b=h.getUint32(i,!1)):(i+=d-16,b=utils.Math.to64BitNumber(h.getUint32(i+4,!1),h.getUint32(i,!1))),{version:c,base_media_decode_time:b}},b=function(a){for(var b,c,d,e,f,g,h,i=new DataView(a),j=0;"sidx"!==f&&j<i.byteLength;){for(g=i.getUint32(j),j+=4,f="",e=0;4>e;e+=1)h=i.getInt8(j),f+=String.fromCharCode(h),j+=1;"moof"!==f&&"traf"!==f&&"sidx"!==f?j+=g-8:"sidx"===f&&(j-=8)}return b=i.getUint8(j+8),j+=12,c=i.getUint32(j+4,!1),j+=8,d=0===b?i.getUint32(j,!1):utils.Math.to64BitNumber(i.getUint32(j+4,!1),i.getUint32(j,!1)),{earliestPresentationTime:d,timescale:c}},c=function(b){var c,d,e,f=this,g=new XMLHttpRequest,h=!1;c=b,g.onloadend=function(){h||(d="Error loading fragment: "+c,f.notify(f.eventList.ENAME_FRAGMENT_LOADING_COMPLETED,null,new Error(d)))},g.onload=function(){h=!0,e=a(g.response),f.notify(f.eventList.ENAME_FRAGMENT_LOADING_COMPLETED,e)},g.onerror=function(){d="Error loading fragment: "+c,f.notify(f.eventList.ENAME_FRAGMENT_LOADING_COMPLETED,null,new Error(d))},g.responseType="arraybuffer",g.open("GET",c),g.send(null)};return{debug:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_FRAGMENT_LOADING_COMPLETED:"fragmentLoadingCompleted"},loadFragment:c,parseTFDT:a,parseSIDX:b}},Dash.dependencies.FragmentExtensions.prototype={constructor:Dash.dependencies.FragmentExtensions},Dash.dependencies.RepresentationController=function(){"use strict";var a,b=null,c=-1,d=!0,e=[],f=function(c,f,i){var k=this;if(d=!0,k.notify(k.eventList.ENAME_DATA_UPDATE_STARTED),e=j.call(k,f),a=h.call(k,k.abrController.getQualityFor(i,k.streamProcessor.getStreamInfo())),b=c,"video"!==i&&"audio"!==i)return k.notify(k.eventList.ENAME_DATA_UPDATE_COMPLETED,b,a),void g.call(k);for(var l=0;l<e.length;l+=1)k.indexHandler.updateRepresentation(e[l],!0)},g=function(){var a=new Date,b=this.getCurrentRepresentation(),c=this.streamProcessor.playbackController.getTime();this.metricsModel.addTrackSwitch(b.adaptation.type,a,c,b.id)},h=function(a){return e[a]},i=function(){for(var a=0,b=e.length;b>a;a+=1)if(null===e[a].segmentAvailabilityRange||null===e[a].initialization)return!1;return!0},j=function(a){var d,e=this,f=e.manifestModel.getValue();return c=e.manifestExt.getIndexForAdaptation(b,f,a.period.index),d=e.manifestExt.getRepresentationsForAdaptation(f,a)},k=function(a){for(var b,c=this,d=0,f=e.length;f>d;d+=1)b=e[d],b.segmentAvailabilityRange=c.timelineConverter.calcSegmentAvailabilityRange(b,a)},l=function(c,e){for(var f,h=this,j=e,k=h.metricsModel.getMetricsFor("stream"),l=h.metricsExt.getCurrentManifestUpdate(k),m=!1,n=0;n<l.trackInfo.length;n+=1)if(f=l.trackInfo[n],f.index===j.index&&f.mediaType===h.streamProcessor.getType()){m=!0;break}m||h.metricsModel.addManifestUpdateTrackInfo(l,j.id,j.index,j.adaptation.period.index,h.streamProcessor.getType(),j.presentationTimeOffset,j.startNumber,j.segmentInfoType),i()&&(d=!1,h.metricsModel.updateManifestUpdateInfo(l,{latency:a.segmentAvailabilityRange.end-h.streamProcessor.playbackController.getTime()}),this.notify(this.eventList.ENAME_DATA_UPDATE_COMPLETED,b,a),g.call(h))},m=function(a,b){k.call(this,b)},n=function(){k.call(this,!0),this.indexHandler.updateRepresentation(a,!1);var b=this.manifestModel.getValue();a.adaptation.period.mpd.checkTime=this.manifestExt.getCheckTime(b,a.adaptation.period)},o=function(b){var c=b.streamProcessor,d=this,e=d.timelineConverter.calcSegmentAvailabilityRange(a,c.isDynamic());d.metricsModel.addDVRInfo(c.getType(),c.playbackController.getTime(),c.getStreamInfo().manifestInfo,e)},p=function(b,c,d,e,f){var h=this;c===h.streamProcessor.getType()&&h.streamProcessor.getStreamInfo().id===d.id&&(a=h.getRepresentationForQuality(f),g.call(h))};return{system:void 0,debug:void 0,manifestExt:void 0,manifestModel:void 0,metricsModel:void 0,metricsExt:void 0,abrController:void 0,timelineConverter:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_DATA_UPDATE_COMPLETED:"dataUpdateCompleted",ENAME_DATA_UPDATE_STARTED:"dataUpdateStarted"},setup:function(){this.qualityChanged=p,this.representationUpdated=l,this.wallclockTimeUpdated=m,this.liveEdgeFound=n,this.bufferLevelUpdated=o},initialize:function(a){this.streamProcessor=a,this.indexHandler=a.indexHandler},getData:function(){return b},getDataIndex:function(){return c},isUpdating:function(){return d},updateData:f,getRepresentationForQuality:h,getCurrentRepresentation:function(){return a}}},Dash.dependencies.RepresentationController.prototype={constructor:Dash.dependencies.RepresentationController},Dash.dependencies.TimelineConverter=function(){"use strict";var a=0,b=!1,c=0/0,d=function(b,c,d,e){var f=0/0;return f=e?d&&c.timeShiftBufferDepth!=Number.POSITIVE_INFINITY?new Date(c.availabilityStartTime.getTime()+1e3*(b+c.timeShiftBufferDepth)):c.availabilityEndTime:d?new Date(c.availabilityStartTime.getTime()+1e3*(b-a)):c.availabilityStartTime},e=function(a,b,c){return d.call(this,a,b,c)},f=function(a,b,c){return d.call(this,a,b,c,!0)},g=function(b,c){return(b.getTime()-c.mpd.availabilityStartTime.getTime()+1e3*a)/1e3},h=function(a,b){var c=b.adaptation.period.start,d=b.presentationTimeOffset;return a+(c-d)},i=function(a,b){var c=b.adaptation.period.start,d=b.presentationTimeOffset;return a-c+d},j=function(a,b){var c,d,e;return b&&(c=a.representation.adaptation.period.mpd.suggestedPresentationDelay,d=a.presentationStartTime+c,e=new Date(a.availabilityStartTime.getTime()+1e3*d)),e},k=function(a,c){var d,e,f=a.adaptation.period.start,h=f+a.adaptation.period.duration,i={start:f,end:h};return c?!b&&a.segmentAvailabilityRange?a.segmentAvailabilityRange:(d=a.adaptation.period.mpd.checkTime,e=g(new Date((new Date).getTime()),a.adaptation.period),f=Math.max(e-a.adaptation.period.mpd.timeShiftBufferDepth,0),h=isNaN(d)?e:Math.min(d,e),i={start:f,end:h}):i},l=function(a,b){var c=a.adaptation.period.start;return b-c},m=function(a,b){var c=a.adaptation.period.start;return b+c},n=function(d,e,f){b||(a=e-(c+f),b=!0)},o=function(a){var b=a.presentationTimeOffset,c=a.adaptation.period.start;return c-b},p=function(){a=0,b=!1,c=0/0};return{notifier:void 0,uriQueryFragModel:void 0,setup:function(){this.liveEdgeFound=n},calcAvailabilityStartTimeFromPresentationTime:e,calcAvailabilityEndTimeFromPresentationTime:f,calcPresentationTimeFromWallTime:g,calcPresentationTimeFromMediaTime:h,calcPeriodRelativeTimeFromMpdRelativeTime:l,calcMpdRelativeTimeFromPeriodRelativeTime:m,calcMediaTimeFromPresentationTime:i,calcSegmentAvailabilityRange:k,calcWallTimeForSegment:j,calcMSETimeOffset:o,reset:p,isTimeSyncCompleted:function(){return b},getClientTimeOffset:function(){return a},getExpectedLiveEdge:function(){return c},setExpectedLiveEdge:function(a){c=a}}},Dash.dependencies.TimelineConverter.prototype={constructor:Dash.dependencies.TimelineConverter},Dash.vo.AdaptationSet=function(){"use strict";this.period=null,this.index=-1,this.type=null},Dash.vo.AdaptationSet.prototype={constructor:Dash.vo.AdaptationSet},Dash.vo.Event=function(){"use strict";this.duration=0/0,this.presentationTime=0/0,this.id=0/0,this.messageData="",this.eventStream=null,this.presentationTimeDelta=0/0},Dash.vo.Event.prototype={constructor:Dash.vo.Event},Dash.vo.EventStream=function(){"use strict";this.adaptionSet=null,this.representation=null,this.period=null,this.timescale=1,this.value="",this.schemeIdUri=""},Dash.vo.EventStream.prototype={constructor:Dash.vo.EventStream},Dash.vo.Mpd=function(){"use strict";this.manifest=null,this.suggestedPresentationDelay=0,this.availabilityStartTime=null,this.availabilityEndTime=Number.POSITIVE_INFINITY,this.timeShiftBufferDepth=Number.POSITIVE_INFINITY,this.maxSegmentDuration=Number.POSITIVE_INFINITY,this.checkTime=0/0,this.clientServerTimeShift=0,this.isClientServerTimeSyncCompleted=!1},Dash.vo.Mpd.prototype={constructor:Dash.vo.Mpd},Dash.vo.Period=function(){"use strict";this.id=null,this.index=-1,this.duration=0/0,this.start=0/0,this.mpd=null},Dash.vo.Period.prototype={constructor:Dash.vo.Period},Dash.vo.Representation=function(){"use strict";this.id=null,this.index=-1,this.adaptation=null,this.segmentInfoType=null,this.initialization=null,this.segmentDuration=0/0,this.timescale=1,this.startNumber=1,this.indexRange=null,this.range=null,this.presentationTimeOffset=0,this.MSETimeOffset=0/0,this.segmentAvailabilityRange=null,this.availableSegmentsNumber=0},Dash.vo.Representation.prototype={constructor:Dash.vo.Representation},Dash.vo.Segment=function(){"use strict";this.indexRange=null,this.index=null,this.mediaRange=null,this.media=null,this.duration=0/0,this.replacementTime=null,this.replacementNumber=0/0,this.mediaStartTime=0/0,this.presentationStartTime=0/0,this.availabilityStartTime=0/0,this.availabilityEndTime=0/0,this.availabilityIdx=0/0,this.wallStartTime=0/0,this.representation=null},Dash.vo.Segment.prototype={constructor:Dash.vo.Segment},MediaPlayer.dependencies.AbrController=function(){"use strict";var a=!0,b={},c={},d={},e=function(a,b){var d;return c[b]=c[b]||{},c[b].hasOwnProperty(a)||(c[b][a]=0),d=c[b][a]},f=function(a,b,d){c[b]=c[b]||{},c[b][a]=d},g=function(a,b){var c;return d[b]=d[b]||{},d[b].hasOwnProperty(a)||(d[b][a]=0),c=d[b][a]},h=function(a,b,c){d[b]=d[b]||{},d[b][a]=c},i=function(a,c,d){b[c]=b[c]||{},b[c][a]=d},j=function(a,c){var d;return b[c]=b[c]||{},b[c].hasOwnProperty(a)||(b[c][a]=0),d=b[c][a]},k=function(a,b,c){var d,e=this,f=this.adapter.convertDataToTrack(c).mediaInfo,g=f.type,h=f.streamInfo.id;d=f.trackCount-1,j(g,h)!==d&&(i(g,h,d),e.notify(e.eventList.ENAME_TOP_QUALITY_INDEX_CHANGED,g,f.streamInfo,d))};return{debug:void 0,adapter:void 0,abrRulesCollection:void 0,rulesController:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_QUALITY_CHANGED:"qualityChanged",ENAME_TOP_QUALITY_INDEX_CHANGED:"topQualityIndexChanged"},setup:function(){this.dataUpdateCompleted=k},getAutoSwitchBitrate:function(){return a},setAutoSwitchBitrate:function(b){a=b},getPlaybackQuality:function(b){var c,d,i,k,l=this,m=b.getType(),n=b.getStreamInfo().id,o=function(a){var g=j(m,n);c=a.value,k=a.confidence,0>c&&(c=0),c>g&&(c=g),d=e(m,n),c!==d&&(f(m,n,c),h(m,n,k),l.notify(l.eventList.ENAME_QUALITY_CHANGED,m,b.getStreamInfo(),d,c))};c=e(m,n),k=g(m,n),a&&(l.abrRulesCollection.downloadRatioRule&&l.abrRulesCollection.downloadRatioRule.setStreamProcessor(b),i=l.abrRulesCollection.getRules(MediaPlayer.rules.ABRRulesCollection.prototype.QUALITY_SWITCH_RULES),l.rulesController.applyRules(i,b,o.bind(l),c,function(a,b){return Math.min(a,b)}))},setPlaybackQuality:function(a,c,d){var g=c.id,h=e(a,g),i=null!==d&&!isNaN(d)&&d%1===0;if(!i)throw"argument is not an integer";d!==h&&d>=0&&b[g].hasOwnProperty(a)&&d<=b[g][a]&&(f(a,c.id,d),this.notify(this.eventList.ENAME_QUALITY_CHANGED,a,c,h,d))},getQualityFor:function(a,b){return e(a,b.id)},getConfidenceFor:function(a,b){return g(a,b.id)},isPlayingAtTopQuality:function(a){var b,c=this,d=a.id,e=c.getQualityFor("audio",a),f=c.getQualityFor("video",a);return b=e===j("audio",d)&&f===j("video",d)},reset:function(){var e,f=this.abrRulesCollection.getRules(MediaPlayer.rules.ABRRulesCollection.prototype.QUALITY_SWITCH_RULES),g=f.length,h=0;for(h;g>h;h+=1)e=f[h],"function"==typeof e.reset&&e.reset();a=!0,b={},c={},d={}}}},MediaPlayer.dependencies.AbrController.prototype={constructor:MediaPlayer.dependencies.AbrController},MediaPlayer.dependencies.BufferController=function(){"use strict";var a,b,c,d,e=.5,f=22,g=[],h=0,i=-1,j=!1,k=0,l=Number.POSITIVE_INFINITY,m=-1,n=-1,o=null,p=null,q=!1,r=!1,s=[],t=!1,u=function(){var a=this.streamProcessor.getFragmentModel().getLoadingRequests();return i>h&&(v(s,i)||v(a,i))?!1:i!==h},v=function(a,b){var c=0,d=a.length;for(c;d>c;c+=1)if(a[c].quality===b)return!0;return!1},w=function(a,b){var c=function(a,c){return a[b]<c[b]?-1:a[b]>c[b]?1:0};a.sort(c)},x=function(a,c,d,e){var f=this;c===f.streamProcessor.getFragmentModel()&&(f.debug.log("Initialization finished loading: "+b),g[e]=d,e===h&&u.call(f)&&Y.call(f))},y=function(a,b,c,d,e){if(b===this.streamProcessor.getFragmentModel()){var f,g=this.streamProcessor.getFragmentModel().getExecutedRequestForQualityAndIndex(d,e),h=this.streamProcessor.getTrackForQuality(d),i=this.adapter.getEventsFor(h.mediaInfo,this.streamProcessor),j=this.adapter.getEventsFor(h,this.streamProcessor);(i.length>0||j.length>0)&&(f=C.call(this,c,g,i,j),this.streamProcessor.getEventController().addInbandEvents(f)),c=D.call(this,c),s.push({bytes:c,quality:d,index:e}),w(s,"index"),P.call(this)}},z=function(a,b,c){r=!0,d={quality:b,index:c};var e=this,f=isNaN(c);return b!==h&&f||b!==i&&!f?void R.call(e,b,c):void e.sourceBufferExt.append(o,a)},A=function(c,e,g,h){if(o===e){this.isBufferingCompleted()&&this.streamProcessor.getStreamInfo().isLast&&this.mediaSourceExt.signalEndOfStream(a);var i,j=this;if(h)return h.code===f&&(s.unshift({bytes:g,quality:d.quality,index:d.index}),l=.8*J.call(j),j.notify(j.eventList.ENAME_QUOTA_EXCEEDED,l),H.call(j)),void(r=!1);if(B.call(j),G.call(j)||(j.notify(j.eventList.ENAME_QUOTA_EXCEEDED,l),H.call(j)),i=j.sourceBufferExt.getAllRanges(o),i&&i.length>0){var k,m;for(k=0,m=i.length;m>k;k+=1)j.debug.log("Buffered "+b+" Range: "+i.start(k)+" - "+i.end(k))}Q.call(j,d.quality,d.index),j.notify(j.eventList.ENAME_BYTES_APPENDED,d.quality,d.index,i)}},B=function(){var a=this,b=a.playbackController.getTime();return k=a.sourceBufferExt.getBufferLength(o,b),a.notify(a.eventList.ENAME_BUFFER_LEVEL_UPDATED,k),E.call(a),L.call(a),e>k&&M.call(a,!1),!0},C=function(a,b,c,d){var e,f,g,h,i=[],j=0,k=Math.pow(256,2),l=Math.pow(256,3),m=Math.max(isNaN(b.startTime)?0:b.startTime,0),n=[];t=!1,h=c.concat(d);for(var o=0;o<h.length;o++)n[h[o].schemeIdUri]=h[o];for(;j<a.length&&(e=String.fromCharCode(a[j+4],a[j+5],a[j+6],a[j+7]),f=a[j]*l+a[j+1]*k+256*a[j+2]+1*a[j+3],"moov"!=e&&"moof"!=e);){if("emsg"==e){t=!0;for(var p=["","",0,0,0,0,""],q=0,r=j+12;f+j>r;)0===q||1==q||6==q?(0!==a[r]?p[q]+=String.fromCharCode(a[r]):q+=1,r+=1):(p[q]=a[r]*l+a[r+1]*k+256*a[r+2]+1*a[r+3],r+=4,q+=1);g=this.adapter.getEvent(p,n,m),g&&i.push(g)}j+=f}return i},D=function(a){if(!t)return a;for(var b,c,d=a.length,e=0,f=0,g=Math.pow(256,2),h=Math.pow(256,3),i=new Uint8Array(a.length);d>e;){if(b=String.fromCharCode(a[e+4],a[e+5],a[e+6],a[e+7]),c=a[e]*h+a[e+1]*g+256*a[e+2]+1*a[e+3],"emsg"!=b)for(var j=e;e+c>j;j++)i[f]=a[j],f+=1;e+=c}return i.subarray(0,f)},E=function(){var a=F.call(this),b=2*c,d=k-a;d>=b&&!q?(q=!0,this.notify(this.eventList.ENAME_BUFFER_LEVEL_OUTRUN)):b/2>d&&q&&(this.notify(this.eventList.ENAME_BUFFER_LEVEL_BALANCED),q=!1,P.call(this))},F=function(){var a=this.metricsModel.getReadOnlyMetricsFor("video"),b=this.metricsExt.getCurrentBufferLevel(a),c=this.metricsModel.getReadOnlyMetricsFor("audio"),d=this.metricsExt.getCurrentBufferLevel(c),e=null;return e=null===b||null===d?null!==d?d.level:null!==b?b.level:null:Math.min(d.level,b.level)},G=function(){var a=this,b=J.call(a);return l>b},H=function(){var b,c,d,e,f=this,g=f.playbackController.getTime();o&&(e=f.fragmentController.getExecutedRequestForTime(f.streamProcessor.getFragmentModel(),g),c=e&&!isNaN(e.startTime)?e.startTime:Math.floor(g),d=f.sourceBufferExt.getBufferRange(o,g),null===d&&o.buffered.length>0&&(c=o.buffered.end(o.buffered.length-1)),b=o.buffered.start(0),f.sourceBufferExt.remove(o,b,c,a))},I=function(a,b,d,e){o===b&&(B.call(this),this.notify(this.eventList.ENAME_BUFFER_CLEARED,d,e,G.call(this)),G.call(this)||setTimeout(H.bind(this),1e3*c))},J=function(){var a,b,c=this,d=c.sourceBufferExt.getAllRanges(o),e=0;if(!d)return e;for(b=0,a=d.length;a>b;b+=1)e+=d.end(b)-d.start(b);return e},K=function(){var a=m===n-1;a&&!j&&(j=!0,this.notify(this.eventList.ENAME_BUFFERING_COMPLETED))},L=function(){var a=this.playbackController.getTimeToStreamEnd(),b=this.streamProcessor.isDynamic()?c/2:c;b>k&&(a>c||c>=a&&!j)?M.call(this,!1):M.call(this,!0)},M=function(a){p!==a&&(p=a,this.debug.log(p?"Got enough "+b+" buffer to start.":"Waiting for more "+b+" buffer before starting playback."),this.eventBus.dispatchEvent({type:p?"bufferLoaded":"bufferStalled",data:{bufferType:b}}),this.notify(this.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED,a))},N=function(a){o.timestampOffset!==a&&(o.timestampOffset=a)},O=function(){var a=this;B.call(a),P.call(a)},P=function(){u.call(this)?Y.call(this):U.call(this)},Q=function(a,b){r=!1,isNaN(b)?S.call(this,a):T.call(this,b),P.call(this)},R=function(a,b){r=!1,this.notify(this.eventList.ENAME_BYTES_REJECTED,a,b),P.call(this)},S=function(a){i=a},T=function(a){m=Math.max(a,m),K.call(this)},U=function(){var a;0===s.length||q||r||u.call(this)||!G.call(this)||(a=s.shift(),z.call(this,a.bytes,a.quality,a.index))},V=function(a,b,d){var e,f=this;N.call(f,d.MSETimeOffset),e=f.streamProcessor.getStreamInfo().manifestInfo.minBufferTime,c!==e&&(f.setMinBufferTime(e),f.notify(f.eventList.ENAME_MIN_BUFFER_TIME_UPDATED,e))},W=function(a,b,c){var d=this;b===d.streamProcessor.getFragmentModel()&&(n=c.index,K.call(d))},X=function(a,c,d,e,f){if(b===c&&this.streamProcessor.getStreamInfo().id===d.id){var g=this;h!==f&&(N.call(g,g.streamProcessor.getTrackForQuality(f).MSETimeOffset),h=f,u.call(g)&&Y.call(g))}},Y=function(){var a=this;if(g[h]){if(r)return;z.call(a,g[h],h)}else a.notify(a.eventList.ENAME_INIT_REQUESTED,h)},Z=function(){P.call(this)},$=function(){L.call(this)};return{manifestModel:void 0,sourceBufferExt:void 0,eventBus:void 0,bufferMax:void 0,mediaSourceExt:void 0,metricsModel:void 0,metricsExt:void 0,adapter:void 0,debug:void 0,system:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_CLOSED_CAPTIONING_REQUESTED:"closedCaptioningRequested",ENAME_BUFFER_LEVEL_STATE_CHANGED:"bufferLevelStateChanged",ENAME_BUFFER_LEVEL_UPDATED:"bufferLevelUpdated",ENAME_QUOTA_EXCEEDED:"quotaExceeded",ENAME_BYTES_APPENDED:"bytesAppended",ENAME_BYTES_REJECTED:"bytesRejected",ENAME_BUFFERING_COMPLETED:"bufferingCompleted",ENAME_BUFFER_CLEARED:"bufferCleared",ENAME_INIT_REQUESTED:"initRequested",ENAME_BUFFER_LEVEL_OUTRUN:"bufferLevelOutrun",ENAME_BUFFER_LEVEL_BALANCED:"bufferLevelBalanced",ENAME_MIN_BUFFER_TIME_UPDATED:"minBufferTimeUpdated"},setup:function(){this.dataUpdateCompleted=V,this.initFragmentLoaded=x,this.mediaFragmentLoaded=y,this.streamCompleted=W,this.qualityChanged=X,this.playbackProgress=O,this.playbackSeeking=O,this.playbackTimeUpdated=O,this.playbackRateChanged=$,this.wallclockTimeUpdated=Z,A=A.bind(this),I=I.bind(this),this.sourceBufferExt.subscribe(this.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED,this,A),this.sourceBufferExt.subscribe(this.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED,this,I)},initialize:function(a,c,d,e){var f=this;b=a,f.setMediaSource(d),f.setBuffer(c),f.streamProcessor=e,f.fragmentController=e.fragmentController,f.scheduleController=e.scheduleController,f.playbackController=e.playbackController},getStreamProcessor:function(){return this.streamProcessor},setStreamProcessor:function(a){this.streamProcessor=a},getBuffer:function(){return o},setBuffer:function(a){o=a},getBufferLevel:function(){return k},getMinBufferTime:function(){return c},setMinBufferTime:function(a){c=a},getCriticalBufferLevel:function(){return l},setMediaSource:function(b){a=b},isBufferingCompleted:function(){return j},reset:function(b){var e=this;g=[],l=Number.POSITIVE_INFINITY,p=null,c=null,i=-1,h=0,e.sourceBufferExt.unsubscribe(e.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED,e,A),e.sourceBufferExt.unsubscribe(e.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED,e,I),d=null,q=!1,r=!1,s=[],b||(e.sourceBufferExt.abort(a,o),e.sourceBufferExt.removeSourceBuffer(a,o)),o=null}}},MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED="required",MediaPlayer.dependencies.BufferController.BUFFER_SIZE_MIN="min",MediaPlayer.dependencies.BufferController.BUFFER_SIZE_INFINITY="infinity",MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME=8,MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY=30,MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY_LONG_FORM=300,MediaPlayer.dependencies.BufferController.LONG_FORM_CONTENT_DURATION_THRESHOLD=600,MediaPlayer.dependencies.BufferController.prototype={constructor:MediaPlayer.dependencies.BufferController},MediaPlayer.utils.Capabilities=function(){"use strict"},MediaPlayer.utils.Capabilities.prototype={constructor:MediaPlayer.utils.Capabilities,supportsMediaSource:function(){"use strict";var a="WebKitMediaSource"in window,b="MediaSource"in window;return a||b},supportsMediaKeys:function(){"use strict";var a="WebKitMediaKeys"in window,b="MSMediaKeys"in window,c="MediaKeys"in window,d="webkitGenerateKeyRequest"in document.createElement("video");return a||b||c||d},supportsCodec:function(a,b){"use strict";if(!(a instanceof HTMLMediaElement))throw"element must be of type HTMLMediaElement.";var c=a.canPlayType(b);return"probably"===c||"maybe"===c}},MediaPlayer.utils.Debug=function(){"use strict";var a=!0;return{eventBus:void 0,setLogToBrowserConsole:function(b){a=b},getLogToBrowserConsole:function(){return a},log:function(b){a&&console.log(b),this.eventBus.dispatchEvent({type:"log",message:b})}}},MediaPlayer.dependencies.ErrorHandler=function(){"use strict";return{eventBus:void 0,capabilityError:function(a){this.eventBus.dispatchEvent({type:"error",error:"capability",event:a})},downloadError:function(a,b,c){this.eventBus.dispatchEvent({type:"error",error:"download",event:{id:a,url:b,request:c}})},manifestError:function(a,b,c){this.eventBus.dispatchEvent({type:"error",error:"manifestError",event:{message:a,id:b,manifest:c}})},closedCaptionsError:function(a,b,c){this.eventBus.dispatchEvent({type:"error",error:"cc",event:{message:a,id:b,cc:c}})},mediaSourceError:function(a){this.eventBus.dispatchEvent({type:"error",error:"mediasource",event:a})},mediaKeySessionError:function(a){this.eventBus.dispatchEvent({type:"error",error:"key_session",event:a})},mediaKeyMessageError:function(a){this.eventBus.dispatchEvent({type:"error",error:"key_message",event:a})},mediaKeySystemSelectionError:function(a){this.eventBus.dispatchEvent({type:"error",error:"key_system_selection",event:a})}}},MediaPlayer.dependencies.ErrorHandler.prototype={constructor:MediaPlayer.dependencies.ErrorHandler},MediaPlayer.utils.EventBus=function(){"use strict";var a,b=function(b,c){var d=(c?"1":"0")+b;return d in a||(a[d]=[]),a[d]},c=function(){a={}};return c(),{addEventListener:function(a,c,d){var e=b(a,d),f=e.indexOf(c);-1===f&&e.push(c)},removeEventListener:function(a,c,d){var e=b(a,d),f=e.indexOf(c);-1!==f&&e.splice(f,1)},dispatchEvent:function(a){for(var c=b(a.type,!1).slice(),d=0;d<c.length;d++)c[d].call(this,a);return!a.defaultPrevented}}},MediaPlayer.dependencies.EventController=function(){"use strict";var a=[],b=[],c=[],d=null,e=100,f=e/1e3,g="urn:mpeg:dash:event:2012",h=1,i=function(){null!==d&&(clearInterval(d),d=null),a=null,b=null,c=null},j=function(){null!==d&&(clearInterval(d),d=null)},k=function(){var a=this;a.debug.log("Start Event Controller"),isNaN(e)||(d=setInterval(n.bind(this),e))},l=function(b){var c=this;a=[],b&&b.length>0&&(a=b),c.debug.log("Added "+b.length+" inline events")},m=function(a){for(var c=this,d=0;d<a.length;d++){var e=a[d];b[e.id]=e,c.debug.log("Add inband event with id "+e.id)}},n=function(){o.call(this,b),o.call(this,a),p.call(this)},o=function(a){var b,d=this,e=this.videoModel.getCurrentTime();if(a)for(var i=0;i<a.length;i++){var j=a[i];void 0!==j&&(b=j.presentationTime/j.eventStream.timescale,(0===b||e>=b&&b+f>e)&&(d.debug.log("Start Event at "+e),j.duration>0&&c.push(j),j.eventStream.schemeIdUri==g&&j.eventStream.value==h&&q.call(this),a.splice(i,1)))}},p=function(){var a=this;if(c)for(var b=this.videoModel.getCurrentTime(),d=0;d<c.length;d++){var e=c[d];null!==e&&(e.duration+e.presentationTime)/e.eventStream.timescale<b&&(a.debug.log("Remove Event at time "+b),e=null,c.splice(d,1))}},q=function(){var a=this,b=a.manifestModel.getValue(),c=b.url;b.hasOwnProperty("Location")&&(c=b.Location),a.debug.log("Refresh manifest @ "+c),a.manifestLoader.load(c)};return{manifestModel:void 0,manifestLoader:void 0,debug:void 0,system:void 0,errHandler:void 0,videoModel:void 0,addInlineEvents:l,addInbandEvents:m,reset:i,clear:j,start:k,getVideoModel:function(){return this.videoModel},setVideoModel:function(a){this.videoModel=a},initialize:function(a){this.setVideoModel(a)}}},MediaPlayer.dependencies.EventController.prototype={constructor:MediaPlayer.dependencies.EventController},MediaPlayer.dependencies.FragmentController=function(){"use strict";var a=[],b=!1,c=function(b){for(var c=a.length,d=0;c>d;d++)if(a[d].getContext()==b)return a[d];return null},d=function(b,c){var d=this,e=a[0].getContext().streamProcessor,f=e.getStreamInfo().id,g=d.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_EXECUTE_RULES);-1!==g.indexOf(this.scheduleRulesCollection.sameTimeRequestRule)&&this.scheduleRulesCollection.sameTimeRequestRule.setFragmentModels(a,f),d.rulesController.applyRules(g,e,c,b,function(a,b){return b})},e=function(a,b){var c=this;c.isInitializationRequest(b)?c.notify(c.eventList.ENAME_INIT_FRAGMENT_LOADING_START,a,b):c.notify(c.eventList.ENAME_MEDIA_FRAGMENT_LOADING_START,a,b)},f=function(a,b,c){var d=this,e=d.process(c);return null===e?void d.debug.log("No "+b.mediaType+" bytes to push."):(d.isInitializationRequest(b)?d.notify(d.eventList.ENAME_INIT_FRAGMENT_LOADED,a,e,b.quality):d.notify(d.eventList.ENAME_MEDIA_FRAGMENT_LOADED,a,e,b.quality,b.index),void j.call(this))},g=function(a,b){this.notify(this.eventList.ENAME_STREAM_COMPLETED,a,b)},h=function(){j.call(this)},i=function(c){var d,e,f,g,h,i=c.value;for(g=0;g<i.length;g+=1)if(e=i[g])for(h=0;h<a.length;h+=1)f=a[h],d=f.getContext().streamProcessor.getType(),e.mediaType===d&&(e instanceof MediaPlayer.vo.FragmentRequest||(e=f.getPendingRequestForTime(e.startTime)),f.executeRequest(e));b=!1},j=function(a){b||(b=!0,d.call(this,a,i.bind(this)))};return{system:void 0,debug:void 0,scheduleRulesCollection:void 0,rulesController:void 0,fragmentLoader:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_STREAM_COMPLETED:"streamCompleted",ENAME_INIT_FRAGMENT_LOADING_START:"initFragmentLoadingStart",ENAME_MEDIA_FRAGMENT_LOADING_START:"mediaFragmentLoadingStart",ENAME_INIT_FRAGMENT_LOADED:"initFragmentLoaded",ENAME_MEDIA_FRAGMENT_LOADED:"mediaFragmentLoaded"},setup:function(){this.fragmentLoadingStarted=e,this.fragmentLoadingCompleted=f,this.streamCompleted=g,this.bufferLevelBalanced=h},process:function(a){var b=null;return null!==a&&void 0!==a&&a.byteLength>0&&(b=new Uint8Array(a)),b},getModel:function(b){if(!b)return null;var d=c(b);return d||(d=this.system.getObject("fragmentModel"),d.setContext(b),a.push(d)),d},detachModel:function(b){var c=a.indexOf(b);c>-1&&a.splice(c,1)},isFragmentLoadedOrPending:function(a,b){var d,e=c(a);return e?d=e.isFragmentLoadedOrPending(b):!1},getPendingRequests:function(a){var b=c(a);return b?b.getPendingRequests():null},getLoadingRequests:function(a){var b=c(a);return b?b.getLoadingRequests():null},isInitializationRequest:function(a){return a&&a.type&&-1!==a.type.toLowerCase().indexOf("initialization")},getLoadingTime:function(a){var b=c(a);return b?b.getLoadingTime():null
-},getExecutedRequestForTime:function(a,b){return a?a.getExecutedRequestForTime(b):null},removeExecutedRequest:function(a,b){a&&a.removeExecutedRequest(b)},removeExecutedRequestsBeforeTime:function(a,b){a&&a.removeExecutedRequestsBeforeTime(b)},cancelPendingRequestsForModel:function(a){a&&a.cancelPendingRequests()},abortRequestsForModel:function(a){a&&a.abortRequests(),j.call(this)},prepareFragmentForLoading:function(a,b){var d=c(a);d&&b&&d.addRequest(b)&&j.call(this,b)},executePendingRequests:function(){j.call(this)},resetModel:function(a){this.abortRequestsForModel(a),this.cancelPendingRequestsForModel(a)}}},MediaPlayer.dependencies.FragmentController.prototype={constructor:MediaPlayer.dependencies.FragmentController},MediaPlayer.dependencies.FragmentLoader=function(){"use strict";var a=3,b=500,c=[],d=function(a,e){var f=new XMLHttpRequest,g=null,h=!0,i=!0,j=null,k=this;c.push(f),a.requestStartDate=new Date,g=k.metricsModel.addHttpRequest(a.mediaType,null,a.type,a.url,null,a.range,a.requestStartDate,null,null,null,null,a.duration),k.metricsModel.appendHttpTrace(g,a.requestStartDate,a.requestStartDate.getTime()-a.requestStartDate.getTime(),[0]),j=a.requestStartDate,f.open("GET",k.tokenAuthentication.addTokenAsQueryArg(a.url),!0),f.responseType="arraybuffer",f=k.tokenAuthentication.setTokenInRequestHeader(f),a.range&&f.setRequestHeader("Range","bytes="+a.range),f.onprogress=function(b){var c=new Date;h&&(h=!1,(!b.lengthComputable||b.lengthComputable&&b.total!=b.loaded)&&(a.firstByteDate=c,g.tresponse=c)),k.metricsModel.appendHttpTrace(g,c,c.getTime()-j.getTime(),[f.response?f.response.byteLength:0]),j=c},f.onload=function(){if(!(f.status<200||f.status>299)){i=!1;var b,c,d=new Date,e=f.response;a.firstByteDate||(a.firstByteDate=a.requestStartDate),a.requestEndDate=d,b=a.firstByteDate.getTime()-a.requestStartDate.getTime(),c=a.requestEndDate.getTime()-a.firstByteDate.getTime(),k.debug.log("loaded "+a.mediaType+":"+a.type+":"+a.startTime+" ("+f.status+", "+b+"ms, "+c+"ms)"),g.tresponse=a.firstByteDate,g.tfinish=a.requestEndDate,g.responsecode=f.status,k.metricsModel.appendHttpTrace(g,d,d.getTime()-j.getTime(),[e?e.byteLength:0]),j=d,k.notify(k.eventList.ENAME_LOADING_COMPLETED,a,e)}},f.onloadend=f.onerror=function(){if(-1!==c.indexOf(f)&&(c.splice(c.indexOf(f),1),i)){i=!1;var h,l,m=new Date,n=f.response;a.firstByteDate||(a.firstByteDate=a.requestStartDate),a.requestEndDate=m,h=a.firstByteDate.getTime()-a.requestStartDate.getTime(),l=a.requestEndDate.getTime()-a.firstByteDate.getTime(),k.debug.log("failed "+a.mediaType+":"+a.type+":"+a.startTime+" ("+f.status+", "+h+"ms, "+l+"ms)"),g.tresponse=a.firstByteDate,g.tfinish=a.requestEndDate,g.responsecode=f.status,k.metricsModel.appendHttpTrace(g,m,m.getTime()-j.getTime(),[n?n.byteLength:0]),j=m,e>0?(k.debug.log("Failed loading fragment: "+a.mediaType+":"+a.type+":"+a.startTime+", retry in "+b+"ms attempts: "+e),e--,setTimeout(function(){d.call(k,a,e)},b)):(k.debug.log("Failed loading fragment: "+a.mediaType+":"+a.type+":"+a.startTime+" no retry attempts left"),k.errHandler.downloadError("content",a.url,f),k.notify(k.eventList.ENAME_LOADING_COMPLETED,a,null,new Error("failed loading fragment")))}},f.send()},e=function(a){var b=this,c=new XMLHttpRequest,d=!1;c.open("HEAD",a.url,!0),c.onload=function(){c.status<200||c.status>299||(d=!0,b.notify(b.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED,!0,a))},c.onloadend=c.onerror=function(){d||b.notify(b.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED,!1,a)},c.send()};return{metricsModel:void 0,errHandler:void 0,debug:void 0,tokenAuthentication:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_LOADING_COMPLETED:"loadingCompleted",ENAME_CHECK_FOR_EXISTENCE_COMPLETED:"checkForExistenceCompleted"},load:function(b){b?d.call(this,b,a):this.notify(this.eventList.ENAME_LOADING_COMPLETED,b,null,new Error("request is null"))},checkForExistence:function(a){return a?void e.call(this,a):void this.notify(this.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED,!1,a)},abort:function(){var a,b,d=c.length;for(a=0;d>a;a+=1)b=c[a],c[a]=null,b.abort(),b=null;c=[]}}},MediaPlayer.dependencies.FragmentLoader.prototype={constructor:MediaPlayer.dependencies.FragmentLoader},MediaPlayer.dependencies.FragmentModel=function(){"use strict";var a,b=[],c=[],d=[],e=[],f=!1,g=function(a){var b=this;b.notify(b.eventList.ENAME_FRAGMENT_LOADING_STARTED,a),b.fragmentLoader.load(a)},h=function(a){var c=b.indexOf(a);-1!==c&&b.splice(c,1)},i=function(a,b){var c,d=a.length-1,e=.001,f=0/0,g=0/0,h=null;for(c=d;c>=0;c-=1)if(h=a[c],f=h.startTime,g=f+h.duration,!isNaN(f)&&!isNaN(g)&&b+e>=f&&g>b||isNaN(f)&&isNaN(b))return h;return null},j=function(a,b){if(a){var c=a.mediaType,d=new Date,e=a.type,f=a.startTime,g=a.availabilityStartTime,h=a.duration,i=a.quality,j=a.range;this.metricsModel.addSchedulingInfo(c,d,e,f,g,h,i,j,b)}},k=function(a,c,e,f){d.splice(d.indexOf(c),1),e&&!f?(b.push(c),j.call(this,c,MediaPlayer.vo.metrics.SchedulingInfo.EXECUTED_STATE),this.notify(this.eventList.ENAME_FRAGMENT_LOADING_COMPLETED,c,e)):(j.call(this,c,MediaPlayer.vo.metrics.SchedulingInfo.FAILED_STATE),this.notify(this.eventList.ENAME_FRAGMENT_LOADING_FAILED,c))},l=function(a,b,c){var d=this.getExecutedRequestForQualityAndIndex(b,c);d&&(this.removeExecutedRequest(d),isNaN(c)||(e.push(d),j.call(this,d,MediaPlayer.vo.metrics.SchedulingInfo.REJECTED_STATE)))},m=function(){f=!0},n=function(){f=!1};return{system:void 0,debug:void 0,metricsModel:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_STREAM_COMPLETED:"streamCompleted",ENAME_FRAGMENT_LOADING_STARTED:"fragmentLoadingStarted",ENAME_FRAGMENT_LOADING_COMPLETED:"fragmentLoadingCompleted",ENAME_FRAGMENT_LOADING_FAILED:"fragmentLoadingFailed"},setup:function(){this.bufferLevelOutrun=m,this.bufferLevelBalanced=n,this.bytesRejected=l,this.loadingCompleted=k},setLoader:function(a){this.fragmentLoader=a},setContext:function(b){a=b},getContext:function(){return a},getIsPostponed:function(){return f},addRequest:function(a){return!a||this.isFragmentLoadedOrPending(a)?!1:(c.push(a),j.call(this,a,MediaPlayer.vo.metrics.SchedulingInfo.PENDING_STATE),!0)},isFragmentLoadedOrPending:function(a){var e=function(a,b){return"complete"===a.action&&a.action===b.action},f=function(a,b){return a.url===b.url&&a.startTime===b.startTime},g=function(a,b){return isNaN(a.index)&&isNaN(b.index)&&a.quality===b.quality},h=function(b){var c,d,h=!1,i=b.length;for(d=0;i>d;d+=1)if(c=b[d],f(a,c)||g(a,c)||e(a,c)){h=!0;break}return h};return h(c)||h(d)||h(b)},getPendingRequests:function(){return c},getLoadingRequests:function(){return d},getExecutedRequests:function(){return b},getRejectedRequests:function(){return e},getLoadingTime:function(){var a,c,d=0;for(c=b.length-1;c>=0;c-=1)if(a=b[c],a.requestEndDate instanceof Date&&a.firstByteDate instanceof Date){d=a.requestEndDate.getTime()-a.firstByteDate.getTime();break}return d},getExecutedRequestForTime:function(a){return i(b,a)},getPendingRequestForTime:function(a){return i(c,a)},getLoadingRequestForTime:function(a){return i(d,a)},getExecutedRequestForQualityAndIndex:function(a,c){var d,e=b.length-1,f=null;for(d=e;d>=0;d-=1)if(f=b[d],f.quality===a&&f.index===c)return f;return null},removeExecutedRequest:function(a){h.call(this,a)},removeExecutedRequestsBeforeTime:function(a){var c,d=b.length-1,e=0/0,f=null;for(c=d;c>=0;c-=1)f=b[c],e=f.startTime,!isNaN(e)&&a>e&&h.call(this,f)},cancelPendingRequests:function(a){var b=this,d=c,e=d;return c=[],void 0!==a&&(c=d.filter(function(b){return b.quality===a?!1:(e.splice(e.indexOf(b),1),!0)})),e.forEach(function(a){j.call(b,a,MediaPlayer.vo.metrics.SchedulingInfo.CANCELED_STATE)}),e},abortRequests:function(){this.fragmentLoader.abort();for(var a=0,b=d.length;b>a;a+=1)this.removeExecutedRequest(d[a]);d=[]},executeRequest:function(a){var e=this,f=c.indexOf(a);if(a&&-1!==f)switch(c.splice(f,1),a.action){case"complete":b.push(a),j.call(e,a,MediaPlayer.vo.metrics.SchedulingInfo.EXECUTED_STATE),e.notify(e.eventList.ENAME_STREAM_COMPLETED,a);break;case"download":d.push(a),j.call(e,a,MediaPlayer.vo.metrics.SchedulingInfo.LOADING_STATE),g.call(e,a);break;default:this.debug.log("Unknown request action.")}}}},MediaPlayer.dependencies.FragmentModel.prototype={constructor:MediaPlayer.dependencies.FragmentModel},MediaPlayer.dependencies.LiveEdgeFinder=function(){"use strict";var a,b=!1,c=function(a){var b=a.value,c=((new Date).getTime()-this.streamProcessor.getStreamInfo().manifestInfo.loadedTime.getTime())/1e3;null!==b?this.notify(this.eventList.ENAME_LIVE_EDGE_FOUND,b,c):this.notify(this.eventList.ENAME_LIVE_EDGE_SEARCH_ERROR,c)},d=function(){if(this.streamProcessor.isDynamic()&&!b){var d=this;a=d.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.LIVE_EDGE_RULES),b=!0,this.rulesController.applyRules(a,d.streamProcessor,c.bind(d),null,function(a,b){return b})}};return{system:void 0,scheduleRulesCollection:void 0,rulesController:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_LIVE_EDGE_FOUND:"liveEdgeFound",ENAME_LIVE_EDGE_SEARCH_ERROR:"liveEdgeSearchError"},setup:function(){this.streamUpdated=d},initialize:function(a){this.streamProcessor=a,this.fragmentLoader=a.fragmentLoader,this.scheduleRulesCollection.liveEdgeBinarySearchRule&&this.scheduleRulesCollection.liveEdgeBinarySearchRule.setFinder(this)},abortSearch:function(){if(b=!1,a)for(var c=0,d=a.length;d>c;c+=1)a[c].reset()}}},MediaPlayer.dependencies.LiveEdgeFinder.prototype={constructor:MediaPlayer.dependencies.LiveEdgeFinder},MediaPlayer.dependencies.ManifestLoader=function(){"use strict";var a=3,b=500,c=function(a){var b=null;return-1!==a.indexOf("/")&&(-1!==a.indexOf("?")&&(a=a.substring(0,a.indexOf("?"))),b=a.substring(0,a.lastIndexOf("/")+1)),b},d=function(a,e){var f,g=c(a),h=new XMLHttpRequest,i=new Date,j=null,k=!0,l=null,m=null,n=this;l=function(){h.status<200||h.status>299||(k=!1,j=new Date,n.tokenAuthentication.checkRequestHeaderForToken(h),n.metricsModel.addHttpRequest("stream",null,"MPD",a,null,null,i,j,h.status,null,null),f=n.parser.parse(h.responseText,g),f?(f.url=a,f.loadedTime=j,n.metricsModel.addManifestUpdate("stream",f.type,i,j,f.availabilityStartTime),n.notify(n.eventList.ENAME_MANIFEST_LOADED,f)):n.notify(n.eventList.ENAME_MANIFEST_LOADED,null,new Error("Failed loading manifest: "+a)))},m=function(){k&&(k=!1,n.metricsModel.addHttpRequest("stream",null,"MPD",a,null,null,i,new Date,h.status,null,null),e>0?(n.debug.log("Failed loading manifest: "+a+", retry in "+b+"ms attempts: "+e),e--,setTimeout(function(){d.call(n,a,e)},b)):(n.debug.log("Failed loading manifest: "+a+" no retry attempts left"),n.errHandler.downloadError("manifest",a,h),n.notify(n.eventList.ENAME_MANIFEST_LOADED,null,new Error("Failed loading manifest: "+a+" no retry attempts left"))))};try{h.onload=l,h.onloadend=m,h.onerror=m,h.open("GET",a,!0),h.send()}catch(o){h.onerror()}};return{debug:void 0,parser:void 0,errHandler:void 0,metricsModel:void 0,tokenAuthentication:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_MANIFEST_LOADED:"manifestLoaded"},load:function(b){d.call(this,b,a)}}},MediaPlayer.dependencies.ManifestLoader.prototype={constructor:MediaPlayer.dependencies.ManifestLoader},MediaPlayer.models.ManifestModel=function(){"use strict";var a;return{system:void 0,eventBus:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_MANIFEST_UPDATED:"manifestUpdated"},getValue:function(){return a},setValue:function(b){a=b,this.eventBus.dispatchEvent({type:"manifestLoaded",data:b}),this.notify(this.eventList.ENAME_MANIFEST_UPDATED,b)}}},MediaPlayer.models.ManifestModel.prototype={constructor:MediaPlayer.models.ManifestModel},MediaPlayer.dependencies.ManifestUpdater=function(){"use strict";var a=0/0,b=null,c=!1,d=!1,e=function(){null!==b&&(clearInterval(b),b=null)},f=function(){e.call(this),isNaN(a)||(this.debug.log("Refresh manifest in "+a+" seconds."),b=setTimeout(h.bind(this),Math.min(1e3*a,Math.pow(2,31)-1),this))},g=function(){var b,c,d=this,e=d.manifestModel.getValue();void 0!==e&&null!==e&&(b=d.manifestExt.getRefreshDelay(e),c=((new Date).getTime()-e.loadedTime.getTime())/1e3,a=Math.max(b-c,0),f.call(d))},h=function(){var a,b,c=this;d||(d=!0,a=c.manifestModel.getValue(),b=a.url,a.hasOwnProperty("Location")&&(b=a.Location),c.manifestLoader.load(b))},i=function(a,b,d){d||(this.manifestModel.setValue(b),this.debug.log("Manifest has been refreshed."),c||g.call(this))},j=function(){this.start()},k=function(){this.stop()},l=function(){d=!1};return{debug:void 0,system:void 0,manifestModel:void 0,manifestExt:void 0,manifestLoader:void 0,setup:function(){g.call(this),this.streamsComposed=l,this.manifestLoaded=i,this.playbackStarted=j,this.playbackPaused=k},start:function(){c=!1,g.call(this)},stop:function(){c=!0,e.call(this)}}},MediaPlayer.dependencies.ManifestUpdater.prototype={constructor:MediaPlayer.dependencies.ManifestUpdater},MediaPlayer.dependencies.MediaSourceExtensions=function(){"use strict"},MediaPlayer.dependencies.MediaSourceExtensions.prototype={constructor:MediaPlayer.dependencies.MediaSourceExtensions,createMediaSource:function(){"use strict";var a="WebKitMediaSource"in window,b="MediaSource"in window;return b?new MediaSource:a?new WebKitMediaSource:null},attachMediaSource:function(a,b){"use strict";b.setSource(window.URL.createObjectURL(a))},detachMediaSource:function(a){"use strict";a.setSource("")},setDuration:function(a,b){"use strict";return a.duration=b,a.duration},signalEndOfStream:function(a){"use strict";var b=a.sourceBuffers,c=b.length,d=0;if("open"===a.readyState){for(d;c>d;d+=1)if(b[d].updating)return;a.endOfStream()}}},MediaPlayer.models.MetricsModel=function(){"use strict";return{system:void 0,eventBus:void 0,adapter:void 0,streamMetrics:{},metricsChanged:function(){this.eventBus.dispatchEvent({type:"metricsChanged",data:{}})},metricChanged:function(a){this.eventBus.dispatchEvent({type:"metricChanged",data:{stream:a}}),this.metricsChanged()},metricUpdated:function(a,b,c){this.eventBus.dispatchEvent({type:"metricUpdated",data:{stream:a,metric:b,value:c}}),this.metricChanged(a)},metricAdded:function(a,b,c){this.eventBus.dispatchEvent({type:"metricAdded",data:{stream:a,metric:b,value:c}}),this.metricChanged(a)},clearCurrentMetricsForType:function(a){delete this.streamMetrics[a],this.metricChanged(a)},clearAllCurrentMetrics:function(){var a=this;this.streamMetrics={},this.metricsChanged.call(a)},getReadOnlyMetricsFor:function(a){return this.streamMetrics.hasOwnProperty(a)?this.streamMetrics[a]:null},getMetricsFor:function(a){var b;return this.streamMetrics.hasOwnProperty(a)?b=this.streamMetrics[a]:(b=this.system.getObject("metrics"),this.streamMetrics[a]=b),b},addTcpConnection:function(a,b,c,d,e,f){var g=new MediaPlayer.vo.metrics.TCPConnection;return g.tcpid=b,g.dest=c,g.topen=d,g.tclose=e,g.tconnect=f,this.getMetricsFor(a).TcpList.push(g),this.metricAdded(a,this.adapter.metricsList.TCP_CONNECTION,g),g},addHttpRequest:function(a,b,c,d,e,f,g,h,i,j,k,l){var m=new MediaPlayer.vo.metrics.HTTPRequest;return m.stream=a,m.tcpid=b,m.type=c,m.url=d,m.actualurl=e,m.range=f,m.trequest=g,m.tresponse=h,m.tfinish=i,m.responsecode=j,m.interval=k,m.mediaduration=l,this.getMetricsFor(a).HttpList.push(m),this.metricAdded(a,this.adapter.metricsList.HTTP_REQUEST,m),m},appendHttpTrace:function(a,b,c,d){var e=new MediaPlayer.vo.metrics.HTTPRequest.Trace;return e.s=b,e.d=c,e.b=d,a.trace.push(e),this.metricUpdated(a.stream,this.adapter.metricsList.HTTP_REQUEST_TRACE,a),e},addTrackSwitch:function(a,b,c,d,e){var f=new MediaPlayer.vo.metrics.TrackSwitch;return f.t=b,f.mt=c,f.to=d,f.lto=e,this.getMetricsFor(a).RepSwitchList.push(f),this.metricAdded(a,this.adapter.metricsList.TRACK_SWITCH,f),f},addBufferLevel:function(a,b,c){var d=new MediaPlayer.vo.metrics.BufferLevel;return d.t=b,d.level=c,this.getMetricsFor(a).BufferLevel.push(d),this.metricAdded(a,this.adapter.metricsList.BUFFER_LEVEL,d),d},addDVRInfo:function(a,b,c,d){var e=new MediaPlayer.vo.metrics.DVRInfo;return e.time=b,e.range=d,e.manifestInfo=c,this.getMetricsFor(a).DVRInfo.push(e),this.metricAdded(a,this.adapter.metricsList.DVR_INFO,e),e},addDroppedFrames:function(a,b){var c=new MediaPlayer.vo.metrics.DroppedFrames,d=this.getMetricsFor(a).DroppedFrames;return c.time=b.creationTime,c.droppedFrames=b.droppedVideoFrames,d.length>0&&d[d.length-1]==c?d[d.length-1]:(d.push(c),this.metricAdded(a,this.adapter.metricsList.DROPPED_FRAMES,c),c)},addSchedulingInfo:function(a,b,c,d,e,f,g,h,i){var j=new MediaPlayer.vo.metrics.SchedulingInfo;return j.mediaType=a,j.t=b,j.type=c,j.startTime=d,j.availabilityStartTime=e,j.duration=f,j.quality=g,j.range=h,j.state=i,this.getMetricsFor(a).SchedulingInfo.push(j),this.metricAdded(a,this.adapter.metricsList.SCHEDULING_INFO,j),j},addManifestUpdate:function(a,b,c,d,e,f,g,h,i,j){var k=new MediaPlayer.vo.metrics.ManifestUpdate,l=this.getMetricsFor("stream");return k.mediaType=a,k.type=b,k.requestTime=c,k.fetchTime=d,k.availabilityStartTime=e,k.presentationStartTime=f,k.clientTimeOffset=g,k.currentTime=h,k.buffered=i,k.latency=j,l.ManifestUpdate.push(k),this.metricAdded(a,this.adapter.metricsList.MANIFEST_UPDATE,k),k},updateManifestUpdateInfo:function(a,b){for(var c in b)a[c]=b[c];this.metricUpdated(a.mediaType,this.adapter.metricsList.MANIFEST_UPDATE,a)},addManifestUpdateStreamInfo:function(a,b,c,d,e){var f=new MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo;return f.id=b,f.index=c,f.start=d,f.duration=e,a.streamInfo.push(f),this.metricUpdated(a.mediaType,this.adapter.metricsList.MANIFEST_UPDATE_STREAM_INFO,a),f},addManifestUpdateTrackInfo:function(a,b,c,d,e,f,g,h){var i=new MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo;return i.id=b,i.index=c,i.streamIndex=d,i.mediaType=e,i.startNumber=g,i.fragmentInfoType=h,i.presentationTimeOffset=f,a.trackInfo.push(i),this.metricUpdated(a.mediaType,this.adapter.metricsList.MANIFEST_UPDATE_TRACK_INFO,a),i},addPlayList:function(a,b,c,d){var e=new MediaPlayer.vo.metrics.PlayList;return e.stream=a,e.start=b,e.mstart=c,e.starttype=d,this.getMetricsFor(a).PlayList.push(e),this.metricAdded(a,this.adapter.metricsList.PLAY_LIST,e),e},appendPlayListTrace:function(a,b,c,d,e,f,g,h){var i=new MediaPlayer.vo.metrics.PlayList.Trace;return i.representationid=b,i.subreplevel=c,i.start=d,i.mstart=e,i.duration=f,i.playbackspeed=g,i.stopreason=h,a.trace.push(i),this.metricUpdated(a.stream,this.adapter.metricsList.PLAY_LIST_TRACE,a),i}}},MediaPlayer.models.MetricsModel.prototype={constructor:MediaPlayer.models.MetricsModel},MediaPlayer.dependencies.Notifier=function(){"use strict";var a,b=0,c=function(){return this.id||(b+=1,this.id="_id_"+b),this.id},d=function(a){var b,c=this.eventList;for(b in c)if(c[b]===a)return!0;return!1};return{system:void 0,setup:function(){a=this.system,a.mapValue("notify",this.notify),a.mapValue("subscribe",this.subscribe),a.mapValue("unsubscribe",this.unsubscribe)},notify:function(){var b=[].slice.call(arguments);b.splice(1,0,this),b[0]+=c.call(this),a.notify.apply(a,b)},subscribe:function(b,e,f,g){if(!f&&e[b]&&(f=e[b]=e[b].bind(e)),!d.call(this,b))throw"object does not support given event "+b;if(!e)throw"observer object cannot be null or undefined";if(!f)throw"event handler cannot be null or undefined";b+=c.call(this),a.mapHandler(b,void 0,f,g)},unsubscribe:function(b,d,e){e=e||d[b],b+=c.call(this),a.unmapHandler(b,void 0,e)}}},MediaPlayer.dependencies.Notifier.prototype={constructor:MediaPlayer.dependencies.Notifier},MediaPlayer.dependencies.PlaybackController=function(){"use strict";var a,b,c,d,e,f=1e3,g=0,h=0/0,i=null,j=function(a){var b,c=parseInt(this.uriQueryFragModel.getURIFragmentData.s);return e?(!isNaN(c)&&c>1262304e3&&(b=c-a.manifestInfo.availableFrom.getTime()/1e3,(b>h||b<h-a.manifestInfo.DVRWindowSize)&&(b=null)),b=b||h):b=!isNaN(c)&&c<a.duration&&c>=0?c:a.start,b},k=function(){var a,c=this,e=c.getTime(),f=c.metricsModel.getMetricsFor(d.mediaInfo.type),g=c.metricsExt.getCurrentDVRInfo(f),h=g?g.range:null;return h?e>=h.start&&e<=h.end?e:a=Math.max(h.end-2*b.manifestInfo.minBufferTime,h.start):0/0},l=function(){var b=this,c=function(){B.call(b)};null!==a&&m.call(this),a=setInterval(c,f)},m=function(){clearInterval(a),a=null},n=function(){var a=j.call(this,b);this.debug.log("Starting playback at offset: "+a),this.seek(a)},o=function(){if(!this.isPaused()&&e){var a=this.getTime(),b=k.call(this),c=!isNaN(b)&&b!==a;c&&this.seek(b)}},p=function(a,c,f){d=this.adapter.convertDataToTrack(f),b=d.mediaInfo.streamInfo,e=a.streamProcessor.isDynamic(),o.call(this)},q=function(){0!==c.getElement().readyState&&n.call(this)},r=function(){c&&(c.unlisten("play",s),c.unlisten("pause",t),c.unlisten("error",A),c.unlisten("seeking",u),c.unlisten("seeked",v),c.unlisten("timeupdate",w),c.unlisten("progress",x),c.unlisten("ratechange",y),c.unlisten("loadedmetadata",z))},s=function(){o.call(this),this.notify(this.eventList.ENAME_PLAYBACK_STARTED,this.getTime())},t=function(){this.notify(this.eventList.ENAME_PLAYBACK_PAUSED)},u=function(){this.notify(this.eventList.ENAME_PLAYBACK_SEEKING,this.getTime(),!1)},v=function(){this.notify(this.eventList.ENAME_PLAYBACK_SEEKED)},w=function(){var a=this.getTime();a!==g&&(g=a,this.notify(this.eventList.ENAME_PLAYBACK_TIME_UPDATED,this.getTimeToStreamEnd()))},x=function(){var a,d,e,f=c.getElement().buffered;f.length&&(a=f.length-1,d=f.end(a),e=j.call(this,b)+b.duration-d),this.notify(this.eventList.ENAME_PLAYBACK_PROGRESS,c.getElement().buffered,e)},y=function(){this.notify(this.eventList.ENAME_PLAYBACK_RATE_CHANGED)},z=function(){this.debug.log("Got loadmetadata event."),(!e||this.timelineConverter.isTimeSyncCompleted())&&n.call(this),this.notify(this.eventList.ENAME_PLAYBACK_METADATA_LOADED),l.call(this)},A=function(a){this.notify(this.eventList.ENAME_PLAYBACK_ERROR,a.srcElement.error)},B=function(){this.notify(this.eventList.ENAME_WALLCLOCK_TIME_UPDATED,e,new Date)},C=function(a,c,e,f){var g,h,k=i,l=j.call(this,b);f&&f.length&&(h=this.adapter.getFragmentRequestForTime(a.streamProcessor,d,l,!1),h&&h.index===e&&(g=f.start(0),i=null===i?g:Math.max(i,g),k!==i&&this.seek(i)))},D=function(a){c=a,c.listen("play",s),c.listen("pause",t),c.listen("error",A),c.listen("seeking",u),c.listen("seeked",v),c.listen("timeupdate",w),c.listen("progress",x),c.listen("ratechange",y),c.listen("loadedmetadata",z)};return{debug:void 0,timelineConverter:void 0,uriQueryFragModel:void 0,metricsModel:void 0,metricsExt:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,adapter:void 0,eventList:{ENAME_PLAYBACK_STARTED:"playbackStarted",ENAME_PLAYBACK_STOPPED:"playbackStopped",ENAME_PLAYBACK_PAUSED:"playbackPaused",ENAME_PLAYBACK_SEEKING:"playbackSeeking",ENAME_PLAYBACK_SEEKED:"playbackSeeked",ENAME_PLAYBACK_TIME_UPDATED:"playbackTimeUpdated",ENAME_PLAYBACK_PROGRESS:"playbackProgress",ENAME_PLAYBACK_RATE_CHANGED:"playbackRateChanged",ENAME_PLAYBACK_METADATA_LOADED:"playbackMetaDataLoaded",ENAME_PLAYBACK_ERROR:"playbackError",ENAME_WALLCLOCK_TIME_UPDATED:"wallclockTimeUpdated"},setup:function(){this.dataUpdateCompleted=p,this.liveEdgeFound=q,this.bytesAppended=C,s=s.bind(this),t=t.bind(this),A=A.bind(this),u=u.bind(this),v=v.bind(this),w=w.bind(this),x=x.bind(this),y=y.bind(this),z=z.bind(this)},initialize:function(a,d){b=a,c!==d&&(r.call(this),D.call(this,d))},getTimeToStreamEnd:function(){var a=c.getCurrentTime();return j.call(this,b)+b.duration-a},getStreamId:function(){return b.id},getStreamDuration:function(){return b.duration},getTime:function(){return c.getCurrentTime()},getPlaybackRate:function(){return c.getPlaybackRate()},setLiveStartTime:function(a){h=a},getLiveStartTime:function(){return h},start:function(){c.play()},isPaused:function(){return c.isPaused()},pause:function(){c&&c.pause()},isSeeking:function(){return c.getElement().seeking},seek:function(a){a!==this.getTime()&&(c.setCurrentTime(a),this.notify(this.eventList.ENAME_PLAYBACK_SEEKING,a,!0))},reset:function(){m.call(this),r.call(this),c=null,b=null,g=0,h=0/0,i=null}}},MediaPlayer.dependencies.PlaybackController.prototype={constructor:MediaPlayer.dependencies.PlaybackController},MediaPlayer.dependencies.ProtectionController=function(){"use strict";var a=null,b=null,c=function(a){var b=this;b.protectionModel.removeKeySystem(a)},d=function(a){for(var c=this,d=a.codec,e=a.contentProtection,f=0;f<b.length;++f)for(var g=0;g<e.length;++g)if(b[f].isSupported(e[g])&&c.protectionExt.supportsCodec(b[f].keysTypeString,d)){var h=e[g].KID;return h||(h="unknown"),c.protectionModel.addKeySystem(h,e[g],b[f]),c.debug.log("DRM: Selected Key System: "+b[f].keysTypeString+" For KID: "+h),h}throw new Error("DRM: The protection system for this content is not supported.")},e=function(a,b,c){var d=this,e=null,f=c.initData,g=null;d.protectionModel.needToAddKeySession(a,c)&&(g=d.protectionModel.getInitData(a),!g&&f?(g=f,d.debug.log("DRM: Using initdata from needskey event. length: "+g.length)):g&&d.debug.log("DRM: Using initdata from prheader in mpd. length: "+g.length),g?(e=d.protectionModel.addKeySession(a,b,g),d.debug.log(e?"DRM: Added Key Session ["+e.sessionId+"] for KID: "+a+" type: "+b+" initData length: "+g.length:"DRM: Added Key Session for KID: "+a+" type: "+b+" initData length: "+g.length)):d.debug.log("DRM: initdata is null."))},f=function(a,b,c){this.protectionModel.updateFromMessage(a,b,c)};return{system:void 0,debug:void 0,capabilities:void 0,protectionModel:void 0,protectionExt:void 0,setup:function(){},init:function(c,d,e){b=this.protectionExt.getKeySystems(e),this.videoModel=c,this.protectionModel=d,a=this.videoModel.getElement()},getBearerToken:function(a){var c,d=0,e=b.length;for(d;e>d;d+=1)if(c=b[d],c.keysTypeString===a)return c.bearerToken;return null},setBearerToken:function(a){var c,d=0,e=b.length;for(d;e>d;d+=1)c=b[d],c.keysTypeString===a.keySystem&&(c.bearerToken=a.token)},selectKeySystem:d,ensureKeySession:e,updateFromMessage:f,teardownKeySystem:c}},MediaPlayer.dependencies.ProtectionController.prototype={constructor:MediaPlayer.dependencies.ProtectionController},MediaPlayer.dependencies.ProtectionExtensions=function(){"use strict"},MediaPlayer.dependencies.ProtectionExtensions.prototype={constructor:MediaPlayer.dependencies.ProtectionExtensions,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_KEY_SYSTEM_UPDATE_COMPLETED:"keySystemUpdateCompleted"},supportsCodec:function(a,b){"use strict";var c="WebKitMediaKeys"in window,d="MSMediaKeys"in window,e="MediaKeys"in window,f="webkitGenerateKeyRequest"in document.createElement("video");return e?MediaKeys.isTypeSupported(a,b):c?WebKitMediaKeys.isTypeSupported(a,b):d?MSMediaKeys.isTypeSupported(a,b):f?!0:!1},createMediaKeys:function(a){"use strict";var b="WebKitMediaKeys"in window,c="MSMediaKeys"in window,d="MediaKeys"in window;return d?new MediaKeys(a):b?new WebKitMediaKeys(a):c?new MSMediaKeys(a):null},setMediaKey:function(a,b){var c="WebKitSetMediaKeys"in a,d="msSetMediaKeys"in a,e="SetMediaKeys"in a,f="webkitGenerateKeyRequest"in document.createElement("video");return e?a.SetMediaKeys(b):c?a.WebKitSetMediaKeys(b):d?a.msSetMediaKeys(b):f?!0:void this.debug.log("no setmediakeys function in element")},createSession:function(a,b,c,d){return null!==d?a.createSession(b,c,d):a.createSession(b,c)},getKeySystems:function(a){var b=this,c=a,d=function(b,c){return void 0!=a[c]&&null!=a[c].laUrl&&""!=a[c].laUrl?a[c].laUrl:b};return playreadyGetUpdate=function(a){var e,f,g,h=null,i=[],j=new DOMParser;if(bytes=new Uint16Array(a.message.buffer),f=String.fromCharCode.apply(null,bytes),e=j.parseFromString(f,"application/xml"),g=a.destinationURL,e.getElementsByTagName("Challenge")[0]){var k=e.getElementsByTagName("Challenge")[0].childNodes[0].nodeValue;k&&(h=BASE64.decode(k))}else b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error("DRM: playready update, can not find Challenge in keyMessage"));var l=e.getElementsByTagName("name"),m=e.getElementsByTagName("value");l.length!=m.length&&b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error("DRM: playready update, invalid header name/value pair in keyMessage"));for(var n=0;n<l.length;n++)i[n]={name:l[n].childNodes[0].nodeValue,value:m[n].childNodes[0].nodeValue};this.bearerToken&&i.push({name:"Authorization",value:this.bearerToken});var o=new XMLHttpRequest;o.onload=function(){200==o.status?b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,new Uint8Array(o.response)):b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error('DRM: playready update, XHR status is "'+o.statusText+'" ('+o.status+"), expected to be 200. readyState is "+o.readyState))},o.onabort=function(){b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error('DRM: playready update, XHR aborted. status is "'+o.statusText+'" ('+o.status+"), readyState is "+o.readyState))},o.onerror=function(){b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error('DRM: playready update, XHR error. status is "'+o.statusText+'" ('+o.status+"), readyState is "+o.readyState))},o.open("POST",d(g,"com.microsoft.playready")),o.responseType="arraybuffer";var p,q=c["com.microsoft.playready"]?c["com.microsoft.playready"].headers:null;if(q)for(p in q)i.push({name:p,value:q[p]});i&&i.forEach(function(a){"authorization"===a.name.toLowerCase()&&(o.withCredentials=!0),o.setRequestHeader(a.name,a.value)}),o.send(h)},playReadyNeedToAddKeySession=function(a,b){return null===a&&0===b.length},playreadyGetInitData=function(a){var b=0,c=0,d=0,e=new Uint8Array([112,115,115,104,0,0,0,0]),f=new Uint8Array([154,4,240,121,152,64,66,134,171,146,230,91,224,136,95,149]),g=null,h=null,i=null,j=null;if("pro"in a)g=BASE64.decodeArray(a.pro.__text);else{if(!("prheader"in a))return null;g=BASE64.decodeArray(a.prheader.__text)}return c=g.length,d=4+e.length+f.length+4+c,h=new ArrayBuffer(d),i=new Uint8Array(h),j=new DataView(h),j.setUint32(b,d),b+=4,i.set(e,b),b+=e.length,i.set(f,b),b+=f.length,j.setUint32(b,c),b+=4,i.set(g,b),b+=c,i},playReadyCdmData=function(){if(void 0!=a["com.microsoft.playready"]&&null!=a["com.microsoft.playready"].cdmData&&""!=a["com.microsoft.playready"].cdmData){var b,c=[],d=a["com.microsoft.playready"].cdmData;c.push(239),c.push(187),c.push(191);for(var e=0,f=d.length;f>e;++e)b=d.charCodeAt(e),c.push((65280&b)>>8),c.push(255&b);return new Uint8Array(c)}return null},widevineNeedToAddKeySession=function(a,b,c){return c.target.webkitGenerateKeyRequest("com.widevine.alpha",c.initData),!0},widevineGetUpdate=function(a){var e=new XMLHttpRequest,f=[];e.open("POST",d("","com.widevine.alpha"),!0),e.responseType="arraybuffer",e.onload=function(){if(200==this.status){var c=new Uint8Array(this.response);a.target.webkitAddKey("com.widevine.alpha",c,a.initData,a.sessionId),b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,c)}else b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error('DRM: widevine update, XHR status is "'+e.statusText+'" ('+e.status+"), expected to be 200. readyState is "+e.readyState))},e.onabort=function(){b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error('DRM: widevine update, XHR aborted. status is "'+e.statusText+'" ('+e.status+"), readyState is "+e.readyState))},e.onerror=function(){b.notify(b.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,null,new Error('DRM: widevine update, XHR error. status is "'+e.statusText+'" ('+e.status+"), readyState is "+e.readyState))};var g,h=c["com.widevine.alpha"]?c["com.widevine.alpha"].headers:null;if(h)for(g in h)f.push({name:g,value:h[g]});f&&f.forEach(function(a){"authorization"===a.name.toLowerCase()&&(e.withCredentials=!0),e.setRequestHeader(a.name,a.value)}),e.send(a.message)},[{schemeIdUri:"urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed",keysTypeString:"com.widevine.alpha",isSupported:function(a){return this.schemeIdUri===a.schemeIdUri.toLowerCase()},needToAddKeySession:widevineNeedToAddKeySession,getInitData:function(){return null},getUpdate:widevineGetUpdate,cdmData:function(){return null}},{schemeIdUri:"urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95",keysTypeString:"com.microsoft.playready",isSupported:function(a){return this.schemeIdUri===a.schemeIdUri.toLowerCase()
-},needToAddKeySession:playReadyNeedToAddKeySession,getInitData:playreadyGetInitData,getUpdate:playreadyGetUpdate,cdmData:playReadyCdmData},{schemeIdUri:"urn:mpeg:dash:mp4protection:2011",keysTypeString:"com.widevine.alpha",isSupported:function(a){return this.schemeIdUri===a.schemeIdUri.toLowerCase()&&"cenc"===a.value.toLowerCase()},needToAddKeySession:widevineNeedToAddKeySession,getInitData:function(){return null},getUpdate:widevineGetUpdate,cdmData:function(){return null}},{schemeIdUri:"urn:mpeg:dash:mp4protection:2011",keysTypeString:"com.microsoft.playready",isSupported:function(a){return this.schemeIdUri===a.schemeIdUri.toLowerCase()&&"cenc"===a.value.toLowerCase()},needToAddKeySession:playReadyNeedToAddKeySession,getInitData:function(){return null},getUpdate:playreadyGetUpdate,cdmData:playReadyCdmData},{schemeIdUri:"urn:uuid:00000000-0000-0000-0000-000000000000",keysTypeString:"webkit-org.w3.clearkey",isSupported:function(a){return this.schemeIdUri===a.schemeIdUri.toLowerCase()},needToAddKeySession:function(){return!0},getInitData:function(){return null},getUpdate:function(a){return bytes=new Uint16Array(a.message.buffer),msg=String.fromCharCode.apply(null,bytes)},cdmData:function(){return null}}]},addKey:function(a,b,c,d,e){a.webkitAddKey(b,c,d,e)},generateKeyRequest:function(a,b,c){a.webkitGenerateKeyRequest(b,c)},listenToNeedKey:function(a,b){a.listen("webkitneedkey",b),a.listen("msneedkey",b),a.listen("needKey",b)},listenToKeyError:function(a,b){a.addEventListener("webkitkeyerror",b,!1),a.addEventListener("mskeyerror",b,!1),a.addEventListener("keyerror",b,!1)},listenToKeyMessage:function(a,b){a.addEventListener("webkitkeymessage",b,!1),a.addEventListener("mskeymessage",b,!1),a.addEventListener("keymessage",b,!1)},listenToKeyAdded:function(a,b){a.addEventListener("webkitkeyadded",b,!1),a.addEventListener("mskeyadded",b,!1),a.addEventListener("keyadded",b,!1)},unlistenToKeyError:function(a,b){a.removeEventListener("webkitkeyerror",b),a.removeEventListener("mskeyerror",b),a.removeEventListener("keyerror",b)},unlistenToKeyMessage:function(a,b){a.removeEventListener("webkitkeymessage",b),a.removeEventListener("mskeymessage",b),a.removeEventListener("keymessage",b)},unlistenToKeyAdded:function(a,b){a.removeEventListener("webkitkeyadded",b),a.removeEventListener("mskeyadded",b),a.removeEventListener("keyadded",b)}},MediaPlayer.models.ProtectionModel=function(){"use strict";var a,b=null,c=null,d=null,e=null,f=[],g=function(b,c,d){var e="webkitGenerateKeyRequest"in document.createElement("video");d||e||a.update(c)};return{system:void 0,protectionExt:void 0,setup:function(){this.keySystemUpdateCompleted=g},init:function(a){this.videoModel=a,b=this.videoModel.getElement()},addKeySession:function(a,b,g){var h=null,i="webkitGenerateKeyRequest"in document.createElement("video");return i?this.protectionExt.listenToKeyMessage(this.videoModel.getElement(),e):(h=this.protectionExt.createSession(f[a].keys,b,g,f[a].keySystem.cdmData()),this.protectionExt.listenToKeyAdded(h,c),this.protectionExt.listenToKeyError(h,d),this.protectionExt.listenToKeyMessage(h,e)),f[a].initData=g,f[a].keySessions.push(h),h},addKeySystem:function(a,c,d){var e=null;e=this.protectionExt.createMediaKeys(d.keysTypeString),this.protectionExt.setMediaKey(b,e),f[a]={kID:a,contentProtection:c,keySystem:d,keys:e,initData:null,keySessions:[]}},removeKeySystem:function(a){if(null!==a&&void 0!==f[a]&&0!==f[a].keySessions.length){for(var b=f[a].keySessions,g=0;g<b.length;++g)this.protectionExt.unlistenToKeyError(b[g],d),this.protectionExt.unlistenToKeyAdded(b[g],c),this.protectionExt.unlistenToKeyMessage(b[g],e),b[g].close();f[a]=void 0}},needToAddKeySession:function(a,b){var c=null;return c=f[a],c.keySystem.needToAddKeySession(c.initData,c.keySessions,b)},getInitData:function(a){var b=null;return b=f[a],b.keySystem.getInitData(b.contentProtection)},updateFromMessage:function(b,c,d){a=c,f[b].keySystem.getUpdate(d)},listenToNeedKey:function(a){this.protectionExt.listenToNeedKey(this.videoModel,a)},listenToKeyError:function(a){d=a;for(var b=0;b<f.length;++b)for(var c=f[b].keySessions,e=0;e<c.length;++e)this.protectionExt.listenToKeyError(c[e],a)},listenToKeyMessage:function(a){e=a;for(var b=0;b<f.length;++b)for(var c=f[b].keySessions,d=0;d<c.length;++d)this.protectionExt.listenToKeyMessage(c[d],a)},listenToKeyAdded:function(a){c=a;for(var b=0;b<f.length;++b)for(var d=f[b].keySessions,e=0;e<d.length;++e)this.protectionExt.listenToKeyAdded(d[e],a)}}},MediaPlayer.models.ProtectionModel.prototype={constructor:MediaPlayer.models.ProtectionModel},MediaPlayer.dependencies.ScheduleController=function(){"use strict";var a,b,c,d,e,f=0,g=!0,h=null,i=!1,j=null,k=null,l=!0,m=function(a,b){var c=0,d=null;l===!1&&(d=k.start,c=a.getTime()-d.getTime(),k.duration=c,k.stopreason=b,l=!0)},n=function(){if(b){i=!1;var c=new Date;m(c,MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON),j=this.metricsModel.addPlayList(a,c,0,MediaPlayer.vo.metrics.PlayList.INITIAL_PLAY_START_REASON),g&&(g=!1),this.debug.log("ScheduleController "+a+" start."),w.call(this)}},o=function(){g&&r.call(this,e.quality),n.call(this)},p=function(b){i||(i=!0,this.debug.log("ScheduleController "+a+" stop."),b&&this.fragmentController.cancelPendingRequestsForModel(c),m(new Date,MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON))},q=function(a){var b=this,c=b.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.NEXT_FRAGMENT_RULES);b.rulesController.applyRules(c,b.streamProcessor,a,null,function(a,b){return b})},r=function(a){var b,c=this;return b=c.adapter.getInitRequest(c.streamProcessor,a),null!==b&&c.fragmentController.prepareFragmentForLoading(c,b),b},s=function(a){var b=this,c=b.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_SCHEDULE_RULES);b.rulesController.applyRules(c,b.streamProcessor,a,f,function(a,b){return Math.min(a,b)})},t=function(a){var b,c,d,f=a.length,g=.1;for(d=0;f>d;d+=1)b=a[d],c=b.startTime+b.duration/2+g,b=this.adapter.getFragmentRequestForTime(this.streamProcessor,e,c,!1),this.fragmentController.prepareFragmentForLoading(this,b)},u=function(a){var b=this;return f=a.value,0>=f?void b.fragmentController.executePendingRequests():(b.abrController.getPlaybackQuality(b.streamProcessor),void q.call(b,v.bind(b)))},v=function(a){var b=a.value;null===b||b instanceof MediaPlayer.vo.FragmentRequest||(b=this.adapter.getFragmentRequestForTime(this.streamProcessor,e,b.startTime)),b?(f--,this.fragmentController.prepareFragmentForLoading(this,b)):this.fragmentController.executePendingRequests()},w=function(){var a=(new Date).getTime(),b=h?a-h>this.fragmentController.getLoadingTime(this):!0;!b||i||this.playbackController.isPaused()&&(!this.scheduleWhilePaused||d)||(h=a,s.call(this,u.bind(this)))},x=function(){var b=this;null!==a&&""!==a&&b.metricsModel.clearCurrentMetricsForType(a)},y=function(a,c,f){e=this.adapter.convertDataToTrack(f),d||(b=!0),b&&o.call(this)},z=function(b,c){c===this.streamProcessor.getFragmentModel()&&(this.debug.log(a+" Stream is complete."),m(new Date,MediaPlayer.vo.metrics.PlayList.Trace.END_OF_CONTENT_STOP_REASON))},A=function(a,b){var c=this;b===c.streamProcessor.getFragmentModel()&&w.call(c)},B=function(){p.call(this)},C=function(){K.call(this)},D=function(){p.call(this,!1)},E=function(a,b){r.call(this,b)},F=function(a,b,d,e){this.fragmentController.removeExecutedRequestsBeforeTime(c,d),e&&n.call(this)},G=function(b,c){var d=this;c||d.playbackController.isSeeking()||(d.debug.log("Stalling "+a+" Buffer: "+a),m(new Date,MediaPlayer.vo.metrics.PlayList.Trace.REBUFFERING_REASON))},H=function(b,c){var d=this;d.metricsModel.addBufferLevel(a,new Date,c),w.call(this)},I=function(){p.call(this,!1)},J=function(b,d,f,g,h){if(a===d&&this.streamProcessor.getStreamInfo().id===f.id){var i,j=this;if(i=c.cancelPendingRequests(g),e=j.streamProcessor.getTrackForQuality(h),null===e||void 0===e)throw"Unexpected error!";t.call(j,i),m(new Date,MediaPlayer.vo.metrics.PlayList.Trace.REPRESENTATION_SWITCH_STOP_REASON)}},K=function(){var a=this,b=a.playbackController.getTime(),c=a.playbackController.getPlaybackRate(),d=new Date;l===!0&&e&&j&&(l=!1,k=a.metricsModel.appendPlayListTrace(j,e.id,null,d,b,null,c,null))},L=function(a,b){var d=this,e=r.call(d,b);c.executeRequest(e)},M=function(){n.call(this)},N=function(b,d){g||this.fragmentController.cancelPendingRequestsForModel(c);var f,h=this.metricsModel.getMetricsFor("stream"),i=this.metricsExt.getCurrentManifestUpdate(h);this.debug.log("ScheduleController "+a+" seek: "+d),f=new Date,m(f,MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON),j=this.metricsModel.addPlayList(a,f,d,MediaPlayer.vo.metrics.PlayList.SEEK_START_REASON),n.call(this),this.metricsModel.updateManifestUpdateInfo(i,{latency:e.DVRWindow.end-this.playbackController.getTime()})},O=function(){K.call(this)},P=function(){w.call(this)},Q=function(a,c){var d,f,g=this,h=e.mediaInfo.streamInfo.manifestInfo,i=c-Math.min(2*h.minBufferTime,h.DVRWindowSize/2),j=g.metricsModel.getMetricsFor("stream"),k=g.metricsExt.getCurrentManifestUpdate(j),l=g.playbackController.getLiveStartTime();d=g.adapter.getFragmentRequestForTime(g.streamProcessor,e,i),f=d.startTime,(isNaN(l)||f>l)&&g.playbackController.setLiveStartTime(f),g.metricsModel.updateManifestUpdateInfo(k,{currentTime:f,presentationStartTime:c,latency:c-f,clientTimeOffset:g.timelineConverter.getClientTimeOffset()}),b=!0,o.call(g)};return{debug:void 0,system:void 0,metricsModel:void 0,metricsExt:void 0,scheduleWhilePaused:void 0,timelineConverter:void 0,abrController:void 0,adapter:void 0,scheduleRulesCollection:void 0,rulesController:void 0,eventList:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,setup:function(){this.liveEdgeFound=Q,this.qualityChanged=J,this.dataUpdateStarted=D,this.dataUpdateCompleted=y,this.mediaFragmentLoadingStart=A,this.fragmentLoadingFailed=B,this.streamCompleted=z,this.bufferCleared=F,this.bytesAppended=C,this.bufferLevelStateChanged=G,this.bufferLevelUpdated=H,this.initRequested=E,this.quotaExceeded=I,this.closedCaptioningRequested=L,this.playbackStarted=M,this.playbackSeeking=N,this.playbackRateChanged=O,this.wallclockTimeUpdated=P},initialize:function(b,e){var f=this;a=b,f.streamProcessor=e,f.playbackController=e.playbackController,f.fragmentController=e.fragmentController,f.liveEdgeFinder=e.liveEdgeFinder,f.bufferController=e.bufferController,d=e.isDynamic(),c=this.fragmentController.getModel(this),f.scheduleRulesCollection.bufferLevelRule&&f.scheduleRulesCollection.bufferLevelRule.setScheduleController(f),f.scheduleRulesCollection.pendingRequestsRule&&f.scheduleRulesCollection.pendingRequestsRule.setScheduleController(f),f.scheduleRulesCollection.playbackTimeRule&&f.scheduleRulesCollection.playbackTimeRule.setScheduleController(f)},getFragmentModel:function(){return c},reset:function(){var a=this;p.call(a,!0),a.bufferController.unsubscribe(a.bufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN,a.scheduleRulesCollection.bufferLevelRule),a.bufferController.unsubscribe(a.bufferController.eventList.ENAME_BUFFER_LEVEL_BALANCED,a.scheduleRulesCollection.bufferLevelRule),a.fragmentController.abortRequestsForModel(c),a.fragmentController.detachModel(c),x.call(a),f=0},start:n,stop:p}},MediaPlayer.dependencies.ScheduleController.prototype={constructor:MediaPlayer.dependencies.ScheduleController},MediaPlayer.dependencies.SourceBufferExtensions=function(){"use strict";this.system=void 0,this.errHandler=void 0,this.notify=void 0,this.subscribe=void 0,this.unsubscribe=void 0,this.eventList={ENAME_SOURCEBUFFER_REMOVE_COMPLETED:"sourceBufferRemoveCompleted",ENAME_SOURCEBUFFER_APPEND_COMPLETED:"sourceBufferAppendCompleted"}},MediaPlayer.dependencies.SourceBufferExtensions.prototype={constructor:MediaPlayer.dependencies.SourceBufferExtensions,createSourceBuffer:function(a,b){"use strict";var c=this,d=b.codec,e=null;try{e=a.addSourceBuffer(d)}catch(f){if(!b.isText)throw f;e=c.system.getObject("textSourceBuffer")}return e},removeSourceBuffer:function(a,b){"use strict";try{a.removeSourceBuffer(b)}catch(c){}},getBufferRange:function(a,b,c){"use strict";var d,e,f=null,g=0,h=0,i=null,j=null,k=0,l=c||.15;try{f=a.buffered}catch(m){return null}if(null!==f){for(e=0,d=f.length;d>e;e+=1)if(g=f.start(e),h=f.end(e),null===i)k=Math.abs(g-b),b>=g&&h>b?(i=g,j=h):l>=k&&(i=g,j=h);else{if(k=g-j,!(l>=k))break;j=h}if(null!==i)return{start:i,end:j}}return null},getAllRanges:function(a){var b=null;try{return b=a.buffered}catch(c){return null}},getBufferLength:function(a,b,c){"use strict";var d,e,f=this;return d=f.getBufferRange(a,b,c),e=null===d?0:d.end-b},waitForUpdateEnd:function(a,b){"use strict";var c,d=50,e=function(){a.updating||(clearInterval(c),b(!0))},f=function(){a.updating||(a.removeEventListener("updateend",f,!1),b(!0))};if(!a.updating)return void b(!0);if("function"==typeof a.addEventListener)try{a.addEventListener("updateend",f,!1)}catch(g){c=setInterval(e,d)}else c=setInterval(e,d)},append:function(a,b){var c=this,d="append"in a?"append":"appendBuffer"in a?"appendBuffer":null;if(d)try{c.waitForUpdateEnd(a,function(){a[d](b),c.waitForUpdateEnd(a,function(){c.notify(c.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED,a,b)})})}catch(e){c.notify(c.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED,a,b,e)}},remove:function(a,b,c,d){var e=this;try{b>=0&&c>b&&"ended"!==d.readyState&&a.remove(b,c),this.waitForUpdateEnd(a,function(){e.notify(e.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED,a,b,c)})}catch(f){e.notify(e.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED,a,b,c,f)}},abort:function(a,b){"use strict";try{"open"===a.readyState&&b.abort()}catch(c){}}},MediaPlayer.dependencies.Stream=function(){"use strict";var a,b,c,d,e,f,g={},h=[],i=!0,j=!1,k=!1,l=!1,m=null,n=[],o=!0,p=null,q=null,r=function(){j&&this.playbackController.start()},s=function(){this.playbackController.pause()},t=function(a){j&&(this.debug.log("Do seek: "+a),this.playbackController.seek(a))},u=function(a){var b,c=this,d=g.video,e=g?g.video.codec:null;if(b="msneedkey"!==a.type?a.type:e,n.push({type:b,initData:a.initData}),this.debug.log("DRM: Key required for - "+b),d&&e&&!m)try{m=c.protectionController.selectKeySystem(d)}catch(f){s.call(c),c.debug.log(f),c.errHandler.mediaKeySystemSelectionError(f)}m&&c.protectionController.ensureKeySession(m,b,a)},v=function(a){var b=this,c=null;this.debug.log("DRM: Got a key message..."),c=a.target,b.protectionController.updateFromMessage(m,c,a)},w=function(){this.debug.log("DRM: Key added.")},x=function(){var a,b=event.target;switch(a="DRM: MediaKeyError - sessionId: "+b.sessionId+" errorCode: "+b.error.code+" systemErrorCode: "+b.error.systemCode+" [",b.error.code){case 1:a+="MEDIA_KEYERR_UNKNOWN - An unspecified error occurred. This value is used for errors that don't match any of the other codes.";break;case 2:a+="MEDIA_KEYERR_CLIENT - The Key System could not be installed or updated.";break;case 3:a+="MEDIA_KEYERR_SERVICE - The message passed into update indicated an error from the license service.";break;case 4:a+="MEDIA_KEYERR_OUTPUT - There is no available output device with the required characteristics for the content protection system.";break;case 5:a+="MEDIA_KEYERR_HARDWARECHANGE - A hardware configuration change caused a content protection error.";break;case 6:a+="MEDIA_KEYERR_DOMAIN - An error occurred in a multi-device domain licensing configuration. The most common error is a failure to join the domain."}a+="]",this.debug.log(a),this.errHandler.mediaKeySessionError(a)},y=function(a,b){var c=this,d=function(e){c.debug.log("MediaSource is open!"),c.debug.log(e),a.removeEventListener("sourceopen",d),a.removeEventListener("webkitsourceopen",d),b(a)};a.addEventListener("sourceopen",d,!1),a.addEventListener("webkitsourceopen",d,!1),c.mediaSourceExt.attachMediaSource(a,c.videoModel)},z=function(){var c,d=this,e=h.length,f=0;for(f;e>f;f+=1)c=h[f],c.reset(l),c=null;q&&q.reset(),h=[],b&&d.mediaSourceExt.detachMediaSource(d.videoModel),j=!1,m=null,n=[],g={},b=null,a=null},A=function(a,c){var d,e,f,i=this,j=function(a){return a.codec},k=i.adapter.getMediaInfoForType(c,p,a);if("text"===a&&(j=function(a){return d=a.mimeType}),null!==k){var l,m=j.call(i,k),n=null;if(m===d)try{n=i.sourceBufferExt.createSourceBuffer(b,k)}catch(o){i.errHandler.mediaSourceError("Error creating "+a+" source buffer.")}else if(e=m,i.debug.log(a+" codec: "+e),g[a]=k,l=k.contentProtection,l&&!i.capabilities.supportsMediaKeys())i.errHandler.capabilityError("mediakeys");else if(i.capabilities.supportsCodec(i.videoModel.getElement(),e))try{n=i.sourceBufferExt.createSourceBuffer(b,k)}catch(o){i.errHandler.mediaSourceError("Error creating "+a+" source buffer.")}else{var r=a+"Codec ("+e+") is not supported.";i.errHandler.manifestError(r,"codec",c),i.debug.log(r)}null===n?i.debug.log("No buffer was created, skipping "+a+" data."):(f=i.system.getObject("streamProcessor"),h.push(f),f.initialize(d||a,n,i.videoModel,i.fragmentController,i.playbackController,b,i,q),f.setMediaInfo(k),i.adapter.updateData(f))}else i.debug.log("No "+a+" data.")},B=function(){var b,c=this;q=c.system.getObject("eventController"),q.initialize(c.videoModel),b=c.adapter.getEventsFor(p),q.addInlineEvents(b),A.call(c,"video",a),A.call(c,"audio",a),A.call(c,"text",a)},C=function(){var a,c,d=this;a=p.manifestInfo.duration,c=d.mediaSourceExt.setDuration(b,a),d.debug.log("Duration successfully set to: "+c),j=!0,F.call(d)},D=function(){this.debug.log("element loaded!"),k=!0,E.call(this)},E=function(){j&&k&&0===p.index&&(q.start(),i&&r.call(this))},F=function(){var a=this,b=h.length,c=0;if(j){for(c;b>c;c+=1)if(h[c].isUpdating())return;o=!1,a.notify(a.eventList.ENAME_STREAM_UPDATED)}},G=function(a,b){var c=b.code,d="";if(-1!==c){switch(c){case 1:d="MEDIA_ERR_ABORTED";break;case 2:d="MEDIA_ERR_NETWORK";break;case 3:d="MEDIA_ERR_DECODE";break;case 4:d="MEDIA_ERR_SRC_NOT_SUPPORTED";break;case 5:d="MEDIA_ERR_ENCRYPTED"}l=!0,this.debug.log("Video Element Error: "+d),this.debug.log(b),this.errHandler.mediaSourceError(d),this.reset()}},H=function(c){var d,e=this,f=function(c){if(b=c,B.call(e),0===h.length){var d="No streams to play.";e.errHandler.manifestError(d,"nostreams",a),e.debug.log(d)}else e.liveEdgeFinder.initialize(h[0]),e.liveEdgeFinder.subscribe(e.liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND,e.playbackController),C.call(e),E.call(e)};a=c,d=e.mediaSourceExt.createMediaSource(),y.call(e,d,f)},I=function(){var a=L(),c=a.length,d=0;for(d;c>d;d+=1)if(!a[d].isBufferingCompleted())return;b&&p.isLast&&this.mediaSourceExt.signalEndOfStream(b)},J=function(){F.call(this)},K=function(a,b,c){c&&(s.call(this),this.debug.log(c),this.errHandler.mediaKeyMessageError(c))},L=function(){var a,b,c=[],d=0,e=h.length;for(d;e>d;d+=1)b=h[d],a=b.getType(),("audio"===a||"video"===a)&&c.push(b);return c},M=function(b){var c,d,e,f=this,g=h.length,i=0;for(o=!0,a=f.manifestModel.getValue(),p=b,f.debug.log("Manifest updated... set new data on buffers."),q&&(d=f.adapter.getEventsFor(p),q.addInlineEvents(d)),i;g>i;i+=1)e=h[i],c=f.adapter.getMediaInfoForType(a,p,e.getType()),e.setMediaInfo(c),this.adapter.updateData(e)};return{system:void 0,manifestModel:void 0,mediaSourceExt:void 0,sourceBufferExt:void 0,adapter:void 0,fragmentController:void 0,playbackController:void 0,protectionModel:void 0,protectionController:void 0,protectionExt:void 0,capabilities:void 0,debug:void 0,errHandler:void 0,liveEdgeFinder:void 0,abrController:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_STREAM_UPDATED:"streamUpdated"},setup:function(){this.bufferingCompleted=I,this.dataUpdateCompleted=J,this.playbackError=G,this.playbackMetaDataLoaded=D,this.keySystemUpdateCompleted=K},load:function(a){H.call(this,a)},setVideoModel:function(a){this.videoModel=a},initProtection:function(a){c=u.bind(this),d=v.bind(this),e=w.bind(this),f=x.bind(this),this.protectionModel=this.system.getObject("protectionModel"),this.protectionModel.init(this.getVideoModel()),this.protectionController=this.system.getObject("protectionController"),this.protectionController.init(this.videoModel,this.protectionModel,a),this.protectionModel.listenToNeedKey(c),this.protectionModel.listenToKeyMessage(d),this.protectionModel.listenToKeyError(f),this.protectionModel.listenToKeyAdded(e),this.protectionExt.subscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,this.protectionModel),this.protectionExt.subscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,this)},getVideoModel:function(){return this.videoModel},setAutoPlay:function(a){i=a},getAutoPlay:function(){return i},reset:function(){s.call(this),z.call(this),this.protectionController&&this.protectionController.teardownKeySystem(m),this.protectionModel&&this.protectionExt.unsubscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,this.protectionModel),this.protectionExt.unsubscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED,this),this.protectionController=void 0,this.protectionModel=void 0,this.fragmentController=void 0,this.playbackController.unsubscribe(this.playbackController.eventList.ENAME_PLAYBACK_ERROR,this),this.playbackController.unsubscribe(this.playbackController.eventList.ENAME_PLAYBACK_METADATA_LOADED,this),this.playbackController.reset(),this.liveEdgeFinder.abortSearch(),this.liveEdgeFinder.unsubscribe(this.liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND,this.playbackController),k=!1},getDuration:function(){return p.duration},getStartTime:function(){return p.start},getStreamIndex:function(){return p.index},getId:function(){return p.id},setStreamInfo:function(a){p=a},getStreamInfo:function(){return p},startEventController:function(){q.start()},resetEventController:function(){q.reset()},setPlaybackController:function(a){this.playbackController=a,a.initialize(p,this.videoModel)},getPlaybackController:function(){return this.playbackController},isUpdating:function(){return o},updateData:M,play:r,seek:t,pause:s}},MediaPlayer.dependencies.Stream.prototype={constructor:MediaPlayer.dependencies.Stream},MediaPlayer.dependencies.StreamController=function(){"use strict";var a,b,c=[],d=6,e=.2,f=!0,g=!1,h=function(){a.play()},i=function(){a.pause()},j=function(b){a.seek(b)},k=function(a,b){var c=a.getVideoModel().getElement(),d=b.getVideoModel().getElement();d.parentNode||c.parentNode.insertBefore(d,c),c.style.width="0px",d.style.width="100%",n(c,d),m.call(this,a),l.call(this,b)},l=function(a){var b=a.getPlaybackController();b.subscribe(b.eventList.ENAME_PLAYBACK_STARTED,this.manifestUpdater),b.subscribe(b.eventList.ENAME_PLAYBACK_PAUSED,this.manifestUpdater),b.subscribe(b.eventList.ENAME_PLAYBACK_SEEKING,this),b.subscribe(b.eventList.ENAME_PLAYBACK_TIME_UPDATED,this),b.subscribe(b.eventList.ENAME_PLAYBACK_PROGRESS,this)},m=function(a){var b=this,c=a.getPlaybackController();setTimeout(function(){c.unsubscribe(c.eventList.ENAME_PLAYBACK_STARTED,b.manifestUpdater),c.unsubscribe(c.eventList.ENAME_PLAYBACK_PAUSED,b.manifestUpdater),c.unsubscribe(c.eventList.ENAME_PLAYBACK_SEEKING,b),c.unsubscribe(c.eventList.ENAME_PLAYBACK_TIME_UPDATED,b),c.unsubscribe(c.eventList.ENAME_PLAYBACK_PROGRESS,b)},1)},n=function(a,b){["controls","loop","muted","volume"].forEach(function(c){b[c]=a[c]})},o=function(a,b,c){!c||c>=d||r()},p=function(b,c){var d=this;d.metricsModel.addDroppedFrames("video",d.videoExt.getPlaybackQuality(a.getVideoModel().getElement())),s()&&(a.getVideoModel().getElement().seeking||e>c&&w.call(this,a,s()))},q=function(b,c){var d=t(c);d&&d!==a&&w.call(this,a,d,c)},r=function(){var a=s();a&&a.seek(a.getStartTime())},s=function(){var b=a.getStreamIndex()+1;return b<c.length?c[b]:null},t=function(a){var b=0,d=null,e=c.length;e>0&&(b+=c[0].getStartTime());for(var f=0;e>f;f++)if(d=c[f],b+=d.getDuration(),b>a)return d;return null},u=function(){var a=this.system.getObject("videoModel"),b=document.createElement("video");return a.setElement(b),a},v=function(a){a.parentNode&&a.parentNode.removeChild(a)},w=function(b,c,d){!g&&b&&c&&b!==c&&(g=!0,b.pause(),a=c,k.call(this,b,c),j(d?b.getPlaybackController().getTime():c.getStartTime()),h(),b.resetEventController(),a.startEventController(),g=!1)},x=function(){var d,e,g,h,i,j,k,m,n=this,o=n.manifestModel.getValue(),p=n.metricsModel.getMetricsFor("stream"),q=n.metricsExt.getCurrentManifestUpdate(p);if(o){k=n.adapter.getStreamsInfo(o);try{if(0===k.length)throw new Error("There are no streams");for(n.metricsModel.updateManifestUpdateInfo(q,{currentTime:n.videoModel.getCurrentTime(),buffered:n.videoModel.getElement().buffered,presentationStartTime:k[0].start,clientTimeOffset:n.timelineConverter.getClientTimeOffset()}),i=0,g=k.length;g>i;i+=1){for(e=k[i],j=0,h=c.length;h>j;j+=1)c[j].getId()===e.id&&(m=c[j],m.updateData(e));m||(m=n.system.getObject("stream"),d=n.system.getObject("playbackController"),m.setStreamInfo(e),m.setVideoModel(0===i?n.videoModel:u.call(n)),m.setPlaybackController(d),d.subscribe(d.eventList.ENAME_PLAYBACK_ERROR,m),d.subscribe(d.eventList.ENAME_PLAYBACK_METADATA_LOADED,m),m.initProtection(b),m.setAutoPlay(f),m.load(o),m.subscribe(m.eventList.ENAME_STREAM_UPDATED,n),c.push(m)),n.metricsModel.addManifestUpdateStreamInfo(q,e.id,e.index,e.start,e.duration),m=null}a||(a=c[0],l.call(n,a),a.subscribe(a.eventList.ENAME_STREAM_UPDATED,this.liveEdgeFinder))}catch(r){n.errHandler.manifestError(r.message,"nostreamscomposed",n.manifestModel.getValue()),n.reset()}}},y=function(){var a=this,b=c.length,d=0;for(d;b>d;d+=1)if(c[d].isUpdating())return;a.notify(a.eventList.ENAME_STREAMS_COMPOSED)},z=function(a,b,c){c?this.reset():(this.manifestModel.setValue(b),this.debug.log("Manifest has loaded."),x.call(this))};return{system:void 0,videoModel:void 0,manifestLoader:void 0,manifestUpdater:void 0,manifestModel:void 0,adapter:void 0,debug:void 0,metricsModel:void 0,metricsExt:void 0,videoExt:void 0,liveEdgeFinder:void 0,timelineConverter:void 0,errHandler:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_STREAMS_COMPOSED:"streamsComposed"},setup:function(){this.manifestLoaded=z,this.streamUpdated=y,this.playbackSeeking=q,this.playbackProgress=o,this.playbackTimeUpdated=p},setAutoPlay:function(a){f=a},getAutoPlay:function(){return f},setProtectionData:function(a){b=a},getVideoModel:function(){return this.videoModel},setVideoModel:function(a){this.videoModel=a},getActiveStreamInfo:function(){return a?a.getStreamInfo():null},load:function(a){this.manifestLoader.load(a)},reset:function(){a&&m.call(this,a);for(var b=0,d=c.length;d>b;b++){var e=c[b];e.unsubscribe(e.eventList.ENAME_STREAM_UPDATED,this),e.reset(),e!==a&&v(e.getVideoModel().getElement())}c=[],this.manifestUpdater.stop(),this.metricsModel.clearAllCurrentMetrics(),this.manifestModel.setValue(null),this.timelineConverter.reset(),this.adapter.reset(),g=!1,a=null},play:h,seek:j,pause:i}},MediaPlayer.dependencies.StreamController.prototype={constructor:MediaPlayer.dependencies.StreamController},MediaPlayer.dependencies.StreamProcessor=function(){"use strict";var a,b,c,d,e,f=function(a){var b=this,c="video"===a||"audio"===a?"bufferController":"textController";return b.system.getObject(c)};return{system:void 0,indexHandler:void 0,liveEdgeFinder:void 0,timelineConverter:void 0,eventList:void 0,abrController:void 0,baseURLExt:void 0,adapter:void 0,initialize:function(c,g,h,i,j,k,l,m){var n,o=this,p=o.system.getObject("trackController"),q=o.system.getObject("scheduleController"),r=o.liveEdgeFinder,s=o.abrController,t=o.indexHandler,u=o.baseURLExt,v=this.system.getObject("fragmentLoader"),w=f.call(o,c);b=l,d=c,e=m,a=b.getStreamInfo().manifestInfo.isDynamic,o.bufferController=w,o.playbackController=j,o.scheduleController=q,o.trackController=p,o.videoModel=h,o.fragmentController=i,o.fragmentLoader=v,p.subscribe(p.eventList.ENAME_DATA_UPDATE_COMPLETED,w),i.subscribe(i.eventList.ENAME_INIT_FRAGMENT_LOADED,w),w.subscribe(w.eventList.ENAME_CLOSED_CAPTIONING_REQUESTED,q),("video"===d||"audio"===d)&&(s.subscribe(s.eventList.ENAME_QUALITY_CHANGED,w),s.subscribe(s.eventList.ENAME_QUALITY_CHANGED,p),s.subscribe(s.eventList.ENAME_QUALITY_CHANGED,q),r.subscribe(r.eventList.ENAME_LIVE_EDGE_FOUND,this.timelineConverter),r.subscribe(r.eventList.ENAME_LIVE_EDGE_FOUND,p),r.subscribe(r.eventList.ENAME_LIVE_EDGE_FOUND,q),p.subscribe(p.eventList.ENAME_DATA_UPDATE_STARTED,q),p.subscribe(p.eventList.ENAME_DATA_UPDATE_COMPLETED,q),p.subscribe(p.eventList.ENAME_DATA_UPDATE_COMPLETED,s),p.subscribe(p.eventList.ENAME_DATA_UPDATE_COMPLETED,b),j.streamProcessor||(j.streamProcessor=o,p.subscribe(p.eventList.ENAME_DATA_UPDATE_COMPLETED,j)),i.subscribe(i.eventList.ENAME_MEDIA_FRAGMENT_LOADED,w),i.subscribe(i.eventList.ENAME_MEDIA_FRAGMENT_LOADING_START,q),i.subscribe(i.eventList.ENAME_STREAM_COMPLETED,q),i.subscribe(i.eventList.ENAME_STREAM_COMPLETED,w),i.subscribe(i.eventList.ENAME_STREAM_COMPLETED,q.scheduleRulesCollection.bufferLevelRule),w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED,h),w.subscribe(w.eventList.ENAME_BUFFER_CLEARED,q),w.subscribe(w.eventList.ENAME_BYTES_APPENDED,q),w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_UPDATED,q),w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_UPDATED,p),w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED,q),w.subscribe(w.eventList.ENAME_INIT_REQUESTED,q),w.subscribe(w.eventList.ENAME_BUFFERING_COMPLETED,b),w.subscribe(w.eventList.ENAME_QUOTA_EXCEEDED,q),w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_OUTRUN,q.scheduleRulesCollection.bufferLevelRule),w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_BALANCED,q.scheduleRulesCollection.bufferLevelRule),w.subscribe(w.eventList.ENAME_BYTES_APPENDED,j),j.subscribe(j.eventList.ENAME_PLAYBACK_PROGRESS,w),j.subscribe(j.eventList.ENAME_PLAYBACK_TIME_UPDATED,w),j.subscribe(j.eventList.ENAME_PLAYBACK_RATE_CHANGED,w),j.subscribe(j.eventList.ENAME_PLAYBACK_RATE_CHANGED,q),j.subscribe(j.eventList.ENAME_PLAYBACK_SEEKING,w),j.subscribe(j.eventList.ENAME_PLAYBACK_SEEKING,q),j.subscribe(j.eventList.ENAME_PLAYBACK_STARTED,q),j.subscribe(j.eventList.ENAME_PLAYBACK_SEEKING,q.scheduleRulesCollection.playbackTimeRule),a&&j.subscribe(j.eventList.ENAME_WALLCLOCK_TIME_UPDATED,p),j.subscribe(j.eventList.ENAME_WALLCLOCK_TIME_UPDATED,w),j.subscribe(j.eventList.ENAME_WALLCLOCK_TIME_UPDATED,q),u.subscribe(u.eventList.ENAME_INITIALIZATION_LOADED,t),u.subscribe(u.eventList.ENAME_SEGMENTS_LOADED,t)),t.initialize(this),w.initialize(d,g,k,o),q.initialize(d,this),n=this.getFragmentModel(),n.setLoader(v),n.subscribe(n.eventList.ENAME_FRAGMENT_LOADING_STARTED,i),n.subscribe(n.eventList.ENAME_FRAGMENT_LOADING_COMPLETED,i),n.subscribe(n.eventList.ENAME_STREAM_COMPLETED,i),n.subscribe(n.eventList.ENAME_FRAGMENT_LOADING_FAILED,q),v.subscribe(v.eventList.ENAME_LOADING_COMPLETED,n),("video"===d||"audio"===d)&&(w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_OUTRUN,n),w.subscribe(w.eventList.ENAME_BUFFER_LEVEL_BALANCED,n),w.subscribe(w.eventList.ENAME_BYTES_REJECTED,n)),p.initialize(this)},isUpdating:function(){return this.trackController.isUpdating()},getType:function(){return d},getFragmentModel:function(){return this.scheduleController.getFragmentModel()},getStreamInfo:function(){return b.getStreamInfo()},setMediaInfo:function(a){c=a},getMediaInfo:function(){return c},getEventController:function(){return e},start:function(){this.scheduleController.start()},stop:function(){this.scheduleController.stop()},getCurrentTrack:function(){return this.adapter.getCurrentTrackInfo(this.trackController)},getTrackForQuality:function(a){return this.adapter.getTrackInfoForQuality(this.trackController,a)},isBufferingCompleted:function(){return this.bufferController.isBufferingCompleted()},isDynamic:function(){return a},reset:function(a){var c=this,d=c.bufferController,e=c.trackController,f=c.scheduleController,g=c.liveEdgeFinder,h=c.fragmentController,i=c.abrController,j=c.playbackController,k=this.indexHandler,l=this.baseURLExt,m=this.getFragmentModel(),n=this.fragmentLoader,o=c.videoModel;i.unsubscribe(i.eventList.ENAME_QUALITY_CHANGED,d),i.unsubscribe(i.eventList.ENAME_QUALITY_CHANGED,e),i.unsubscribe(i.eventList.ENAME_QUALITY_CHANGED,f),g.unsubscribe(g.eventList.ENAME_LIVE_EDGE_FOUND,this.timelineConverter),g.unsubscribe(g.eventList.ENAME_LIVE_EDGE_FOUND,f),g.unsubscribe(g.eventList.ENAME_LIVE_EDGE_FOUND,e),e.unsubscribe(e.eventList.ENAME_DATA_UPDATE_STARTED,f),e.unsubscribe(e.eventList.ENAME_DATA_UPDATE_COMPLETED,d),e.unsubscribe(e.eventList.ENAME_DATA_UPDATE_COMPLETED,f),e.unsubscribe(e.eventList.ENAME_DATA_UPDATE_COMPLETED,i),e.unsubscribe(e.eventList.ENAME_DATA_UPDATE_COMPLETED,b),e.unsubscribe(e.eventList.ENAME_DATA_UPDATE_COMPLETED,j),h.unsubscribe(h.eventList.ENAME_INIT_FRAGMENT_LOADED,d),h.unsubscribe(h.eventList.ENAME_MEDIA_FRAGMENT_LOADED,d),h.unsubscribe(h.eventList.ENAME_MEDIA_FRAGMENT_LOADING_START,f),h.unsubscribe(h.eventList.ENAME_STREAM_COMPLETED,f),h.unsubscribe(h.eventList.ENAME_STREAM_COMPLETED,d),h.unsubscribe(h.eventList.ENAME_STREAM_COMPLETED,f.scheduleRulesCollection.bufferLevelRule),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED,o),d.unsubscribe(d.eventList.ENAME_BUFFER_CLEARED,f),d.unsubscribe(d.eventList.ENAME_BYTES_APPENDED,f),d.unsubscribe(d.eventList.ENAME_BYTES_REJECTED,f),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_UPDATED,f),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_UPDATED,e),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED,f),d.unsubscribe(d.eventList.ENAME_INIT_REQUESTED,f),d.unsubscribe(d.eventList.ENAME_BUFFERING_COMPLETED,b),d.unsubscribe(d.eventList.ENAME_CLOSED_CAPTIONING_REQUESTED,f),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_OUTRUN,f.scheduleRulesCollection.bufferLevelRule),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_BALANCED,f.scheduleRulesCollection.bufferLevelRule),d.unsubscribe(d.eventList.ENAME_BYTES_APPENDED,j),j.unsubscribe(j.eventList.ENAME_PLAYBACK_PROGRESS,d),j.unsubscribe(j.eventList.ENAME_PLAYBACK_TIME_UPDATED,d),j.unsubscribe(j.eventList.ENAME_PLAYBACK_RATE_CHANGED,d),j.unsubscribe(j.eventList.ENAME_PLAYBACK_RATE_CHANGED,f),j.unsubscribe(j.eventList.ENAME_PLAYBACK_SEEKING,d),j.unsubscribe(j.eventList.ENAME_PLAYBACK_SEEKING,f),j.unsubscribe(j.eventList.ENAME_PLAYBACK_STARTED,f),j.unsubscribe(j.eventList.ENAME_WALLCLOCK_TIME_UPDATED,e),j.unsubscribe(j.eventList.ENAME_WALLCLOCK_TIME_UPDATED,d),j.unsubscribe(j.eventList.ENAME_WALLCLOCK_TIME_UPDATED,f),j.unsubscribe(j.eventList.ENAME_PLAYBACK_SEEKING,f.scheduleRulesCollection.playbackTimeRule),l.unsubscribe(l.eventList.ENAME_INITIALIZATION_LOADED,k),l.unsubscribe(l.eventList.ENAME_SEGMENTS_LOADED,k),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_OUTRUN,m),d.unsubscribe(d.eventList.ENAME_BUFFER_LEVEL_BALANCED,m),d.unsubscribe(d.eventList.ENAME_BYTES_REJECTED,m),m.unsubscribe(m.eventList.ENAME_FRAGMENT_LOADING_STARTED,h),m.unsubscribe(m.eventList.ENAME_FRAGMENT_LOADING_COMPLETED,h),m.unsubscribe(m.eventList.ENAME_STREAM_COMPLETED,h),m.unsubscribe(m.eventList.ENAME_FRAGMENT_LOADING_FAILED,f),n.unsubscribe(n.eventList.ENAME_LOADING_COMPLETED,m),h.resetModel(m),k.reset(),this.bufferController.reset(a),this.scheduleController.reset(),this.bufferController=null,this.scheduleController=null,this.trackController=null,this.videoModel=null,this.fragmentController=null
-}}},MediaPlayer.dependencies.StreamProcessor.prototype={constructor:MediaPlayer.dependencies.StreamProcessor},MediaPlayer.utils.TokenAuthentication=function(){"use strict";var a={type:MediaPlayer.utils.TokenAuthentication.TYPE_QUERY};return{debug:void 0,getTokenAuthentication:function(){return a},setTokenAuthentication:function(b){a=b},checkRequestHeaderForToken:function(b){void 0!==a.name&&null!==b.getResponseHeader(a.name)&&(a.token=b.getResponseHeader(a.name),this.debug.log(a.name+" received: "+a.token))},addTokenAsQueryArg:function(b){if(void 0!==a.name&&void 0!==a.token&&a.type===MediaPlayer.utils.TokenAuthentication.TYPE_QUERY){var c=-1===b.indexOf("?")?"?":"&";b+=c+a.name+"="+a.token,this.debug.log(a.name+" is being appended on the request url with a value of : "+a.token)}return b},setTokenInRequestHeader:function(b){return a.type===MediaPlayer.utils.TokenAuthentication.TYPE_HEADER&&(b.setRequestHeader(a.name,a.token),this.debug.log(a.name+" is being set in the request header with a value of : "+a.token)),b}}},MediaPlayer.utils.TokenAuthentication.TYPE_QUERY="query",MediaPlayer.utils.TokenAuthentication.TYPE_HEADER="header",MediaPlayer.models.URIQueryAndFragmentModel=function(){"use strict";var a=new MediaPlayer.vo.URIFragmentData,b=[],c=function(c){function d(a,b,c,d){var e=d[0].split(/[=]/);return d.push({key:e[0],value:e[1]}),d.shift(),d}function e(a,c,d){return c>0&&(j&&0===b.length?b=d[c].split(/[&]/):k&&(g=d[c].split(/[&]/))),d}if(!c)return null;var f,g=[],h=new RegExp(/[?]/),i=new RegExp(/[#]/),j=h.test(c),k=i.test(c);return f=c.split(/[?#]/).map(e),b.length>0&&(b=b.reduce(d,null)),g.length>0&&(g=g.reduce(d,null),g.forEach(function(b){a[b.key]=b.value})),c};return{parseURI:c,getURIFragmentData:a,getURIQueryData:b,reset:function(){a=new MediaPlayer.vo.URIFragmentData,b=[]}}},MediaPlayer.models.URIQueryAndFragmentModel.prototype={constructor:MediaPlayer.models.URIQueryAndFragmentModel},MediaPlayer.models.VideoModel=function(){"use strict";var a,b=[],c=function(){return b.length>0},d=function(c){null!==c&&(a.playbackRate=0,b[c]!==!0&&(b.push(c),b[c]=!0))},e=function(d){if(null!==d){b[d]=!1;var e=b.indexOf(d);-1!==e&&b.splice(e,1),c()===!1&&(a.playbackRate=1)}},f=function(a,b){b?d(a):e(a)},g=function(a,b){var c=a.streamProcessor.getType();f.call(this,c,!b)};return{system:void 0,setup:function(){this.bufferLevelStateChanged=g},play:function(){a.play()},pause:function(){a.pause()},isPaused:function(){return a.paused},getPlaybackRate:function(){return a.playbackRate},setPlaybackRate:function(b){a.playbackRate=b},getCurrentTime:function(){return a.currentTime},setCurrentTime:function(b){a.currentTime!=b&&(a.currentTime=b)},listen:function(b,c){a.addEventListener(b,c,!1)},unlisten:function(b,c){a.removeEventListener(b,c,!1)},getElement:function(){return a},setElement:function(b){a=b},setSource:function(b){a.src=b}}},MediaPlayer.models.VideoModel.prototype={constructor:MediaPlayer.models.VideoModel},MediaPlayer.dependencies.VideoModelExtensions=function(){"use strict";return{getPlaybackQuality:function(a){var b="webkitDroppedFrameCount"in a,c="getVideoPlaybackQuality"in a,d=null;return c?d=a.getVideoPlaybackQuality():b&&(d={droppedVideoFrames:a.webkitDroppedFrameCount,creationTime:new Date}),d}}},MediaPlayer.dependencies.VideoModelExtensions.prototype={constructor:MediaPlayer.dependencies.VideoModelExtensions},MediaPlayer.utils.TTMLParser=function(){"use strict";var a,b=3600,c=60,d=/^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])((\.[0-9][0-9][0-9])|(:[0-9][0-9]))$/,e=function(e){var f,g,h,i=d.test(e);if(!i)return 0/0;if(f=e.split(":"),g=parseFloat(f[0])*b+parseFloat(f[1])*c+parseFloat(f[2]),f[3]){if(h=a.tt.frameRate,!h||isNaN(h))return 0/0;g+=parseFloat(f[3])/h}return g},f=function(){var b=!1,c=a.hasOwnProperty("tt"),d=c?a.tt.hasOwnProperty("head"):!1,e=d?a.tt.head.hasOwnProperty("layout"):!1,f=d?a.tt.head.hasOwnProperty("styling"):!1,g=c?a.tt.hasOwnProperty("body"):!1,h=d?a.tt.head.hasOwnProperty("profile"):!1;return c&&d&&e&&f&&g&&(b=!0),b&&(b=h&&"http://www.w3.org/ns/ttml/profile/sdp-us"===a.tt.head.profile.use),b},g=function(a,b){var c=Object.keys(a).filter(function(c){return"xmlns"===c.split(":")[0]&&a[c]===b}).map(function(a){return a.split(":")[1]});return 1!=c.length?null:c[0]},h=function(b){var c,d,h,i,j,k,l,m=[],n=new X2JS([],"",!1);if(a=n.xml_str2json(b),!f())throw c="TTML document has incorrect structure";if(k=g(a.tt,"http://www.w3.org/ns/ttml#parameter"),a.tt.hasOwnProperty(k+":frameRate")&&(a.tt.frameRate=parseInt(a.tt[k+":frameRate"],10)),d=a.tt.body.div_asArray[0].p_asArray,!d||0===d.length)throw c="TTML document does not contain any cues";for(l=0;l<d.length;l+=1){if(h=d[l],i=e(h.begin),j=e(h.end),isNaN(i)||isNaN(j))throw c="TTML document has incorrect timing value";m.push({start:i,end:j,data:h.__text})}return m};return{parse:h}},MediaPlayer.dependencies.TextController=function(){var a,b,c,d=!1,e=function(){d||(b.hasOwnProperty("initialize")&&b.initialize(c,this),d=!0),this.notify(this.eventList.ENAME_CLOSED_CAPTIONING_REQUESTED,0)},f=function(a,c,d){var e=this;c===e.streamProcessor.getFragmentModel()&&null!==d&&e.sourceBufferExt.append(b,d,e.videoModel)};return{sourceBufferExt:void 0,debug:void 0,system:void 0,notify:void 0,subscribe:void 0,unsubscribe:void 0,eventList:{ENAME_CLOSED_CAPTIONING_REQUESTED:"closedCaptioningRequested"},setup:function(){this.dataUpdateCompleted=e,this.initFragmentLoaded=f},initialize:function(a,b,d,e){var f=this;c=a,f.setBuffer(b),f.setMediaSource(d),f.videoModel=e.videoModel,f.trackController=e.trackController,f.streamProcessor=e},getBuffer:function(){return b},setBuffer:function(a){b=a},setMediaSource:function(b){a=b},reset:function(c){c||(this.sourceBufferExt.abort(a,b),this.sourceBufferExt.removeSourceBuffer(a,b))}}},MediaPlayer.dependencies.TextController.prototype={constructor:MediaPlayer.dependencies.TextController},MediaPlayer.dependencies.TextSourceBuffer=function(){var a,b;return{system:void 0,eventBus:void 0,errHandler:void 0,initialize:function(c,d){b=c,this.videoModel=d.videoModel,a=d.streamProcessor.getCurrentTrack().mediaInfo},append:function(b){var c,d,e,f=this,g=String.fromCharCode.apply(null,new Uint16Array(b));try{c=f.getParser().parse(g),d=a.id,e=a.lang,f.getTextTrackExtensions().addTextTrack(f.videoModel.getElement(),c,d,e,!0),f.eventBus.dispatchEvent({type:"updateend"})}catch(h){f.errHandler.closedCaptionsError(h,"parse",g)}},abort:function(){this.getTextTrackExtensions().deleteCues(this.videoModel.getElement())},getParser:function(){var a;return"text/vtt"===b?a=this.system.getObject("vttParser"):"application/ttml+xml"===b&&(a=this.system.getObject("ttmlParser")),a},getTextTrackExtensions:function(){return this.system.getObject("textTrackExtensions")},addEventListener:function(a,b,c){this.eventBus.addEventListener(a,b,c)},removeEventListener:function(a,b,c){this.eventBus.removeEventListener(a,b,c)}}},MediaPlayer.dependencies.TextSourceBuffer.prototype={constructor:MediaPlayer.dependencies.TextSourceBuffer},MediaPlayer.utils.TextTrackExtensions=function(){"use strict";var a;return{setup:function(){a=window.VTTCue||window.TextTrackCue},addTextTrack:function(b,c,d,e,f){var g=b.addTextTrack("captions",d,e);g.default=f,g.mode="showing";for(var h in c){var i=c[h];g.addCue(new a(i.start,i.end,i.data))}return g},deleteCues:function(a){for(var b=0,c=!1;!c;){if(null!==a.textTracks[b].cues){c=!0;break}b++}var d=a.textTracks[b],e=d.cues,f=e.length-1;for(b=f;b>=0;b--)d.removeCue(e[b]);d.mode="disabled",d.default=!1}}},MediaPlayer.utils.VTTParser=function(){"use strict";var a=function(a){var b=a.split(":"),c=b.length-1;return a=60*parseInt(b[c-1],10)+parseFloat(b[c],10),2===c&&(a+=3600*parseInt(b[0],10)),a};return{parse:function(b){var c,d=/(?:\r\n|\r|\n)/gm,e=/-->/,f=/(^[\s]+|[\s]+$)/g,g=[];b=b.split(d),c=b.length;for(var h=0;c>h;h++){var i=b[h];if(i.length>0&&"WEBVTT"!==i&&i.match(e)){var j=i.split(e),k=b[h+1];g.push({start:a(j[0].replace(f,"")),end:a(j[1].replace(f,"")),data:k})}}return g}}},MediaPlayer.rules.ABRRulesCollection=function(){"use strict";var a=[];return{downloadRatioRule:void 0,insufficientBufferRule:void 0,limitSwitchesRule:void 0,getRules:function(b){switch(b){case MediaPlayer.rules.ABRRulesCollection.prototype.QUALITY_SWITCH_RULES:return a;default:return null}},setup:function(){a.push(this.downloadRatioRule),a.push(this.insufficientBufferRule),a.push(this.limitSwitchesRule)}}},MediaPlayer.rules.ABRRulesCollection.prototype={constructor:MediaPlayer.rules.ABRRulesCollection,QUALITY_SWITCH_RULES:"qualitySwitchRules"},MediaPlayer.rules.DownloadRatioRule=function(){"use strict";var a={},b=function(a,b,c){var d=a.getTrackForQuality(b).bandwidth;return d/c};return{debug:void 0,metricsExt:void 0,metricsModel:void 0,setStreamProcessor:function(b){var c=b.getType(),d=b.getStreamInfo().id;a[d]=a[d]||{},a[d][c]=b},execute:function(c,d){var e,f,g,h,i,j,k,l,m,n,o,p=this,q=c.getStreamInfo().id,r=c.getMediaInfo(),s=r.type,t=c.getCurrentValue(),u=a[q][s],v=p.metricsModel.getReadOnlyMetricsFor(s),w=p.metricsExt.getCurrentHttpRequest(v),x=.75;if(!v)return void d(new MediaPlayer.rules.SwitchRequest);if(null===w)return void d(new MediaPlayer.rules.SwitchRequest);if(f=(w.tfinish.getTime()-w.trequest.getTime())/1e3,e=(w.tfinish.getTime()-w.tresponse.getTime())/1e3,0>=f)return void d(new MediaPlayer.rules.SwitchRequest);if(null===w.mediaduration||void 0===w.mediaduration||w.mediaduration<=0||isNaN(w.mediaduration))return void d(new MediaPlayer.rules.SwitchRequest);if(h=w.mediaduration/f,g=w.mediaduration/e*x,isNaN(g)||isNaN(h))return p.debug.log("The ratios are NaN, bailing."),void d(new MediaPlayer.rules.SwitchRequest);if(isNaN(g))o=new MediaPlayer.rules.SwitchRequest;else if(4>g)t>0?(p.debug.log("We are not at the lowest bitrate, so switch down."),j=u.getTrackForQuality(t-1).bandwidth,l=u.getTrackForQuality(t).bandwidth,i=j/l,i>g?(p.debug.log("Things must be going pretty bad, switch all the way down."),o=new MediaPlayer.rules.SwitchRequest(0)):(p.debug.log("Things could be better, so just switch down one index."),o=new MediaPlayer.rules.SwitchRequest(t-1))):o=new MediaPlayer.rules.SwitchRequest(t);else if(n=r.trackCount-1,n>t)if(k=u.getTrackForQuality(t+1).bandwidth,l=u.getTrackForQuality(t).bandwidth,i=k/l,g>=i)if(g>100)p.debug.log("Tons of bandwidth available, go all the way up."),o=new MediaPlayer.rules.SwitchRequest(n);else if(g>10)p.debug.log("Just enough bandwidth available, switch up one."),o=new MediaPlayer.rules.SwitchRequest(t+1);else{for(m=-1;(m+=1)<n&&!(g<b.call(p,u,m,l)););p.debug.log("Calculated ideal new quality index is: "+m),o=new MediaPlayer.rules.SwitchRequest(m)}else o=new MediaPlayer.rules.SwitchRequest;else o=new MediaPlayer.rules.SwitchRequest(n);d(o)},reset:function(){a={}}}},MediaPlayer.rules.DownloadRatioRule.prototype={constructor:MediaPlayer.rules.DownloadRatioRule},MediaPlayer.rules.InsufficientBufferRule=function(){"use strict";var a=0,b=3;return{debug:void 0,metricsModel:void 0,execute:function(c,d){var e,f,g=this,h=c.getMediaInfo().type,i=c.getCurrentValue(),j=g.metricsModel.getReadOnlyMetricsFor(h),k=!1,l=MediaPlayer.rules.SwitchRequest.prototype.DEFAULT;return null===j.PlayList||void 0===j.PlayList||0===j.PlayList.length?void d(new MediaPlayer.rules.SwitchRequest):(e=j.PlayList[j.PlayList.length-1],null===e||void 0===e||0===e.trace.length?void d(new MediaPlayer.rules.SwitchRequest):(f=e.trace[e.trace.length-2],null===f||void 0===f||null===f.stopreason||void 0===f.stopreason?void d(new MediaPlayer.rules.SwitchRequest):(f.stopreason===MediaPlayer.vo.metrics.PlayList.Trace.REBUFFERING_REASON&&(k=!0,a+=1,g.debug.log("Number of times the buffer has run dry: "+a)),a>b&&(l=MediaPlayer.rules.SwitchRequest.prototype.STRONG,g.debug.log("Apply STRONG to buffer rule.")),void(k?(g.debug.log("The buffer ran dry recently, switch down."),d(new MediaPlayer.rules.SwitchRequest(i-1,l))):a>b?(g.debug.log("Too many dry buffer hits, quit switching bitrates."),d(new MediaPlayer.rules.SwitchRequest(i,l))):d(new MediaPlayer.rules.SwitchRequest(MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE,l))))))}}},MediaPlayer.rules.InsufficientBufferRule.prototype={constructor:MediaPlayer.rules.InsufficientBufferRule},MediaPlayer.rules.LimitSwitchesRule=function(){"use strict";var a=0,b=2e3;return{debug:void 0,metricsModel:void 0,execute:function(c,d){var e,f=this,g=c.getMediaInfo().type,h=c.getCurrentValue(),i=this.metricsModel.getReadOnlyMetricsFor(g),j=c.getManifestInfo(),k=i.RepSwitchList.length-1,l=i.RepSwitchList[k],m=(new Date).getTime();return b=1e3*Math.min(j.minBufferTime,j.maxFragmentDuration),e=m-a,b>e&&m-l.t.getTime()<b?(f.debug.log("Wait some time before allowing another switch."),void d(new MediaPlayer.rules.SwitchRequest(h,MediaPlayer.rules.SwitchRequest.prototype.STRONG))):(a=m,void d(new MediaPlayer.rules.SwitchRequest(MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE,MediaPlayer.rules.SwitchRequest.prototype.STRONG)))}}},MediaPlayer.rules.LimitSwitchesRule.prototype={constructor:MediaPlayer.rules.LimitSwitchesRule},MediaPlayer.rules.RulesContext=function(a,b){"use strict";var c=a.getCurrentTrack();return{getStreamInfo:function(){return c.mediaInfo.streamInfo},getMediaInfo:function(){return c.mediaInfo},getTrackInfo:function(){return c},getCurrentValue:function(){return b},getManifestInfo:function(){return c.mediaInfo.streamInfo.manifestInfo}}},MediaPlayer.rules.RulesContext.prototype={constructor:MediaPlayer.rules.RulesContext},MediaPlayer.rules.BufferLevelRule=function(){"use strict";var a={},b={},c={},d=function(a){var b=this.metricsExt.getCurrentHttpRequest(a);return null!==b?(b.tresponse.getTime()-b.trequest.getTime())/1e3:0},e=function(a,b){var c;return c=isNaN(b)||MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME<b&&b>a?Math.max(MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME,a):a>=b?Math.min(b,MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME):Math.min(b,a)},f=function(a,b,c){var f=this,g=c.bufferController.getCriticalBufferLevel(),h=e.call(this,c.bufferController.getMinBufferTime(),b),i=h,j=c.bufferController.bufferMax,k=f.metricsModel.getReadOnlyMetricsFor("video"),l=f.metricsModel.getReadOnlyMetricsFor("audio"),m=b>=MediaPlayer.dependencies.BufferController.LONG_FORM_CONTENT_DURATION_THRESHOLD,n=0;return j===MediaPlayer.dependencies.BufferController.BUFFER_SIZE_MIN?n=h:j===MediaPlayer.dependencies.BufferController.BUFFER_SIZE_INFINITY?n=b:j===MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED&&(!a&&f.abrController.isPlayingAtTopQuality(c.streamProcessor.getStreamInfo())&&(i=m?MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY_LONG_FORM:MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY),n=i+Math.max(d.call(f,k),d.call(f,l))),n=Math.min(n,g)},g=function(a,c){return b[a]&&b[a][c]},h=function(b,c){return a[b]&&a[b][c]},i=function(a,c,d){var e=c.getContext().streamProcessor.getStreamInfo().id;b[e]=b[e]||{},b[e][d.mediaType]=!0},j=function(b){var c=b.streamProcessor.getStreamInfo().id;a[c]=a[c]||{},a[c][b.streamProcessor.getType()]=!0},k=function(b){var c=b.streamProcessor.getStreamInfo().id;a[c]=a[c]||{},a[c][b.streamProcessor.getType()]=!1};return{metricsExt:void 0,metricsModel:void 0,abrController:void 0,setup:function(){this.bufferLevelOutrun=j,this.bufferLevelBalanced=k,this.streamCompleted=i},setScheduleController:function(a){var b=a.streamProcessor.getStreamInfo().id;c[b]=c[b]||{},c[b][a.streamProcessor.getType()]=a},execute:function(a,b){var d=a.getStreamInfo(),e=d.id,i=a.getMediaInfo().type;if(h(e,i))return void b(new MediaPlayer.rules.SwitchRequest(0,MediaPlayer.rules.SwitchRequest.prototype.STRONG));var j,k=this.metricsModel.getReadOnlyMetricsFor(i),l=this.metricsExt.getCurrentBufferLevel(k)?this.metricsExt.getCurrentBufferLevel(k).level:0,m=c[e][i],n=m.streamProcessor.getCurrentTrack(),o=m.streamProcessor.isDynamic(),p=this.metricsExt.getCurrentPlaybackRate(k),q=d.duration,r=l/Math.max(p,1),s=n.fragmentDuration,t=m.playbackController.getTime(),u=o?Number.POSITIVE_INFINITY:q-t,v=Math.min(f.call(this,o,q,m),u),w=Math.max(v-r,0);j=Math.ceil(w/s),r>=u&&!g(e,i)&&(j=j||1),b(new MediaPlayer.rules.SwitchRequest(j,MediaPlayer.rules.SwitchRequest.prototype.DEFAULT))},reset:function(){a={},b={},c={}}}},MediaPlayer.rules.BufferLevelRule.prototype={constructor:MediaPlayer.rules.BufferLevelRule},MediaPlayer.rules.LiveEdgeBinarySearchRule=function(){"use strict";var a,b,c=43200,d=0/0,e=null,f=0/0,g=null,h=!1,i=0/0,j=MediaPlayer.rules.SwitchRequest.prototype.DEFAULT,k=function(b,c,d,e){var f,h=this;if(null===e)f=h.adapter.generateFragmentRequestForTime(a.streamProcessor,g,b),k.call(h,b,c,d,f);else{var i=function(e,f,g){a.fragmentLoader.unsubscribe(a.fragmentLoader.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED,h,i),f?c.call(h,g,b):d.call(h,g,b)};a.fragmentLoader.subscribe(a.fragmentLoader.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED,h,i),a.fragmentLoader.checkForExistence(e)}},l=function(c,i){var o,p,q;return h?void n.call(this,!1,i):(q=i-d,o=q>0?d-q:d+Math.abs(q)+f,void(o<e.start&&o>e.end?b(new MediaPlayer.rules.SwitchRequest(null,j)):(p=this.adapter.getFragmentRequestForTime(a.streamProcessor,g,o),k.call(this,o,m,l,p))))},m=function(c,l){var m,o,p=c.startTime,q=this;if(!h){if(!g.fragmentDuration)return void b(new MediaPlayer.rules.SwitchRequest(p,j));if(h=!0,e.end=p+2*f,l===d)return o=l+i,m=q.adapter.getFragmentRequestForTime(a.streamProcessor,g,o),void k.call(q,o,function(){n.call(q,!0,o)},function(){b(new MediaPlayer.rules.SwitchRequest(o,j))},m)}n.call(this,!0,l)},n=function(c,d){var f,h,n;c?e.start=d:e.end=d,f=Math.floor(e.end-e.start)<=i,f?b(new MediaPlayer.rules.SwitchRequest(c?d:d-i,j)):(n=(e.start+e.end)/2,h=this.adapter.getFragmentRequestForTime(a.streamProcessor,g,n),k.call(this,n,m,l,h))};return{metricsExt:void 0,adapter:void 0,timelineConverter:void 0,setFinder:function(b){a=b},execute:function(h,n){var o,p,q=this;if(b=n,g=a.streamProcessor.getCurrentTrack(),i=g.fragmentDuration,p=g.DVRWindow,d=p.end,g.useCalculatedLiveEdgeTime){var r=q.timelineConverter.getExpectedLiveEdge();return q.timelineConverter.setExpectedLiveEdge(d),void b(new MediaPlayer.rules.SwitchRequest(r,j))}e={start:Math.max(0,d-c),end:d+c},f=Math.floor((p.end-p.start)/2),o=q.adapter.getFragmentRequestForTime(a.streamProcessor,g,d),k.call(q,d,m,l,o)},reset:function(){d=0/0,e=null,f=0/0,g=null,h=!1,i=0/0,a=null}}},MediaPlayer.rules.LiveEdgeBinarySearchRule.prototype={constructor:MediaPlayer.rules.LiveEdgeBinarySearchRule},MediaPlayer.rules.PendingRequestsRule=function(){"use strict";var a=3,b={};return{metricsExt:void 0,setScheduleController:function(a){var c=a.streamProcessor.getStreamInfo().id;b[c]=b[c]||{},b[c][a.streamProcessor.getType()]=a},execute:function(c,d){var e=c.getMediaInfo().type,f=c.getStreamInfo().id,g=c.getCurrentValue(),h=b[f][e],i=h.getFragmentModel(),j=i.getPendingRequests(),k=i.getLoadingRequests(),l=i.getRejectedRequests(),m=l.length,n=j.length+k.length,o=Math.max(g-n,0);return m>0?void d(new MediaPlayer.rules.SwitchRequest(m,MediaPlayer.rules.SwitchRequest.prototype.DEFAULT)):n>a?void d(new MediaPlayer.rules.SwitchRequest(0,MediaPlayer.rules.SwitchRequest.prototype.DEFAULT)):0===g?void d(new MediaPlayer.rules.SwitchRequest(o,MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE)):void d(new MediaPlayer.rules.SwitchRequest(o,MediaPlayer.rules.SwitchRequest.prototype.DEFAULT))},reset:function(){b={}}}},MediaPlayer.rules.PendingRequestsRule.prototype={constructor:MediaPlayer.rules.PendingRequestsRule},MediaPlayer.rules.PlaybackTimeRule=function(){"use strict";var a={},b={},c=function(b,c){var d=b.getStreamId();a[d]=a[d]||{},a[d].audio=c,a[d].video=c};return{adapter:void 0,sourceBufferExt:void 0,setup:function(){this.playbackSeeking=c},setScheduleController:function(a){var c=a.streamProcessor.getStreamInfo().id;b[c]=b[c]||{},b[c][a.streamProcessor.getType()]=a},execute:function(c,d){var e,f,g,h=c.getMediaInfo().type,i=c.getStreamInfo().id,j=b[i][h],k=.1,l=b[i][h].streamProcessor,m=l.getCurrentTrack(),n=a[i]?a[i][h]:null,o=n?MediaPlayer.rules.SwitchRequest.prototype.STRONG:MediaPlayer.rules.SwitchRequest.prototype.DEFAULT,p=j.getFragmentModel().getRejectedRequests().shift(),q=!!p&&!n,r=this.adapter.getIndexHandlerTime(l),s=l.playbackController.getTime(),t=p?p.startTime+p.duration:null,u=p&&(t>s&&p.startTime<=r||isNaN(r));if(f=n||(u?p.startTime:r),isNaN(f))return void d(new MediaPlayer.rules.SwitchRequest(null,o));for(a[i]&&(a[i][h]=null),e=this.sourceBufferExt.getBufferRange(l.bufferController.getBuffer(),f),null!==e&&(f=e.end),g=this.adapter.getFragmentRequestForTime(l,m,f,q),u&&g&&g.index!==p.index&&(g=this.adapter.getFragmentRequestForTime(l,m,p.startTime+p.duration/2+k,q));g&&l.fragmentController.isFragmentLoadedOrPending(j,g);){if("complete"===g.action){g=null,this.adapter.setIndexHandlerTime(l,0/0);break}g=this.adapter.getNextFragmentRequest(l,m)}g&&!u&&this.adapter.setIndexHandlerTime(l,g.startTime+g.duration),d(new MediaPlayer.rules.SwitchRequest(g,o))},reset:function(){a={},b={}}}},MediaPlayer.rules.PlaybackTimeRule.prototype={constructor:MediaPlayer.rules.PlaybackTimeRule},MediaPlayer.rules.RulesController=function(){"use strict";var a={},b=["execute"],c=function(a){return a===this.SCHEDULING_RULE||a===this.ABR_RULE},d=function(a){var c=b.length,d=0;for(d;c>d;d+=1)if(!a.hasOwnProperty(b[d]))return!1;return!0},e=function(a,b){return new MediaPlayer.rules.RulesContext(a,b)},f=function(a){var b=a.execute.bind(a);return a.execute=function(c,d){var e=function(b){d.call(a,new MediaPlayer.rules.SwitchRequest(b.value,b.priority))};b(c,e)},"function"!=typeof a.reset&&(a.reset=function(){}),a},g=function(a,b,c){var e,g,h,i,j,k;for(g in b)if(i=b[g],j=i.length)for(k=0;j>k;k+=1)e=i[k],d.call(this,e)&&(e=f.call(this,e),h=a.getRules(g),c&&(h.length=0),h.push(e))};return{system:void 0,debug:void 0,SCHEDULING_RULE:0,ABR_RULE:1,initialize:function(){a[this.ABR_RULE]=this.system.getObject("abrRulesCollection"),a[this.SCHEDULING_RULE]=this.system.getObject("scheduleRulesCollection")},setRules:function(b,d){c.call(this,b)&&d&&g.call(this,a[b],d,!0)},addRules:function(b,d){c.call(this,b)&&d&&g.call(this,a[b],d,!1)},applyRules:function(a,b,c,f,g){var h,i,j=a.length,k=j,l={},m=e.call(this,b,f),n=function(a){var b,d;a.value!==MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE&&(l[a.priority]=g(l[a.priority],a.value)),--j||(l[MediaPlayer.rules.SwitchRequest.prototype.WEAK]!==MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE&&(d=MediaPlayer.rules.SwitchRequest.prototype.WEAK,b=l[MediaPlayer.rules.SwitchRequest.prototype.WEAK]),l[MediaPlayer.rules.SwitchRequest.prototype.DEFAULT]!==MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE&&(d=MediaPlayer.rules.SwitchRequest.prototype.DEFAULT,b=l[MediaPlayer.rules.SwitchRequest.prototype.DEFAULT]),l[MediaPlayer.rules.SwitchRequest.prototype.STRONG]!==MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE&&(d=MediaPlayer.rules.SwitchRequest.prototype.STRONG,b=l[MediaPlayer.rules.SwitchRequest.prototype.STRONG]),d!=MediaPlayer.rules.SwitchRequest.prototype.STRONG&&d!=MediaPlayer.rules.SwitchRequest.prototype.WEAK&&(d=MediaPlayer.rules.SwitchRequest.prototype.DEFAULT),c({value:void 0!==b?b:f,confidence:d}))};for(l[MediaPlayer.rules.SwitchRequest.prototype.STRONG]=MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE,l[MediaPlayer.rules.SwitchRequest.prototype.WEAK]=MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE,l[MediaPlayer.rules.SwitchRequest.prototype.DEFAULT]=MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE,i=0;k>i;i+=1)h=a[i],d.call(this,h)?h.execute(m,n):j--},reset:function(){a={}}}},MediaPlayer.rules.RulesController.prototype={constructor:MediaPlayer.rules.RulesController},MediaPlayer.rules.SameTimeRequestRule=function(){"use strict";var a=4,b=function(a,b){var c,e,f,g,h,i=0,j=a.length;for(i;j>i;i+=1)for(f=a[i].getPendingRequests(),d.call(this,f,"index"),g=0,h=f.length;h>g;g++){if(c=f[g],isNaN(c.startTime)&&"complete"!==c.action){e=c;break}c.startTime>b&&(!e||c.startTime<e.startTime)&&(e=c)}return e||c},c=function(a,b){var c,d,e=a.length,f=null;for(d=0;e>d;d+=1)c=a[d].getPendingRequestForTime(b),c&&(!f||c.startTime>f.startTime)&&(f=c);return f},d=function(a,b){var c=function(a,c){return a[b]<c[b]||isNaN(a[b])&&"complete"!==a.action?-1:a[b]>c[b]?1:0};a.sort(c)};return{setFragmentModels:function(a,b){this.fragmentModels=this.fragmentModels||{},this.fragmentModels[b]=a},execute:function(d,e){var f,g,h,i,j,k,l,m,n,o=d.getStreamInfo().id,p=d.getCurrentValue(),q=MediaPlayer.rules.SwitchRequest.prototype.DEFAULT,r=this.fragmentModels[o],s=new Date,t=null,u=r?r.length:null,v=!1,w=[];if(!r||!u)return void e(new MediaPlayer.rules.SwitchRequest([],q));if(k=r[0].getContext().playbackController.getTime(),l=c(r,k),j=l||b(r,k)||p,!j)return void e(new MediaPlayer.rules.SwitchRequest([],q));for(i=0;u>i;i+=1)if(g=r[i],f=g.getContext().streamProcessor.getType(),("video"===f||"audio"===f)&&(m=g.getPendingRequests(),n=g.getLoadingRequests().length,!g.getIsPostponed()||isNaN(j.startTime))){if(n>a)return void e(new MediaPlayer.rules.SwitchRequest([],q));if(t=t||(j===l?k:j.startTime),-1===m.indexOf(j)){if(h=g.getPendingRequestForTime(t))w.push(h);else if(h=g.getLoadingRequestForTime(t)||g.getExecutedRequestForTime(t),!h){v=!0;break}}else w.push(j)}return w=w.filter(function(a){return"complete"===a.action||s.getTime()>=a.availabilityStartTime.getTime()}),v?void e(new MediaPlayer.rules.SwitchRequest([],q)):void e(new MediaPlayer.rules.SwitchRequest(w,q))}}},MediaPlayer.rules.SameTimeRequestRule.prototype={constructor:MediaPlayer.rules.SameTimeRequestRule},MediaPlayer.rules.ScheduleRulesCollection=function(){"use strict";var a=[],b=[],c=[],d=[];return{bufferLevelRule:void 0,pendingRequestsRule:void 0,playbackTimeRule:void 0,sameTimeRequestRule:void 0,liveEdgeBinarySearchRule:void 0,getRules:function(e){switch(e){case MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_SCHEDULE_RULES:return a;case MediaPlayer.rules.ScheduleRulesCollection.prototype.NEXT_FRAGMENT_RULES:return d;case MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_EXECUTE_RULES:return b;case MediaPlayer.rules.ScheduleRulesCollection.prototype.LIVE_EDGE_RULES:return c;default:return null}},setup:function(){a.push(this.bufferLevelRule),a.push(this.pendingRequestsRule),d.push(this.playbackTimeRule),b.push(this.sameTimeRequestRule),c.push(this.liveEdgeBinarySearchRule)}}},MediaPlayer.rules.ScheduleRulesCollection.prototype={constructor:MediaPlayer.rules.ScheduleRulesCollection,FRAGMENTS_TO_SCHEDULE_RULES:"fragmentsToScheduleRules",NEXT_FRAGMENT_RULES:"nextFragmentRules",FRAGMENTS_TO_EXECUTE_RULES:"fragmentsToExecuteRules",LIVE_EDGE_RULES:"liveEdgeRules"},MediaPlayer.rules.SwitchRequest=function(a,b){"use strict";this.value=a,this.priority=b,void 0===this.value&&(this.value=999),void 0===this.priority&&(this.priority=.5)},MediaPlayer.rules.SwitchRequest.prototype={constructor:MediaPlayer.rules.SwitchRequest,NO_CHANGE:999,DEFAULT:.5,STRONG:1,WEAK:0},MediaPlayer.vo.FragmentRequest=function(){"use strict";this.action="download",this.startTime=0/0,this.mediaType=null,this.type=null,this.duration=0/0,this.timescale=0/0,this.range=null,this.url=null,this.requestStartDate=null,this.firstByteDate=null,this.requestEndDate=null,this.quality=0/0,this.index=0/0,this.availabilityStartTime=null,this.availabilityEndTime=null,this.wallStartTime=null},MediaPlayer.vo.FragmentRequest.prototype={constructor:MediaPlayer.vo.FragmentRequest,ACTION_DOWNLOAD:"download",ACTION_COMPLETE:"complete"},MediaPlayer.vo.ManifestInfo=function(){"use strict";this.DVRWindowSize=0/0,this.loadedTime=null,this.availableFrom=null,this.minBufferTime=0/0,this.duration=0/0,this.isDynamic=!1,this.maxFragmentDuration=null},MediaPlayer.vo.ManifestInfo.prototype={constructor:MediaPlayer.vo.ManifestInfo},MediaPlayer.vo.MediaInfo=function(){"use strict";this.id=null,this.index=null,this.type=null,this.streamInfo=null,this.trackCount=0,this.lang=null,this.codec=null,this.mimeType=null,this.contentProtection=null,this.isText=!1,this.KID=null},MediaPlayer.vo.MediaInfo.prototype={constructor:MediaPlayer.vo.MediaInfo},MediaPlayer.models.MetricsList=function(){"use strict";return{TcpList:[],HttpList:[],RepSwitchList:[],BufferLevel:[],PlayList:[],DroppedFrames:[],SchedulingInfo:[],DVRInfo:[],ManifestUpdate:[]}},MediaPlayer.models.MetricsList.prototype={constructor:MediaPlayer.models.MetricsList},MediaPlayer.vo.StreamInfo=function(){"use strict";this.id=null,this.index=null,this.start=0/0,this.duration=0/0,this.manifestInfo=null,this.isLast=!0},MediaPlayer.vo.StreamInfo.prototype={constructor:MediaPlayer.vo.StreamInfo},MediaPlayer.vo.TrackInfo=function(){"use strict";this.id=null,this.quality=null,this.DVRWindow=null,this.fragmentDuration=null,this.mediaInfo=null,this.MSETimeOffset=null},MediaPlayer.vo.TrackInfo.prototype={constructor:MediaPlayer.vo.TrackInfo},MediaPlayer.vo.URIFragmentData=function(){"use strict";this.t=null,this.xywh=null,this.track=null,this.id=null,this.s=null},MediaPlayer.vo.URIFragmentData.prototype={constructor:MediaPlayer.vo.URIFragmentData},MediaPlayer.vo.metrics.BufferLevel=function(){"use strict";this.t=null,this.level=null},MediaPlayer.vo.metrics.BufferLevel.prototype={constructor:MediaPlayer.vo.metrics.BufferLevel},MediaPlayer.vo.metrics.DVRInfo=function(){"use strict";this.time=null,this.range=null,this.manifestInfo=null},MediaPlayer.vo.metrics.DVRInfo.prototype={constructor:MediaPlayer.vo.metrics.DVRInfo},MediaPlayer.vo.metrics.DroppedFrames=function(){"use strict";this.time=null,this.droppedFrames=null},MediaPlayer.vo.metrics.DroppedFrames.prototype={constructor:MediaPlayer.vo.metrics.DroppedFrames},MediaPlayer.vo.metrics.HTTPRequest=function(){"use strict";this.stream=null,this.tcpid=null,this.type=null,this.url=null,this.actualurl=null,this.range=null,this.trequest=null,this.tresponse=null,this.tfinish=null,this.responsecode=null,this.interval=null,this.mediaduration=null,this.trace=[]},MediaPlayer.vo.metrics.HTTPRequest.prototype={constructor:MediaPlayer.vo.metrics.HTTPRequest},MediaPlayer.vo.metrics.HTTPRequest.Trace=function(){"use strict";this.s=null,this.d=null,this.b=[]},MediaPlayer.vo.metrics.HTTPRequest.Trace.prototype={constructor:MediaPlayer.vo.metrics.HTTPRequest.Trace},MediaPlayer.vo.metrics.ManifestUpdate=function(){"use strict";this.mediaType=null,this.type=null,this.requestTime=null,this.fetchTime=null,this.availabilityStartTime=null,this.presentationStartTime=0,this.clientTimeOffset=0,this.currentTime=null,this.buffered=null,this.latency=0,this.streamInfo=[],this.trackInfo=[]},MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo=function(){"use strict";this.id=null,this.index=null,this.start=null,this.duration=null},MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo=function(){"use strict";this.id=null,this.index=null,this.mediaType=null,this.streamIndex=null,this.presentationTimeOffset=null,this.startNumber=null,this.fragmentInfoType=null},MediaPlayer.vo.metrics.ManifestUpdate.prototype={constructor:MediaPlayer.vo.metrics.ManifestUpdate},MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo.prototype={constructor:MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo},MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo.prototype={constructor:MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo},MediaPlayer.vo.metrics.PlayList=function(){"use strict";this.stream=null,this.start=null,this.mstart=null,this.starttype=null,this.trace=[]},MediaPlayer.vo.metrics.PlayList.Trace=function(){"use strict";this.representationid=null,this.subreplevel=null,this.start=null,this.mstart=null,this.duration=null,this.playbackspeed=null,this.stopreason=null},MediaPlayer.vo.metrics.PlayList.prototype={constructor:MediaPlayer.vo.metrics.PlayList},MediaPlayer.vo.metrics.PlayList.INITIAL_PLAY_START_REASON="initial_start",MediaPlayer.vo.metrics.PlayList.SEEK_START_REASON="seek",MediaPlayer.vo.metrics.PlayList.Trace.prototype={constructor:MediaPlayer.vo.metrics.PlayList.Trace()},MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON="user_request",MediaPlayer.vo.metrics.PlayList.Trace.REPRESENTATION_SWITCH_STOP_REASON="representation_switch",MediaPlayer.vo.metrics.PlayList.Trace.END_OF_CONTENT_STOP_REASON="end_of_content",MediaPlayer.vo.metrics.PlayList.Trace.REBUFFERING_REASON="rebuffering",MediaPlayer.vo.metrics.TrackSwitch=function(){"use strict";
-this.t=null,this.mt=null,this.to=null,this.lto=null},MediaPlayer.vo.metrics.TrackSwitch.prototype={constructor:MediaPlayer.vo.metrics.TrackSwitch},MediaPlayer.vo.metrics.SchedulingInfo=function(){"use strict";this.mediaType=null,this.t=null,this.type=null,this.startTime=null,this.availabilityStartTime=null,this.duration=null,this.quality=null,this.range=null,this.state=null},MediaPlayer.vo.metrics.SchedulingInfo.prototype={constructor:MediaPlayer.vo.metrics.SchedulingInfo},MediaPlayer.vo.metrics.SchedulingInfo.PENDING_STATE="pending",MediaPlayer.vo.metrics.SchedulingInfo.LOADING_STATE="loading",MediaPlayer.vo.metrics.SchedulingInfo.EXECUTED_STATE="executed",MediaPlayer.vo.metrics.SchedulingInfo.REJECTED_STATE="rejected",MediaPlayer.vo.metrics.SchedulingInfo.CANCELED_STATE="canceled",MediaPlayer.vo.metrics.SchedulingInfo.FAILED_STATE="failed",MediaPlayer.vo.metrics.TCPConnection=function(){"use strict";this.tcpid=null,this.dest=null,this.topen=null,this.tclose=null,this.tconnect=null},MediaPlayer.vo.metrics.TCPConnection.prototype={constructor:MediaPlayer.vo.metrics.TCPConnection};
+/*
+ Copyright 2011 Abdulla Abdurakhmanov
+ Original sources are available at https://code.google.com/p/x2js/
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+function X2JS(matchers, attrPrefix, ignoreRoot) {
+    if (attrPrefix === null || attrPrefix === undefined) {
+        attrPrefix = "_";
+    }
+    
+    if (ignoreRoot === null || ignoreRoot === undefined) {
+        ignoreRoot = false;
+    }
+    
+	var VERSION = "1.0.11";
+	var escapeMode = false;
+
+	var DOMNodeTypes = {
+		ELEMENT_NODE 	   : 1,
+		TEXT_NODE    	   : 3,
+		CDATA_SECTION_NODE : 4,
+		COMMENT_NODE       : 8,
+		DOCUMENT_NODE 	   : 9
+	};
+	
+	function getNodeLocalName( node ) {
+		var nodeLocalName = node.localName;			
+		if(nodeLocalName == null) // Yeah, this is IE!! 
+			nodeLocalName = node.baseName;
+		if(nodeLocalName == null || nodeLocalName=="") // =="" is IE too
+			nodeLocalName = node.nodeName;
+		return nodeLocalName;
+	}
+	
+	function getNodePrefix(node) {
+		return node.prefix;
+	}
+		
+	function escapeXmlChars(str) {
+		if(typeof(str) == "string")
+			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/\//g, '&#x2F;');
+		else
+			return str;
+	}
+
+	function unescapeXmlChars(str) {
+		return str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&#x2F;/g, '\/')
+	}	
+
+	function parseDOMChildren( node ) {
+		if(node.nodeType == DOMNodeTypes.DOCUMENT_NODE) {
+			var result,
+			    child = node.firstChild,
+			    i,
+			    len; 
+			
+			// get the first node that isn't a comment
+			for(i = 0, len = node.childNodes.length; i < len; i += 1) {
+			   if (node.childNodes[i].nodeType !== DOMNodeTypes.COMMENT_NODE) {
+			       child = node.childNodes[i];
+			       break;
+			   } 
+			}
+			
+			if ( ignoreRoot ) {
+			    result = parseDOMChildren(child);
+			} else {
+			    result = {};
+			    var childName = getNodeLocalName(child);
+                result[childName] = parseDOMChildren(child);
+			}
+			
+			return result;
+		}
+		else
+		if(node.nodeType == DOMNodeTypes.ELEMENT_NODE) {
+			var result = new Object;
+			result.__cnt=0;
+			
+			var nodeChildren = node.childNodes;
+			
+			// Children nodes
+			for(var cidx=0; cidx <nodeChildren.length; cidx++) {
+				var child = nodeChildren.item(cidx); // nodeChildren[cidx];
+				var childName = getNodeLocalName(child);
+				
+				result.__cnt++;
+				if(result[childName] == null) {
+					result[childName] = parseDOMChildren(child);
+					result[childName+"_asArray"] = new Array(1);
+					result[childName+"_asArray"][0] = result[childName];
+				}
+				else {
+					if(result[childName] != null) {
+						if( !(result[childName] instanceof Array)) {
+							var tmpObj = result[childName];
+							result[childName] = new Array();
+							result[childName][0] = tmpObj;
+							
+							result[childName+"_asArray"] = result[childName];
+						}
+					}
+					var aridx = 0;
+					while(result[childName][aridx]!=null) aridx++;
+					(result[childName])[aridx] = parseDOMChildren(child);
+				}			
+			}
+			
+			// Attributes
+			for(var aidx=0; aidx <node.attributes.length; aidx++) {
+				var attr = node.attributes.item(aidx); // [aidx];
+				result.__cnt++;
+				
+				var value2 = attr.value;
+				for(var m=0, ml=matchers.length; m < ml; m++) {
+				    var matchobj = matchers[m];
+				    if (matchobj.test.call(this, attr.value))
+				        value2 = matchobj.converter.call(this, attr.value);
+				}
+				
+				result[attrPrefix+attr.name]=value2;
+			}
+			
+			// Node namespace prefix
+			var nodePrefix = getNodePrefix(node);
+			if(nodePrefix!=null && nodePrefix!="") {
+				result.__cnt++;
+				result.__prefix=nodePrefix;
+			}
+			
+			if( result.__cnt == 1 && result["#text"]!=null  ) {
+				result = result["#text"];
+			} 
+			
+			if(result["#text"]!=null) {
+				result.__text = result["#text"];
+				if(escapeMode)
+					result.__text = unescapeXmlChars(result.__text)
+				delete result["#text"];
+				delete result["#text_asArray"];
+			}
+			if(result["#cdata-section"]!=null) {
+				result.__cdata = result["#cdata-section"];
+				delete result["#cdata-section"];
+				delete result["#cdata-section_asArray"];
+			}
+			
+			if(result.__text!=null || result.__cdata!=null) {
+				result.toString = function() {
+					return (this.__text!=null? this.__text:'')+( this.__cdata!=null ? this.__cdata:'');
+				}
+			}
+			return result;
+		}
+		else
+		if(node.nodeType == DOMNodeTypes.TEXT_NODE || node.nodeType == DOMNodeTypes.CDATA_SECTION_NODE) {
+			return node.nodeValue;
+		}	
+		else
+		if(node.nodeType == DOMNodeTypes.COMMENT_NODE) {
+		    return null;
+		}
+	}
+	
+	function startTag(jsonObj, element, attrList, closed) {
+		var resultStr = "<"+ ( (jsonObj!=null && jsonObj.__prefix!=null)? (jsonObj.__prefix+":"):"") + element;
+		if(attrList!=null) {
+			for(var aidx = 0; aidx < attrList.length; aidx++) {
+				var attrName = attrList[aidx];
+				var attrVal = jsonObj[attrName];
+				resultStr+=" "+attrName.substr(1)+"='"+attrVal+"'";
+			}
+		}
+		if(!closed)
+			resultStr+=">";
+		else
+			resultStr+="/>";
+		return resultStr;
+	}
+	
+	function endTag(jsonObj,elementName) {
+		return "</"+ (jsonObj.__prefix!=null? (jsonObj.__prefix+":"):"")+elementName+">";
+	}
+	
+	function endsWith(str, suffix) {
+	    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+	}
+	
+	function jsonXmlSpecialElem ( jsonObj, jsonObjField ) {
+		if(endsWith(jsonObjField.toString(),("_asArray")) 
+				|| jsonObjField.toString().indexOf("_")==0 
+				|| (jsonObj[jsonObjField] instanceof Function) )
+			return true;
+		else
+			return false;
+	}
+	
+	function jsonXmlElemCount ( jsonObj ) {
+		var elementsCnt = 0;
+		if(jsonObj instanceof Object ) {
+			for( var it in jsonObj  ) {
+				if(jsonXmlSpecialElem ( jsonObj, it) )
+					continue;			
+				elementsCnt++;
+			}
+		}
+		return elementsCnt;
+	}
+	
+	function parseJSONAttributes ( jsonObj ) {
+		var attrList = [];
+		if(jsonObj instanceof Object ) {
+			for( var ait in jsonObj  ) {
+				if(ait.toString().indexOf("__")== -1 && ait.toString().indexOf("_")==0) {
+					attrList.push(ait);
+				}
+			}
+		}
+		return attrList;
+	}
+	
+	function parseJSONTextAttrs ( jsonTxtObj ) {
+		var result ="";
+		
+		if(jsonTxtObj.__cdata!=null) {										
+			result+="<![CDATA["+jsonTxtObj.__cdata+"]]>";					
+		}
+		
+		if(jsonTxtObj.__text!=null) {			
+			if(escapeMode)
+				result+=escapeXmlChars(jsonTxtObj.__text);
+			else
+				result+=jsonTxtObj.__text;
+		}
+		return result
+	}
+	
+	function parseJSONTextObject ( jsonTxtObj ) {
+		var result ="";
+
+		if( jsonTxtObj instanceof Object ) {
+			result+=parseJSONTextAttrs ( jsonTxtObj )
+		}
+		else
+			if(jsonTxtObj!=null) {
+				if(escapeMode)
+					result+=escapeXmlChars(jsonTxtObj);
+				else
+					result+=jsonTxtObj;
+			}
+		
+		return result;
+	}
+	
+	function parseJSONArray ( jsonArrRoot, jsonArrObj, attrList ) {
+		var result = ""; 
+		if(jsonArrRoot.length == 0) {
+			result+=startTag(jsonArrRoot, jsonArrObj, attrList, true);
+		}
+		else {
+			for(var arIdx = 0; arIdx < jsonArrRoot.length; arIdx++) {
+				result+=startTag(jsonArrRoot[arIdx], jsonArrObj, parseJSONAttributes(jsonArrRoot[arIdx]), false);
+				result+=parseJSONObject(jsonArrRoot[arIdx]);
+				result+=endTag(jsonArrRoot[arIdx],jsonArrObj);						
+			}
+		}
+		return result;
+	}
+	
+	function parseJSONObject ( jsonObj ) {
+		var result = "";	
+
+		var elementsCnt = jsonXmlElemCount ( jsonObj );
+		
+		if(elementsCnt > 0) {
+			for( var it in jsonObj ) {
+				
+				if(jsonXmlSpecialElem ( jsonObj, it) )
+					continue;			
+				
+				var subObj = jsonObj[it];						
+				
+				var attrList = parseJSONAttributes( subObj )
+				
+				if(subObj == null || subObj == undefined) {
+					result+=startTag(subObj, it, attrList, true)
+				}
+				else
+				if(subObj instanceof Object) {
+					
+					if(subObj instanceof Array) {					
+						result+=parseJSONArray( subObj, it, attrList )					
+					}
+					else {
+						var subObjElementsCnt = jsonXmlElemCount ( subObj );
+						if(subObjElementsCnt > 0 || subObj.__text!=null || subObj.__cdata!=null) {
+							result+=startTag(subObj, it, attrList, false);
+							result+=parseJSONObject(subObj);
+							result+=endTag(subObj,it);
+						}
+						else {
+							result+=startTag(subObj, it, attrList, true);
+						}
+					}
+				}
+				else {
+					result+=startTag(subObj, it, attrList, false);
+					result+=parseJSONTextObject(subObj);
+					result+=endTag(subObj,it);
+				}
+			}
+		}
+		result+=parseJSONTextObject(jsonObj);
+		
+		return result;
+	}
+	
+	this.parseXmlString = function(xmlDocStr) {
+		var xmlDoc;
+		if (window.DOMParser) {
+			var parser=new window.DOMParser();			
+			xmlDoc = parser.parseFromString( xmlDocStr, "text/xml" );
+		}
+		else {
+			// IE :(
+			if(xmlDocStr.indexOf("<?")==0) {
+				xmlDocStr = xmlDocStr.substr( xmlDocStr.indexOf("?>") + 2 );
+			}
+			xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+			xmlDoc.async="false";
+			xmlDoc.loadXML(xmlDocStr);
+		}
+		return xmlDoc;
+	}
+
+	this.xml2json = function (xmlDoc) {
+		return parseDOMChildren ( xmlDoc );
+	}
+	
+	this.xml_str2json = function (xmlDocStr) {
+		var xmlDoc = this.parseXmlString(xmlDocStr);	
+		return this.xml2json(xmlDoc);
+	}
+
+	this.json2xml_str = function (jsonObj) {
+		return parseJSONObject ( jsonObj );
+	}
+
+	this.json2xml = function (jsonObj) {
+		var xmlDocStr = this.json2xml_str (jsonObj);
+		return this.parseXmlString(xmlDocStr);
+	}
+	
+	this.getVersion = function () {
+		return VERSION;
+	}		
+	
+	this.escapeMode = function(enabled) {
+		escapeMode = enabled;
+	}
+};/*
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * author Digital Primates
+ * copyright dash-if 2012
+ */
+
+/*
+ * var parent,
+ *     child,
+ *     properties = [
+                    {
+                        name: 'profiles',
+                        merge: false
+                    }
+                ];
+ *
+ * parent = {};
+ * parent.name = "ParentNode";
+ * parent.isRoor = false;
+ * parent.isArray = false;
+ * parent.parent = null;
+ * parent.children = [];
+ * parent.properties = properties;
+ *
+ * child = {};
+ * child.name = "ChildNode";
+ * child.isRoor = false;
+ * child.isArray = true;
+ * child.parent = parent;
+ * child.children = null;
+ * child.properties = properties;
+ * parent.children.push(child);
+ *
+ */
+
+function ObjectIron(map) {
+
+    var lookup;
+
+    // create a list of top level items to search for
+    lookup = [];
+    for (i = 0, len = map.length; i < len; i += 1) {
+        if (map[i].isRoot) {
+            lookup.push("root");
+        } else {
+            lookup.push(map[i].name);
+        }
+    }
+
+    var mergeValues = function (parentItem, childItem) {
+            var name,
+                parentValue,
+                childValue;
+
+            if (parentItem === null || childItem === null) {
+                return;
+            }
+
+            for (name in parentItem) {
+                if (parentItem.hasOwnProperty(name)) {
+                    if (!childItem.hasOwnProperty(name)) {
+                        childItem[name] = parentItem[name];
+                    }
+                }
+            }
+        },
+
+        mapProperties = function (properties, parent, child) {
+            var i,
+                len,
+                property,
+                parentValue,
+                childValue;
+
+            if (properties === null || properties.length === 0) {
+                return;
+            }
+
+            for (i = 0, len = properties.length; i < len; i += 1) {
+                property = properties[i];
+
+                if (parent.hasOwnProperty(property.name)) {
+                    if (child.hasOwnProperty(property.name)) {
+                        // check to see if we should merge
+                        if (property.merge) {
+                           parentValue = parent[property.name];
+                           childValue = child[property.name];
+
+                            // complex objects; merge properties
+                            if (typeof parentValue === 'object' && typeof childValue === 'object') {
+                                mergeValues(parentValue, childValue);
+                            }
+                            // simple objects; merge them together
+                            else {
+                                if (property.mergeFunction != null) {
+                                    child[property.name] = property.mergeFunction(parentValue, childValue);
+                                } else {
+                                    child[property.name] = parentValue + childValue;
+                                }
+                            }
+                        }
+                    } else {
+                        // just add the property
+                        child[property.name] = parent[property.name];
+                    }
+                }
+            }
+        },
+
+        mapItem = function (obj, node) {
+            var item = obj,
+                i,
+                len,
+                v,
+                len2,
+                array,
+                childItem,
+                childNode,
+                property;
+
+            if (item.children === null || item.children.length === 0) {
+                return;
+            }
+
+            for (i = 0, len = item.children.length; i < len; i += 1) {
+                childItem = item.children[i];
+
+                if (node.hasOwnProperty(childItem.name)) {
+                    if (childItem.isArray) {
+                        array = node[childItem.name + "_asArray"];
+                        for (v = 0, len2 = array.length; v < len2; v += 1) {
+                            childNode = array[v];
+                            mapProperties(item.properties, node, childNode);
+                            mapItem(childItem, childNode);
+                        }
+                    } else {
+                        childNode = node[childItem.name];
+                        mapProperties(item.properties, node, childNode);
+                        mapItem(childItem, childNode);
+                    }
+                }
+            }
+        },
+
+        performMapping = function (source) {
+            var i,
+                len,
+                pi,
+                pp,
+                item,
+                node,
+                array;
+
+            if (source === null) {
+                return source;
+            }
+
+            if (typeof source !== 'object') {
+                return source;
+            }
+
+            // first look to see if anything cares about the root node
+            for (i = 0, len = lookup.length; i < len; i += 1) {
+                if (lookup[i] === "root") {
+                    item = map[i];
+                    node = source;
+                    mapItem(item, node);
+                }
+            }
+
+            // iterate over the objects and look for any of the items we care about
+            for (pp in source) {
+                if (source.hasOwnProperty(pp)) {
+                    pi = lookup.indexOf(pp);
+                    if (pi !== -1) {
+                        item = map[pi];
+
+                        if (item.isArray) {
+                            array = source[pp + "_asArray"];
+                            for (i = 0, len = array.length; i < len; i += 1) {
+                                node = array[i];
+                                mapItem(item, node);
+                            }
+                        } else {
+                            node = source[pp];
+                            mapItem(item, node);
+                        }
+                    }
+                    // now check this to see if he has any of the properties we care about
+                    performMapping(source[pp]);
+                }
+            }
+
+            return source;
+        };
+
+    return {
+        run: performMapping
+    };
+};/**
+ * @author <a href="http://www.creynders.be">Camille Reynders</a>
+ */
+( function ( scope ) {
+
+    "use strict";
+
+    /**
+     * @namespace
+     */
+    var dijon = {
+        /**
+         * framework version number
+         * @constant
+         * @type String
+         */
+        VERSION:'0.5.3'
+    };//dijon
+
+
+    //======================================//
+    // dijon.System
+    //======================================//
+
+    /**
+     * @class dijon.System
+     * @constructor
+     */
+    dijon.System = function () {
+        /** @private */
+        this._mappings = {};
+
+        /** @private */
+        this._outlets = {};
+
+        /** @private */
+        this._handlers = {};
+
+        /**
+         * When <code>true</code> injections are made only if an object has a property with the mapped outlet name.<br/>
+         * <strong>Set to <code>false</code> at own risk</strong>, may have quite undesired side effects.
+         * @example
+         * system.strictInjections = true
+         * var o = {};
+         * system.mapSingleton( 'userModel', UserModel );
+         * system.mapOutlet( 'userModel' );
+         * system.injectInto( o );
+         *
+         * //o is unchanged
+         *
+         * system.strictInjections = false;
+         * system.injectInto( o );
+         *
+         * //o now has a member 'userModel' which holds a reference to the singleton instance
+         * //of UserModel
+         * @type Boolean
+         * @default true
+         */
+        this.strictInjections = true;
+
+        /**
+         * Enables the automatic mapping of outlets for mapped values, singletons and classes
+         * When this is true any value, singleton or class that is mapped will automatically be mapped as a global outlet
+         * using the value of <code>key</code> as outlet name
+         *
+         * @example
+         * var o = {
+         *     userModel : undefined; //inject
+         * }
+         * system.mapSingleton( 'userModel', UserModel );
+         * system.injectInto( o ):
+         * //o.userModel now holds a reference to the singleton instance of UserModel
+         * @type Boolean
+         * @default false
+         */
+        this.autoMapOutlets = false;
+
+        /**
+         * The name of the method that will be called for all instances, right after injection has occured.
+         * @type String
+         * @default 'setup'
+         */
+        this.postInjectionHook = 'setup';
+
+    };//dijon.System
+
+    dijon.System.prototype = {
+
+        /**
+         * @private
+         * @param {Class} clazz
+         */
+        _createAndSetupInstance:function ( key, Clazz ) {
+            var instance = new Clazz();
+            this.injectInto( instance, key );
+            return instance;
+        },
+
+        /**
+         * @private
+         * @param {String} key
+         * @param {Boolean} overrideRules
+         * @return {Object}
+         */
+        _retrieveFromCacheOrCreate:function ( key, overrideRules ) {
+            if ( typeof overrideRules === 'undefined' ) {
+                overrideRules = false;
+            }
+            var output;
+            if ( this._mappings.hasOwnProperty( key ) ) {
+                var config = this._mappings[ key ];
+                if ( !overrideRules && config.isSingleton ) {
+                    if ( config.object == null ) {
+                        config.object = this._createAndSetupInstance( key, config.clazz );
+                    }
+                    output = config.object;
+                } else {
+                    if ( config.clazz ) {
+                        output = this._createAndSetupInstance( key, config.clazz );
+                    } else {
+                        //TODO shouldn't this be null
+                        output = config.object;
+                    }
+                }
+            } else {
+                throw new Error( 1000 );
+            }
+            return output;
+        },
+
+
+        /**
+         * defines <code>outletName</code> as an injection point in <code>targetKey</code>for the object mapped to <code>sourceKey</code>
+         * @example
+         system.mapSingleton( 'userModel', TestClassA );
+         var o = {
+         user : undefined //inject
+         }
+         system.mapOutlet( 'userModel', 'o', 'user' );
+         system.mapValue( 'o', o );
+
+         var obj = system.getObject( 'o' );
+         * //obj.user holds a reference to the singleton instance of UserModel
+         *
+         * @example
+         system.mapSingleton( 'userModel', TestClassA );
+         var o = {
+         userModel : undefined //inject
+         }
+         system.mapOutlet( 'userModel', 'o' );
+         system.mapValue( 'o', o );
+
+         var obj = system.getObject( 'o' );
+         * //obj.userModel holds a reference to the singleton instance of UserModel
+         *
+         * @example
+         system.mapSingleton( 'userModel', TestClassA );
+         system.mapOutlet( 'userModel' );
+         var o = {
+         userModel : undefined //inject
+         }
+         system.mapValue( 'o', o );
+
+         var obj = system.getObject( 'o' );
+         * //o.userModel holds a reference to the singleton instance of userModel
+         *
+         * @param {String} sourceKey the key mapped to the object that will be injected
+         * @param {String} [targetKey='global'] the key the outlet is assigned to.
+         * @param {String} [outletName=sourceKey] the name of the property used as an outlet.<br/>
+         * @return {dijon.System}
+         * @see dijon.System#unmapOutlet
+         */
+        mapOutlet:function ( sourceKey, targetKey, outletName ) {
+            if ( typeof sourceKey === 'undefined' ) {
+                throw new Error( 1010 );
+            }
+            targetKey = targetKey || "global";
+            outletName = outletName || sourceKey;
+
+            if ( !this._outlets.hasOwnProperty( targetKey ) ) {
+                this._outlets[ targetKey ] = {};
+            }
+            this._outlets[ targetKey ][ outletName ] = sourceKey;
+
+            return this;
+        },
+
+        /**
+         * Retrieve (or create) the object mapped to <code>key</code>
+         * @example
+         * system.mapValue( 'foo', 'bar' );
+         * var b = system.getObject( 'foo' ); //now contains 'bar'
+         * @param {Object} key
+         * @return {Object}
+         */
+        getObject:function ( key ) {
+            if ( typeof key === 'undefined' ) {
+                throw new Error( 1020 );
+            }
+            return this._retrieveFromCacheOrCreate( key );
+        },
+
+        /**
+         * Maps <code>useValue</code> to <code>key</code>
+         * @example
+         * system.mapValue( 'foo', 'bar' );
+         * var b = system.getObject( 'foo' ); //now contains 'bar'
+         * @param {String} key
+         * @param {Object} useValue
+         * @return {dijon.System}
+         */
+        mapValue:function ( key, useValue ) {
+            if ( typeof key === 'undefined' ) {
+                throw new Error( 1030 );
+            }
+            this._mappings[ key ] = {
+                clazz:null,
+                object:useValue,
+                isSingleton:true
+            };
+            if ( this.autoMapOutlets ) {
+                this.mapOutlet( key );
+            }
+            if ( this.hasMapping( key )) {
+                this.injectInto( useValue, key );
+            }
+            return this;
+        },
+
+        /**
+         * Returns whether the key is mapped to an object
+         * @example
+         * system.mapValue( 'foo', 'bar' );
+         * var isMapped = system.hasMapping( 'foo' );
+         * @param {String} key
+         * @return {Boolean}
+         */
+        hasMapping:function ( key ) {
+            if ( typeof key === 'undefined' ) {
+                throw new Error( 1040 );
+            }
+            return this._mappings.hasOwnProperty( key );
+        },
+
+        /**
+         * Maps <code>clazz</code> as a factory to <code>key</code>
+         * @example
+         * var SomeClass = function(){
+         * }
+         * system.mapClass( 'o', SomeClass );
+         *
+         * var s1 = system.getObject( 'o' );
+         * var s2 = system.getObject( 'o' );
+         *
+         * //s1 and s2 reference two different instances of SomeClass
+         *
+         * @param {String} key
+         * @param {Function} clazz
+         * @return {dijon.System}
+         */
+        mapClass:function ( key, clazz ) {
+            if ( typeof key === 'undefined' ) {
+                throw new Error( 1050 );
+            }
+            if ( typeof clazz === 'undefined' ) {
+                throw new Error( 1051 );
+            }
+            this._mappings[ key ] = {
+                clazz:clazz,
+                object:null,
+                isSingleton:false
+            };
+            if ( this.autoMapOutlets ) {
+                this.mapOutlet( key );
+            }
+            return this;
+        },
+
+        /**
+         * Maps <code>clazz</code> as a singleton factory to <code>key</code>
+         * @example
+         * var SomeClass = function(){
+         * }
+         * system.mapSingleton( 'o', SomeClass );
+         *
+         * var s1 = system.getObject( 'o' );
+         * var s2 = system.getObject( 'o' );
+         *
+         * //s1 and s2 reference the same instance of SomeClass
+         *
+         * @param {String} key
+         * @param {Function} clazz
+         * @return {dijon.System}
+         */
+        mapSingleton:function ( key, clazz ) {
+            if ( typeof key === 'undefined' ) {
+                throw new Error( 1060 );
+            }
+            if ( typeof clazz === 'undefined' ) {
+                throw new Error( 1061 );
+            }
+            this._mappings[ key ] = {
+                clazz:clazz,
+                object:null,
+                isSingleton:true
+            };
+            if ( this.autoMapOutlets ) {
+                this.mapOutlet( key );
+            }
+            return this;
+        },
+
+        /**
+         * Force instantiation of the class mapped to <code>key</code>, whether it was mapped as a singleton or not.
+         * When a value was mapped, the value will be returned.
+         * TODO: should this last rule be changed?
+         * @example
+         var SomeClass = function(){
+         }
+         system.mapClass( 'o', SomeClass );
+
+         var s1 = system.getObject( 'o' );
+         var s2 = system.getObject( 'o' );
+         * //s1 and s2 reference different instances of SomeClass
+         *
+         * @param {String} key
+         * @return {Object}
+         */
+        instantiate:function ( key ) {
+            if ( typeof key === 'undefined' ) {
+                throw new Error( 1070 );
+            }
+            return this._retrieveFromCacheOrCreate( key, true );
+        },
+
+        /**
+         * Perform an injection into an object's mapped outlets, satisfying all it's dependencies
+         * @example
+         * var UserModel = function(){
+         * }
+         * system.mapSingleton( 'userModel', UserModel );
+         * var SomeClass = function(){
+         *      user = undefined; //inject
+         * }
+         * system.mapSingleton( 'o', SomeClass );
+         * system.mapOutlet( 'userModel', 'o', 'user' );
+         *
+         * var foo = {
+         *      user : undefined //inject
+         * }
+         *
+         * system.injectInto( foo, 'o' );
+         *
+         * //foo.user now holds a reference to the singleton instance of UserModel
+         * @param {Object} instance
+         * @param {String} [key] use the outlet mappings as defined for <code>key</code>, otherwise only the globally
+         * mapped outlets will be used.
+         * @return {dijon.System}
+         */
+        injectInto:function ( instance, key ) {
+            if ( typeof instance === 'undefined' ) {
+                throw new Error( 1080 );
+            }
+			if( ( typeof instance === 'object' ) ){
+				var o = [];
+				if ( this._outlets.hasOwnProperty( 'global' ) ) {
+					o.push( this._outlets[ 'global' ] );
+				}
+				if ( typeof key !== 'undefined' && this._outlets.hasOwnProperty( key ) ) {
+					o.push( this._outlets[ key ] );
+				}
+				for ( var i in o ) {
+					var l = o [ i ];
+					for ( var outlet in l ) {
+						var source = l[ outlet ];
+						//must be "in" [!]
+						if ( !this.strictInjections || outlet in instance ) {
+							instance[ outlet ] = this.getObject( source );
+						}
+					}
+				}
+				if ( "setup" in instance ) {
+					instance.setup.call( instance );
+				}
+			}
+            return this;
+        },
+
+        /**
+         * Remove the mapping of <code>key</code> from the system
+         * @param {String} key
+         * @return {dijon.System}
+         */
+        unmap:function ( key ) {
+            if ( typeof key === 'undefined' ) {
+                throw new Error( 1090 );
+            }
+            delete this._mappings[ key ];
+
+            return this;
+        },
+
+        /**
+         * removes an injection point mapping for a given object mapped to <code>key</code>
+         * @param {String} target
+         * @param {String} outlet
+         * @return {dijon.System}
+         * @see dijon.System#addOutlet
+         */
+        unmapOutlet:function ( target, outlet ) {
+            if ( typeof target === 'undefined' ) {
+                throw new Error( 1100 );
+            }
+            if ( typeof outlet === 'undefined' ) {
+                throw new Error( 1101 );
+            }
+            delete this._outlets[ target ][ outlet ];
+
+            return this;
+        },
+
+        /**
+         * maps a handler for an event/route.<br/>
+         * @example
+         var hasExecuted = false;
+         var userView = {
+         showUserProfile : function(){
+         hasExecuted = true;
+         }
+         }
+         system.mapValue( 'userView', userView );
+         system.mapHandler( 'user/profile', 'userView', 'showUserProfile' );
+         system.notify( 'user/profile' );
+         //hasExecuted is true
+         * @example
+         * var userView = {
+         *      showUserProfile : function(){
+         *          //do stuff
+         *      }
+         * }
+         * system.mapValue( 'userView', userView );
+         * <strong>system.mapHandler( 'showUserProfile', 'userView' );</strong>
+         * system.notify( 'showUserProfile' );
+         *
+         * //userView.showUserProfile is called
+         * @example
+         * var showUserProfile = function(){
+         *          //do stuff
+         * }
+         * <strong>system.mapHandler( 'user/profile', undefined, showUserProfile );</strong>
+         * system.notify( 'user/profile' );
+         *
+         * //showUserProfile is called
+         * @example
+         * var userView = {};
+         * var showUserProfile = function(){
+         *          //do stuff
+         * }
+         * system.mapValue( 'userView', userView );
+         * <strong>system.mapHandler( 'user/profile', 'userView', showUserProfile );</strong>
+         * system.notify( 'user/profile' );
+         *
+         * //showUserProfile is called within the scope of the userView object
+         * @example
+         * var userView = {
+         *      showUserProfile : function(){
+         *          //do stuff
+         *      }
+         * }
+         * system.mapValue( 'userView', userView );
+         * <strong>system.mapHandler( 'user/profile', 'userView', 'showUserProfile', true );</strong>
+         * system.notify( 'user/profile' );
+         * system.notify( 'user/profile' );
+         * system.notify( 'user/profile' );
+         *
+         * //userView.showUserProfile is called exactly once [!]
+         * @example
+         * var userView = {
+         *      showUserProfile : function( route ){
+         *          //do stuff
+         *      }
+         * }
+         * system.mapValue( 'userView', userView );
+         * <strong>system.mapHandler( 'user/profile', 'userView', 'showUserProfile', false, true );</strong>
+         * system.notify( 'user/profile' );
+         *
+         * //userView.showUserProfile is called and the route/eventName is passed to the handler
+         * @param {String} eventName/route
+         * @param {String} [key=undefined] If <code>key</code> is <code>undefined</code> the handler will be called without
+         * scope.
+         * @param {String|Function} [handler=eventName] If <code>handler</code> is <code>undefined</code> the value of
+         * <code>eventName</code> will be used as the name of the member holding the reference to the to-be-called function.
+         * <code>handler</code> accepts either a string, which will be used as the name of the member holding the reference
+         * to the to-be-called function, or a direct function reference.
+         * @param {Boolean} [oneShot=false] Defines whether the handler should be called exactly once and then automatically
+         * unmapped
+         * @param {Boolean} [passEvent=false] Defines whether the event object should be passed to the handler or not.
+         * @return {dijon.System}
+         * @see dijon.System#notify
+         * @see dijon.System#unmapHandler
+         */
+        mapHandler:function ( eventName, key, handler, oneShot, passEvent ) {
+            if ( typeof eventName === 'undefined' ) {
+                throw new Error( 1110 );
+            }
+            key = key || 'global';
+            handler = handler || eventName;
+
+            if ( typeof oneShot === 'undefined' ) {
+                oneShot = false;
+            }
+            if ( typeof passEvent === 'undefined' ) {
+                passEvent = false;
+            }
+            if ( !this._handlers.hasOwnProperty( eventName ) ) {
+                this._handlers[ eventName ] = {};
+            }
+            if ( !this._handlers[eventName].hasOwnProperty( key ) ) {
+                this._handlers[eventName][key] = [];
+            }
+            this._handlers[ eventName ][ key ].push( {
+                handler:handler,
+                oneShot:oneShot,
+                passEvent:passEvent
+            } );
+
+            return this;
+        },
+
+        /**
+         * Unmaps the handler for a specific event/route.
+         * @param {String} eventName Name of the event/route
+         * @param {String} [key=undefined] If <code>key</code> is <code>undefined</code> the handler is removed from the
+         * global mapping space. (If the same event is mapped globally and specifically for an object, then
+         * only the globally mapped one will be removed)
+         * @param {String | Function} [handler=eventName]
+         * @return {dijon.System}
+         * @see dijon.System#mapHandler
+         */
+        unmapHandler:function ( eventName, key, handler ) {
+            if ( typeof eventName === 'undefined' ) {
+                throw new Error( 1120 );
+            }
+            key = key || 'global';
+            handler = handler || eventName;
+
+            if ( this._handlers.hasOwnProperty( eventName ) && this._handlers[ eventName ].hasOwnProperty( key ) ) {
+                var handlers = this._handlers[ eventName ][ key ];
+                for ( var i in handlers ) {
+                    var config = handlers[ i ];
+                    if ( config.handler === handler ) {
+                        handlers.splice( i, 1 );
+                        break;
+                    }
+                }
+            }
+            return this;
+        },
+
+        /**
+         * calls all handlers mapped to <code>eventName/route</code>
+         * @param {String} eventName/route
+         * @return {dijon.System}
+         * @see dijon.System#mapHandler
+         */
+        notify:function ( eventName ) {
+            if ( typeof eventName === 'undefined' ) {
+                throw new Error( 1130 );
+            }
+            var argsWithEvent = Array.prototype.slice.call( arguments );
+            var argsClean = argsWithEvent.slice( 1 );
+            if ( this._handlers.hasOwnProperty( eventName ) ) {
+                var handlers = this._handlers[ eventName ];
+                for ( var key in handlers ) {
+                    var configs = handlers[ key ];
+                    var instance;
+                    if ( key !== 'global' ) {
+                        instance = this.getObject( key );
+                    }
+                    var toBeDeleted = [];
+                    var i, n;
+                    for ( i = 0, n = configs.length ; i < n ; i++ ) {
+                        var handler;
+                        var config = configs[ i ];
+                        if ( instance && typeof config.handler === "string" ) {
+                            handler = instance[ config.handler ];
+                        } else {
+                            handler = config.handler;
+                        }
+
+                        //see deletion below
+                        if ( config.oneShot ) {
+                            toBeDeleted.unshift( i );
+                        }
+
+                        if ( config.passEvent ) {
+                            handler.apply( instance, argsWithEvent );
+                        } else {
+                            handler.apply( instance, argsClean );
+                        }
+                    }
+
+                    //items should be deleted in reverse order
+                    //either use push above and decrement here
+                    //or use unshift above and increment here
+                    for ( i = 0, n = toBeDeleted.length ; i < n ; i++ ) {
+                        configs.splice( toBeDeleted[ i ], 1 );
+                    }
+                }
+            }
+
+            return this;
+        }
+
+    };//dijon.System.prototype
+
+    scope.dijon = dijon;
+}( this ));
+
+
+;/*
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * author Digital Primates
+ * copyright dash-if 2012
+ */ 
+ if(typeof(utils) == "undefined"){
+ 	var utils = {};
+ }
+ 
+ if(typeof(utils.Math) == "undefined"){
+ 	utils.Math = {};
+ }
+ 
+ utils.Math.to64BitNumber = function(low, high) {
+	var highNum, lowNum, expected;
+
+	highNum = new goog.math.Long(0, high);
+	lowNum = new goog.math.Long(low, 0);
+	expected = highNum.add(lowNum);
+
+	return expected.toNumber();
+};// Copyright 2009 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+goog = {};
+goog.math = {};
+
+/**
+ * @fileoverview Defines a Long class for representing a 64-bit two's-complement
+ * integer value, which faithfully simulates the behavior of a Java "long". This
+ * implementation is derived from LongLib in GWT.
+ *
+ */
+
+//goog.provide('goog.math.Long');
+
+
+
+/**
+ * Constructs a 64-bit two's-complement integer, given its low and high 32-bit
+ * values as *signed* integers.  See the from* functions below for more
+ * convenient ways of constructing Longs.
+ *
+ * The internal representation of a long is the two given signed, 32-bit values.
+ * We use 32-bit pieces because these are the size of integers on which
+ * Javascript performs bit-operations.  For operations like addition and
+ * multiplication, we split each number into 16-bit pieces, which can easily be
+ * multiplied within Javascript's floating-point representation without overflow
+ * or change in sign.
+ *
+ * In the algorithms below, we frequently reduce the negative case to the
+ * positive case by negating the input(s) and then post-processing the result.
+ * Note that we must ALWAYS check specially whether those values are MIN_VALUE
+ * (-2^63) because -MIN_VALUE == MIN_VALUE (since 2^63 cannot be represented as
+ * a positive number, it overflows back into a negative).  Not handling this
+ * case would often result in infinite recursion.
+ *
+ * @param {number} low  The low (signed) 32 bits of the long.
+ * @param {number} high  The high (signed) 32 bits of the long.
+ * @constructor
+ */
+goog.math.Long = function(low, high) {
+  /**
+   * @type {number}
+   * @private
+   */
+  this.low_ = low | 0;  // force into 32 signed bits.
+
+  /**
+   * @type {number}
+   * @private
+   */
+  this.high_ = high | 0;  // force into 32 signed bits.
+};
+
+
+// NOTE: Common constant values ZERO, ONE, NEG_ONE, etc. are defined below the
+// from* methods on which they depend.
+
+
+/**
+ * A cache of the Long representations of small integer values.
+ * @type {!Object}
+ * @private
+ */
+goog.math.Long.IntCache_ = {};
+
+
+/**
+ * Returns a Long representing the given (32-bit) integer value.
+ * @param {number} value The 32-bit integer in question.
+ * @return {!goog.math.Long} The corresponding Long value.
+ */
+goog.math.Long.fromInt = function(value) {
+  if (-128 <= value && value < 128) {
+    var cachedObj = goog.math.Long.IntCache_[value];
+    if (cachedObj) {
+      return cachedObj;
+    }
+  }
+
+  var obj = new goog.math.Long(value | 0, value < 0 ? -1 : 0);
+  if (-128 <= value && value < 128) {
+    goog.math.Long.IntCache_[value] = obj;
+  }
+  return obj;
+};
+
+
+/**
+ * Returns a Long representing the given value, provided that it is a finite
+ * number.  Otherwise, zero is returned.
+ * @param {number} value The number in question.
+ * @return {!goog.math.Long} The corresponding Long value.
+ */
+goog.math.Long.fromNumber = function(value) {
+  if (isNaN(value) || !isFinite(value)) {
+    return goog.math.Long.ZERO;
+  } else if (value <= -goog.math.Long.TWO_PWR_63_DBL_) {
+    return goog.math.Long.MIN_VALUE;
+  } else if (value + 1 >= goog.math.Long.TWO_PWR_63_DBL_) {
+    return goog.math.Long.MAX_VALUE;
+  } else if (value < 0) {
+    return goog.math.Long.fromNumber(-value).negate();
+  } else {
+    return new goog.math.Long(
+        (value % goog.math.Long.TWO_PWR_32_DBL_) | 0,
+        (value / goog.math.Long.TWO_PWR_32_DBL_) | 0);
+  }
+};
+
+
+/**
+ * Returns a Long representing the 64-bit integer that comes by concatenating
+ * the given high and low bits.  Each is assumed to use 32 bits.
+ * @param {number} lowBits The low 32-bits.
+ * @param {number} highBits The high 32-bits.
+ * @return {!goog.math.Long} The corresponding Long value.
+ */
+goog.math.Long.fromBits = function(lowBits, highBits) {
+  return new goog.math.Long(lowBits, highBits);
+};
+
+
+/**
+ * Returns a Long representation of the given string, written using the given
+ * radix.
+ * @param {string} str The textual representation of the Long.
+ * @param {number=} opt_radix The radix in which the text is written.
+ * @return {!goog.math.Long} The corresponding Long value.
+ */
+goog.math.Long.fromString = function(str, opt_radix) {
+  if (str.length == 0) {
+    throw Error('number format error: empty string');
+  }
+
+  var radix = opt_radix || 10;
+  if (radix < 2 || 36 < radix) {
+    throw Error('radix out of range: ' + radix);
+  }
+
+  if (str.charAt(0) == '-') {
+    return goog.math.Long.fromString(str.substring(1), radix).negate();
+  } else if (str.indexOf('-') >= 0) {
+    throw Error('number format error: interior "-" character: ' + str);
+  }
+
+  // Do several (8) digits each time through the loop, so as to
+  // minimize the calls to the very expensive emulated div.
+  var radixToPower = goog.math.Long.fromNumber(Math.pow(radix, 8));
+
+  var result = goog.math.Long.ZERO;
+  for (var i = 0; i < str.length; i += 8) {
+    var size = Math.min(8, str.length - i);
+    var value = parseInt(str.substring(i, i + size), radix);
+    if (size < 8) {
+      var power = goog.math.Long.fromNumber(Math.pow(radix, size));
+      result = result.multiply(power).add(goog.math.Long.fromNumber(value));
+    } else {
+      result = result.multiply(radixToPower);
+      result = result.add(goog.math.Long.fromNumber(value));
+    }
+  }
+  return result;
+};
+
+
+// NOTE: the compiler should inline these constant values below and then remove
+// these variables, so there should be no runtime penalty for these.
+
+
+/**
+ * Number used repeated below in calculations.  This must appear before the
+ * first call to any from* function below.
+ * @type {number}
+ * @private
+ */
+goog.math.Long.TWO_PWR_16_DBL_ = 1 << 16;
+
+
+/**
+ * @type {number}
+ * @private
+ */
+goog.math.Long.TWO_PWR_24_DBL_ = 1 << 24;
+
+
+/**
+ * @type {number}
+ * @private
+ */
+goog.math.Long.TWO_PWR_32_DBL_ =
+    goog.math.Long.TWO_PWR_16_DBL_ * goog.math.Long.TWO_PWR_16_DBL_;
+
+
+/**
+ * @type {number}
+ * @private
+ */
+goog.math.Long.TWO_PWR_31_DBL_ =
+    goog.math.Long.TWO_PWR_32_DBL_ / 2;
+
+
+/**
+ * @type {number}
+ * @private
+ */
+goog.math.Long.TWO_PWR_48_DBL_ =
+    goog.math.Long.TWO_PWR_32_DBL_ * goog.math.Long.TWO_PWR_16_DBL_;
+
+
+/**
+ * @type {number}
+ * @private
+ */
+goog.math.Long.TWO_PWR_64_DBL_ =
+    goog.math.Long.TWO_PWR_32_DBL_ * goog.math.Long.TWO_PWR_32_DBL_;
+
+
+/**
+ * @type {number}
+ * @private
+ */
+goog.math.Long.TWO_PWR_63_DBL_ =
+    goog.math.Long.TWO_PWR_64_DBL_ / 2;
+
+
+/** @type {!goog.math.Long} */
+goog.math.Long.ZERO = goog.math.Long.fromInt(0);
+
+
+/** @type {!goog.math.Long} */
+goog.math.Long.ONE = goog.math.Long.fromInt(1);
+
+
+/** @type {!goog.math.Long} */
+goog.math.Long.NEG_ONE = goog.math.Long.fromInt(-1);
+
+
+/** @type {!goog.math.Long} */
+goog.math.Long.MAX_VALUE =
+    goog.math.Long.fromBits(0xFFFFFFFF | 0, 0x7FFFFFFF | 0);
+
+
+/** @type {!goog.math.Long} */
+goog.math.Long.MIN_VALUE = goog.math.Long.fromBits(0, 0x80000000 | 0);
+
+
+/**
+ * @type {!goog.math.Long}
+ * @private
+ */
+goog.math.Long.TWO_PWR_24_ = goog.math.Long.fromInt(1 << 24);
+
+
+/** @return {number} The value, assuming it is a 32-bit integer. */
+goog.math.Long.prototype.toInt = function() {
+  return this.low_;
+};
+
+
+/** @return {number} The closest floating-point representation to this value. */
+goog.math.Long.prototype.toNumber = function() {
+  return this.high_ * goog.math.Long.TWO_PWR_32_DBL_ +
+         this.getLowBitsUnsigned();
+};
+
+
+/**
+ * @param {number=} opt_radix The radix in which the text should be written.
+ * @return {string} The textual representation of this value.
+ * @override
+ */
+goog.math.Long.prototype.toString = function(opt_radix) {
+  var radix = opt_radix || 10;
+  if (radix < 2 || 36 < radix) {
+    throw Error('radix out of range: ' + radix);
+  }
+
+  if (this.isZero()) {
+    return '0';
+  }
+
+  if (this.isNegative()) {
+    if (this.equals(goog.math.Long.MIN_VALUE)) {
+      // We need to change the Long value before it can be negated, so we remove
+      // the bottom-most digit in this base and then recurse to do the rest.
+      var radixLong = goog.math.Long.fromNumber(radix);
+      var div = this.div(radixLong);
+      var rem = div.multiply(radixLong).subtract(this);
+      return div.toString(radix) + rem.toInt().toString(radix);
+    } else {
+      return '-' + this.negate().toString(radix);
+    }
+  }
+
+  // Do several (6) digits each time through the loop, so as to
+  // minimize the calls to the very expensive emulated div.
+  var radixToPower = goog.math.Long.fromNumber(Math.pow(radix, 6));
+
+  var rem = this;
+  var result = '';
+  while (true) {
+    var remDiv = rem.div(radixToPower);
+    var intval = rem.subtract(remDiv.multiply(radixToPower)).toInt();
+    var digits = intval.toString(radix);
+
+    rem = remDiv;
+    if (rem.isZero()) {
+      return digits + result;
+    } else {
+      while (digits.length < 6) {
+        digits = '0' + digits;
+      }
+      result = '' + digits + result;
+    }
+  }
+};
+
+
+/** @return {number} The high 32-bits as a signed value. */
+goog.math.Long.prototype.getHighBits = function() {
+  return this.high_;
+};
+
+
+/** @return {number} The low 32-bits as a signed value. */
+goog.math.Long.prototype.getLowBits = function() {
+  return this.low_;
+};
+
+
+/** @return {number} The low 32-bits as an unsigned value. */
+goog.math.Long.prototype.getLowBitsUnsigned = function() {
+  return (this.low_ >= 0) ?
+      this.low_ : goog.math.Long.TWO_PWR_32_DBL_ + this.low_;
+};
+
+
+/**
+ * @return {number} Returns the number of bits needed to represent the absolute
+ *     value of this Long.
+ */
+goog.math.Long.prototype.getNumBitsAbs = function() {
+  if (this.isNegative()) {
+    if (this.equals(goog.math.Long.MIN_VALUE)) {
+      return 64;
+    } else {
+      return this.negate().getNumBitsAbs();
+    }
+  } else {
+    var val = this.high_ != 0 ? this.high_ : this.low_;
+    for (var bit = 31; bit > 0; bit--) {
+      if ((val & (1 << bit)) != 0) {
+        break;
+      }
+    }
+    return this.high_ != 0 ? bit + 33 : bit + 1;
+  }
+};
+
+
+/** @return {boolean} Whether this value is zero. */
+goog.math.Long.prototype.isZero = function() {
+  return this.high_ == 0 && this.low_ == 0;
+};
+
+
+/** @return {boolean} Whether this value is negative. */
+goog.math.Long.prototype.isNegative = function() {
+  return this.high_ < 0;
+};
+
+
+/** @return {boolean} Whether this value is odd. */
+goog.math.Long.prototype.isOdd = function() {
+  return (this.low_ & 1) == 1;
+};
+
+
+/**
+ * @param {goog.math.Long} other Long to compare against.
+ * @return {boolean} Whether this Long equals the other.
+ */
+goog.math.Long.prototype.equals = function(other) {
+  return (this.high_ == other.high_) && (this.low_ == other.low_);
+};
+
+
+/**
+ * @param {goog.math.Long} other Long to compare against.
+ * @return {boolean} Whether this Long does not equal the other.
+ */
+goog.math.Long.prototype.notEquals = function(other) {
+  return (this.high_ != other.high_) || (this.low_ != other.low_);
+};
+
+
+/**
+ * @param {goog.math.Long} other Long to compare against.
+ * @return {boolean} Whether this Long is less than the other.
+ */
+goog.math.Long.prototype.lessThan = function(other) {
+  return this.compare(other) < 0;
+};
+
+
+/**
+ * @param {goog.math.Long} other Long to compare against.
+ * @return {boolean} Whether this Long is less than or equal to the other.
+ */
+goog.math.Long.prototype.lessThanOrEqual = function(other) {
+  return this.compare(other) <= 0;
+};
+
+
+/**
+ * @param {goog.math.Long} other Long to compare against.
+ * @return {boolean} Whether this Long is greater than the other.
+ */
+goog.math.Long.prototype.greaterThan = function(other) {
+  return this.compare(other) > 0;
+};
+
+
+/**
+ * @param {goog.math.Long} other Long to compare against.
+ * @return {boolean} Whether this Long is greater than or equal to the other.
+ */
+goog.math.Long.prototype.greaterThanOrEqual = function(other) {
+  return this.compare(other) >= 0;
+};
+
+
+/**
+ * Compares this Long with the given one.
+ * @param {goog.math.Long} other Long to compare against.
+ * @return {number} 0 if they are the same, 1 if the this is greater, and -1
+ *     if the given one is greater.
+ */
+goog.math.Long.prototype.compare = function(other) {
+  if (this.equals(other)) {
+    return 0;
+  }
+
+  var thisNeg = this.isNegative();
+  var otherNeg = other.isNegative();
+  if (thisNeg && !otherNeg) {
+    return -1;
+  }
+  if (!thisNeg && otherNeg) {
+    return 1;
+  }
+
+  // at this point, the signs are the same, so subtraction will not overflow
+  if (this.subtract(other).isNegative()) {
+    return -1;
+  } else {
+    return 1;
+  }
+};
+
+
+/** @return {!goog.math.Long} The negation of this value. */
+goog.math.Long.prototype.negate = function() {
+  if (this.equals(goog.math.Long.MIN_VALUE)) {
+    return goog.math.Long.MIN_VALUE;
+  } else {
+    return this.not().add(goog.math.Long.ONE);
+  }
+};
+
+
+/**
+ * Returns the sum of this and the given Long.
+ * @param {goog.math.Long} other Long to add to this one.
+ * @return {!goog.math.Long} The sum of this and the given Long.
+ */
+goog.math.Long.prototype.add = function(other) {
+  // Divide each number into 4 chunks of 16 bits, and then sum the chunks.
+
+  var a48 = this.high_ >>> 16;
+  var a32 = this.high_ & 0xFFFF;
+  var a16 = this.low_ >>> 16;
+  var a00 = this.low_ & 0xFFFF;
+
+  var b48 = other.high_ >>> 16;
+  var b32 = other.high_ & 0xFFFF;
+  var b16 = other.low_ >>> 16;
+  var b00 = other.low_ & 0xFFFF;
+
+  var c48 = 0, c32 = 0, c16 = 0, c00 = 0;
+  c00 += a00 + b00;
+  c16 += c00 >>> 16;
+  c00 &= 0xFFFF;
+  c16 += a16 + b16;
+  c32 += c16 >>> 16;
+  c16 &= 0xFFFF;
+  c32 += a32 + b32;
+  c48 += c32 >>> 16;
+  c32 &= 0xFFFF;
+  c48 += a48 + b48;
+  c48 &= 0xFFFF;
+  return goog.math.Long.fromBits((c16 << 16) | c00, (c48 << 16) | c32);
+};
+
+
+/**
+ * Returns the difference of this and the given Long.
+ * @param {goog.math.Long} other Long to subtract from this.
+ * @return {!goog.math.Long} The difference of this and the given Long.
+ */
+goog.math.Long.prototype.subtract = function(other) {
+  return this.add(other.negate());
+};
+
+
+/**
+ * Returns the product of this and the given long.
+ * @param {goog.math.Long} other Long to multiply with this.
+ * @return {!goog.math.Long} The product of this and the other.
+ */
+goog.math.Long.prototype.multiply = function(other) {
+  if (this.isZero()) {
+    return goog.math.Long.ZERO;
+  } else if (other.isZero()) {
+    return goog.math.Long.ZERO;
+  }
+
+  if (this.equals(goog.math.Long.MIN_VALUE)) {
+    return other.isOdd() ? goog.math.Long.MIN_VALUE : goog.math.Long.ZERO;
+  } else if (other.equals(goog.math.Long.MIN_VALUE)) {
+    return this.isOdd() ? goog.math.Long.MIN_VALUE : goog.math.Long.ZERO;
+  }
+
+  if (this.isNegative()) {
+    if (other.isNegative()) {
+      return this.negate().multiply(other.negate());
+    } else {
+      return this.negate().multiply(other).negate();
+    }
+  } else if (other.isNegative()) {
+    return this.multiply(other.negate()).negate();
+  }
+
+  // If both longs are small, use float multiplication
+  if (this.lessThan(goog.math.Long.TWO_PWR_24_) &&
+      other.lessThan(goog.math.Long.TWO_PWR_24_)) {
+    return goog.math.Long.fromNumber(this.toNumber() * other.toNumber());
+  }
+
+  // Divide each long into 4 chunks of 16 bits, and then add up 4x4 products.
+  // We can skip products that would overflow.
+
+  var a48 = this.high_ >>> 16;
+  var a32 = this.high_ & 0xFFFF;
+  var a16 = this.low_ >>> 16;
+  var a00 = this.low_ & 0xFFFF;
+
+  var b48 = other.high_ >>> 16;
+  var b32 = other.high_ & 0xFFFF;
+  var b16 = other.low_ >>> 16;
+  var b00 = other.low_ & 0xFFFF;
+
+  var c48 = 0, c32 = 0, c16 = 0, c00 = 0;
+  c00 += a00 * b00;
+  c16 += c00 >>> 16;
+  c00 &= 0xFFFF;
+  c16 += a16 * b00;
+  c32 += c16 >>> 16;
+  c16 &= 0xFFFF;
+  c16 += a00 * b16;
+  c32 += c16 >>> 16;
+  c16 &= 0xFFFF;
+  c32 += a32 * b00;
+  c48 += c32 >>> 16;
+  c32 &= 0xFFFF;
+  c32 += a16 * b16;
+  c48 += c32 >>> 16;
+  c32 &= 0xFFFF;
+  c32 += a00 * b32;
+  c48 += c32 >>> 16;
+  c32 &= 0xFFFF;
+  c48 += a48 * b00 + a32 * b16 + a16 * b32 + a00 * b48;
+  c48 &= 0xFFFF;
+  return goog.math.Long.fromBits((c16 << 16) | c00, (c48 << 16) | c32);
+};
+
+
+/**
+ * Returns this Long divided by the given one.
+ * @param {goog.math.Long} other Long by which to divide.
+ * @return {!goog.math.Long} This Long divided by the given one.
+ */
+goog.math.Long.prototype.div = function(other) {
+  if (other.isZero()) {
+    throw Error('division by zero');
+  } else if (this.isZero()) {
+    return goog.math.Long.ZERO;
+  }
+
+  if (this.equals(goog.math.Long.MIN_VALUE)) {
+    if (other.equals(goog.math.Long.ONE) ||
+        other.equals(goog.math.Long.NEG_ONE)) {
+      return goog.math.Long.MIN_VALUE;  // recall that -MIN_VALUE == MIN_VALUE
+    } else if (other.equals(goog.math.Long.MIN_VALUE)) {
+      return goog.math.Long.ONE;
+    } else {
+      // At this point, we have |other| >= 2, so |this/other| < |MIN_VALUE|.
+      var halfThis = this.shiftRight(1);
+      var approx = halfThis.div(other).shiftLeft(1);
+      if (approx.equals(goog.math.Long.ZERO)) {
+        return other.isNegative() ? goog.math.Long.ONE : goog.math.Long.NEG_ONE;
+      } else {
+        var rem = this.subtract(other.multiply(approx));
+        var result = approx.add(rem.div(other));
+        return result;
+      }
+    }
+  } else if (other.equals(goog.math.Long.MIN_VALUE)) {
+    return goog.math.Long.ZERO;
+  }
+
+  if (this.isNegative()) {
+    if (other.isNegative()) {
+      return this.negate().div(other.negate());
+    } else {
+      return this.negate().div(other).negate();
+    }
+  } else if (other.isNegative()) {
+    return this.div(other.negate()).negate();
+  }
+
+  // Repeat the following until the remainder is less than other:  find a
+  // floating-point that approximates remainder / other *from below*, add this
+  // into the result, and subtract it from the remainder.  It is critical that
+  // the approximate value is less than or equal to the real value so that the
+  // remainder never becomes negative.
+  var res = goog.math.Long.ZERO;
+  var rem = this;
+  while (rem.greaterThanOrEqual(other)) {
+    // Approximate the result of division. This may be a little greater or
+    // smaller than the actual value.
+    var approx = Math.max(1, Math.floor(rem.toNumber() / other.toNumber()));
+
+    // We will tweak the approximate result by changing it in the 48-th digit or
+    // the smallest non-fractional digit, whichever is larger.
+    var log2 = Math.ceil(Math.log(approx) / Math.LN2);
+    var delta = (log2 <= 48) ? 1 : Math.pow(2, log2 - 48);
+
+    // Decrease the approximation until it is smaller than the remainder.  Note
+    // that if it is too large, the product overflows and is negative.
+    var approxRes = goog.math.Long.fromNumber(approx);
+    var approxRem = approxRes.multiply(other);
+    while (approxRem.isNegative() || approxRem.greaterThan(rem)) {
+      approx -= delta;
+      approxRes = goog.math.Long.fromNumber(approx);
+      approxRem = approxRes.multiply(other);
+    }
+
+    // We know the answer can't be zero... and actually, zero would cause
+    // infinite recursion since we would make no progress.
+    if (approxRes.isZero()) {
+      approxRes = goog.math.Long.ONE;
+    }
+
+    res = res.add(approxRes);
+    rem = rem.subtract(approxRem);
+  }
+  return res;
+};
+
+
+/**
+ * Returns this Long modulo the given one.
+ * @param {goog.math.Long} other Long by which to mod.
+ * @return {!goog.math.Long} This Long modulo the given one.
+ */
+goog.math.Long.prototype.modulo = function(other) {
+  return this.subtract(this.div(other).multiply(other));
+};
+
+
+/** @return {!goog.math.Long} The bitwise-NOT of this value. */
+goog.math.Long.prototype.not = function() {
+  return goog.math.Long.fromBits(~this.low_, ~this.high_);
+};
+
+
+/**
+ * Returns the bitwise-AND of this Long and the given one.
+ * @param {goog.math.Long} other The Long with which to AND.
+ * @return {!goog.math.Long} The bitwise-AND of this and the other.
+ */
+goog.math.Long.prototype.and = function(other) {
+  return goog.math.Long.fromBits(this.low_ & other.low_,
+                                 this.high_ & other.high_);
+};
+
+
+/**
+ * Returns the bitwise-OR of this Long and the given one.
+ * @param {goog.math.Long} other The Long with which to OR.
+ * @return {!goog.math.Long} The bitwise-OR of this and the other.
+ */
+goog.math.Long.prototype.or = function(other) {
+  return goog.math.Long.fromBits(this.low_ | other.low_,
+                                 this.high_ | other.high_);
+};
+
+
+/**
+ * Returns the bitwise-XOR of this Long and the given one.
+ * @param {goog.math.Long} other The Long with which to XOR.
+ * @return {!goog.math.Long} The bitwise-XOR of this and the other.
+ */
+goog.math.Long.prototype.xor = function(other) {
+  return goog.math.Long.fromBits(this.low_ ^ other.low_,
+                                 this.high_ ^ other.high_);
+};
+
+
+/**
+ * Returns this Long with bits shifted to the left by the given amount.
+ * @param {number} numBits The number of bits by which to shift.
+ * @return {!goog.math.Long} This shifted to the left by the given amount.
+ */
+goog.math.Long.prototype.shiftLeft = function(numBits) {
+  numBits &= 63;
+  if (numBits == 0) {
+    return this;
+  } else {
+    var low = this.low_;
+    if (numBits < 32) {
+      var high = this.high_;
+      return goog.math.Long.fromBits(
+          low << numBits,
+          (high << numBits) | (low >>> (32 - numBits)));
+    } else {
+      return goog.math.Long.fromBits(0, low << (numBits - 32));
+    }
+  }
+};
+
+
+/**
+ * Returns this Long with bits shifted to the right by the given amount.
+ * @param {number} numBits The number of bits by which to shift.
+ * @return {!goog.math.Long} This shifted to the right by the given amount.
+ */
+goog.math.Long.prototype.shiftRight = function(numBits) {
+  numBits &= 63;
+  if (numBits == 0) {
+    return this;
+  } else {
+    var high = this.high_;
+    if (numBits < 32) {
+      var low = this.low_;
+      return goog.math.Long.fromBits(
+          (low >>> numBits) | (high << (32 - numBits)),
+          high >> numBits);
+    } else {
+      return goog.math.Long.fromBits(
+          high >> (numBits - 32),
+          high >= 0 ? 0 : -1);
+    }
+  }
+};
+
+
+/**
+ * Returns this Long with bits shifted to the right by the given amount, with
+ * the new top bits matching the current sign bit.
+ * @param {number} numBits The number of bits by which to shift.
+ * @return {!goog.math.Long} This shifted to the right by the given amount, with
+ *     zeros placed into the new leading bits.
+ */
+goog.math.Long.prototype.shiftRightUnsigned = function(numBits) {
+  numBits &= 63;
+  if (numBits == 0) {
+    return this;
+  } else {
+    var high = this.high_;
+    if (numBits < 32) {
+      var low = this.low_;
+      return goog.math.Long.fromBits(
+          (low >>> numBits) | (high << (32 - numBits)),
+          high >>> numBits);
+    } else if (numBits == 32) {
+      return goog.math.Long.fromBits(high, 0);
+    } else {
+      return goog.math.Long.fromBits(high >>> (numBits - 32), 0);
+    }
+  }
+};;/* $Date: 2007-06-12 18:02:31 $ */
+
+// from: http://bannister.us/weblog/2007/06/09/simple-base64-encodedecode-javascript/
+// Handles encode/decode of ASCII and Unicode strings.
+
+var UTF8 = {};
+UTF8.encode = function(s) {
+    var u = [];
+    for (var i = 0; i < s.length; ++i) {
+        var c = s.charCodeAt(i);
+        if (c < 0x80) {
+            u.push(c);
+        } else if (c < 0x800) {
+            u.push(0xC0 | (c >> 6));
+            u.push(0x80 | (63 & c));
+        } else if (c < 0x10000) {
+            u.push(0xE0 | (c >> 12));
+            u.push(0x80 | (63 & (c >> 6)));
+            u.push(0x80 | (63 & c));
+        } else {
+            u.push(0xF0 | (c >> 18));
+            u.push(0x80 | (63 & (c >> 12)));
+            u.push(0x80 | (63 & (c >> 6)));
+            u.push(0x80 | (63 & c));
+        }
+    }
+    return u;
+};
+UTF8.decode = function(u) {
+    var a = [];
+    var i = 0;
+    while (i < u.length) {
+        var v = u[i++];
+        if (v < 0x80) {
+            // no need to mask byte
+        } else if (v < 0xE0) {
+            v = (31 & v) << 6;
+            v |= (63 & u[i++]);
+        } else if (v < 0xF0) {
+            v = (15 & v) << 12;
+            v |= (63 & u[i++]) << 6;
+            v |= (63 & u[i++]);
+        } else {
+            v = (7 & v) << 18;
+            v |= (63 & u[i++]) << 12;
+            v |= (63 & u[i++]) << 6;
+            v |= (63 & u[i++]);
+        }
+        a.push(String.fromCharCode(v));
+    }
+    return a.join('');
+};
+
+var BASE64 = {};
+(function(T){
+    var encodeArray = function(u) {
+        var i = 0;
+        var a = [];
+        var n = 0 | (u.length / 3);
+        while (0 < n--) {
+            var v = (u[i] << 16) + (u[i+1] << 8) + u[i+2];
+            i += 3;
+            a.push(T.charAt(63 & (v >> 18)));
+            a.push(T.charAt(63 & (v >> 12)));
+            a.push(T.charAt(63 & (v >> 6)));
+            a.push(T.charAt(63 & v));
+        }
+        if (2 == (u.length - i)) {
+            var v = (u[i] << 16) + (u[i+1] << 8);
+            a.push(T.charAt(63 & (v >> 18)));
+            a.push(T.charAt(63 & (v >> 12)));
+            a.push(T.charAt(63 & (v >> 6)));
+            a.push('=');
+        } else if (1 == (u.length - i)) {
+            var v = (u[i] << 16);
+            a.push(T.charAt(63 & (v >> 18)));
+            a.push(T.charAt(63 & (v >> 12)));
+            a.push('==');
+        }
+        return a.join('');
+    }
+    var R = (function(){
+        var a = [];
+        for (var i=0; i<T.length; ++i) {
+            a[T.charCodeAt(i)] = i;
+        }
+        a['='.charCodeAt(0)] = 0;
+        return a;
+    })();
+    var decodeArray = function(s) {
+        var i = 0;
+        var u = [];
+        var n = 0 | (s.length / 4);
+        while (0 < n--) {
+            var v = (R[s.charCodeAt(i)] << 18) + (R[s.charCodeAt(i+1)] << 12) + (R[s.charCodeAt(i+2)] << 6) + R[s.charCodeAt(i+3)];
+            u.push(255 & (v >> 16));
+            u.push(255 & (v >> 8));
+            u.push(255 & v);
+            i += 4;
+        }
+        if (u) {
+            if ('=' == s.charAt(i-2)) {
+                u.pop();
+                u.pop();
+            } else if ('=' == s.charAt(i-1)) {
+                u.pop();
+            }
+        }
+        return u;
+    }
+    var ASCII = {};
+    ASCII.encode = function(s) {
+        var u = [];
+        for (var i = 0; i<s.length; ++i) {
+            u.push(s.charCodeAt(i));
+        }
+        return u;
+    };
+    ASCII.decode = function(u) {
+        for (var i = 0; i<s.length; ++i) {
+            a[i] = String.fromCharCode(a[i]);
+        }
+        return a.join('');
+    };
+    BASE64.decodeArray = function(s) {
+        var u = decodeArray(s);
+        return new Uint8Array(u);
+    };
+    BASE64.encodeASCII = function(s) {
+        var u = ASCII.encode(s);
+        return encodeArray(u);
+    };
+    BASE64.decodeASCII = function(s) {
+        var a = decodeArray(s);
+        return ASCII.decode(a);
+    };
+    BASE64.encode = function(s) {
+        var u = UTF8.encode(s);
+        return encodeArray(u);
+    };
+    BASE64.decode = function(s) {
+        var u = decodeArray(s);
+        return UTF8.decode(u);
+    };
+})("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
+
+if (undefined === btoa) {
+    var btoa = BASE64.encode;
+}
+if (undefined === atob) {
+    var atob = BASE64.decode;
+}
+;/**
+ * @copyright The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * @license THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * @class MediaPlayer
+ * @param aContext - New instance of a dijon.js context (i.e. new Dash.di.DashContext()).  You can pass a custom context that extends Dash.di.DashContext to override item(s) in the DashContext.
+ */
+/*jshint -W020 */
+MediaPlayer = function (aContext) {
+
+    "use strict";
+
+/*
+ * Initialization:
+ *
+ * 1) Check if MediaSource is available.
+ * 2) Load manifest.
+ * 3) Parse manifest.
+ * 4) Check if Video Element can play codecs.
+ * 5) Register MediaSource with Video Element.
+ * 6) Create SourceBuffers.
+ * 7) Do live stuff.
+ *      a. Start manifest refresh.
+ *      b. Calculate live point.
+ *      c. Calculate offset between availabilityStartTime and initial video timestamp.
+ * 8) Start buffer managers.
+ *
+ * Buffer Management:
+ *
+ * 1) Generate metrics.
+ * 2) Check if fragments should be loaded.
+ * 3) Check ABR for change in quality.
+ * 4) Figure out which fragments to load.
+ * 5) Load fragments.
+ * 6) Transform fragments.
+ * 7) Push fragmemt bytes into SourceBuffer.
+ */
+    var VERSION = "1.3.0 (refactor)",
+        context = aContext,
+        system,
+        manifestLoader,
+        abrController,
+        element,
+        source,
+        protectionData = null,
+        streamController,
+        rulesController,
+        manifestUpdater,
+        protectionController,
+        metricsExt,
+        metricsModel,
+        videoModel,
+        initialized = false,
+        playing = false,
+        autoPlay = true,
+        scheduleWhilePaused = false,
+        bufferMax = MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED,
+
+        isReady = function () {
+            return (!!element && !!source);
+        },
+
+        play = function () {
+            if (!initialized) {
+                throw "MediaPlayer not initialized!";
+            }
+
+            if (!this.capabilities.supportsMediaSource()) {
+                this.errHandler.capabilityError("mediasource");
+                return;
+            }
+
+            if (!element || !source) {
+                throw "Missing view or source.";
+            }
+
+            playing = true;
+            //this.debug.log("Playback initiated!");
+            streamController = system.getObject("streamController");
+            streamController.subscribe(streamController.eventList.ENAME_STREAMS_COMPOSED, manifestUpdater);
+            manifestLoader.subscribe(manifestLoader.eventList.ENAME_MANIFEST_LOADED, streamController);
+            manifestLoader.subscribe(manifestLoader.eventList.ENAME_MANIFEST_LOADED, manifestUpdater);
+            streamController.setVideoModel(videoModel);
+            streamController.setAutoPlay(autoPlay);
+            streamController.setProtectionData(protectionData);
+            streamController.load(source);
+
+            system.mapValue("scheduleWhilePaused", scheduleWhilePaused);
+            system.mapOutlet("scheduleWhilePaused", "stream");
+            system.mapOutlet("scheduleWhilePaused", "scheduleController");
+            system.mapValue("bufferMax", bufferMax);
+            system.mapOutlet("bufferMax", "bufferController");
+
+            rulesController.initialize();
+        },
+
+        doAutoPlay = function () {
+            if (isReady()) {
+                play.call(this);
+            }
+        },
+
+        getDVRInfoMetric = function() {
+            var metric = metricsModel.getReadOnlyMetricsFor('video') || metricsModel.getReadOnlyMetricsFor('audio');
+            return metricsExt.getCurrentDVRInfo(metric);
+        },
+
+        getDVRWindowSize = function() {
+            return getDVRInfoMetric.call(this).manifestInfo.DVRWindowSize;
+        },
+
+        getDVRSeekOffset = function (value) {
+            var metric = getDVRInfoMetric.call(this),
+                val  = metric.range.start + value;
+
+            if (val > metric.range.end) {
+                val = metric.range.end;
+            }
+
+            return val;
+        },
+
+        seek = function(value) {
+
+            videoModel.getElement().currentTime = this.getDVRSeekOffset(value);
+        },
+
+        time = function () {
+            var metric = getDVRInfoMetric.call(this);
+            return (metric === null) ? 0 : this.duration() - (metric.range.end - metric.time);
+        },
+
+        duration  = function () {
+            var metric = getDVRInfoMetric.call(this),
+                range;
+
+            if (metric === null) {
+                return 0;
+            }
+
+            range = metric.range.end - metric.range.start;
+
+            return range < metric.manifestInfo.DVRWindowSize ? range : metric.manifestInfo.DVRWindowSize;
+        },
+
+        timeAsUTC = function () {
+            var metric = getDVRInfoMetric.call(this),
+                availableFrom,
+                currentUTCTime;
+
+            if (metric === null) {
+                return 0;
+            }
+
+            availableFrom = metric.manifestInfo.availableFrom.getTime() / 1000;
+            currentUTCTime = this.time() + (availableFrom + metric.range.start);
+
+            return currentUTCTime;
+        },
+
+        durationAsUTC = function () {
+            var metric = getDVRInfoMetric.call(this),
+                availableFrom,
+                currentUTCDuration;
+
+            if (metric === null){
+                return 0;
+            }
+
+            availableFrom = metric.manifestInfo.availableFrom.getTime() / 1000;
+            currentUTCDuration = (availableFrom + metric.range.start) + this.duration();
+
+            return currentUTCDuration;
+        },
+
+        formatUTC = function (time, locales, hour12) {
+            var dt = new Date(time*1000);
+            var d = dt.toLocaleDateString(locales);
+            var t = dt.toLocaleTimeString(locales, {hour12:hour12});
+            return t +' '+d;
+        },
+
+        convertToTimeCode = function (value) {
+            value = Math.max(value, 0);
+
+            var h = Math.floor(value/3600);
+            var m = Math.floor((value%3600)/60);
+            var s = Math.floor((value%3600)%60);
+            return (h === 0 ? "":(h<10 ? "0"+h.toString()+":" : h.toString()+":"))+(m<10 ? "0"+m.toString() : m.toString())+":"+(s<10 ? "0"+s.toString() : s.toString());
+        },
+
+        updateRules = function(type, rules, override) {
+            if (!rules || (type === undefined) || type === null) return;
+
+            if (override) {
+                rulesController.setRules(type, rules);
+            } else {
+                rulesController.addRules(type, rules);
+            }
+        },
+
+        doReset = function() {
+            if (playing && streamController) {
+                streamController.unsubscribe(streamController.eventList.ENAME_STREAMS_COMPOSED, manifestUpdater);
+                manifestLoader.unsubscribe(manifestLoader.eventList.ENAME_MANIFEST_LOADED, streamController);
+                manifestLoader.unsubscribe(manifestLoader.eventList.ENAME_MANIFEST_LOADED, manifestUpdater);
+                streamController.reset();
+                abrController.reset();
+                rulesController.reset();
+                streamController = null;
+                playing = false;
+            }
+        };
+
+    // Set up DI.
+    system = new dijon.System();
+    system.mapValue("system", system);
+    system.mapOutlet("system");
+    system.injectInto(context);
+
+    return {
+        notifier: undefined,
+        debug: undefined,
+        eventBus: undefined,
+        capabilities: undefined,
+        adapter: undefined,
+        errHandler: undefined,
+        tokenAuthentication:undefined,
+        uriQueryFragModel:undefined,
+        videoElementExt:undefined,
+
+        setup: function() {
+            metricsExt = system.getObject("metricsExt");
+            manifestLoader = system.getObject("manifestLoader");
+            manifestUpdater = system.getObject("manifestUpdater");
+            abrController = system.getObject("abrController");
+            rulesController = system.getObject("rulesController");
+            metricsModel = system.getObject("metricsModel");
+            protectionController = system.getObject("protectionController");
+        },
+
+        /**
+         *
+         *
+         * @param type
+         * @param listener
+         * @param useCapture
+         * @memberof MediaPlayer#
+         *
+         */
+        addEventListener: function (type, listener, useCapture) {
+            this.eventBus.addEventListener(type, listener, useCapture);
+        },
+
+        /**
+         * @param type
+         * @param listener
+         * @param useCapture
+         * @memberof MediaPlayer#
+         */
+        removeEventListener: function (type, listener, useCapture) {
+            this.eventBus.removeEventListener(type, listener, useCapture);
+        },
+
+        /**
+         * @returns {string} the current dash.js version string.
+         * @memberof MediaPlayer#
+         */
+        getVersion: function () {
+            return VERSION;
+        },
+
+        /**
+         * @memberof MediaPlayer#
+         */
+        startup: function () {
+            if (!initialized) {
+                system.injectInto(this);
+                initialized = true;
+            }
+        },
+
+        /**
+         * Use this method to access the dash.js debugger.
+         *
+         * @returns {@link MediaPlayer.utils.Debug Debug.js (Singleton)}
+         * @memberof MediaPlayer#
+         */
+        getDebug: function () {
+            return this.debug;
+        },
+
+        /**
+         * @returns {@link VideoModel}
+         * @memberof MediaPlayer#
+         */
+        getVideoModel: function () {
+            return videoModel;
+        },
+
+        /**
+         * @param value
+         * @memberof MediaPlayer#
+         */
+        setAutoPlay: function (value) {
+            autoPlay = value;
+        },
+
+        /**
+         * @returns {boolean} The current autoPlay state.
+         * @memberof MediaPlayer#
+         */
+        getAutoPlay: function () {
+            return autoPlay;
+        },
+
+        /**
+         * @param value
+         * @memberof MediaPlayer#
+         */
+        setScheduleWhilePaused: function(value) {
+            scheduleWhilePaused = value;
+        },
+
+        /**
+         * @returns {boolean}
+         * @memberof MediaPlayer#
+         */
+        getScheduleWhilePaused: function() {
+            return scheduleWhilePaused;
+        },
+
+        /**
+         * @param name
+         * @param type
+         * @memberof MediaPlayer#
+         */
+        setTokenAuthentication:function(name, type) {
+            this.tokenAuthentication.setTokenAuthentication({name:name, type:type});
+        },
+
+        /**
+         * @param keySystem
+         * @param value
+         * @memberof MediaPlayer#
+         */
+        setBearerToken: function(keySystem, value) {
+            protectionController.setBearerToken({keySystem: keySystem, token: value});
+        },
+
+        /**
+         * @param value
+         * @memberof MediaPlayer#
+         */
+        setBufferMax: function(value) {
+            bufferMax = value;
+        },
+
+        /**
+         * @returns {string}
+         * @memberof MediaPlayer#
+         */
+        getBufferMax: function() {
+            return bufferMax;
+        },
+
+        /**
+         * @returns {object}
+         * @memberof MediaPlayer#
+         */
+        getMetricsExt: function () {
+            return metricsExt;
+        },
+
+        /**
+         * @param type
+         * @returns {object}
+         * @memberof MediaPlayer#
+         */
+        getMetricsFor: function (type) {
+            var metrics = metricsModel.getReadOnlyMetricsFor(type);
+            return metrics;
+        },
+
+        /**
+         * @param type
+         * @returns {object}
+         * @memberof MediaPlayer#
+         */
+        getQualityFor: function (type) {
+            return abrController.getQualityFor(type, streamController.getActiveStreamInfo());
+        },
+
+        /**
+         * @param type
+         * @param value
+         * @memberof MediaPlayer#
+         */
+        setQualityFor: function (type, value) {
+            abrController.setPlaybackQuality(type, streamController.getActiveStreamInfo(), value);
+        },
+
+        /**
+         * @returns {object}
+         * @memberof MediaPlayer#
+         */
+        getAutoSwitchQuality : function () {
+            return abrController.getAutoSwitchBitrate();
+        },
+
+        /**
+         * @param value
+         * @memberof MediaPlayer#
+         */
+        setAutoSwitchQuality : function (value) {
+            abrController.setAutoSwitchBitrate(value);
+        },
+
+        /**
+         * @param newRulesCollection
+         * @memberof MediaPlayer#
+         */
+        setSchedulingRules: function(newRulesCollection) {
+            updateRules.call(this, rulesController.SCHEDULING_RULE, newRulesCollection, true);
+        },
+
+        /**
+         * @param newRulesCollection
+         * @memberof MediaPlayer#
+         */
+        addSchedulingRules: function(newRulesCollection) {
+            updateRules.call(this, rulesController.SCHEDULING_RULE, newRulesCollection, false);
+        },
+
+        /**
+         * @param newRulesCollection
+         * @memberof MediaPlayer#
+         */
+        setABRRules: function(newRulesCollection) {
+            updateRules.call(this, rulesController.ABR_RULE, newRulesCollection, true);
+        },
+
+        /**
+         * @param newRulesCollection
+         * @memberof MediaPlayer#
+         */
+        addABRRules: function(newRulesCollection) {
+            updateRules.call(this, rulesController.ABR_RULE, newRulesCollection, false);
+        },
+
+        /**
+         * Use this method to attach an HTML5 VideoElement for dash.js to operate upon.
+         *
+         * @param {VideoElement} view An HTML5 VideoElement that has already defined in the DOM.
+         *
+         * @memberof MediaPlayer#
+         */
+        attachView: function (view) {
+            if (!initialized) {
+                throw "MediaPlayer not initialized!";
+            }
+
+            element = view;
+
+            videoModel = null;
+            if (element) {
+                videoModel = system.getObject("videoModel");
+                videoModel.setElement(element);
+            }
+
+            // TODO : update
+
+            doReset.call(this);
+
+            if (isReady.call(this)) {
+                doAutoPlay.call(this);
+            }
+        },
+
+        /**
+         * Use this method to set a source URL to a valid MPD manifest file.
+         *
+         * @param {string} url A URL to a valid MPD manifest file.
+         * @throw "MediaPlayer not initialized!"
+         *
+         * @memberof MediaPlayer#
+         */
+        attachSource: function (url) {
+            if (!initialized) {
+                throw "MediaPlayer not initialized!";
+            }
+
+            this.uriQueryFragModel.reset();
+            source = this.uriQueryFragModel.parseURI(url);
+
+            // TODO : update
+
+            doReset.call(this);
+
+            if (isReady.call(this)) {
+                doAutoPlay.call(this);
+            }
+        },
+
+        /**
+         * Attach a specific url to use for License Acquisition with EME
+         * @param url
+         */
+        attachProtectionData: function(data) {
+            protectionData = data;
+        },
+
+        /**
+         * Sets the MPD source and the video element to null.
+         *
+         * @memberof MediaPlayer#
+         */
+        reset: function() {
+            this.attachSource(null);
+            this.attachView(null);
+        },
+
+        /**
+         * The play method initiates playback of the media defined by the {@link MediaPlayer#attachSource attachSource()} method.
+         *
+         * @see {@link MediaPlayer#attachSource attachSource()}
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        play: play,
+
+        /**
+         * The ready state of the MediaPlayer based on both the video element and MPD source being defined.
+         *
+         * @returns {boolean} The current ready state of the MediaPlayer
+         * @see {@link MediaPlayer#attachView attachView()}
+         * @see {@link MediaPlayer#attachSource attachSource()}
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        isReady: isReady,
+
+        /**
+         * Sets the currentTime property of the attached video element.  If it is a live stream with a
+         * timeShiftBufferLength, then the DVR window offset will be automatically calculated.
+         *
+         * @param {number} value A relative time, in seconds, based on the return value of the {@link MediaPlayer#duration duration()} method is expected
+         * @see {@link MediaPlayer#getDVRSeekOffset getDVRSeekOffset()}
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        seek : seek,
+
+        /**
+         * Current time of the playhead, in seconds.
+         *
+         * @returns {number} Returns the current playhead time of the media.
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        time : time,
+
+        /**
+         * Duration of the media's playback, in seconds.
+         *
+         * @returns {number} Returns the current duration of the media.
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        duration : duration,
+
+        /**
+         * Use this method to get the current playhead time as an absolute value, the time in seconds since midnight UTC, Jan 1 1970.
+         * Note - this property only has meaning for live streams
+         *
+         * @returns {number} Returns the current playhead time as UTC timestamp.
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        timeAsUTC : timeAsUTC,
+
+        /**
+         * Use this method to get the current duration as an absolute value, the time in seconds since midnight UTC, Jan 1 1970.
+         * Note - this property only has meaning for live streams.
+         *
+         * @returns {number} Returns the current duration as UTC timestamp.
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        durationAsUTC : durationAsUTC,
+
+        /**
+         * The timeShiftBufferLength (DVR Window), in seconds.
+         *
+         * @returns {number} The window of allowable play time behind the live point of a live stream.
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        getDVRWindowSize : getDVRWindowSize,
+
+        /**
+         * This method should only be used with a live stream that has a valid timeShiftBufferLength (DVR Window).
+         * NOTE - If you do not need the raw offset value (i.e. media analytics, tracking, etc) consider using the {@link MediaPlayer#seek seek()} method
+         * which will calculate this value for you and set the video element's currentTime property all in one simple call.
+         *
+         * @param {number} value A relative time, in seconds, based on the return value of the {@link MediaPlayer#duration duration()} method is expected.
+         * @returns A value that is relative the available range within the timeShiftBufferLength (DVR Window).
+         *
+         * @see {@link MediaPlayer#seek seek()}
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        getDVRSeekOffset : getDVRSeekOffset,
+
+        /**
+         * A utility methods which converts UTC timestamp value into a valid time and date string.
+         *
+         * @param {number} time - UTC timestamp to be converted into date and time.
+         * @param {string} locales - a region identifier (i.e. en_US).
+         * @param {boolean} hour12 - 12 vs 24 hour. Set to true for 12 hour time formatting.
+         * @returns {string} a formatted time and date string.
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        formatUTC : formatUTC,
+
+        /**
+         * A utility method which converts seconds into TimeCode (i.e. 300 --> 05:00).
+         *
+         * @param value - A number in seconds to be converted into a time code format.
+         * @returns {string} A formatted time code string.
+         *
+         * @memberof MediaPlayer#
+         * @method
+         */
+        convertToTimeCode : convertToTimeCode
+
+    };
+};
+
+MediaPlayer.prototype = {
+    constructor: MediaPlayer
+};
+
+MediaPlayer.dependencies = {};
+MediaPlayer.utils = {};
+MediaPlayer.models = {};
+MediaPlayer.vo = {};
+MediaPlayer.vo.metrics = {};
+MediaPlayer.rules = {};
+MediaPlayer.di = {};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.di.Context = function () {
+    "use strict";
+
+    return {
+        system : undefined,
+        setup : function () {
+            this.system.autoMapOutlets = true;
+
+            this.system.mapSingleton('debug', MediaPlayer.utils.Debug);
+            this.system.mapSingleton('tokenAuthentication', MediaPlayer.utils.TokenAuthentication);
+            this.system.mapSingleton('eventBus', MediaPlayer.utils.EventBus);
+            this.system.mapSingleton('capabilities', MediaPlayer.utils.Capabilities);
+            this.system.mapSingleton('textTrackExtensions', MediaPlayer.utils.TextTrackExtensions);
+            this.system.mapSingleton('vttParser', MediaPlayer.utils.VTTParser);
+            this.system.mapSingleton('ttmlParser', MediaPlayer.utils.TTMLParser);
+
+            this.system.mapClass('videoModel', MediaPlayer.models.VideoModel);
+            this.system.mapSingleton('manifestModel', MediaPlayer.models.ManifestModel);
+            this.system.mapSingleton('metricsModel', MediaPlayer.models.MetricsModel);
+            this.system.mapSingleton('uriQueryFragModel', MediaPlayer.models.URIQueryAndFragmentModel);
+            this.system.mapClass('protectionModel', MediaPlayer.models.ProtectionModel);
+
+            this.system.mapSingleton('textSourceBuffer', MediaPlayer.dependencies.TextSourceBuffer);
+            this.system.mapSingleton('mediaSourceExt', MediaPlayer.dependencies.MediaSourceExtensions);
+            this.system.mapSingleton('sourceBufferExt', MediaPlayer.dependencies.SourceBufferExtensions);
+            this.system.mapSingleton('abrController', MediaPlayer.dependencies.AbrController);
+            this.system.mapSingleton('errHandler', MediaPlayer.dependencies.ErrorHandler);
+            this.system.mapSingleton('protectionExt', MediaPlayer.dependencies.ProtectionExtensions);
+            this.system.mapSingleton('videoExt', MediaPlayer.dependencies.VideoModelExtensions);
+            this.system.mapSingleton('protectionController', MediaPlayer.dependencies.ProtectionController);
+            this.system.mapClass('playbackController', MediaPlayer.dependencies.PlaybackController);
+
+            this.system.mapSingleton('liveEdgeFinder', MediaPlayer.dependencies.LiveEdgeFinder);
+
+            this.system.mapClass('metrics', MediaPlayer.models.MetricsList);
+            this.system.mapClass('downloadRatioRule', MediaPlayer.rules.DownloadRatioRule);
+            this.system.mapClass('insufficientBufferRule', MediaPlayer.rules.InsufficientBufferRule);
+            this.system.mapClass('limitSwitchesRule', MediaPlayer.rules.LimitSwitchesRule);
+            this.system.mapSingleton('abrRulesCollection', MediaPlayer.rules.ABRRulesCollection);
+
+            this.system.mapSingleton('rulesController', MediaPlayer.rules.RulesController);
+            this.system.mapClass('liveEdgeBinarySearchRule', MediaPlayer.rules.LiveEdgeBinarySearchRule);
+            this.system.mapClass('bufferLevelRule', MediaPlayer.rules.BufferLevelRule);
+            this.system.mapClass('pendingRequestsRule', MediaPlayer.rules.PendingRequestsRule);
+            this.system.mapClass('playbackTimeRule', MediaPlayer.rules.PlaybackTimeRule);
+            this.system.mapClass('sameTimeRequestRule', MediaPlayer.rules.SameTimeRequestRule);
+            this.system.mapSingleton('scheduleRulesCollection', MediaPlayer.rules.ScheduleRulesCollection);
+
+            this.system.mapClass('streamProcessor', MediaPlayer.dependencies.StreamProcessor);
+			this.system.mapClass('eventController', MediaPlayer.dependencies.EventController);
+            this.system.mapClass('textController', MediaPlayer.dependencies.TextController);
+            this.system.mapClass('bufferController', MediaPlayer.dependencies.BufferController);
+            this.system.mapSingleton('manifestLoader', MediaPlayer.dependencies.ManifestLoader);
+            this.system.mapSingleton('manifestUpdater', MediaPlayer.dependencies.ManifestUpdater);
+            this.system.mapClass('fragmentController', MediaPlayer.dependencies.FragmentController);
+            this.system.mapClass('fragmentLoader', MediaPlayer.dependencies.FragmentLoader);
+            this.system.mapClass('fragmentModel', MediaPlayer.dependencies.FragmentModel);
+            this.system.mapSingleton('streamController', MediaPlayer.dependencies.StreamController);
+            this.system.mapClass('stream', MediaPlayer.dependencies.Stream);
+            this.system.mapClass('scheduleController', MediaPlayer.dependencies.ScheduleController);
+
+            this.system.mapSingleton('notifier', MediaPlayer.dependencies.Notifier);
+        }
+    };
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/*jshint -W020 */
+Dash = (function () {
+    "use strict";
+
+    return {
+        modules: {},
+        dependencies: {},
+        vo: {},
+        di: {}
+    };
+}());;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.di.DashContext = function () {
+    "use strict";
+
+    return {
+        system : undefined,
+        setup : function () {
+            Dash.di.DashContext.prototype.setup.call(this);
+
+            this.system.mapClass('parser', Dash.dependencies.DashParser);
+            this.system.mapClass('indexHandler', Dash.dependencies.DashHandler);
+            this.system.mapSingleton('baseURLExt', Dash.dependencies.BaseURLExtensions);
+            this.system.mapClass('fragmentExt', Dash.dependencies.FragmentExtensions);
+            this.system.mapClass('trackController', Dash.dependencies.RepresentationController);
+            this.system.mapSingleton('manifestExt', Dash.dependencies.DashManifestExtensions);
+            this.system.mapSingleton('metricsExt', Dash.dependencies.DashMetricsExtensions);
+            this.system.mapSingleton('timelineConverter', Dash.dependencies.TimelineConverter);
+            this.system.mapSingleton('adapter', Dash.dependencies.DashAdapter);
+        }
+    };
+};
+
+Dash.di.DashContext.prototype = new MediaPlayer.di.Context();
+Dash.di.DashContext.prototype.constructor = Dash.di.DashContext;
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.dependencies.BaseURLExtensions = function () {
+    "use strict";
+
+        // From YouTube player.  Reformatted for JSLint.
+    var parseSIDX = function (ab, ab_first_byte_offset) {
+            var d = new DataView(ab),
+                sidx = {},
+                pos = 0,
+                offset,
+                time,
+                sidxEnd,
+                i,
+                ref_type,
+                ref_size,
+                ref_dur,
+                type,
+                size,
+                charCode;
+
+            while (type !== "sidx" && pos < d.byteLength) {
+                size = d.getUint32(pos); // subtract 8 for including the size and type
+                pos += 4;
+
+                type = "";
+                for (i = 0; i < 4; i += 1) {
+                    charCode = d.getInt8(pos);
+                    type += String.fromCharCode(charCode);
+                    pos += 1;
+                }
+
+                if (type !== "moof" && type !== "traf" && type !== "sidx") {
+                    pos += size - 8;
+                } else if (type === "sidx") {
+                    // reset the position to the beginning of the box...
+                    // if we do not reset the position, the evaluation
+                    // of sidxEnd to ab.byteLength will fail.
+                    pos -= 8;
+                }
+            }
+
+            sidxEnd = d.getUint32(pos, false) + pos;
+            if (sidxEnd > ab.byteLength) {
+                throw "sidx terminates after array buffer";
+            }
+
+            sidx.version = d.getUint8(pos + 8);
+            pos += 12;
+
+            // skipped reference_ID(32)
+            sidx.timescale = d.getUint32(pos + 4, false);
+            pos += 8;
+
+            if (sidx.version === 0) {
+                sidx.earliest_presentation_time = d.getUint32(pos, false);
+                sidx.first_offset = d.getUint32(pos + 4, false);
+                pos += 8;
+            } else {
+                // TODO(strobe): Overflow checks
+                sidx.earliest_presentation_time = utils.Math.to64BitNumber(d.getUint32(pos + 4, false), d.getUint32(pos, false));
+                //first_offset = utils.Math.to64BitNumber(d.getUint32(pos + 8, false), d.getUint32(pos + 12, false));
+                sidx.first_offset = (d.getUint32(pos + 8, false) << 32) + d.getUint32(pos + 12, false);
+                pos += 16;
+            }
+
+            sidx.first_offset += sidxEnd + (ab_first_byte_offset || 0);
+
+            // skipped reserved(16)
+            sidx.reference_count = d.getUint16(pos + 2, false);
+            pos += 4;
+
+            sidx.references = [];
+            offset = sidx.first_offset;
+            time = sidx.earliest_presentation_time;
+
+            for (i = 0; i < sidx.reference_count; i += 1) {
+                ref_size = d.getUint32(pos, false);
+                ref_type = (ref_size >>> 31);
+                ref_size = ref_size & 0x7fffffff;
+                ref_dur = d.getUint32(pos + 4, false);
+                pos += 12;
+                sidx.references.push({
+                    'size': ref_size,
+                    'type': ref_type,
+                    'offset': offset,
+                    'duration': ref_dur,
+                    'time': time,
+                    'timescale': sidx.timescale
+                });
+                offset += ref_size;
+                time += ref_dur;
+            }
+
+            if (pos !== sidxEnd) {
+                throw "Error: final pos " + pos + " differs from SIDX end " + sidxEnd;
+            }
+
+            return sidx;
+        },
+
+        parseSegments = function (data, media, offset) {
+            var parsed,
+                ref,
+                segments,
+                segment,
+                i,
+                len,
+                start,
+                end;
+
+            parsed = parseSIDX.call(this, data, offset);
+            ref = parsed.references;
+            segments = [];
+
+            for (i = 0, len = ref.length; i < len; i += 1) {
+                segment = new Dash.vo.Segment();
+                segment.duration = ref[i].duration;
+                segment.media = media;
+                segment.startTime = ref[i].time;
+                segment.timescale = ref[i].timescale;
+
+                start = ref[i].offset;
+                end = ref[i].offset + ref[i].size - 1;
+                segment.mediaRange = start + "-" + end;
+
+                segments.push(segment);
+            }
+
+            this.debug.log("Parsed SIDX box: " + segments.length + " segments.");
+            return segments;
+        },
+
+        findInit = function (data, info, callback) {
+            var ftyp,
+                moov,
+                start,
+                end,
+                d = new DataView(data),
+                pos = 0,
+                type = "",
+                size = 0,
+                bytesAvailable,
+                i,
+                c,
+                request,
+                loaded = false,
+                irange,
+                self = this;
+
+            self.debug.log("Searching for initialization.");
+
+            while (type !== "moov" && pos < d.byteLength) {
+                size = d.getUint32(pos); // subtract 8 for including the size and type
+                pos += 4;
+
+                type = "";
+                for (i = 0; i < 4; i += 1) {
+                    c = d.getInt8(pos);
+                    type += String.fromCharCode(c);
+                    pos += 1;
+                }
+
+                if (type === "ftyp") {
+                    ftyp = pos - 8;
+                }
+                if (type === "moov") {
+                    moov = pos - 8;
+                }
+                if (type !== "moov") {
+                    pos += size - 8;
+                }
+            }
+
+            bytesAvailable = d.byteLength - pos;
+
+            if (type !== "moov") {
+                // Case 1
+                // We didn't download enough bytes to find the moov.
+                // TODO : Load more bytes.
+                //        Be sure to detect EOF.
+                //        Throw error is no moov is found in the entire file.
+                //        Protection from loading the entire file?
+                self.debug.log("Loading more bytes to find initialization.");
+                info.range.start = 0;
+                info.range.end = info.bytesLoaded + info.bytesToLoad;
+
+                request = new XMLHttpRequest();
+
+                request.onloadend = function () {
+                    if (!loaded) {
+                        callback.call(self, null, new Error("Error loading initialization."));
+                    }
+                };
+
+                request.onload = function () {
+                    loaded = true;
+                    info.bytesLoaded = info.range.end;
+                    findInit.call(self, request.response, function (segments) {
+                        callback.call(self, segments);
+                    });
+                };
+
+                request.onerror = function () {
+                    callback.call(self, null, new Error("Error loading initialization."));
+                };
+
+                request.open("GET", self.tokenAuthentication.addTokenAsQueryArg(info.url));
+                request.responseType = "arraybuffer";
+                request.setRequestHeader("Range", "bytes=" + info.range.start + "-" + info.range.end);
+                request = self.tokenAuthentication.setTokenInRequestHeader(request);
+                request.send(null);
+            } else {
+                // Case 2
+                // We have the entire range, so continue.
+                start = ftyp === undefined ? moov : ftyp;
+                end = moov + size - 1;
+                irange = start + "-" + end;
+
+                self.debug.log("Found the initialization.  Range: " + irange);
+                callback.call(self, irange);
+            }
+        },
+
+        loadInit = function (representation) {
+            var request = new XMLHttpRequest(),
+                needFailureReport = true,
+                self = this,
+                media = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].
+                    AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].BaseURL,
+                info = {
+                    url: media,
+                    range: {},
+                    searching: false,
+                    bytesLoaded: 0,
+                    bytesToLoad: 1500,
+                    request: request
+                };
+
+            self.debug.log("Start searching for initialization.");
+            info.range.start = 0;
+            info.range.end = info.bytesToLoad;
+
+            request.onload = function () {
+                if (request.status < 200 || request.status > 299)
+                {
+                  return;
+                }
+                needFailureReport = false;
+
+                info.bytesLoaded = info.range.end;
+                findInit.call(self, request.response, info, function (range) {
+                    representation.range = range;
+                    representation.initialization = media;
+                    self.notify(self.eventList.ENAME_INITIALIZATION_LOADED, representation);
+                });
+            };
+
+            request.onloadend = request.onerror = function () {
+                if (!needFailureReport)
+                {
+                  return;
+                }
+                needFailureReport = false;
+
+                self.errHandler.downloadError("initialization", info.url, request);
+                self.notify(self.eventList.ENAME_INITIALIZATION_LOADED, representation);
+            };
+
+            request.open("GET", self.tokenAuthentication.addTokenAsQueryArg(info.url));
+            request.responseType = "arraybuffer";
+            request.setRequestHeader("Range", "bytes=" + info.range.start + "-" + info.range.end);
+            request = self.tokenAuthentication.setTokenInRequestHeader(request);
+            request.send(null);
+            self.debug.log("Perform init search: " + info.url);
+        },
+
+        findSIDX = function (data, info, representation, callback) {
+            var segments,
+                d = new DataView(data),
+                request = new XMLHttpRequest(),
+                pos = 0,
+                type = "",
+                size = 0,
+                bytesAvailable,
+                sidxBytes,
+                sidxSlice,
+                sidxOut,
+                i,
+                c,
+                needFailureReport = true,
+                parsed,
+                ref,
+                loadMultiSidx = false,
+                self = this;
+
+            self.debug.log("Searching for SIDX box.");
+            self.debug.log(info.bytesLoaded + " bytes loaded.");
+
+            while (type !== "sidx" && pos < d.byteLength) {
+                size = d.getUint32(pos); // subtract 8 for including the size and type
+                pos += 4;
+
+                type = "";
+                for (i = 0; i < 4; i += 1) {
+                    c = d.getInt8(pos);
+                    type += String.fromCharCode(c);
+                    pos += 1;
+                }
+
+                if (type !== "sidx") {
+                    pos += size - 8;
+                }
+            }
+
+            bytesAvailable = d.byteLength - pos;
+
+            if (type !== "sidx") {
+                // Case 1
+                // We didn't download enough bytes to find the sidx.
+                // TODO : Load more bytes.
+                //        Be sure to detect EOF.
+                //        Throw error is no sidx is found in the entire file.
+                //        Protection from loading the entire file?
+                callback.call(self);
+            } else if (bytesAvailable < (size - 8)) {
+                // Case 2
+                // We don't have the entire box.
+                // Increase the number of bytes to read and load again.
+                self.debug.log("Found SIDX but we don't have all of it.");
+
+                info.range.start = 0;
+                info.range.end = info.bytesLoaded + (size - bytesAvailable);
+
+                request.onload = function () {
+                    if (request.status < 200 || request.status > 299)
+                    {
+                      return;
+                    }
+                    needFailureReport = false;
+
+                    info.bytesLoaded = info.range.end;
+                    findSIDX.call(self, request.response, info, representation, callback);
+                };
+
+                request.onloadend = request.onerror = function () {
+                    if (!needFailureReport)
+                    {
+                      return;
+                    }
+                    needFailureReport = false;
+
+                    self.errHandler.downloadError("SIDX", info.url, request);
+                    callback.call(self);
+                };
+
+                request.open("GET", self.tokenAuthentication.addTokenAsQueryArg(info.url));
+                request.responseType = "arraybuffer";
+                request.setRequestHeader("Range", "bytes=" + info.range.start + "-" + info.range.end);
+                request = self.tokenAuthentication.setTokenInRequestHeader(request);
+                request.send(null);
+            } else {
+                // Case 3
+                // We have the entire box, so parse it and continue.
+                info.range.start = pos - 8;
+                info.range.end = info.range.start + size;
+
+                self.debug.log("Found the SIDX box.  Start: " + info.range.start + " | End: " + info.range.end);
+//                sidxBytes = data.slice(info.range.start, info.range.end);
+                sidxBytes = new ArrayBuffer(info.range.end - info.range.start);
+                sidxOut = new Uint8Array(sidxBytes);
+                sidxSlice = new Uint8Array(data, info.range.start, info.range.end - info.range.start);
+                sidxOut.set(sidxSlice);
+
+                parsed = this.parseSIDX.call(this, sidxBytes, info.range.start);
+
+                // We need to check to see if we are loading multiple sidx.
+                // For now just check the first reference and assume they are all the same.
+                // TODO : Can the referenceTypes be mixed?
+                // TODO : Load them all now, or do it as needed?
+
+                ref = parsed.references;
+                if (ref !== null && ref !== undefined && ref.length > 0) {
+                    loadMultiSidx = (ref[0].type === 1);
+                }
+
+                if (loadMultiSidx) {
+                    self.debug.log("Initiate multiple SIDX load.");
+
+                    var j, len, ss, se, r, segs = [],
+                        count = 0,
+                        tmpCallback = function(segments) {
+                            if (segments) {
+                                segs = segs.concat(segments);
+                                count += 1;
+
+                                if (count >= len) {
+                                    callback.call(self, segs);
+                                }
+                            } else {
+                                callback.call(self);
+                            }
+                        };
+
+                    for (j = 0, len = ref.length; j < len; j += 1) {
+                        ss = ref[j].offset;
+                        se = ref[j].offset + ref[j].size - 1;
+                        r = ss + "-" + se;
+
+                        loadSegments.call(self, representation, null, r, tmpCallback);
+                    }
+
+                } else {
+                    self.debug.log("Parsing segments from SIDX.");
+                    segments = parseSegments.call(self, sidxBytes, info.url, info.range.start);
+                    callback.call(self, segments);
+                }
+            }
+        },
+
+        loadSegments = function (representation, type, theRange, callback) {
+            var request = new XMLHttpRequest(),
+                segments,
+                parts,
+                media = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].
+                    AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].BaseURL,
+                needFailureReport = true,
+                self = this,
+                info = {
+                    url: media,
+                    range: {},
+                    searching: false,
+                    bytesLoaded: 0,
+                    bytesToLoad: 1500,
+                    request: request
+                };
+
+            // We might not know exactly where the sidx box is.
+            // Load the first n bytes (say 1500) and look for it.
+            if (theRange === null) {
+                self.debug.log("No known range for SIDX request.");
+                info.searching = true;
+                info.range.start = 0;
+                info.range.end = info.bytesToLoad;
+            } else {
+                parts = theRange.split("-");
+                info.range.start = parseFloat(parts[0]);
+                info.range.end = parseFloat(parts[1]);
+            }
+
+            request.onload = function () {
+                if (request.status < 200 || request.status > 299)
+                {
+                  return;
+                }
+                needFailureReport = false;
+
+                // If we didn't know where the SIDX box was, we have to look for it.
+                // Iterate over the data checking out the boxes to find it.
+                if (info.searching) {
+                    info.bytesLoaded = info.range.end;
+                    findSIDX.call(self, request.response, info, representation, function (segments) {
+                        if (segments) {
+                            callback.call(self, segments, representation, type);
+                        }
+                    });
+                } else {
+                    segments = parseSegments.call(self, request.response, info.url, info.range.start);
+                    callback.call(self, segments, representation, type);
+                }
+            };
+
+            request.onloadend = request.onerror = function () {
+                if (!needFailureReport)
+                {
+                  return;
+                }
+                needFailureReport = false;
+
+                self.errHandler.downloadError("SIDX", info.url, request);
+                callback.call(self, null, representation, type);
+            };
+
+            request.open("GET", self.tokenAuthentication.addTokenAsQueryArg(info.url));
+            request.responseType = "arraybuffer";
+            request.setRequestHeader("Range", "bytes=" + info.range.start + "-" + info.range.end);
+            request = self.tokenAuthentication.setTokenInRequestHeader(request);
+            request.send(null);
+            self.debug.log("Perform SIDX load: " + info.url);
+        },
+
+        onLoaded = function(segments, representation, type) {
+            var self = this;
+
+            if( segments) {
+                self.notify(self.eventList.ENAME_SEGMENTS_LOADED, segments, representation, type);
+            } else {
+                self.notify(self.eventList.ENAME_SEGMENTS_LOADED, null, representation, type, new Error("error loading segments"));
+            }
+        };
+
+    return {
+        debug: undefined,
+        errHandler: undefined,
+        tokenAuthentication:undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_INITIALIZATION_LOADED: "initializationLoaded",
+            ENAME_SEGMENTS_LOADED: "segmentsLoaded"
+        },
+
+        loadSegments: function(representation, type, range) {
+            loadSegments.call(this, representation, type, range, onLoaded.bind(this));
+        },
+
+        loadInitialization: loadInit,
+        parseSegments: parseSegments,
+        parseSIDX: parseSIDX,
+        findSIDX: findSIDX
+    };
+};
+
+Dash.dependencies.BaseURLExtensions.prototype = {
+    constructor: Dash.dependencies.BaseURLExtensions
+};;Dash.dependencies.DashAdapter = function () {
+    "use strict";
+    var periods = [],
+        adaptations = {},
+
+        getRepresentationForTrackInfo = function(trackInfo, representationController) {
+            return representationController.getRepresentationForQuality(trackInfo.quality);
+        },
+
+        getAdaptationForMediaInfo = function(mediaInfo) {
+            return adaptations[mediaInfo.streamInfo.id][mediaInfo.index];
+        },
+
+        getPeriodForStreamInfo = function(streamInfo) {
+            var period,
+                ln = periods.length,
+                i = 0;
+
+            for (i; i < ln; i += 1) {
+                period = periods[i];
+
+                if (streamInfo.id === period.id) return period;
+            }
+
+            return null;
+        },
+
+        convertRepresentationToTrackInfo = function(representation) {
+            var trackInfo = new MediaPlayer.vo.TrackInfo(),
+                a = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].AdaptationSet_asArray[representation.adaptation.index],
+                r = this.manifestExt.getRepresentationFor(representation.index, a);
+
+            trackInfo.id = representation.id;
+            trackInfo.quality = representation.index;
+            trackInfo.bandwidth = this.manifestExt.getBandwidth(r);
+            trackInfo.DVRWindow = representation.segmentAvailabilityRange;
+            trackInfo.fragmentDuration = representation.segmentDuration || (representation.segments && representation.segments.length > 0 ? representation.segments[0].duration : NaN);
+            trackInfo.MSETimeOffset = representation.MSETimeOffset;
+            trackInfo.useCalculatedLiveEdgeTime = representation.useCalculatedLiveEdgeTime;
+            trackInfo.mediaInfo = convertAdaptationToMediaInfo.call(this, representation.adaptation);
+
+            return trackInfo;
+        },
+
+        convertAdaptationToMediaInfo = function(adaptation) {
+            var mediaInfo = new MediaPlayer.vo.MediaInfo(),
+                self = this,
+                a = adaptation.period.mpd.manifest.Period_asArray[adaptation.period.index].AdaptationSet_asArray[adaptation.index];
+
+            mediaInfo.id = adaptation.id;
+            mediaInfo.index = adaptation.index;
+            mediaInfo.type = adaptation.type;
+            mediaInfo.streamInfo = convertPeriodToStreamInfo.call(this, adaptation.period);
+            mediaInfo.trackCount = this.manifestExt.getRepresentationCount(a);
+            mediaInfo.lang = this.manifestExt.getLanguageForAdaptation(a);
+            mediaInfo.codec = this.manifestExt.getCodec(a);
+            mediaInfo.mimeType = this.manifestExt.getMimeType(a);
+            mediaInfo.contentProtection = this.manifestExt.getContentProtectionData(a);
+
+            if (mediaInfo.contentProtection) {
+                mediaInfo.contentProtection.forEach(function(item){
+                    item.KID = self.manifestExt.getKID(item);
+                });
+            }
+
+            mediaInfo.isText = this.manifestExt.getIsTextTrack(mediaInfo.mimeType);
+
+            return mediaInfo;
+        },
+
+        convertPeriodToStreamInfo = function(period) {
+            var streamInfo = new MediaPlayer.vo.StreamInfo(),
+                THRESHOLD = 1;
+
+            streamInfo.id = period.id;
+            streamInfo.index = period.index;
+            streamInfo.start = period.start;
+            streamInfo.duration = period.duration;
+            streamInfo.manifestInfo = convertMpdToManifestInfo.call(this, period.mpd);
+            streamInfo.isLast = Math.abs((streamInfo.start + streamInfo.duration) - streamInfo.manifestInfo.duration) < THRESHOLD;
+
+            return streamInfo;
+        },
+
+        convertMpdToManifestInfo = function(mpd) {
+            var manifestInfo = new MediaPlayer.vo.ManifestInfo(),
+                manifest = this.manifestModel.getValue();
+
+            manifestInfo.DVRWindowSize = mpd.timeShiftBufferDepth;
+            manifestInfo.loadedTime = mpd.manifest.loadedTime;
+            manifestInfo.availableFrom = mpd.availabilityStartTime;
+            manifestInfo.minBufferTime = mpd.manifest.minBufferTime;
+            manifestInfo.maxFragmentDuration = mpd.maxSegmentDuration;
+            manifestInfo.duration = this.manifestExt.getDuration(manifest);
+            manifestInfo.isDynamic = this.manifestExt.getIsDynamic(manifest);
+
+            return manifestInfo;
+        },
+
+        getMediaInfoForType = function(manifest, streamInfo, type) {
+            var periodInfo = getPeriodForStreamInfo(streamInfo),
+                periodId = periodInfo.id,
+                data = this.manifestExt.getAdaptationForType(manifest, streamInfo.index, type),
+                idx;
+
+            if (!data) return null;
+
+            idx = this.manifestExt.getIndexForAdaptation(data, manifest, streamInfo.index);
+
+            adaptations[periodId] = adaptations[periodId] || this.manifestExt.getAdaptationsForPeriod(manifest, periodInfo);
+
+            return convertAdaptationToMediaInfo.call(this, adaptations[periodId][idx]);
+        },
+
+        getStreamsInfoFromManifest = function(manifest) {
+            var mpd,
+                streams = [],
+                ln,
+                i;
+
+            if (!manifest) return null;
+
+            mpd = this.manifestExt.getMpd(manifest);
+            periods = this.manifestExt.getRegularPeriods(manifest, mpd);
+            adaptations = {};
+            ln = periods.length;
+
+            for(i = 0; i < ln; i += 1) {
+                streams.push(convertPeriodToStreamInfo.call(this, periods[i]));
+            }
+
+            return streams;
+        },
+
+        getMpdInfo = function(manifest) {
+            var mpd = this.manifestExt.getMpd(manifest);
+
+            return convertMpdToManifestInfo.call(this, mpd);
+        },
+
+        getInitRequest = function(streamProcessor, quality) {
+            var representation = streamProcessor.trackController.getRepresentationForQuality(quality);
+
+            return streamProcessor.indexHandler.getInitRequest(representation);
+        },
+
+        getNextFragmentRequest = function(streamProcessor, trackInfo) {
+            var representation = getRepresentationForTrackInfo(trackInfo, streamProcessor.trackController);
+
+            return streamProcessor.indexHandler.getNextSegmentRequest(representation);
+        },
+
+        getFragmentRequestForTime = function(streamProcessor, trackInfo, time, keepIdx) {
+            var representation = getRepresentationForTrackInfo(trackInfo, streamProcessor.trackController);
+
+            return streamProcessor.indexHandler.getSegmentRequestForTime(representation, time, keepIdx);
+        },
+
+        generateFragmentRequestForTime = function(streamProcessor, trackInfo, time) {
+            var representation = getRepresentationForTrackInfo(trackInfo, streamProcessor.trackController),
+                request = streamProcessor.indexHandler.generateSegmentRequestForTime(representation, time);
+
+            return request;
+        },
+
+        getIndexHandlerTime = function(streamProcessor) {
+            return streamProcessor.indexHandler.getCurrentTime();
+        },
+
+        setIndexHandlerTime = function(streamProcessor, value) {
+            return streamProcessor.indexHandler.setCurrentTime(value);
+        },
+
+        updateData = function(streamProcessor) {
+            var periodInfo = getPeriodForStreamInfo(streamProcessor.getStreamInfo()),
+                mediaInfo = streamProcessor.getMediaInfo(),
+                adaptation = getAdaptationForMediaInfo(mediaInfo),
+                manifest = this.manifestModel.getValue(),
+                type = streamProcessor.getType(),
+                id,
+                data;
+
+            id = mediaInfo.id;
+            data = id ? this.manifestExt.getAdaptationForId(id, manifest, periodInfo.index) : this.manifestExt.getAdaptationForIndex(mediaInfo.index, manifest, periodInfo.index);
+            streamProcessor.setMediaInfo(mediaInfo);
+            streamProcessor.trackController.updateData(data, adaptation, type);
+        },
+
+        getTrackInfoForQuality = function(representationController, quality) {
+            var representation = representationController.getRepresentationForQuality(quality);
+
+            return representation ? convertRepresentationToTrackInfo.call(this, representation) : null;
+        },
+
+        getCurrentTrackInfo = function(representationController) {
+            var representation = representationController.getCurrentRepresentation();
+
+            return representation ? convertRepresentationToTrackInfo.call(this, representation): null;
+        },
+
+        getEvent = function(eventBox, eventStreams, startTime) {
+            var event = new Dash.vo.Event(),
+                schemeIdUri = eventBox[0],
+                value = eventBox[1],
+                timescale = eventBox[2],
+                presentationTimeDelta = eventBox[3],
+                duration = eventBox[4],
+                id = eventBox[5],
+                messageData = eventBox[6],
+                presentationTime = startTime*timescale+presentationTimeDelta;
+
+            if (!eventStreams[schemeIdUri]) return null;
+
+            event.eventStream = eventStreams[schemeIdUri];
+            event.eventStream.value = value;
+            event.eventStream.timescale = timescale;
+            event.duration = duration;
+            event.id = id;
+            event.presentationTime = presentationTime;
+            event.messageData = messageData;
+            event.presentationTimeDelta = presentationTimeDelta;
+
+            return event;
+        },
+
+        getEventsFor = function(info, streamProcessor) {
+            var manifest = this.manifestModel.getValue(),
+                events = [];
+
+            if (info instanceof MediaPlayer.vo.StreamInfo) {
+                events = this.manifestExt.getEventsForPeriod(manifest, getPeriodForStreamInfo(info));
+            } else if (info instanceof MediaPlayer.vo.MediaInfo) {
+                events = this.manifestExt.getEventStreamForAdaptationSet(manifest, getAdaptationForMediaInfo(info));
+            } else if (info instanceof MediaPlayer.vo.TrackInfo) {
+                events = this.manifestExt.getEventStreamForRepresentation(manifest, getRepresentationForTrackInfo(info, streamProcessor.trackController));
+            }
+
+            return events;
+        };
+
+    return {
+        system : undefined,
+        manifestExt: undefined,
+        manifestModel: undefined,
+        timelineConverter: undefined,
+
+        metricsList: {
+            TCP_CONNECTION: "TcpConnection",
+            HTTP_REQUEST: "HttpRequest",
+            HTTP_REQUEST_TRACE: "HttpRequestTrace",
+            TRACK_SWITCH : "RepresentationSwitch",
+            BUFFER_LEVEL: "BufferLevel",
+            DVR_INFO: "DVRInfo",
+            DROPPED_FRAMES: "DroppedFrames",
+            SCHEDULING_INFO: "SchedulingInfo",
+            MANIFEST_UPDATE: "ManifestUpdate",
+            MANIFEST_UPDATE_STREAM_INFO: "ManifestUpdatePeriodInfo",
+            MANIFEST_UPDATE_TRACK_INFO: "ManifestUpdateRepresentationInfo",
+            PLAY_LIST: "PlayList",
+            PLAY_LIST_TRACE: "PlayListTrace"
+        },
+
+        convertDataToTrack: convertRepresentationToTrackInfo,
+        convertDataToMedia: convertAdaptationToMediaInfo,
+        convertDataToStream: convertPeriodToStreamInfo,
+        getDataForTrack: getRepresentationForTrackInfo,
+        getDataForMedia: getAdaptationForMediaInfo,
+        getDataForStream: getPeriodForStreamInfo,
+
+        getStreamsInfo: getStreamsInfoFromManifest,
+        getManifestInfo: getMpdInfo,
+        getMediaInfoForType: getMediaInfoForType,
+
+        getCurrentTrackInfo: getCurrentTrackInfo,
+        getTrackInfoForQuality: getTrackInfoForQuality,
+        updateData: updateData,
+
+        getInitRequest: getInitRequest,
+        getNextFragmentRequest: getNextFragmentRequest,
+        getFragmentRequestForTime: getFragmentRequestForTime,
+        generateFragmentRequestForTime: generateFragmentRequestForTime,
+        getIndexHandlerTime: getIndexHandlerTime,
+        setIndexHandlerTime: setIndexHandlerTime,
+
+        getEventsFor: getEventsFor,
+        getEvent: getEvent,
+
+        reset: function(){
+            periods = [];
+            adaptations = {};
+        }
+    };
+};
+
+Dash.dependencies.DashAdapter.prototype = {
+    constructor: Dash.dependencies.DashAdapter
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.dependencies.DashHandler = function () {
+    "use strict";
+
+    var index = -1,
+        requestedTime,
+        isDynamic,
+        type,
+        currentTime = 0,
+
+        zeroPadToLength = function (numStr, minStrLength) {
+            while (numStr.length < minStrLength) {
+                numStr = "0" + numStr;
+            }
+
+            return numStr;
+        },
+
+        replaceTokenForTemplate = function (url, token, value) {
+
+            var startPos = 0,
+                endPos = 0,
+                tokenLen = token.length,
+                formatTag = "%0",
+                formatTagLen = formatTag.length,
+                formatTagPos,
+                specifier,
+                width,
+                paddedValue;
+
+            // keep looping round until all instances of <token> have been
+            // replaced. once that has happened, startPos below will be -1
+            // and the completed url will be returned.
+            while (true) {
+
+                // check if there is a valid $<token>...$ identifier
+                // if not, return the url as is.
+                startPos = url.indexOf("$" + token);
+                if (startPos < 0) {
+                    return url;
+                }
+
+                // the next '$' must be the end of the identifer
+                // if there isn't one, return the url as is.
+                endPos = url.indexOf("$", startPos + tokenLen);
+                if (endPos < 0) {
+                    return url;
+                }
+
+                // now see if there is an additional format tag suffixed to
+                // the identifier within the enclosing '$' characters
+                formatTagPos = url.indexOf(formatTag, startPos + tokenLen);
+                if (formatTagPos > startPos && formatTagPos < endPos) {
+
+                    specifier = url.charAt(endPos - 1);
+                    width = parseInt(url.substring(formatTagPos + formatTagLen, endPos - 1), 10);
+
+                    // support the minimum specifiers required by IEEE 1003.1
+                    // (d, i , o, u, x, and X) for completeness
+                    switch (specifier) {
+                    // treat all int types as uint,
+                    // hence deliberate fallthrough
+                    case 'd':
+                    case 'i':
+                    case 'u':
+                        paddedValue = zeroPadToLength(value.toString(), width);
+                        break;
+                    case 'x':
+                        paddedValue = zeroPadToLength(value.toString(16), width);
+                        break;
+                    case 'X':
+                        paddedValue = zeroPadToLength(value.toString(16), width).toUpperCase();
+                        break;
+                    case 'o':
+                        paddedValue = zeroPadToLength(value.toString(8), width);
+                        break;
+                    default:
+                        this.debug.log("Unsupported/invalid IEEE 1003.1 format identifier string in URL");
+                        return url;
+                    }
+                } else {
+                    paddedValue = value;
+                }
+
+                url = url.substring(0, startPos) + paddedValue + url.substring(endPos + 1);
+            }
+        },
+
+        unescapeDollarsInTemplate = function (url) {
+            return url.split("$$").join("$");
+        },
+
+        replaceIDForTemplate = function (url, value) {
+            if (value === null || url.indexOf("$RepresentationID$") === -1) { return url; }
+            var v = value.toString();
+            return url.split("$RepresentationID$").join(v);
+        },
+
+        getNumberForSegment = function(segment, segmentIndex) {
+            return segment.representation.startNumber + segmentIndex;
+        },
+
+        getRequestUrl = function (destination, representation) {
+            var baseURL = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].
+                    AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].BaseURL,
+                url;
+
+            if (destination === baseURL) {
+                url = destination;
+            } else if (destination.indexOf("http://") !== -1) {
+                url = destination;
+            } else {
+                url = baseURL + destination;
+            }
+
+            return url;
+        },
+
+        generateInitRequest = function(representation, mediaType) {
+            var self = this,
+                period,
+                request = new MediaPlayer.vo.FragmentRequest(),
+                presentationStartTime;
+
+            period = representation.adaptation.period;
+
+            request.mediaType = mediaType;
+            request.type = "Initialization Segment";
+            request.url = getRequestUrl(representation.initialization, representation);
+            request.range = representation.range;
+            presentationStartTime = period.start;
+            request.availabilityStartTime = self.timelineConverter.calcAvailabilityStartTimeFromPresentationTime(presentationStartTime, representation.adaptation.period.mpd, isDynamic);
+            request.availabilityEndTime = self.timelineConverter.calcAvailabilityEndTimeFromPresentationTime(presentationStartTime + period.duration, period.mpd, isDynamic);
+            request.quality = representation.index;
+
+            return request;
+        },
+
+        getInit = function (representation) {
+            var self = this,
+                request;
+
+            if (!representation) return null;
+
+            request = generateInitRequest.call(self, representation, type);
+            //self.debug.log("Got an initialization.");
+
+            return request;
+        },
+
+        isMediaFinished = function (representation) { // TODO
+            var sDuration,
+                period = representation.adaptation.period,
+                isFinished = false,
+                seg,
+                fTime;
+
+            //this.debug.log("Checking for stream end...");
+            if (isDynamic) {
+                //this.debug.log("Live never ends! (TODO)");
+                // TODO : Check the contents of the last box to signal end.
+                isFinished = false;
+            } else {
+                if (index < 0) {
+                    isFinished = false;
+                } else if (index < representation.availableSegmentsNumber) {
+                    seg = getSegmentByIndex(index, representation);
+
+                    if (seg) {
+                        fTime = seg.presentationStartTime - period.start;
+                        sDuration = representation.adaptation.period.duration;
+                        this.debug.log(representation.segmentInfoType + ": " + fTime + " / " + sDuration);
+                        isFinished = (fTime >= sDuration);
+                    }
+                } else {
+                    isFinished = true;
+                }
+            }
+
+            return isFinished;
+        },
+
+        getIndexBasedSegment = function (representation, index) {
+            var self = this,
+                seg,
+                duration,
+                presentationStartTime,
+                presentationEndTime;
+
+            duration = representation.segmentDuration;
+            presentationStartTime = representation.adaptation.period.start + (index * duration);
+            presentationEndTime = presentationStartTime + duration;
+
+            seg = new Dash.vo.Segment();
+
+            seg.representation = representation;
+            seg.duration = duration;
+            seg.presentationStartTime = presentationStartTime;
+
+            seg.mediaStartTime = self.timelineConverter.calcMediaTimeFromPresentationTime(seg.presentationStartTime, representation);
+
+            seg.availabilityStartTime = self.timelineConverter.calcAvailabilityStartTimeFromPresentationTime(seg.presentationStartTime, representation.adaptation.period.mpd, isDynamic);
+            seg.availabilityEndTime = self.timelineConverter.calcAvailabilityEndTimeFromPresentationTime(presentationEndTime, representation.adaptation.period.mpd, isDynamic);
+
+            // at this wall clock time, the video element currentTime should be seg.presentationStartTime
+            seg.wallStartTime = self.timelineConverter.calcWallTimeForSegment(seg, isDynamic);
+
+            seg.replacementNumber = getNumberForSegment(seg, index);
+            seg.availabilityIdx = index;
+
+            return seg;
+        },
+
+        getSegmentsFromTimeline = function (representation) {
+            var self = this,
+                template = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].
+                    AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].SegmentTemplate,
+                timeline = template.SegmentTimeline,
+                isAvailableSegmentNumberCalculated = representation.availableSegmentsNumber > 0,
+                maxSegmentsAhead = 10,
+                segments = [],
+                fragments,
+                frag,
+                i,
+                len,
+                j,
+                repeat,
+                repeatEndTime,
+                nextFrag,
+                time = 0,
+                scaledTime = 0,
+                availabilityIdx = -1,
+                calculatedRange,
+                hasEnoughSegments,
+                requiredMediaTime,
+                startIdx,
+                endIdx,
+                fTimescale,
+                createSegment = function(s) {
+                    return getTimeBasedSegment.call(
+                        self,
+                        representation,
+                        time,
+                        s.d,
+                        fTimescale,
+                        template.media,
+                        s.mediaRange,
+                        availabilityIdx);
+                };
+
+            fTimescale = representation.timescale;
+
+            fragments = timeline.S_asArray;
+
+            calculatedRange = decideSegmentListRangeForTimeline.call(self, representation);
+
+            // if calculatedRange exists we should generate segments that belong to this range.
+            // Otherwise generate maxSegmentsAhead segments ahead of the requested time
+            if (calculatedRange) {
+                startIdx = calculatedRange.start;
+                endIdx = calculatedRange.end;
+            } else {
+                requiredMediaTime = self.timelineConverter.calcMediaTimeFromPresentationTime(requestedTime || 0, representation);
+            }
+
+            for (i = 0, len = fragments.length; i < len; i += 1) {
+                frag = fragments[i];
+                repeat = 0;
+                if (frag.hasOwnProperty("r")) {
+                    repeat = frag.r;
+                }
+
+                //For a repeated S element, t belongs only to the first segment
+                if (frag.hasOwnProperty("t")) {
+                    time = frag.t;
+                    scaledTime = time / fTimescale;
+                }
+
+                //This is a special case: "A negative value of the @r attribute of the S element indicates that the duration indicated in @d attribute repeats until the start of the next S element, the end of the Period or until the 
+                // next MPD update."
+                if (repeat < 0) {
+                    nextFrag = fragments[i+1];
+
+                    if (nextFrag && nextFrag.hasOwnProperty("t")) {
+                        repeatEndTime = nextFrag.t / fTimescale;
+                    } else {
+                        repeatEndTime = self.timelineConverter.calcMediaTimeFromPresentationTime(representation.segmentAvailabilityRange.end, representation);
+                        representation.segmentDuration = frag.d / fTimescale;
+                    }
+
+                    repeat = Math.ceil((repeatEndTime - scaledTime)/(frag.d/fTimescale)) - 1;
+                }
+
+                // if we have enough segments in the list, but we have not calculated the total number of the segments yet we
+                // should continue the loop and calc the number. Once it is calculated, we can break the loop.
+                if (hasEnoughSegments) {
+                    if (isAvailableSegmentNumberCalculated) break;
+                    availabilityIdx += repeat + 1;
+                    continue;
+                }
+
+                for (j = 0; j <= repeat; j += 1) {
+                    availabilityIdx += 1;
+
+                    if (calculatedRange) {
+                        if (availabilityIdx > endIdx) {
+                            hasEnoughSegments = true;
+                            if (isAvailableSegmentNumberCalculated) break;
+                            continue;
+                        }
+
+                        if (availabilityIdx >= startIdx) {
+                            segments.push(createSegment.call(self, frag));
+                        }
+                    } else {
+                        if (segments.length > maxSegmentsAhead) {
+                            hasEnoughSegments = true;
+                            if (isAvailableSegmentNumberCalculated) break;
+                            continue;
+                        }
+
+                        if (scaledTime >= (requiredMediaTime - (frag.d / fTimescale))) {
+                            segments.push(createSegment.call(self, frag));
+                        }
+                    }
+
+                    time += frag.d;
+                    scaledTime = time / fTimescale;
+                }
+            }
+
+            if (!isAvailableSegmentNumberCalculated) {
+                representation.availableSegmentsNumber = availabilityIdx + 1;
+            }
+
+            return segments;
+        },
+
+        getSegmentsFromTemplate = function (representation) {
+            var segments = [],
+                self = this,
+                template = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].
+                    AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].SegmentTemplate,
+                duration = representation.segmentDuration,
+                availabilityWindow = representation.segmentAvailabilityRange,
+                segmentRange,
+                periodSegIdx,
+                startIdx,
+                endIdx,
+                seg = null,
+                start,
+                url = null;
+
+            start = representation.startNumber;
+
+            segmentRange = decideSegmentListRangeForTemplate.call(self, representation);
+
+            startIdx = segmentRange.start;
+            endIdx = segmentRange.end;
+
+            for (periodSegIdx = startIdx;periodSegIdx <= endIdx; periodSegIdx += 1) {
+
+                seg = getIndexBasedSegment.call(
+                    self,
+                    representation,
+                    periodSegIdx);
+
+                seg.replacementTime = (start + periodSegIdx - 1) * representation.segmentDuration;
+                url = template.media;
+                url = replaceTokenForTemplate(url, "Number", seg.replacementNumber);
+                url = replaceTokenForTemplate(url, "Time", seg.replacementTime);
+                seg.media = url;
+
+                segments.push(seg);
+                seg = null;
+            }
+
+            representation.availableSegmentsNumber = Math.ceil((availabilityWindow.end - availabilityWindow.start) / duration);
+
+            return segments;
+        },
+
+        decideSegmentListRangeForTemplate = function(representation) {
+            var self = this,
+                duration = representation.segmentDuration,
+                minBufferTime = representation.adaptation.period.mpd.manifest.minBufferTime,
+                availabilityWindow = representation.segmentAvailabilityRange,
+                periodRelativeRange = {start: self.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(representation, availabilityWindow.start),
+                    end: self.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(representation, availabilityWindow.end)},
+                originAvailabilityTime = NaN,
+                originSegment = null,
+                currentSegmentList = representation.segments,
+                availabilityLowerLimit = 2 * duration,
+                availabilityUpperLimit = Math.max(2 * minBufferTime, 10 * duration),
+                start,
+                end,
+                range;
+
+            if (!periodRelativeRange) {
+                periodRelativeRange = self.timelineConverter.calcSegmentAvailabilityRange(representation, isDynamic);
+            }
+            
+            if (isDynamic && !self.timelineConverter.isTimeSyncCompleted()) {
+                start = Math.floor(periodRelativeRange.start / duration);
+                end = Math.floor(periodRelativeRange.end / duration);
+                range = {start: start, end: end};
+                return range;
+            }
+
+            // if segments exist we should try to find the latest buffered time, which is the presentation time of the
+            // segment for the current index
+            if (currentSegmentList) {
+                originSegment = getSegmentByIndex(index, representation);
+                originAvailabilityTime = originSegment ? self.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(representation, originSegment.presentationStartTime) :
+                    (index > 0 ? (index * duration) : self.timelineConverter.calcPeriodRelativeTimeFromMpdRelativeTime(representation, requestedTime || currentSegmentList[0].presentationStartTime));
+            } else {
+                // If no segments exist, but index > 0, it means that we switch to the other representation, so
+                // we should proceed from this time.
+                // Otherwise we should start from the beginning for static mpds or from the end (live edge) for dynamic mpds
+                originAvailabilityTime = (index > 0) ? (index * duration) : (isDynamic ? periodRelativeRange.end : periodRelativeRange.start);
+            }
+
+            // segment list should not be out of the availability window range
+            start = Math.floor(Math.max(originAvailabilityTime - availabilityLowerLimit, periodRelativeRange.start) / duration);
+            end = Math.floor(Math.min(start + availabilityUpperLimit / duration, periodRelativeRange.end / duration));
+
+            range = {start: start, end: end};
+
+            return range;
+        },
+
+        decideSegmentListRangeForTimeline = function(/*representation*/) {
+            var availabilityLowerLimit = 2,
+                availabilityUpperLimit = 10,
+                firstIdx = 0,
+                lastIdx = Number.POSITIVE_INFINITY,
+                start,
+                end,
+                range;
+
+            if (isDynamic && !this.timelineConverter.isTimeSyncCompleted()) {
+                range = {start: firstIdx, end: lastIdx};
+                return range;
+            }
+
+            if((!isDynamic && requestedTime) || index < 0) return null;
+
+            // segment list should not be out of the availability window range
+            start = Math.max(index - availabilityLowerLimit, firstIdx);
+            end = Math.min(index + availabilityUpperLimit, lastIdx);
+
+            range = {start: start, end: end};
+
+            return range;
+        },
+
+        getTimeBasedSegment = function(representation, time, duration, fTimescale, url, range, index) {
+            var self = this,
+                scaledTime = time / fTimescale,
+                scaledDuration = Math.min(duration / fTimescale, representation.adaptation.period.mpd.maxSegmentDuration),
+                presentationStartTime,
+                presentationEndTime,
+                seg;
+
+            presentationStartTime = self.timelineConverter.calcPresentationTimeFromMediaTime(scaledTime, representation);
+            presentationEndTime = presentationStartTime + scaledDuration;
+
+            seg = new Dash.vo.Segment();
+
+            seg.representation = representation;
+            seg.duration = scaledDuration;
+            seg.mediaStartTime = scaledTime;
+
+            seg.presentationStartTime = presentationStartTime;
+
+            // For SegmentTimeline every segment is available at loadedTime
+            seg.availabilityStartTime = representation.adaptation.period.mpd.manifest.loadedTime;
+            seg.availabilityEndTime = self.timelineConverter.calcAvailabilityEndTimeFromPresentationTime(presentationEndTime, representation.adaptation.period.mpd, isDynamic);
+
+            // at this wall clock time, the video element currentTime should be seg.presentationStartTime
+            seg.wallStartTime = self.timelineConverter.calcWallTimeForSegment(seg, isDynamic);
+
+            seg.replacementTime = time;
+
+            seg.replacementNumber = getNumberForSegment(seg, index);
+
+            url = replaceTokenForTemplate(url, "Number", seg.replacementNumber);
+            url = replaceTokenForTemplate(url, "Time", seg.replacementTime);
+            seg.media = url;
+            seg.mediaRange = range;
+            seg.availabilityIdx = index;
+
+            return seg;
+        },
+
+        getSegmentsFromList = function (representation) {
+            var self = this,
+                segments = [],
+                list = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].
+                    AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].SegmentList,
+                len = list.SegmentURL_asArray.length,
+                periodSegIdx,
+                seg,
+                s,
+                range,
+                startIdx,
+                endIdx,
+                start;
+
+            start = representation.startNumber;
+
+            range = decideSegmentListRangeForTemplate.call(self, representation);
+            startIdx = Math.max(range.start, 0);
+            endIdx = Math.min(range.end, list.SegmentURL_asArray.length - 1);
+
+            for (periodSegIdx = startIdx; periodSegIdx <= endIdx; periodSegIdx += 1) {
+                s = list.SegmentURL_asArray[periodSegIdx];
+
+                seg = getIndexBasedSegment.call(
+                    self,
+                    representation,
+                    periodSegIdx);
+
+                seg.replacementTime = (start + periodSegIdx - 1) * representation.segmentDuration;
+                seg.media = s.media;
+                seg.mediaRange = s.mediaRange;
+                seg.index = s.index;
+                seg.indexRange = s.indexRange;
+
+                segments.push(seg);
+                seg = null;
+            }
+
+            representation.availableSegmentsNumber = len;
+
+            return segments;
+        },
+
+        getSegments = function (representation) {
+            var segments,
+                self = this,
+                type = representation.segmentInfoType;
+
+                // Already figure out the segments.
+            if (type === "SegmentBase" || type === "BaseURL" || !isSegmentListUpdateRequired.call(self, representation)) {
+                segments = representation.segments;
+            } else {
+                if (type === "SegmentTimeline") {
+                    segments = getSegmentsFromTimeline.call(self, representation);
+                } else if (type === "SegmentTemplate") {
+                    segments = getSegmentsFromTemplate.call(self, representation);
+                } else if (type === "SegmentList") {
+                    segments = getSegmentsFromList.call(self, representation);
+                }
+
+                onSegmentListUpdated.call(self, representation, segments);
+            }
+
+            return segments;
+        },
+
+        onSegmentListUpdated = function(representation, segments) {
+            var lastIdx,
+                liveEdge,
+                metrics,
+                lastSegment;
+
+            representation.segments = segments;
+            lastIdx = segments.length - 1;
+            if (isDynamic && isNaN(this.timelineConverter.getExpectedLiveEdge())) {
+                lastSegment = segments[lastIdx];
+                liveEdge = lastSegment.presentationStartTime + lastSegment.duration;
+                metrics = this.metricsModel.getMetricsFor("stream");
+                // the last segment is supposed to be a live edge
+                this.timelineConverter.setExpectedLiveEdge(liveEdge);
+                this.metricsModel.updateManifestUpdateInfo(this.metricsExt.getCurrentManifestUpdate(metrics), {presentationStartTime: liveEdge});
+            }
+        },
+
+        updateSegmentList = function(representation) {
+            var self = this;
+
+            if (!representation) {
+                throw new Error("no representation");
+            }
+
+            representation.segments = null;
+
+            getSegments.call(self, representation);
+
+            return representation;
+        },
+
+        updateRepresentation = function(representation, keepIdx) {
+            var self = this,
+                hasInitialization = representation.initialization,
+                hasSegments = representation.segmentInfoType !== "BaseURL" && representation.segmentInfoType !== "SegmentBase";
+
+            representation.segmentAvailabilityRange = self.timelineConverter.calcSegmentAvailabilityRange(representation, isDynamic);
+
+            if (!keepIdx) index = -1;
+
+            updateSegmentList.call(self, representation);
+            if (!hasInitialization) {
+                self.baseURLExt.loadInitialization(representation);
+            }
+
+            if (!hasSegments) {
+                self.baseURLExt.loadSegments(representation, type, representation.indexRange);
+            }
+
+            if (hasInitialization && hasSegments) {
+                self.notify(self.eventList.ENAME_REPRESENTATION_UPDATED, representation);
+            }
+        },
+
+        getIndexForSegments = function (time, representation) {
+            var segments = representation.segments,
+                ln = segments ? segments.length : null,
+                idx = -1,
+                frag,
+                ft,
+                fd,
+                i;
+
+            if (segments && ln > 0) {
+                for (i = 0; i < ln; i += 1) {
+                    frag = segments[i];
+                    ft = frag.presentationStartTime;
+                    fd = frag.duration;
+                    if ((time + fd/2) >= ft &&
+                        (time - fd/2) < (ft + fd)) {
+                        idx = frag.availabilityIdx;
+                        break;
+                    }
+                }
+            }
+
+            // TODO : This is horrible.
+            // Temp fix for SegmentTimeline refreshes.
+            //if (idx === -1) {
+            //    idx = 0;
+            //}
+
+            /*
+            if (segments && segments.length > 0) {
+                idx = 0;
+                ft = segments[0].startTime / segments[0].timescale;
+                frag = null;
+
+                while (ft <= time && (idx + 1) < segments.length) {
+                    frag = segments[idx];
+                    ft += frag.duration / frag.timescale;
+                    idx += 1;
+                }
+                idx -= 1;
+            }
+            */
+
+            return idx;
+        },
+
+        getSegmentByIndex = function(index, representation) {
+            if (!representation || !representation.segments) return null;
+
+            var ln = representation.segments.length,
+                seg,
+                i;
+
+            for (i = 0; i < ln; i += 1) {
+                seg = representation.segments[i];
+
+                if (seg.availabilityIdx === index) {
+                    return seg;
+                }
+            }
+
+            return null;
+        },
+
+        isSegmentListUpdateRequired = function(representation) {
+            var updateRequired = false,
+                segments = representation.segments,
+                upperIdx,
+                lowerIdx;
+
+            if (!segments || segments.length === 0) {
+                updateRequired = true;
+            } else {
+                lowerIdx = segments[0].availabilityIdx;
+                upperIdx = segments[segments.length -1].availabilityIdx;
+                updateRequired = (index < lowerIdx) || (index > upperIdx);
+            }
+
+            return updateRequired;
+        },
+
+        getRequestForSegment = function (segment) {
+            if (segment === null || segment === undefined) {
+                return null;
+            }
+
+            var request = new MediaPlayer.vo.FragmentRequest(),
+                representation = segment.representation,
+                bandwidth = representation.adaptation.period.mpd.manifest.Period_asArray[representation.adaptation.period.index].
+                    AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].bandwidth,
+                url;
+
+            url = getRequestUrl(segment.media, representation);
+            url = replaceTokenForTemplate(url, "Number", segment.replacementNumber);
+            url = replaceTokenForTemplate(url, "Time", segment.replacementTime);
+            url = replaceTokenForTemplate(url, "Bandwidth", bandwidth);
+            url = replaceIDForTemplate(url, representation.id);
+            url = unescapeDollarsInTemplate(url);
+
+            request.mediaType = type;
+            request.type = "Media Segment";
+            request.url = url;
+            request.range = segment.mediaRange;
+            request.startTime = segment.presentationStartTime;
+            request.duration = segment.duration;
+            request.timescale = representation.timescale;
+            request.availabilityStartTime = segment.availabilityStartTime;
+            request.availabilityEndTime = segment.availabilityEndTime;
+            request.wallStartTime = segment.wallStartTime;
+            request.quality = representation.index;
+            request.index = segment.availabilityIdx;
+
+            return request;
+        },
+
+        getForTime = function(representation, time, keepIdx) {
+            var request,
+                segment,
+                finished,
+                idx = index,
+                self = this;
+
+            if (!representation) {
+                return null;
+            }
+
+            requestedTime = time;
+
+            self.debug.log("Getting the request for time: " + time);
+
+            index = getIndexForSegments.call(self, time, representation);
+            getSegments.call(self, representation);
+
+            if (index < 0) {
+                index = getIndexForSegments.call(self, time, representation);
+            }
+
+            //self.debug.log("Got segments.");
+            //self.debug.log(segments);
+            //self.debug.log("Got a list of segments, so dig deeper.");
+            self.debug.log("Index for time " + time + " is " + index);
+
+            finished = isMediaFinished.call(self, representation);
+
+            //self.debug.log("Stream finished? " + finished);
+            if (finished) {
+                request = new MediaPlayer.vo.FragmentRequest();
+                request.action = request.ACTION_COMPLETE;
+                request.index = index;
+                request.mediaType = type;
+                self.debug.log("Signal complete.");
+                self.debug.log(request);
+            } else {
+                //self.debug.log("Got a request.");
+                //self.debug.log(request);
+                segment = getSegmentByIndex(index, representation);
+                request = getRequestForSegment.call(self, segment);
+            }
+
+            if (keepIdx) {
+                index = idx;
+            }
+
+            return request;
+        },
+
+        generateForTime = function(representation, time) {
+            var step = (representation.segmentAvailabilityRange.end - representation.segmentAvailabilityRange.start) / 2;
+
+            representation.segments = null;
+            representation.segmentAvailabilityRange = {start: time - step, end: time + step};
+            return getForTime.call(this, representation, time, false);
+        },
+
+        getNext = function (representation) {
+            var request,
+                segment,
+                finished,
+                idx,
+                self = this;
+
+            if (!representation) {
+                return null;
+            }
+
+            //self.debug.log("Getting the next request.");
+
+            if (index === -1) {
+                throw "You must call getSegmentRequestForTime first.";
+            }
+
+            requestedTime = null;
+            index += 1;
+            idx = index;
+
+            //self.debug.log("New index: " + index);
+
+            finished = isMediaFinished.call(self, representation);
+
+            //self.debug.log("Stream finished? " + finished);
+            if (finished) {
+                request = new MediaPlayer.vo.FragmentRequest();
+                request.action = request.ACTION_COMPLETE;
+                request.index = idx;
+                request.mediaType = type;
+                self.debug.log("Signal complete.");
+                //self.debug.log(request);
+            } else {
+                getSegments.call(self, representation);
+                //self.debug.log("Got segments.");
+                //self.debug.log(segments);
+                segment = getSegmentByIndex(idx, representation);
+                request = getRequestForSegment.call(self, segment);
+            }
+
+            return request;
+        },
+
+        onInitializationLoaded = function(sender, representation) {
+            //self.debug.log("Got an initialization.");
+            if (!representation.segments) return;
+
+            this.notify(this.eventList.ENAME_REPRESENTATION_UPDATED, representation);
+        },
+
+        onSegmentsLoaded = function(sender, fragments, representation, typeValue, error) {
+            if (error || (type !== typeValue)) return;
+
+            var self = this,
+                i,
+                len,
+                s,
+                segments = [],
+                count = 0,
+                seg;
+
+            for (i = 0, len = fragments.length; i < len; i+=1) {
+                s = fragments[i];
+
+                seg = getTimeBasedSegment.call(
+                    self,
+                    representation,
+                    s.startTime,
+                    s.duration,
+                    s.timescale,
+                    s.media,
+                    s.mediaRange,
+                    count);
+
+                segments.push(seg);
+                seg = null;
+                count += 1;
+            }
+
+            representation.segmentAvailabilityRange = {start: segments[0].presentationStartTime, end: segments[len - 1].presentationStartTime};
+            representation.availableSegmentsNumber = len;
+
+            onSegmentListUpdated.call(self, representation, segments);
+
+            if (!representation.initialization) return;
+
+            this.notify(this.eventList.ENAME_REPRESENTATION_UPDATED, representation);
+        };
+
+    return {
+        debug: undefined,
+        baseURLExt: undefined,
+        timelineConverter: undefined,
+        metricsModel: undefined,
+        metricsExt: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_REPRESENTATION_UPDATED: "representationUpdated"
+        },
+
+        setup: function() {
+            this.initializationLoaded = onInitializationLoaded;
+            this.segmentsLoaded = onSegmentsLoaded;
+        },
+
+        initialize: function(streamProcessor) {
+            this.subscribe(this.eventList.ENAME_REPRESENTATION_UPDATED, streamProcessor.trackController);
+            type = streamProcessor.getType();
+            isDynamic = streamProcessor.isDynamic();
+            this.streamProcessor = streamProcessor;
+        },
+
+        getType: function () {
+            return type;
+        },
+
+        setType : function (value) {
+            type = value;
+        },
+
+        getIsDynamic: function () {
+            return isDynamic;
+        },
+        setIsDynamic: function (value) {
+            isDynamic = value;
+        },
+
+        setCurrentTime: function(value) {
+            currentTime = value;
+        },
+
+        getCurrentTime: function() {
+            return currentTime;
+        },
+
+        reset: function() {
+            currentTime = 0;
+            requestedTime = undefined;
+            index = -1;
+            this.unsubscribe(this.eventList.ENAME_REPRESENTATION_UPDATED, this.streamProcessor.trackController);
+        },
+
+        getInitRequest: getInit,
+        getSegmentRequestForTime: getForTime,
+        getNextSegmentRequest: getNext,
+        generateSegmentRequestForTime: generateForTime,
+        updateRepresentation: updateRepresentation
+    };
+};
+
+Dash.dependencies.DashHandler.prototype = {
+    constructor: Dash.dependencies.DashHandler
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
+Dash.dependencies.DashManifestExtensions = function () {
+    "use strict";
+    this.timelineConverter = undefined;
+};
+
+Dash.dependencies.DashManifestExtensions.prototype = {
+    constructor: Dash.dependencies.DashManifestExtensions,
+
+    getIsTypeOf: function(adaptation, type) {
+        "use strict";
+        var i,
+            len,
+            col = adaptation.ContentComponent_asArray,
+            mimeTypeRegEx = (type !== "text") ? new RegExp(type) : new RegExp("(vtt|ttml)"),
+            representation,
+            result = false,
+            found = false;
+
+        if (col) {
+            for (i = 0, len = col.length; i < len; i += 1) {
+                if (col[i].contentType === type) {
+                    result = true;
+                    found = true;
+                }
+            }
+        }
+
+        if (adaptation.hasOwnProperty("mimeType")) {
+            result = mimeTypeRegEx.test(adaptation.mimeType);
+            found = true;
+        }
+
+        // couldn't find on adaptationset, so check a representation
+        if (!found) {
+            i = 0;
+            len = adaptation.Representation_asArray.length;
+            while (!found && i < len) {
+                representation = adaptation.Representation_asArray[i];
+
+                if (representation.hasOwnProperty("mimeType")) {
+                    result = mimeTypeRegEx.test(representation.mimeType);
+                    found = true;
+                }
+
+                i += 1;
+            }
+        }
+
+        return result;
+    },
+
+    getIsAudio: function (adaptation) {
+        "use strict";
+
+        return this.getIsTypeOf(adaptation, "audio");
+    },
+
+    getIsVideo: function (adaptation) {
+        "use strict";
+
+        return this.getIsTypeOf(adaptation, "video");
+    },
+
+    getIsText: function (adaptation) {
+        "use strict";
+
+        return this.getIsTypeOf(adaptation, "text");
+    },
+
+    getIsTextTrack: function(type) {
+        return (type === "text/vtt" || type === "application/ttml+xml");
+    },
+
+    getLanguageForAdaptation: function(adaptation) {
+        var lang = "";
+
+        if (adaptation.hasOwnProperty("lang")) {
+            lang = adaptation.lang;
+        }
+
+        return lang;
+    },
+
+    getIsMain: function (/*adaptation*/) {
+        "use strict";
+        // TODO : Check "Role" node.
+        // TODO : Use this somewhere.
+        return false;
+    },
+
+    processAdaptation: function (adaptation) {
+        "use strict";
+        if (adaptation.Representation_asArray !== undefined && adaptation.Representation_asArray !== null) {
+            adaptation.Representation_asArray.sort(function(a, b) {
+                return a.bandwidth - b.bandwidth;
+            });
+        }
+
+        return adaptation;
+    },
+
+    getAdaptationForId: function (id, manifest, periodIndex) {
+        "use strict";
+        var adaptations = manifest.Period_asArray[periodIndex].AdaptationSet_asArray,
+            i,
+            len;
+
+        for (i = 0, len = adaptations.length; i < len; i += 1) {
+            if (adaptations[i].hasOwnProperty("id") && adaptations[i].id === id) {
+                return adaptations[i];
+            }
+        }
+
+        return null;
+    },
+
+    getAdaptationForIndex: function (index, manifest, periodIndex) {
+        "use strict";
+        var adaptations = manifest.Period_asArray[periodIndex].AdaptationSet_asArray;
+
+        return adaptations[index];
+    },
+
+    getIndexForAdaptation: function (adaptation, manifest, periodIndex) {
+        "use strict";
+
+        var adaptations = manifest.Period_asArray[periodIndex].AdaptationSet_asArray,
+            i,
+            len;
+
+        for (i = 0, len = adaptations.length; i < len; i += 1) {
+            if (adaptations[i] === adaptation) {
+                return i;
+            }
+        }
+
+        return -1;
+    },
+
+    getAdaptationsForType: function (manifest, periodIndex, type) {
+        "use strict";
+
+        var self = this,
+            adaptationSet = manifest.Period_asArray[periodIndex].AdaptationSet_asArray,
+            i,
+            len,
+            adaptations = [];
+
+        for (i = 0, len = adaptationSet.length; i < len; i += 1) {
+            if (this.getIsTypeOf(adaptationSet[i], type)) {
+                adaptations.push(self.processAdaptation(adaptationSet[i]));
+            }
+        }
+
+        return adaptations;
+    },
+
+    getAdaptationForType: function (manifest, periodIndex, type) {
+        "use strict";
+        var i,
+            len,
+            adaptations,
+            self = this;
+
+        adaptations = this.getAdaptationsForType(manifest, periodIndex, type);
+
+        if (!adaptations || adaptations.length === 0) return null;
+
+        for (i = 0, len = adaptations.length; i < len; i += 1) {
+            if (self.getIsMain(adaptations[i])) return adaptations[i];
+        }
+
+        return adaptations[0];
+    },
+
+    getCodec: function (adaptation) {
+        "use strict";
+        var representation = adaptation.Representation_asArray[0],
+            codec = (representation.mimeType + ';codecs="' + representation.codecs + '"');
+
+        return codec;
+    },
+
+    getMimeType: function (adaptation) {
+        "use strict";
+        return adaptation.Representation_asArray[0].mimeType;
+    },
+
+    getKID: function (adaptation) {
+        "use strict";
+
+        if (!adaptation || !adaptation.hasOwnProperty("cenc:default_KID")) {
+            return null;
+        }
+        return adaptation["cenc:default_KID"];
+    },
+
+    getContentProtectionData: function (adaptation) {
+        "use strict";
+        var contentProtection = null;
+
+        if (adaptation && adaptation.hasOwnProperty("ContentProtection_asArray") && adaptation.ContentProtection_asArray.length !== 0) {
+            contentProtection = adaptation.ContentProtection_asArray;
+        }
+        for (var i = 0; i < adaptation.Representation_asArray.length; i += 1) {
+            if (adaptation.Representation_asArray[i].hasOwnProperty("ContentProtection_asArray") && adaptation.Representation_asArray[i].length !== 0) {
+                contentProtection = adaptation.Representation_asArray[i].ContentProtection_asArray;
+            }
+        }
+
+        return contentProtection;
+    },
+
+    getIsDynamic: function (manifest) {
+        "use strict";
+        var isDynamic = false,
+            LIVE_TYPE = "dynamic";
+
+        if (manifest.hasOwnProperty("type")) {
+            isDynamic = (manifest.type === LIVE_TYPE);
+        }
+
+        return isDynamic;
+    },
+
+    getIsDVR: function (manifest) {
+        "use strict";
+        var isDynamic = this.getIsDynamic(manifest),
+            containsDVR,
+            isDVR;
+
+        containsDVR = !isNaN(manifest.timeShiftBufferDepth);
+        isDVR = (isDynamic && containsDVR);
+
+        return isDVR;
+    },
+
+    getIsOnDemand: function (manifest) {
+        "use strict";
+        var isOnDemand = false;
+
+        if (manifest.profiles && manifest.profiles.length > 0) {
+            isOnDemand = (manifest.profiles.indexOf("urn:mpeg:dash:profile:isoff-on-demand:2011") !== -1);
+        }
+
+        return isOnDemand;
+    },
+
+    getDuration: function (manifest) {
+        var mpdDuration;
+
+        //@mediaPresentationDuration specifies the duration of the entire Media Presentation.
+        //If the attribute is not present, the duration of the Media Presentation is unknown.
+        if (manifest.hasOwnProperty("mediaPresentationDuration")) {
+            mpdDuration = manifest.mediaPresentationDuration;
+        } else {
+            mpdDuration = Number.POSITIVE_INFINITY;
+        }
+
+        return mpdDuration;
+    },
+
+    getBandwidth: function (representation) {
+        "use strict";
+        return representation.bandwidth;
+    },
+
+    getRefreshDelay: function (manifest) {
+        "use strict";
+        var delay = NaN,
+            minDelay = 2;
+
+        if (manifest.hasOwnProperty("minimumUpdatePeriod")) {
+            delay = Math.max(parseFloat(manifest.minimumUpdatePeriod), minDelay);
+        }
+
+        return delay;
+    },
+
+    getRepresentationCount: function (adaptation) {
+        "use strict";
+        return adaptation.Representation_asArray.length;
+    },
+
+    getRepresentationFor: function (index, adaptation) {
+        "use strict";
+        return adaptation.Representation_asArray[index];
+    },
+
+    getRepresentationsForAdaptation: function(manifest, adaptation) {
+        var self = this,
+            a = self.processAdaptation(manifest.Period_asArray[adaptation.period.index].AdaptationSet_asArray[adaptation.index]),
+            representations = [],
+            representation,
+            initialization,
+            segmentInfo,
+            r,
+            s;
+
+        for (var i = 0; i < a.Representation_asArray.length; i += 1) {
+            r = a.Representation_asArray[i];
+            representation = new Dash.vo.Representation();
+            representation.index = i;
+            representation.adaptation = adaptation;
+
+            if (r.hasOwnProperty("id")) {
+                representation.id = r.id;
+            }
+
+            if (r.hasOwnProperty("SegmentBase")) {
+                segmentInfo = r.SegmentBase;
+                representation.segmentInfoType = "SegmentBase";
+            }
+            else if (r.hasOwnProperty("SegmentList")) {
+                segmentInfo = r.SegmentList;
+                representation.segmentInfoType = "SegmentList";
+                representation.useCalculatedLiveEdgeTime = true;
+            }
+            else if (r.hasOwnProperty("SegmentTemplate")) {
+                segmentInfo = r.SegmentTemplate;
+
+                if (segmentInfo.hasOwnProperty("SegmentTimeline")) {
+                    representation.segmentInfoType = "SegmentTimeline";
+                    s = segmentInfo.SegmentTimeline.S_asArray[segmentInfo.SegmentTimeline.S_asArray.length -1];
+                    if (!s.hasOwnProperty("r") || s.r >= 0) {
+                        representation.useCalculatedLiveEdgeTime = true;
+                    }
+                } else {
+                    representation.segmentInfoType = "SegmentTemplate";
+                }
+
+                if (segmentInfo.hasOwnProperty("initialization")) {
+                    representation.initialization = segmentInfo.initialization.split("$Bandwidth$")
+                        .join(r.bandwidth).split("$RepresentationID$").join(r.id);
+                }
+            } else {
+                segmentInfo = r.BaseURL;
+                representation.segmentInfoType = "BaseURL";
+            }
+
+            if (segmentInfo.hasOwnProperty("Initialization")) {
+                initialization = segmentInfo.Initialization;
+                if (initialization.hasOwnProperty("sourceURL")) {
+                    representation.initialization = initialization.sourceURL;
+                } else if (initialization.hasOwnProperty("range")) {
+                    representation.initialization = r.BaseURL;
+                    representation.range = initialization.range;
+                }
+            } else if (r.hasOwnProperty("mimeType") && self.getIsTextTrack(r.mimeType)) {
+                representation.initialization = r.BaseURL;
+                representation.range = 0;
+            }
+
+            if (segmentInfo.hasOwnProperty("timescale")) {
+                representation.timescale = segmentInfo.timescale;
+            }
+            if (segmentInfo.hasOwnProperty("duration")) {
+                // TODO according to the spec @maxSegmentDuration specifies the maximum duration of any Segment in any Representation in the Media Presentation
+                // It is also said that for a SegmentTimeline any @d value shall not exceed the value of MPD@maxSegmentDuration, but nothing is said about
+                // SegmentTemplate @duration attribute. We need to find out if @maxSegmentDuration should be used instead of calculated duration if the the duration
+                // exceeds @maxSegmentDuration
+                //representation.segmentDuration = Math.min(segmentInfo.duration / representation.timescale, adaptation.period.mpd.maxSegmentDuration);
+                representation.segmentDuration = segmentInfo.duration / representation.timescale;
+            }
+            if (segmentInfo.hasOwnProperty("startNumber")) {
+                representation.startNumber = segmentInfo.startNumber;
+            }
+            if (segmentInfo.hasOwnProperty("indexRange")) {
+                representation.indexRange = segmentInfo.indexRange;
+            }
+            if (segmentInfo.hasOwnProperty("presentationTimeOffset")) {
+                representation.presentationTimeOffset = segmentInfo.presentationTimeOffset / representation.timescale;
+            }
+
+            representation.MSETimeOffset = self.timelineConverter.calcMSETimeOffset(representation);
+            representations.push(representation);
+        }
+
+        return representations;
+    },
+
+    getAdaptationsForPeriod: function(manifest, period) {
+        var p = manifest.Period_asArray[period.index],
+            adaptations = [],
+            adaptationSet,
+            a;
+
+        for (var i = 0; i < p.AdaptationSet_asArray.length; i += 1) {
+            a = p.AdaptationSet_asArray[i];
+            adaptationSet = new Dash.vo.AdaptationSet();
+
+            if (a.hasOwnProperty("id")) {
+                adaptationSet.id = a.id;
+            }
+
+            adaptationSet.index = i;
+            adaptationSet.period = period;
+            adaptationSet.type = this.getIsAudio(a) ? "audio" : (this.getIsVideo(a) ? "video" : "text");
+            adaptations.push(adaptationSet);
+        }
+
+        return adaptations;
+    },
+
+    getRegularPeriods: function (manifest, mpd) {
+        var self = this,
+            periods = [],
+            isDynamic = self.getIsDynamic(manifest),
+            i,
+            len,
+            p1 = null,
+            p = null,
+            vo1 = null,
+            vo = null;
+
+        for (i = 0, len = manifest.Period_asArray.length; i < len; i += 1) {
+            p = manifest.Period_asArray[i];
+
+            // If the attribute @start is present in the Period, then the
+            // Period is a regular Period and the PeriodStart is equal
+            // to the value of this attribute.
+            if (p.hasOwnProperty("start")){
+                vo = new Dash.vo.Period();
+                vo.start = p.start;
+            }
+            // If the @start attribute is absent, but the previous Period
+            // element contains a @duration attribute then then this new
+            // Period is also a regular Period. The start time of the new
+            // Period PeriodStart is the sum of the start time of the previous
+            // Period PeriodStart and the value of the attribute @duration
+            // of the previous Period.
+            else if (p1 !== null && p.hasOwnProperty("duration")){
+                vo = new Dash.vo.Period();
+                vo.start = vo1.start + vo1.duration;
+                vo.duration = p.duration;
+            }
+            // If (i) @start attribute is absent, and (ii) the Period element
+            // is the first in the MPD, and (iii) the MPD@type is 'static',
+            // then the PeriodStart time shall be set to zero.
+            else if (i === 0 && !isDynamic) {
+                vo = new Dash.vo.Period();
+                vo.start = 0;
+            }
+
+            // The Period extends until the PeriodStart of the next Period.
+            // The difference between the PeriodStart time of a Period and
+            // the PeriodStart time of the following Period.
+            if (vo1 !== null && isNaN(vo1.duration))
+            {
+                vo1.duration = vo.start - vo1.start;
+            }
+
+            if (vo !== null && p.hasOwnProperty("id")){
+                vo.id = p.id;
+            }
+
+            if (vo !== null && p.hasOwnProperty("duration")){
+                vo.duration = p.duration;
+            }
+
+            if (vo !== null){
+                vo.index = i;
+                vo.mpd = mpd;
+                periods.push(vo);
+            }
+
+            p1 = p;
+            p = null;
+            vo1 = vo;
+            vo = null;
+        }
+
+        if (periods.length === 0) {
+            return periods;
+        }
+
+        mpd.checkTime = self.getCheckTime(manifest, periods[0]);
+        // The last Period extends until the end of the Media Presentation.
+        // The difference between the PeriodStart time of the last Period
+        // and the mpd duration
+        if (vo1 !== null && isNaN(vo1.duration)) {
+            vo1.duration = self.getEndTimeForLastPeriod(mpd) - vo1.start;
+        }
+
+        return periods;
+    },
+
+    getMpd: function(manifest) {
+        var mpd = new Dash.vo.Mpd();
+
+        mpd.manifest = manifest;
+
+        if (manifest.hasOwnProperty("availabilityStartTime")) {
+            mpd.availabilityStartTime = new Date(manifest.availabilityStartTime.getTime());
+        } else {
+            mpd.availabilityStartTime = new Date(manifest.loadedTime.getTime());
+        }
+
+        if (manifest.hasOwnProperty("availabilityEndTime")) {
+            mpd.availabilityEndTime = new Date(manifest.availabilityEndTime.getTime());
+        }
+
+        if (manifest.hasOwnProperty("suggestedPresentationDelay")) {
+            mpd.suggestedPresentationDelay = manifest.suggestedPresentationDelay;
+        }
+
+        if (manifest.hasOwnProperty("timeShiftBufferDepth")) {
+            mpd.timeShiftBufferDepth = manifest.timeShiftBufferDepth;
+        }
+
+        if (manifest.hasOwnProperty("maxSegmentDuration")) {
+            mpd.maxSegmentDuration = manifest.maxSegmentDuration;
+        }
+
+        return mpd;
+    },
+
+    getFetchTime: function(manifest, period) {
+        // FetchTime is defined as the time at which the server processes the request for the MPD from the client.
+        // TODO The client typically should not use the time at which it actually successfully received the MPD, but should
+        // take into account delay due to MPD delivery and processing. The fetch is considered successful fetching
+        // either if the client obtains an updated MPD or the client verifies that the MPD has not been updated since the previous fetching.
+        var fetchTime = this.timelineConverter.calcPresentationTimeFromWallTime(manifest.loadedTime, period);
+
+        return fetchTime;
+    },
+
+    getCheckTime: function(manifest, period) {
+        var self = this,
+            checkTime = NaN,
+            fetchTime;
+
+        // If the MPD@minimumUpdatePeriod attribute in the client is provided, then the check time is defined as the
+        // sum of the fetch time of this operating MPD and the value of this attribute,
+        // i.e. CheckTime = FetchTime + MPD@minimumUpdatePeriod.
+        if (manifest.hasOwnProperty("minimumUpdatePeriod")) {
+            fetchTime = self.getFetchTime(manifest, period);
+            checkTime = fetchTime + manifest.minimumUpdatePeriod;
+        }
+        // TODO If the MPD@minimumUpdatePeriod attribute in the client is not provided, external means are used to
+        // determine CheckTime, such as a priori knowledge, or HTTP cache headers, etc.
+
+        return checkTime;
+    },
+
+    getEndTimeForLastPeriod: function(mpd) {
+        var periodEnd;
+
+        // if the MPD@mediaPresentationDuration attribute is present, then PeriodEndTime is defined as the end time of the Media Presentation.
+        // if the MPD@mediaPresentationDuration attribute is not present, then PeriodEndTime is defined as FetchTime + MPD@minimumUpdatePeriod
+
+        if (mpd.manifest.mediaPresentationDuration) {
+            periodEnd = mpd.manifest.mediaPresentationDuration;
+        } else if (!isNaN(mpd.checkTime)) {
+            // in this case the Period End Time should match CheckTime
+            periodEnd = mpd.checkTime;
+        } else {
+            throw new Error("Must have @mediaPresentationDuration or @minimumUpdatePeriod on MPD or an explicit @duration on the last period.");
+        }
+
+        return periodEnd;
+    },
+
+    getEventsForPeriod: function(manifest,period) {
+
+        var periodArray = manifest.Period_asArray,
+            eventStreams = periodArray[period.index].EventStream_asArray,
+            events = [];
+
+        if(eventStreams) {
+            for(var i = 0; i < eventStreams.length; i += 1) {
+                var eventStream = new Dash.vo.EventStream();
+                eventStream.period = period;
+                eventStream.timescale = 1;
+
+                if(eventStreams[i].hasOwnProperty("schemeIdUri")) {
+                    eventStream.schemeIdUri = eventStreams[i].schemeIdUri;
+                } else {
+                    throw "Invalid EventStream. SchemeIdUri has to be set";
+                }
+                if(eventStreams[i].hasOwnProperty("timescale")) {
+                    eventStream.timescale = eventStreams[i].timescale;
+                }
+                if(eventStreams[i].hasOwnProperty("value")) {
+                    eventStream.value = eventStreams[i].value;
+                }
+                for(var j = 0; j < eventStreams[i].Event_asArray.length; j += 1) {
+                    var event = new Dash.vo.Event();
+                    event.presentationTime = 0;
+                    event.eventStream = eventStream;
+
+                    if(eventStreams[i].Event_asArray[j].hasOwnProperty("presentationTime")) {
+                        event.presentationTime = eventStreams[i].Event_asArray[j].presentationTime;
+                    }
+                    if(eventStreams[i].Event_asArray[j].hasOwnProperty("duration")) {
+                        event.duration = eventStreams[i].Event_asArray[j].duration;
+                    }
+                    if(eventStreams[i].Event_asArray[j].hasOwnProperty("id")) {
+                        event.id = eventStreams[i].Event_asArray[j].id;
+                    }
+                    events.push(event);
+                }
+            }
+        }
+
+        return events;
+    },
+
+    getEventStreamForAdaptationSet : function (manifest, adaptation) {
+
+        var eventStreams = [],
+            inbandStreams = manifest.Period_asArray[adaptation.period.index].
+                AdaptationSet_asArray[adaptation.index].InbandEventStream_asArray;
+
+        if(inbandStreams) {
+            for(var i = 0; i < inbandStreams.length ; i += 1 ) {
+                var eventStream = new Dash.vo.EventStream();
+                eventStream.timescale = 1;
+
+                if(inbandStreams[i].hasOwnProperty("schemeIdUri")) {
+                    eventStream.schemeIdUri = inbandStreams[i].schemeIdUri;
+                } else {
+                    throw "Invalid EventStream. SchemeIdUri has to be set";
+                }
+                if(inbandStreams[i].hasOwnProperty("timescale")) {
+                    eventStream.timescale = inbandStreams[i].timescale;
+                }
+                if(inbandStreams[i].hasOwnProperty("value")) {
+                    eventStream.value = inbandStreams[i].value;
+                }
+                eventStreams.push(eventStream);
+            }
+        }
+        return eventStreams;
+    },
+
+    getEventStreamForRepresentation : function (manifest, representation) {
+
+        var eventStreams = [],
+            inbandStreams = manifest.Period_asArray[representation.adaptation.period.index].
+                AdaptationSet_asArray[representation.adaptation.index].Representation_asArray[representation.index].InbandEventStream_asArray;
+
+        if(inbandStreams) {
+            for(var i = 0; i < inbandStreams.length ; i++ ) {
+                var eventStream = new Dash.vo.EventStream();
+                eventStream.timescale = 1;
+                eventStream.representation = representation;
+
+                if(inbandStreams[i].hasOwnProperty("schemeIdUri")) {
+                    eventStream.schemeIdUri = inbandStreams[i].schemeIdUri;
+                } else {
+                    throw "Invalid EventStream. SchemeIdUri has to be set";
+                }
+                if(inbandStreams[i].hasOwnProperty("timescale")) {
+                    eventStream.timescale = inbandStreams[i].timescale;
+                }
+                if(inbandStreams[i].hasOwnProperty("value")) {
+                    eventStream.value = inbandStreams[i].value;
+                }
+                eventStreams.push(eventStream);
+            }
+        }
+        return eventStreams;
+
+    }
+
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.dependencies.DashMetricsExtensions = function () {
+    "use strict";
+    var findRepresentationIndexInPeriodArray = function (periodArray, representationId) {
+            var period,
+                adaptationSet,
+                adaptationSetArray,
+                representation,
+                representationArray,
+                periodArrayIndex,
+                adaptationSetArrayIndex,
+                representationArrayIndex;
+
+            for (periodArrayIndex = 0; periodArrayIndex < periodArray.length; periodArrayIndex = periodArrayIndex + 1) {
+                period = periodArray[periodArrayIndex];
+                adaptationSetArray = period.AdaptationSet_asArray;
+                for (adaptationSetArrayIndex = 0; adaptationSetArrayIndex < adaptationSetArray.length; adaptationSetArrayIndex = adaptationSetArrayIndex + 1) {
+                    adaptationSet = adaptationSetArray[adaptationSetArrayIndex];
+                    representationArray = adaptationSet.Representation_asArray;
+                    for (representationArrayIndex = 0; representationArrayIndex < representationArray.length; representationArrayIndex = representationArrayIndex + 1) {
+                        representation = representationArray[representationArrayIndex];
+                        if (representationId === representation.id) {
+                            return representationArrayIndex;
+                        }
+                    }
+                }
+            }
+
+            return -1;
+        },
+
+        findRepresentionInPeriodArray = function (periodArray, representationId) {
+            var period,
+                adaptationSet,
+                adaptationSetArray,
+                representation,
+                representationArray,
+                periodArrayIndex,
+                adaptationSetArrayIndex,
+                representationArrayIndex;
+
+            for (periodArrayIndex = 0; periodArrayIndex < periodArray.length; periodArrayIndex = periodArrayIndex + 1) {
+                period = periodArray[periodArrayIndex];
+                adaptationSetArray = period.AdaptationSet_asArray;
+                for (adaptationSetArrayIndex = 0; adaptationSetArrayIndex < adaptationSetArray.length; adaptationSetArrayIndex = adaptationSetArrayIndex + 1) {
+                    adaptationSet = adaptationSetArray[adaptationSetArrayIndex];
+                    representationArray = adaptationSet.Representation_asArray;
+                    for (representationArrayIndex = 0; representationArrayIndex < representationArray.length; representationArrayIndex = representationArrayIndex + 1) {
+                        representation = representationArray[representationArrayIndex];
+                        if (representationId === representation.id) {
+                            return representation;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        },
+
+        adaptationIsType = function (adaptation, bufferType) {
+            return this.manifestExt.getIsTypeOf(adaptation, bufferType);
+        },
+
+        findMaxBufferIndex = function (periodArray, bufferType) {
+            var period,
+                adaptationSet,
+                adaptationSetArray,
+                representationArray,
+                periodArrayIndex,
+                adaptationSetArrayIndex;
+
+            for (periodArrayIndex = 0; periodArrayIndex < periodArray.length; periodArrayIndex = periodArrayIndex + 1) {
+                period = periodArray[periodArrayIndex];
+                adaptationSetArray = period.AdaptationSet_asArray;
+                for (adaptationSetArrayIndex = 0; adaptationSetArrayIndex < adaptationSetArray.length; adaptationSetArrayIndex = adaptationSetArrayIndex + 1) {
+                    adaptationSet = adaptationSetArray[adaptationSetArrayIndex];
+                    representationArray = adaptationSet.Representation_asArray;
+                    if (adaptationIsType.call(this, adaptationSet, bufferType)) {
+                        return representationArray.length;
+                    }
+                }
+            }
+
+            return -1;
+        },
+
+        getBandwidthForRepresentation = function (representationId) {
+            var self = this,
+                manifest = self.manifestModel.getValue(),
+                representation,
+                periodArray = manifest.Period_asArray;
+
+            representation = findRepresentionInPeriodArray.call(self, periodArray, representationId);
+
+            if (representation === null) {
+                return null;
+            }
+
+            return representation.bandwidth;
+        },
+
+        getIndexForRepresentation = function (representationId) {
+            var self = this,
+                manifest = self.manifestModel.getValue(),
+                representationIndex,
+                periodArray = manifest.Period_asArray;
+
+            representationIndex = findRepresentationIndexInPeriodArray.call(self, periodArray, representationId);
+            return representationIndex;
+        },
+
+        getMaxIndexForBufferType = function (bufferType) {
+            var self = this,
+                manifest = self.manifestModel.getValue(),
+                maxIndex,
+                periodArray = manifest.Period_asArray;
+
+            maxIndex = findMaxBufferIndex.call(this, periodArray, bufferType);
+            return maxIndex;
+        },
+
+        getCurrentRepresentationSwitch = function (metrics) {
+            if (metrics === null) {
+                return null;
+            }
+
+            var repSwitch = metrics.RepSwitchList,
+                repSwitchLength,
+                repSwitchLastIndex,
+                currentRepSwitch;
+
+            if (repSwitch === null || repSwitch.length <= 0) {
+                return null;
+            }
+
+            repSwitchLength = repSwitch.length;
+            repSwitchLastIndex = repSwitchLength - 1;
+
+            currentRepSwitch = repSwitch[repSwitchLastIndex];
+            return currentRepSwitch;
+        },
+
+        getCurrentBufferLevel = function (metrics) {
+            if (metrics === null) {
+                return null;
+            }
+
+            var bufferLevel = metrics.BufferLevel,
+                bufferLevelLength,
+                bufferLevelLastIndex,
+                currentBufferLevel;
+
+            if (bufferLevel === null || bufferLevel.length <= 0) {
+                return null;
+            }
+
+            bufferLevelLength = bufferLevel.length;
+            bufferLevelLastIndex = bufferLevelLength - 1;
+
+            currentBufferLevel = bufferLevel[bufferLevelLastIndex];
+            return currentBufferLevel;
+        },
+
+        getCurrentPlaybackRate = function (metrics) {
+            if (metrics === null) {
+                return null;
+            }
+
+            var playList = metrics.PlayList,
+                trace,
+                currentRate;
+
+            if (playList === null || playList.length <= 0) {
+                return null;
+            }
+
+            trace = playList[playList.length - 1].trace;
+
+            if (trace === null || trace.length <= 0) {
+                return null;
+            }
+
+            currentRate = trace[trace.length - 1].playbackspeed;
+            return currentRate;
+        },
+
+        getCurrentHttpRequest = function (metrics) {
+            if (metrics === null) {
+                return null;
+            }
+
+            var httpList = metrics.HttpList,
+                httpListLength,
+                httpListLastIndex,
+                currentHttpList = null;
+
+            if (httpList === null || httpList.length <= 0) {
+                return null;
+            }
+
+            httpListLength = httpList.length;
+            httpListLastIndex = httpListLength - 1;
+
+            while (httpListLastIndex > 0) {
+                if (httpList[httpListLastIndex].responsecode) {
+                    currentHttpList = httpList[httpListLastIndex];
+                    break;
+                }
+                httpListLastIndex -= 1;
+            }
+            return currentHttpList;
+        },
+
+        getHttpRequests = function (metrics) {
+            if (metrics === null) {
+                return [];
+            }
+
+            return !!metrics.HttpList ? metrics.HttpList : [];
+        },
+
+        getCurrentDroppedFrames = function (metrics) {
+            if (metrics === null) { return null; }
+
+            var droppedFrames = metrics.DroppedFrames,
+                droppedFramesLength,
+                droppedFramesLastIndex,
+                currentDroppedFrames;
+
+            if (droppedFrames === null || droppedFrames.length <= 0) {
+                return null;
+            }
+
+            droppedFramesLength = droppedFrames.length;
+            droppedFramesLastIndex = droppedFramesLength - 1;
+            currentDroppedFrames = droppedFrames[droppedFramesLastIndex];
+
+            return currentDroppedFrames;
+        },
+
+        getCurrentSchedulingInfo = function(metrics) {
+            if (metrics === null) return null;
+
+            var schedulingInfo = metrics.SchedulingInfo,
+                ln,
+                lastIdx,
+                currentSchedulingInfo;
+
+            if (schedulingInfo === null || schedulingInfo.length <= 0) {
+                return null;
+            }
+
+            ln = schedulingInfo.length;
+            lastIdx = ln - 1;
+
+            currentSchedulingInfo = schedulingInfo[lastIdx];
+
+            return currentSchedulingInfo;
+        },
+
+        getCurrentManifestUpdate = function(metrics) {
+            if (metrics === null) return null;
+
+            var manifestUpdate = metrics.ManifestUpdate,
+                ln,
+                lastIdx,
+                currentManifestUpdate;
+
+            if (manifestUpdate === null || manifestUpdate.length <= 0) {
+                return null;
+            }
+
+            ln = manifestUpdate.length;
+            lastIdx = ln - 1;
+
+            currentManifestUpdate = manifestUpdate[lastIdx];
+
+            return currentManifestUpdate;
+        },
+
+        getCurrentDVRInfo = function (metrics) {
+
+            if (metrics === null) {
+                return null;
+            }
+
+            var dvrInfo = metrics.DVRInfo,
+                dvrInfoLastIndex,
+                curentDVRInfo =  null;
+
+            if (dvrInfo === null || dvrInfo.length <= 0) {
+                return null;
+            }
+
+            dvrInfoLastIndex = dvrInfo.length - 1;
+            curentDVRInfo = dvrInfo[dvrInfoLastIndex];
+
+            return curentDVRInfo;
+        };
+
+    return {
+        manifestModel: undefined,
+        manifestExt: undefined,
+        getBandwidthForRepresentation : getBandwidthForRepresentation,
+        getIndexForRepresentation : getIndexForRepresentation,
+        getMaxIndexForBufferType : getMaxIndexForBufferType,
+        getCurrentRepresentationSwitch : getCurrentRepresentationSwitch,
+        getCurrentBufferLevel : getCurrentBufferLevel,
+        getCurrentPlaybackRate: getCurrentPlaybackRate,
+        getCurrentHttpRequest : getCurrentHttpRequest,
+        getHttpRequests : getHttpRequests,
+        getCurrentDroppedFrames : getCurrentDroppedFrames,
+        getCurrentSchedulingInfo: getCurrentSchedulingInfo,
+        getCurrentDVRInfo : getCurrentDVRInfo,
+        getCurrentManifestUpdate: getCurrentManifestUpdate
+    };
+};
+
+Dash.dependencies.DashMetricsExtensions.prototype = {
+    constructor: Dash.dependencies.DashMetricsExtensions
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.dependencies.DashParser = function () {
+    "use strict";
+
+    var SECONDS_IN_YEAR = 365 * 24 * 60 * 60,
+        SECONDS_IN_MONTH = 30 * 24 * 60 * 60, // not precise!
+        SECONDS_IN_DAY = 24 * 60 * 60,
+        SECONDS_IN_HOUR = 60 * 60,
+        SECONDS_IN_MIN = 60,
+        MINUTES_IN_HOUR = 60,
+        MILLISECONDS_IN_SECONDS = 1000,
+        durationRegex = /^P(([\d.]*)Y)?(([\d.]*)M)?(([\d.]*)D)?T?(([\d.]*)H)?(([\d.]*)M)?(([\d.]*)S)?/,
+        datetimeRegex = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})(?::([0-9]*)(\.[0-9]*)?)?(?:([+-])([0-9]{2})([0-9]{2}))?/,
+        numericRegex = /^[-+]?[0-9]+[.]?[0-9]*([eE][-+]?[0-9]+)?$/,
+        matchers = [
+            {
+                type: "duration",
+                test: function (str) {
+                    return durationRegex.test(str);
+                },
+                converter: function (str) {
+                    //str = "P10Y10M10DT10H10M10.1S";
+                    var match = durationRegex.exec(str);
+                    return (parseFloat(match[2] || 0) * SECONDS_IN_YEAR +
+                            parseFloat(match[4] || 0) * SECONDS_IN_MONTH +
+                            parseFloat(match[6] || 0) * SECONDS_IN_DAY +
+                            parseFloat(match[8] || 0) * SECONDS_IN_HOUR +
+                            parseFloat(match[10] || 0) * SECONDS_IN_MIN +
+                            parseFloat(match[12] || 0));
+                }
+            },
+            {
+                type: "datetime",
+                test: function (str) {
+                    return datetimeRegex.test(str);
+                },
+                converter: function (str) {
+                    var match = datetimeRegex.exec(str),
+                        utcDate;
+                    // If the string does not contain a timezone offset different browsers can interpret it either
+                    // as UTC or as a local time so we have to parse the string manually to normalize the given date value for
+                    // all browsers
+                    utcDate = Date.UTC(
+                        parseInt(match[1], 10),
+                        parseInt(match[2], 10)-1, // months start from zero
+                        parseInt(match[3], 10),
+                        parseInt(match[4], 10),
+                        parseInt(match[5], 10),
+                        (match[6] && parseInt(match[6], 10) || 0),
+                        (match[7] && parseFloat(match[7]) * MILLISECONDS_IN_SECONDS) || 0);
+                    // If the date has timezone offset take it into account as well
+                    if (match[9] && match[10]) {
+                        var timezoneOffset = parseInt(match[9], 10) * MINUTES_IN_HOUR + parseInt(match[10], 10);
+                        utcDate += (match[8] === '+' ? -1 : +1) * timezoneOffset * SECONDS_IN_MIN * MILLISECONDS_IN_SECONDS;
+                    }
+
+                    return new Date(utcDate);
+                }
+            },
+            {
+                type: "numeric",
+                test: function (str) {
+                    return numericRegex.test(str);
+                },
+                converter: function (str) {
+                    return parseFloat(str);
+                }
+            }
+        ],
+
+        getCommonValuesMap = function () {
+            var adaptationSet,
+                representation,
+                subRepresentation,
+                common;
+
+            common = [
+                {
+                    name: 'profiles',
+                    merge: false
+                },
+                {
+                    name: 'width',
+                    merge: false
+                },
+                {
+                    name: 'height',
+                    merge: false
+                },
+                {
+                    name: 'sar',
+                    merge: false
+                },
+                {
+                    name: 'frameRate',
+                    merge: false
+                },
+                {
+                    name: 'audioSamplingRate',
+                    merge: false
+                },
+                {
+                    name: 'mimeType',
+                    merge: false
+                },
+                {
+                    name: 'segmentProfiles',
+                    merge: false
+                },
+                {
+                    name: 'codecs',
+                    merge: false
+                },
+                {
+                    name: 'maximumSAPPeriod',
+                    merge: false
+                },
+                {
+                    name: 'startsWithSap',
+                    merge: false
+                },
+                {
+                    name: 'maxPlayoutRate',
+                    merge: false
+                },
+                {
+                    name: 'codingDependency',
+                    merge: false
+                },
+                {
+                    name: 'scanType',
+                    merge: false
+                },
+                {
+                    name: 'FramePacking',
+                    merge: true
+                },
+                {
+                    name: 'AudioChannelConfiguration',
+                    merge: true
+                },
+                {
+                    name: 'ContentProtection',
+                    merge: true
+                }
+            ];
+
+            adaptationSet = {};
+            adaptationSet.name = "AdaptationSet";
+            adaptationSet.isRoot = false;
+            adaptationSet.isArray = true;
+            adaptationSet.parent = null;
+            adaptationSet.children = [];
+            adaptationSet.properties = common;
+
+            representation = {};
+            representation.name = "Representation";
+            representation.isRoot = false;
+            representation.isArray = true;
+            representation.parent = adaptationSet;
+            representation.children = [];
+            representation.properties = common;
+            adaptationSet.children.push(representation);
+
+            subRepresentation = {};
+            subRepresentation.name = "SubRepresentation";
+            subRepresentation.isRoot = false;
+            subRepresentation.isArray = true;
+            subRepresentation.parent = representation;
+            subRepresentation.children = [];
+            subRepresentation.properties = common;
+            representation.children.push(subRepresentation);
+
+            return adaptationSet;
+        },
+
+        getSegmentValuesMap = function () {
+            var period,
+                adaptationSet,
+                representation,
+                common;
+
+            common = [
+                {
+                    name: 'SegmentBase',
+                    merge: true
+                },
+                {
+                    name: 'SegmentTemplate',
+                    merge: true
+                },
+                {
+                    name: 'SegmentList',
+                    merge: true
+                }
+            ];
+
+            period = {};
+            period.name = "Period";
+            period.isRoot = false;
+            period.isArray = true;
+            period.parent = null;
+            period.children = [];
+            period.properties = common;
+
+            adaptationSet = {};
+            adaptationSet.name = "AdaptationSet";
+            adaptationSet.isRoot = false;
+            adaptationSet.isArray = true;
+            adaptationSet.parent = period;
+            adaptationSet.children = [];
+            adaptationSet.properties = common;
+            period.children.push(adaptationSet);
+
+            representation = {};
+            representation.name = "Representation";
+            representation.isRoot = false;
+            representation.isArray = true;
+            representation.parent = adaptationSet;
+            representation.children = [];
+            representation.properties = common;
+            adaptationSet.children.push(representation);
+
+            return period;
+        },
+
+        getBaseUrlValuesMap = function () {
+            var mpd,
+                period,
+                adaptationSet,
+                representation,
+                common;
+
+            common = [
+                {
+                    name: 'BaseURL',
+                    merge: true,
+                    mergeFunction: function (parentValue, childValue) {
+                        var mergedValue;
+
+                        // child is absolute, don't merge
+                        if (childValue.indexOf("http://") === 0) {
+                            mergedValue = childValue;
+                        } else {
+                            mergedValue = parentValue + childValue;
+                        }
+
+                        return mergedValue;
+                    }
+                }
+            ];
+
+            mpd = {};
+            mpd.name = "mpd";
+            mpd.isRoot = true;
+            mpd.isArray = true;
+            mpd.parent = null;
+            mpd.children = [];
+            mpd.properties = common;
+
+            period = {};
+            period.name = "Period";
+            period.isRoot = false;
+            period.isArray = true;
+            period.parent = null;
+            period.children = [];
+            period.properties = common;
+            mpd.children.push(period);
+
+            adaptationSet = {};
+            adaptationSet.name = "AdaptationSet";
+            adaptationSet.isRoot = false;
+            adaptationSet.isArray = true;
+            adaptationSet.parent = period;
+            adaptationSet.children = [];
+            adaptationSet.properties = common;
+            period.children.push(adaptationSet);
+
+            representation = {};
+            representation.name = "Representation";
+            representation.isRoot = false;
+            representation.isArray = true;
+            representation.parent = adaptationSet;
+            representation.children = [];
+            representation.properties = common;
+            adaptationSet.children.push(representation);
+
+            return mpd;
+        },
+
+        getDashMap = function () {
+            var result = [];
+
+            result.push(getCommonValuesMap());
+            result.push(getSegmentValuesMap());
+            result.push(getBaseUrlValuesMap());
+
+            return result;
+        },
+
+        internalParse = function (data, baseUrl) {
+            //this.debug.log("Doing parse.");
+
+            var manifest,
+                converter = new X2JS(matchers, '', true),
+                iron = new ObjectIron(getDashMap()),
+                start = new Date(),
+                json = null,
+                ironed = null;
+
+            try {
+                //this.debug.log("Converting from XML.");
+                manifest = converter.xml_str2json(data);
+                json = new Date();
+
+                if (!manifest.hasOwnProperty("BaseURL")) {
+                    //this.debug.log("Setting baseURL: " + baseUrl);
+                    manifest.BaseURL = baseUrl;
+                } else {
+                    // Setting manifest's BaseURL to the first BaseURL
+                    manifest.BaseURL = manifest.BaseURL_asArray[0];
+
+                    if (manifest.BaseURL.toString().indexOf("http") !== 0) {
+                        manifest.BaseURL = baseUrl + manifest.BaseURL;
+                    }
+                }
+
+                //this.debug.log("Flatten manifest properties.");
+                iron.run(manifest);
+                ironed = new Date();
+
+                this.debug.log("Parsing complete: ( xml2json: " + (json.getTime() - start.getTime()) + "ms, objectiron: " + (ironed.getTime() - json.getTime()) + "ms, total: " + ((ironed.getTime() - start.getTime()) / 1000) + "s)");
+            } catch (err) {
+                this.errHandler.manifestError("parsing the manifest failed", "parse", data);
+                return null;
+            }
+            return manifest;
+        };
+
+    return {
+        debug: undefined,
+        errHandler: undefined,
+        parse: internalParse
+    };
+};
+
+Dash.dependencies.DashParser.prototype = {
+    constructor: Dash.dependencies.DashParser
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.dependencies.FragmentExtensions = function () {
+    "use strict";
+
+    var parseTFDT = function (ab) {
+            var d = new DataView(ab),
+                pos = 0,
+                base_media_decode_time,
+                version,
+                size,
+                type,
+                i,
+                c;
+
+            while (type !== "tfdt" && pos < d.byteLength) {
+                size = d.getUint32(pos); // subtract 8 for including the size and type
+                pos += 4;
+
+                type = "";
+                for (i = 0; i < 4; i += 1) {
+                    c = d.getInt8(pos);
+                    type += String.fromCharCode(c);
+                    pos += 1;
+                }
+
+                if (type !== "moof" && type !== "traf" && type !== "tfdt") {
+                    pos += size - 8;
+                }
+            }
+
+            if (pos === d.byteLength) {
+                throw "Error finding live offset.";
+            }
+
+            version = d.getUint8(pos);
+
+            this.debug.log("position: " + pos);
+
+            if (version === 0) {
+                pos += 4;
+                base_media_decode_time = d.getUint32(pos, false);
+            } else {
+                pos += size - 16;
+                base_media_decode_time = utils.Math.to64BitNumber(d.getUint32(pos + 4, false), d.getUint32(pos, false));
+            }
+
+            return {
+                'version' : version,
+                'base_media_decode_time' : base_media_decode_time
+            };
+        },
+
+        parseSIDX = function (ab) {
+            var d = new DataView(ab),
+                pos = 0,
+                version,
+                timescale,
+                earliest_presentation_time,
+                i,
+                type,
+                size,
+                charCode;
+
+            while (type !== "sidx" && pos < d.byteLength) {
+                size = d.getUint32(pos); // subtract 8 for including the size and type
+                pos += 4;
+
+                type = "";
+                for (i = 0; i < 4; i += 1) {
+                    charCode = d.getInt8(pos);
+                    type += String.fromCharCode(charCode);
+                    pos += 1;
+                }
+
+                if (type !== "moof" && type !== "traf" && type !== "sidx") {
+                    pos += size - 8;
+                } else if (type === "sidx") {
+                    // reset the position to the beginning of the box...
+                    // if we do not reset the position, the evaluation
+                    // of sidxEnd to ab.byteLength will fail.
+                    pos -= 8;
+                }
+            }
+
+            version = d.getUint8(pos + 8);
+            pos += 12;
+
+            // skipped reference_ID(32)
+            timescale = d.getUint32(pos + 4, false);
+            pos += 8;
+
+            if (version === 0) {
+                earliest_presentation_time = d.getUint32(pos, false);
+            } else {
+                earliest_presentation_time = utils.Math.to64BitNumber(d.getUint32(pos + 4, false), d.getUint32(pos, false));
+            }
+
+            return {
+                'earliestPresentationTime' : earliest_presentation_time,
+                'timescale' : timescale
+            };
+        },
+
+        loadFragment = function (media) {
+            var self = this,
+                request = new XMLHttpRequest(),
+                url,
+                loaded = false,
+                errorStr,
+                parsed;
+
+            url = media;
+
+            request.onloadend = function () {
+                if (!loaded) {
+                    errorStr = "Error loading fragment: " + url;
+                    self.notify(self.eventList.ENAME_FRAGMENT_LOADING_COMPLETED, null, new Error(errorStr));
+                }
+            };
+
+            request.onload = function () {
+                loaded = true;
+                parsed = parseTFDT(request.response);
+                self.notify(self.eventList.ENAME_FRAGMENT_LOADING_COMPLETED, parsed);
+            };
+
+            request.onerror = function () {
+                errorStr = "Error loading fragment: " + url;
+                self.notify(self.eventList.ENAME_FRAGMENT_LOADING_COMPLETED, null, new Error(errorStr));
+            };
+
+            request.responseType = "arraybuffer";
+            request.open("GET", url);
+            request.send(null);
+        };
+
+    return {
+        debug : undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_FRAGMENT_LOADING_COMPLETED: "fragmentLoadingCompleted"
+        },
+
+        loadFragment : loadFragment,
+        parseTFDT : parseTFDT,
+        parseSIDX : parseSIDX
+    };
+};
+
+Dash.dependencies.FragmentExtensions.prototype = {
+    constructor: Dash.dependencies.FragmentExtensions
+};;Dash.dependencies.RepresentationController = function () {
+    "use strict";
+
+    var data = null,
+        dataIndex = -1,
+        updating = true,
+        availableRepresentations = [],
+        currentRepresentation,
+
+        updateData = function(dataValue, adaptation, type) {
+            var self = this;
+
+            updating = true;
+            self.notify(self.eventList.ENAME_DATA_UPDATE_STARTED);
+
+            availableRepresentations = updateRepresentations.call(self, adaptation);
+            currentRepresentation = getRepresentationForQuality.call(self, self.abrController.getQualityFor(type, self.streamProcessor.getStreamInfo()));
+            data = dataValue;
+
+            if (type !== "video" && type !== "audio") {
+                self.notify(self.eventList.ENAME_DATA_UPDATE_COMPLETED, data, currentRepresentation);
+                addRepresentationSwitch.call(self);
+                return;
+            }
+
+            for (var i = 0; i < availableRepresentations.length; i += 1) {
+                self.indexHandler.updateRepresentation(availableRepresentations[i], true);
+            }
+        },
+
+        addRepresentationSwitch = function() {
+            var now = new Date(),
+                currentRepresentation = this.getCurrentRepresentation(),
+                currentVideoTime = this.streamProcessor.playbackController.getTime();
+
+            this.metricsModel.addTrackSwitch(currentRepresentation.adaptation.type, now, currentVideoTime, currentRepresentation.id);
+        },
+
+        getRepresentationForQuality = function(quality) {
+            return availableRepresentations[quality];
+        },
+
+        isAllRepresentationsUpdated = function() {
+            for (var i = 0, ln = availableRepresentations.length; i < ln; i += 1) {
+                if (availableRepresentations[i].segmentAvailabilityRange === null || availableRepresentations[i].initialization === null) return false;
+            }
+
+            return true;
+        },
+
+        updateRepresentations = function(adaptation) {
+            var self = this,
+                reps,
+                manifest = self.manifestModel.getValue();
+
+            dataIndex = self.manifestExt.getIndexForAdaptation(data, manifest, adaptation.period.index);
+            reps = self.manifestExt.getRepresentationsForAdaptation(manifest, adaptation);
+
+            return reps;
+        },
+
+        updateAvailabilityWindow = function(isDynamic) {
+            var self = this,
+                rep;
+
+            for (var i = 0, ln = availableRepresentations.length; i < ln; i +=1) {
+                rep = availableRepresentations[i];
+                rep.segmentAvailabilityRange = self.timelineConverter.calcSegmentAvailabilityRange(rep, isDynamic);
+            }
+        },
+
+        onRepresentationUpdated = function(sender, representation) {
+            var self = this,
+                r = representation,
+                metrics = self.metricsModel.getMetricsFor("stream"),
+                manifestUpdateInfo = self.metricsExt.getCurrentManifestUpdate(metrics),
+                repInfo,
+                alreadyAdded = false;
+
+            for (var i = 0; i < manifestUpdateInfo.trackInfo.length; i += 1) {
+                repInfo = manifestUpdateInfo.trackInfo[i];
+                if (repInfo.index === r.index && repInfo.mediaType === self.streamProcessor.getType()) {
+                    alreadyAdded = true;
+                    break;
+                }
+            }
+
+            if (!alreadyAdded) {
+                self.metricsModel.addManifestUpdateTrackInfo(manifestUpdateInfo, r.id, r.index, r.adaptation.period.index,
+                    self.streamProcessor.getType(),r.presentationTimeOffset, r.startNumber, r.segmentInfoType);
+            }
+
+            if (isAllRepresentationsUpdated()) {
+                updating = false;
+                self.metricsModel.updateManifestUpdateInfo(manifestUpdateInfo, {latency: currentRepresentation.segmentAvailabilityRange.end - self.streamProcessor.playbackController.getTime()});
+                this.notify(this.eventList.ENAME_DATA_UPDATE_COMPLETED, data, currentRepresentation);
+                addRepresentationSwitch.call(self);
+            }
+        },
+
+        onWallclockTimeUpdated = function(sender, isDynamic/*, wallclockTime*/) {
+            updateAvailabilityWindow.call(this, isDynamic);
+        },
+
+        onLiveEdgeFound = function(/*sender, liveEdgeTime, searchTime*/) {
+            updateAvailabilityWindow.call(this, true);
+            this.indexHandler.updateRepresentation(currentRepresentation, false);
+
+            // we need to update checkTime after we have found the live edge because its initial value
+            // does not take into account clientServerTimeShift
+            var manifest = this.manifestModel.getValue();
+            currentRepresentation.adaptation.period.mpd.checkTime = this.manifestExt.getCheckTime(manifest, currentRepresentation.adaptation.period);
+        },
+
+        onBufferLevelUpdated = function(sender/*, bufferLevel*/) {
+            var streamProcessor = sender.streamProcessor,
+                self = this,
+                range = self.timelineConverter.calcSegmentAvailabilityRange(currentRepresentation, streamProcessor.isDynamic());
+
+            self.metricsModel.addDVRInfo(streamProcessor.getType(), streamProcessor.playbackController.getTime(), streamProcessor.getStreamInfo().manifestInfo, range);
+        },
+
+        onQualityChanged = function(sender, type, streamInfo, oldQuality, newQuality) {
+            var self = this;
+
+            if (type !== self.streamProcessor.getType() || self.streamProcessor.getStreamInfo().id !== streamInfo.id) return;
+
+            currentRepresentation = self.getRepresentationForQuality(newQuality);
+            addRepresentationSwitch.call(self);
+        };
+
+    return {
+        system: undefined,
+        debug: undefined,
+        manifestExt: undefined,
+        manifestModel: undefined,
+        metricsModel: undefined,
+        metricsExt: undefined,
+        abrController: undefined,
+        timelineConverter: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_DATA_UPDATE_COMPLETED: "dataUpdateCompleted",
+            ENAME_DATA_UPDATE_STARTED: "dataUpdateStarted"
+        },
+
+        setup: function() {
+            this.qualityChanged = onQualityChanged;
+            this.representationUpdated = onRepresentationUpdated;
+            this.wallclockTimeUpdated = onWallclockTimeUpdated;
+            this.liveEdgeFound = onLiveEdgeFound;
+            this.bufferLevelUpdated = onBufferLevelUpdated;
+        },
+
+        initialize: function(streamProcessor) {
+            this.streamProcessor = streamProcessor;
+            this.indexHandler = streamProcessor.indexHandler;
+        },
+
+        getData: function() {
+            return data;
+        },
+
+        getDataIndex: function() {
+            return dataIndex;
+        },
+
+        isUpdating: function() {
+            return updating;
+        },
+
+        updateData: updateData,
+        getRepresentationForQuality: getRepresentationForQuality,
+
+        getCurrentRepresentation: function() {
+            return currentRepresentation;
+        }
+    };
+};
+
+Dash.dependencies.RepresentationController.prototype = {
+    constructor: Dash.dependencies.RepresentationController
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.dependencies.TimelineConverter = function () {
+    "use strict";
+
+    var clientServerTimeShift = 0,
+        isClientServerTimeSyncCompleted = false,
+        expectedLiveEdge = NaN,
+
+        calcAvailabilityTimeFromPresentationTime = function (presentationTime, mpd, isDynamic, calculateEnd) {
+            var availabilityTime = NaN;
+
+            if (calculateEnd) {
+                //@timeShiftBufferDepth specifies the duration of the time shifting buffer that is guaranteed
+                // to be available for a Media Presentation with type 'dynamic'.
+                // When not present, the value is infinite.
+                if (isDynamic && (mpd.timeShiftBufferDepth != Number.POSITIVE_INFINITY)) {
+                    availabilityTime = new Date(mpd.availabilityStartTime.getTime() + ((presentationTime + mpd.timeShiftBufferDepth) * 1000));
+                } else {
+                    availabilityTime = mpd.availabilityEndTime;
+                }
+            } else {
+                if (isDynamic) {
+                    availabilityTime = new Date(mpd.availabilityStartTime.getTime() + (presentationTime - clientServerTimeShift) * 1000);
+                } else {
+                    // in static mpd, all segments are available at the same time
+                    availabilityTime = mpd.availabilityStartTime;
+                }
+            }
+
+            return availabilityTime;
+        },
+
+        calcAvailabilityStartTimeFromPresentationTime = function(presentationTime, mpd, isDynamic) {
+            return calcAvailabilityTimeFromPresentationTime.call(this, presentationTime, mpd, isDynamic);
+        },
+
+        calcAvailabilityEndTimeFromPresentationTime = function (presentationTime, mpd, isDynamic) {
+            return calcAvailabilityTimeFromPresentationTime.call(this, presentationTime, mpd, isDynamic, true);
+        },
+
+        calcPresentationTimeFromWallTime = function (wallTime, period) {
+            return ((wallTime.getTime() - period.mpd.availabilityStartTime.getTime() + clientServerTimeShift * 1000) / 1000);
+        },
+
+        calcPresentationTimeFromMediaTime = function (mediaTime, representation) {
+            var periodStart = representation.adaptation.period.start,
+                presentationOffset = representation.presentationTimeOffset;
+
+            return mediaTime + (periodStart - presentationOffset);
+        },
+
+        calcMediaTimeFromPresentationTime = function (presentationTime, representation) {
+            var periodStart = representation.adaptation.period.start,
+                presentationOffset = representation.presentationTimeOffset;
+
+            return presentationTime - periodStart + presentationOffset;
+        },
+
+        calcWallTimeForSegment = function (segment, isDynamic) {
+            var suggestedPresentationDelay,
+                displayStartTime,
+                wallTime;
+
+            if (isDynamic) {
+                suggestedPresentationDelay = segment.representation.adaptation.period.mpd.suggestedPresentationDelay;
+                displayStartTime = segment.presentationStartTime + suggestedPresentationDelay;
+                wallTime = new Date(segment.availabilityStartTime.getTime() + (displayStartTime * 1000));
+            }
+
+            return wallTime;
+        },
+
+        calcSegmentAvailabilityRange = function(representation, isDynamic) {
+            var start = representation.adaptation.period.start,
+                end = start + representation.adaptation.period.duration,
+                range = {start: start, end: end},
+                checkTime,
+                now;
+
+            if (!isDynamic) return range;
+
+            if (!isClientServerTimeSyncCompleted && representation.segmentAvailabilityRange) {
+                return representation.segmentAvailabilityRange;
+            }
+
+            checkTime = representation.adaptation.period.mpd.checkTime;
+            now = calcPresentationTimeFromWallTime(new Date((new Date().getTime())), representation.adaptation.period);
+            //the Media Segment list is further restricted by the CheckTime together with the MPD attribute
+            // MPD@timeShiftBufferDepth such that only Media Segments for which the sum of the start time of the
+            // Media Segment and the Period start time falls in the interval [NOW- MPD@timeShiftBufferDepth - @duration, min(CheckTime, NOW)] are included.
+            start = Math.max((now - representation.adaptation.period.mpd.timeShiftBufferDepth), 0);
+            end = isNaN(checkTime) ? now : Math.min(checkTime, now);
+            range = {start: start, end: end};
+
+            return range;
+        },
+
+        calcPeriodRelativeTimeFromMpdRelativeTime = function(representation, mpdRelativeTime) {
+            var periodStartTime = representation.adaptation.period.start;
+
+            return mpdRelativeTime - periodStartTime;
+        },
+
+        calcMpdRelativeTimeFromPeriodRelativeTime = function(representation, periodRelativeTime) {
+            var periodStartTime = representation.adaptation.period.start;
+
+            return periodRelativeTime + periodStartTime;
+        },
+
+        onLiveEdgeFound = function(sender, actualLiveEdge, searchTime) {
+            if (isClientServerTimeSyncCompleted) return;
+
+            // the difference between expected and actual live edge time is supposed to be a difference between client
+            // and server time as well
+            clientServerTimeShift = actualLiveEdge - (expectedLiveEdge + searchTime);
+            isClientServerTimeSyncCompleted = true;
+        },
+
+        calcMSETimeOffset = function (representation) {
+            // The MSEOffset is offset from AST for media. It is Period@start - presentationTimeOffset
+            var presentationOffset = representation.presentationTimeOffset;
+            var periodStart = representation.adaptation.period.start;
+            return (periodStart - presentationOffset);
+        },
+
+        reset = function() {
+            clientServerTimeShift = 0;
+            isClientServerTimeSyncCompleted = false;
+            expectedLiveEdge = NaN;
+        };
+
+    return {
+        notifier: undefined,
+        uriQueryFragModel:undefined,
+
+        setup: function() {
+            this.liveEdgeFound = onLiveEdgeFound;
+        },
+
+        calcAvailabilityStartTimeFromPresentationTime: calcAvailabilityStartTimeFromPresentationTime,
+        calcAvailabilityEndTimeFromPresentationTime: calcAvailabilityEndTimeFromPresentationTime,
+        calcPresentationTimeFromWallTime: calcPresentationTimeFromWallTime,
+        calcPresentationTimeFromMediaTime: calcPresentationTimeFromMediaTime,
+        calcPeriodRelativeTimeFromMpdRelativeTime: calcPeriodRelativeTimeFromMpdRelativeTime,
+        calcMpdRelativeTimeFromPeriodRelativeTime: calcMpdRelativeTimeFromPeriodRelativeTime,
+        calcMediaTimeFromPresentationTime: calcMediaTimeFromPresentationTime,
+        calcSegmentAvailabilityRange: calcSegmentAvailabilityRange,
+        calcWallTimeForSegment: calcWallTimeForSegment,
+        calcMSETimeOffset: calcMSETimeOffset,
+        reset: reset,
+
+        isTimeSyncCompleted: function() {
+            return isClientServerTimeSyncCompleted;
+        },
+
+        getClientTimeOffset: function() {
+            return clientServerTimeShift;
+        },
+
+        getExpectedLiveEdge: function() {
+            return expectedLiveEdge;
+        },
+
+        setExpectedLiveEdge: function(value) {
+            expectedLiveEdge = value;
+        }
+    };
+};
+
+Dash.dependencies.TimelineConverter.prototype = {
+    constructor: Dash.dependencies.TimelineConverter
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.vo.AdaptationSet = function () {
+    "use strict";
+    this.period = null;
+    this.index = -1;
+    this.type = null;
+};
+
+Dash.vo.AdaptationSet.prototype = {
+    constructor: Dash.vo.AdaptationSet
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Fraunhofer Fokus
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.vo.Event = function () {
+    "use strict";
+    this.duration = NaN;
+    this.presentationTime = NaN;
+    this.id = NaN;
+    this.messageData = "";
+    this.eventStream = null;
+    this.presentationTimeDelta = NaN; // Specific EMSG Box paramater
+
+};
+
+Dash.vo.Event.prototype = {
+    constructor: Dash.vo.Event
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Fraunhofer Fokus
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.vo.EventStream = function () {
+    "use strict";
+    this.adaptionSet = null;
+    this.representation = null;
+    this.period = null;
+    this.timescale = 1;
+    this.value = "";
+    this.schemeIdUri = "";
+};
+
+Dash.vo.EventStream.prototype = {
+    constructor: Dash.vo.EventStream
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.vo.Mpd = function () {
+    "use strict";
+    this.manifest = null;
+    this.suggestedPresentationDelay = 0;
+    this.availabilityStartTime = null;
+    this.availabilityEndTime = Number.POSITIVE_INFINITY;
+    this.timeShiftBufferDepth = Number.POSITIVE_INFINITY;
+    this.maxSegmentDuration = Number.POSITIVE_INFINITY;
+    this.checkTime = NaN;
+    this.clientServerTimeShift = 0;
+    this.isClientServerTimeSyncCompleted = false;
+};
+
+Dash.vo.Mpd.prototype = {
+    constructor: Dash.vo.Mpd
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.vo.Period = function () {
+    "use strict";
+    this.id = null;
+    this.index = -1;
+    this.duration = NaN;
+    this.start = NaN;
+    this.mpd = null;
+};
+
+Dash.vo.Period.prototype = {
+    constructor: Dash.vo.Period
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.vo.Representation = function () {
+    "use strict";
+    this.id = null;
+    this.index = -1;
+    this.adaptation = null;
+    this.segmentInfoType = null;
+    this.initialization = null;
+    this.segmentDuration = NaN;
+    this.timescale = 1;
+    this.startNumber = 1;
+    this.indexRange = null;
+    this.range = null;
+    this.presentationTimeOffset = 0;
+    // Set the source buffer timeOffset to this
+    this.MSETimeOffset = NaN;
+    this.segmentAvailabilityRange = null;
+    this.availableSegmentsNumber = 0;
+};
+
+Dash.vo.Representation.prototype = {
+    constructor: Dash.vo.Representation
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+Dash.vo.Segment = function () {
+    "use strict";
+    this.indexRange = null;
+    this.index = null;
+    this.mediaRange = null;
+    this.media = null;
+    this.duration = NaN;
+    // this is the time that should be inserted into the media url
+    this.replacementTime = null;
+    // this is the number that should be inserted into the media url
+    this.replacementNumber = NaN;
+    // This is supposed to match the time encoded in the media Segment
+    this.mediaStartTime = NaN;
+    // When the source buffer timeOffset is set to MSETimeOffset this is the 
+    // time that will match the seekTarget and video.currentTime
+    this.presentationStartTime = NaN;
+    // Do not schedule this segment until 
+    this.availabilityStartTime = NaN;
+    // Ignore and  discard this segment after
+    this.availabilityEndTime = NaN;
+    // The index of the segment inside the availability window
+    this.availabilityIdx = NaN;
+    // For dynamic mpd's, this is the wall clock time that the video   
+    // element currentTime should be presentationStartTime
+    this.wallStartTime = NaN;
+    this.representation = null;
+};
+
+Dash.vo.Segment.prototype = {
+    constructor: Dash.vo.Segment
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.AbrController = function () {
+    "use strict";
+
+    var autoSwitchBitrate = true,
+        topQualities = {},
+        qualityDict = {},
+        confidenceDict = {},
+
+        getInternalQuality = function (type, id) {
+            var quality;
+
+            qualityDict[id] = qualityDict[id] || {};
+
+            if (!qualityDict[id].hasOwnProperty(type)) {
+                qualityDict[id][type] = 0;
+            }
+
+            quality = qualityDict[id][type];
+
+            return quality;
+        },
+
+        setInternalQuality = function (type, id, value) {
+            qualityDict[id] = qualityDict[id] || {};
+            qualityDict[id][type] = value;
+        },
+
+        getInternalConfidence = function (type, id) {
+            var confidence;
+
+            confidenceDict[id] = confidenceDict[id] || {};
+
+            if (!confidenceDict[id].hasOwnProperty(type)) {
+                confidenceDict[id][type] = 0;
+            }
+
+            confidence = confidenceDict[id][type];
+
+            return confidence;
+        },
+
+        setInternalConfidence = function (type, id, value) {
+            confidenceDict[id] = confidenceDict[id] || {};
+            confidenceDict[id][type] = value;
+        },
+
+        setTopQualityIndex = function (type, id, value) {
+            topQualities[id] = topQualities[id] || {};
+            topQualities[id][type] = value;
+        },
+
+        getTopQualityIndex = function(type, id) {
+            var idx;
+
+            topQualities[id] = topQualities[id] || {};
+
+            if (!topQualities[id].hasOwnProperty(type)) {
+                topQualities[id][type] = 0;
+            }
+
+            idx = topQualities[id][type];
+
+            return idx;
+        },
+
+        onDataUpdateCompleted = function(sender, data, trackData) {
+            var self = this,
+                mediaInfo = this.adapter.convertDataToTrack(trackData).mediaInfo,
+                type = mediaInfo.type,
+                streamId = mediaInfo.streamInfo.id,
+                max;
+
+            max = mediaInfo.trackCount - 1;
+
+            if (getTopQualityIndex(type, streamId) === max) return;
+
+            setTopQualityIndex(type, streamId, max);
+            self.notify(self.eventList.ENAME_TOP_QUALITY_INDEX_CHANGED, type, mediaInfo.streamInfo, max);
+        };
+
+    return {
+        debug: undefined,
+        adapter: undefined,
+        abrRulesCollection: undefined,
+        rulesController: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_QUALITY_CHANGED: "qualityChanged",
+            ENAME_TOP_QUALITY_INDEX_CHANGED: "topQualityIndexChanged"
+        },
+
+        setup: function() {
+            this.dataUpdateCompleted = onDataUpdateCompleted;
+        },
+
+        getAutoSwitchBitrate: function () {
+            return autoSwitchBitrate;
+        },
+
+        setAutoSwitchBitrate: function (value) {
+            autoSwitchBitrate = value;
+        },
+
+        getPlaybackQuality: function (streamProcessor) {
+            var self = this,
+                type = streamProcessor.getType(),
+                streamId = streamProcessor.getStreamInfo().id,
+                quality,
+                oldQuality,
+                rules,
+                confidence,
+
+                callback = function(res) {
+                    var topQualityIdx = getTopQualityIndex(type, streamId);
+
+                    quality = res.value;
+                    confidence = res.confidence;
+
+                    // be sure the quality valid!
+                    if (quality < 0) {
+                        quality = 0;
+                    }
+                    // zero based
+                    if (quality > topQualityIdx) {
+                        quality = topQualityIdx;
+                    }
+
+                    oldQuality = getInternalQuality(type, streamId);
+
+                    if (quality === oldQuality) return;
+
+                    setInternalQuality(type, streamId, quality);
+                    //self.debug.log("New quality of " + quality);
+                    setInternalConfidence(type, streamId, confidence);
+                    //self.debug.log("New confidence of " + confidence);
+
+                    self.notify(self.eventList.ENAME_QUALITY_CHANGED, type, streamProcessor.getStreamInfo(), oldQuality, quality);
+                };
+
+            quality = getInternalQuality(type, streamId);
+
+            confidence = getInternalConfidence(type, streamId);
+
+            //self.debug.log("ABR enabled? (" + autoSwitchBitrate + ")");
+
+            if (!autoSwitchBitrate) return;
+
+            //self.debug.log("Check ABR rules.");
+
+            if (self.abrRulesCollection.downloadRatioRule) {
+                self.abrRulesCollection.downloadRatioRule.setStreamProcessor(streamProcessor);
+            }
+
+            rules = self.abrRulesCollection.getRules(MediaPlayer.rules.ABRRulesCollection.prototype.QUALITY_SWITCH_RULES);
+
+            self.rulesController.applyRules(rules, streamProcessor, callback.bind(self), quality, function(currentValue, newValue) {
+                return Math.min(currentValue, newValue);
+            });
+        },
+
+        setPlaybackQuality: function (type, streamInfo, newPlaybackQuality) {
+            var id = streamInfo.id,
+                quality = getInternalQuality(type, id),
+                isInt = newPlaybackQuality !== null && !isNaN(newPlaybackQuality) && (newPlaybackQuality % 1 === 0);
+
+            if (!isInt) throw "argument is not an integer";
+
+            if (newPlaybackQuality !== quality && newPlaybackQuality >= 0 && topQualities[id].hasOwnProperty(type) && newPlaybackQuality <= topQualities[id][type]) {
+                setInternalQuality(type, streamInfo.id, newPlaybackQuality);
+                this.notify(this.eventList.ENAME_QUALITY_CHANGED, type, streamInfo, quality, newPlaybackQuality);
+            }
+        },
+
+        getQualityFor: function (type, streamInfo) {
+            return getInternalQuality(type, streamInfo.id);
+        },
+
+        getConfidenceFor: function(type, streamInfo) {
+            return getInternalConfidence(type, streamInfo.id);
+        },
+
+        isPlayingAtTopQuality: function(streamInfo) {
+            var self = this,
+                isAtTop,
+                streamId = streamInfo.id,
+                audioQuality = self.getQualityFor("audio", streamInfo),
+                videoQuality = self.getQualityFor("video", streamInfo);
+
+            isAtTop = (audioQuality === getTopQualityIndex("audio", streamId)) &&
+                (videoQuality === getTopQualityIndex("video", streamId));
+
+            return isAtTop;
+        },
+
+        reset: function() {
+            var rules = this.abrRulesCollection.getRules(MediaPlayer.rules.ABRRulesCollection.prototype.QUALITY_SWITCH_RULES),
+                rule,
+                ln = rules.length,
+                i = 0;
+
+            for (i; i < ln; i += 1) {
+                rule = rules[i];
+
+                if (typeof(rule.reset) === "function") {
+                    rule.reset();
+                }
+            }
+
+            autoSwitchBitrate = true;
+            topQualities = {};
+            qualityDict = {};
+            confidenceDict = {};
+        }
+    };
+};
+
+MediaPlayer.dependencies.AbrController.prototype = {
+    constructor: MediaPlayer.dependencies.AbrController
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.BufferController = function () {
+    "use strict";
+    var STALL_THRESHOLD = 0.5,
+        QUOTA_EXCEEDED_ERROR_CODE = 22,
+        initializationData = [],
+        requiredQuality = 0,
+        currentQuality = -1,
+        isBufferingCompleted = false,
+        bufferLevel = 0,
+        criticalBufferLevel = Number.POSITIVE_INFINITY,
+        mediaSource,
+        maxAppendedIndex = -1,
+        lastIndex = -1,
+        type,
+        buffer = null,
+        minBufferTime,
+        hasSufficientBuffer = null,
+        appendedBytesInfo,
+
+        isBufferLevelOutrun = false,
+        isAppendingInProgress = false,
+        pendingMedia = [],
+        inbandEventFound = false,
+
+        waitingForInit = function() {
+            var loadingReqs = this.streamProcessor.getFragmentModel().getLoadingRequests();
+
+            if ((currentQuality > requiredQuality) && (hasReqsForQuality(pendingMedia, currentQuality) || hasReqsForQuality(loadingReqs, currentQuality))) {
+                return false;
+            }
+
+            return (currentQuality !== requiredQuality);
+        },
+
+        hasReqsForQuality = function(arr, quality){
+            var i = 0,
+                ln = arr.length;
+
+            for (i; i < ln; i +=1) {
+                if (arr[i].quality === quality) return true;
+            }
+
+            return false;
+        },
+
+        sortArrayByProperty = function(array, sortProp) {
+            var compare = function (obj1, obj2){
+                if (obj1[sortProp] < obj2[sortProp]) return -1;
+                if (obj1[sortProp] > obj2[sortProp]) return 1;
+                return 0;
+            };
+
+            array.sort(compare);
+        },
+
+        onInitializationLoaded = function(sender, model, bytes, quality) {
+            var self = this;
+
+            if (model !== self.streamProcessor.getFragmentModel()) return;
+
+            self.debug.log("Initialization finished loading: " + type);
+
+            // cache the initialization data to use it next time the quality has changed
+            initializationData[quality] = bytes;
+
+            // if this is the initialization data for current quality we need to push it to the buffer
+
+            if (quality !== requiredQuality || !waitingForInit.call(self)) return;
+
+            switchInitData.call(self);
+        },
+
+		onMediaLoaded = function (sender, model, bytes, quality, index) {
+            if (model !== this.streamProcessor.getFragmentModel()) return;
+
+            var events,
+                request = this.streamProcessor.getFragmentModel().getExecutedRequestForQualityAndIndex(quality, index),
+                currentTrack = this.streamProcessor.getTrackForQuality(quality),
+                eventStreamMedia = this.adapter.getEventsFor(currentTrack.mediaInfo, this.streamProcessor),
+                eventStreamTrack = this.adapter.getEventsFor(currentTrack, this.streamProcessor);
+
+            if(eventStreamMedia.length > 0 || eventStreamTrack.length > 0) {
+                events = handleInbandEvents.call(this, bytes, request, eventStreamMedia, eventStreamTrack);
+                this.streamProcessor.getEventController().addInbandEvents(events);
+            }
+
+            bytes = deleteInbandEvents.call(this, bytes);
+
+            pendingMedia.push({bytes: bytes, quality: quality, index: index});
+            sortArrayByProperty(pendingMedia, "index");
+
+            appendNext.call(this);
+		},
+
+        appendToBuffer = function(data, quality, index) {
+            isAppendingInProgress = true;
+            appendedBytesInfo = {quality: quality, index: index};
+
+            var self = this,
+                isInit = isNaN(index);
+
+            // The fragment should be rejected if this an init fragment and its quality does not match
+            // the required quality or if this a media fragment and its quality does not match the
+            // quality of the last appended init fragment. This means that media fragment of the old
+            // quality can be appended providing init fragment for a new required quality has not been
+            // appended yet.
+            if ((quality !== requiredQuality && isInit) || (quality !== currentQuality && !isInit)) {
+                onMediaRejected.call(self, quality, index);
+                return;
+            }
+            //self.debug.log("Push (" + type + ") bytes: " + data.byteLength);
+            self.sourceBufferExt.append(buffer, data);
+        },
+
+        onAppended = function(sender, sourceBuffer, data, error) {
+            if (buffer !== sourceBuffer) return;
+
+            if (this.isBufferingCompleted() && this.streamProcessor.getStreamInfo().isLast) {
+                this.mediaSourceExt.signalEndOfStream(mediaSource);
+            }
+
+            var self = this,
+                ranges;
+
+            if (error) {
+                // if the append has failed because the buffer is full we should store the data
+                // that has not been appended and stop request scheduling. We also need to store
+                // the promise for this append because the next data can be appended only after
+                // this promise is resolved.
+                if (error.code === QUOTA_EXCEEDED_ERROR_CODE) {
+                    pendingMedia.unshift({bytes: data, quality: appendedBytesInfo.quality, index: appendedBytesInfo.index});
+                    criticalBufferLevel = getTotalBufferedTime.call(self) * 0.8;
+                    self.notify(self.eventList.ENAME_QUOTA_EXCEEDED, criticalBufferLevel);
+                    clearBuffer.call(self);
+                }
+                isAppendingInProgress = false;
+                return;
+            }
+
+            updateBufferLevel.call(self);
+
+            if (!hasEnoughSpaceToAppend.call(self)) {
+                self.notify(self.eventList.ENAME_QUOTA_EXCEEDED, criticalBufferLevel);
+                clearBuffer.call(self);
+            }
+
+            ranges = self.sourceBufferExt.getAllRanges(buffer);
+
+            if (ranges) {
+                //self.debug.log("Append " + type + " complete: " + ranges.length);
+                if (ranges.length > 0) {
+                    var i,
+                        len;
+
+                    //self.debug.log("Number of buffered " + type + " ranges: " + ranges.length);
+                    for (i = 0, len = ranges.length; i < len; i += 1) {
+                        self.debug.log("Buffered " + type + " Range: " + ranges.start(i) + " - " + ranges.end(i));
+                    }
+                }
+            }
+
+            onAppendToBufferCompleted.call(self, appendedBytesInfo.quality, appendedBytesInfo.index);
+            self.notify(self.eventList.ENAME_BYTES_APPENDED, appendedBytesInfo.quality, appendedBytesInfo.index, ranges);
+        },
+
+        updateBufferLevel = function() {
+            var self = this,
+                currentTime = self.playbackController.getTime();
+
+            bufferLevel = self.sourceBufferExt.getBufferLength(buffer, currentTime);
+            self.notify(self.eventList.ENAME_BUFFER_LEVEL_UPDATED, bufferLevel);
+            checkGapBetweenBuffers.call(self);
+            checkIfSufficientBuffer.call(self);
+
+            if (bufferLevel < STALL_THRESHOLD) {
+                notifyIfSufficientBufferStateChanged.call(self, false);
+            }
+
+            return true;
+        },
+
+        handleInbandEvents = function(data,request,mediaInbandEvents,trackInbandEvents) {
+            var events = [],
+                i = 0,
+                identifier,
+                size,
+                expTwo = Math.pow(256,2),
+                expThree = Math.pow(256,3),
+                fragmentStarttime = Math.max(isNaN(request.startTime) ? 0 : request.startTime,0),
+                eventStreams = [],
+                event,
+                inbandEvents;
+
+            inbandEventFound = false;
+            /* Extract the possible schemeIdUri : If a DASH client detects an event message box with a scheme that is not defined in MPD, the client is expected to ignore it */
+            inbandEvents = mediaInbandEvents.concat(trackInbandEvents);
+            for(var loop = 0; loop < inbandEvents.length; loop++) {
+                eventStreams[inbandEvents[loop].schemeIdUri] = inbandEvents[loop];
+            }
+            while(i<data.length) {
+                identifier = String.fromCharCode(data[i+4],data[i+5],data[i+6],data[i+7]); // box identifier
+                size = data[i]*expThree + data[i+1]*expTwo + data[i+2]*256 + data[i+3]*1; // size of the box
+                if( identifier == "moov" || identifier == "moof") {
+                    break;
+                } else if(identifier == "emsg") {
+                    inbandEventFound = true;
+                    var eventBox = ["","",0,0,0,0,""],
+                        arrIndex = 0,
+                        j = i+12; //fullbox header is 12 bytes, thats why we start at 12
+
+                    while(j < size+i) {
+                        /* == string terminates with 0, this indicates end of attribute == */
+                        if(arrIndex === 0 || arrIndex == 1 || arrIndex == 6) {
+                            if(data[j] !== 0) {
+                                eventBox[arrIndex] += String.fromCharCode(data[j]);
+                            } else {
+                                arrIndex += 1;
+                            }
+                            j += 1;
+                        } else {
+                            eventBox[arrIndex] = data[j]*expThree + data[j+1]*expTwo + data[j+2]*256 + data[j+3]*1;
+                            j += 4;
+                            arrIndex += 1;
+                        }
+                    }
+
+                    event = this.adapter.getEvent(eventBox, eventStreams, fragmentStarttime);
+
+                    if (event) {
+                        events.push(event);
+                    }
+                }
+                i += size;
+            }
+
+            return events;
+        },
+
+        deleteInbandEvents = function(data) {
+
+            if(!inbandEventFound) {
+                return data;
+            }
+
+            var length = data.length,
+                i = 0,
+                j = 0,
+                identifier,
+                size,
+                expTwo = Math.pow(256,2),
+                expThree = Math.pow(256,3),
+                modData = new Uint8Array(data.length);
+
+            while(i<length) {
+
+                identifier = String.fromCharCode(data[i+4],data[i+5],data[i+6],data[i+7]);
+                size = data[i]*expThree + data[i+1]*expTwo + data[i+2]*256 + data[i+3]*1;
+
+                if(identifier != "emsg" ) {
+                    for(var l = i ; l < i + size; l++) {
+                        modData[j] = data[l];
+                        j += 1;
+                    }
+                }
+                i += size;
+
+            }
+
+            return modData.subarray(0,j);
+        },
+
+        checkGapBetweenBuffers= function() {
+            var leastLevel = getLeastBufferLevel.call(this),
+                acceptableGap = minBufferTime * 2,
+                actualGap = bufferLevel - leastLevel;
+
+            // if the gap betweeen buffers is too big we should create a promise that prevents appending data to the current
+            // buffer and requesting new fragments until the gap will be reduced to the suitable size.
+            if (actualGap >= acceptableGap && !isBufferLevelOutrun) {
+                isBufferLevelOutrun = true;
+                this.notify(this.eventList.ENAME_BUFFER_LEVEL_OUTRUN);
+            } else if ((actualGap < (acceptableGap / 2) && isBufferLevelOutrun)) {
+                this.notify(this.eventList.ENAME_BUFFER_LEVEL_BALANCED);
+                isBufferLevelOutrun = false;
+                appendNext.call(this);
+            }
+        },
+
+        getLeastBufferLevel = function() {
+            var videoMetrics = this.metricsModel.getReadOnlyMetricsFor("video"),
+                videoBufferLevel = this.metricsExt.getCurrentBufferLevel(videoMetrics),
+                audioMetrics = this.metricsModel.getReadOnlyMetricsFor("audio"),
+                audioBufferLevel = this.metricsExt.getCurrentBufferLevel(audioMetrics),
+                leastLevel = null;
+
+            if (videoBufferLevel === null || audioBufferLevel === null) {
+                leastLevel = (audioBufferLevel !== null) ? audioBufferLevel.level : ((videoBufferLevel !== null) ? videoBufferLevel.level : null);
+            } else {
+                leastLevel = Math.min(audioBufferLevel.level, videoBufferLevel.level);
+            }
+
+            return leastLevel;
+        },
+
+        hasEnoughSpaceToAppend = function() {
+            var self = this,
+                totalBufferedTime = getTotalBufferedTime.call(self);
+
+            return (totalBufferedTime < criticalBufferLevel);
+        },
+
+        clearBuffer = function() {
+            var self = this,
+                currentTime = self.playbackController.getTime(),
+                removeStart,
+                removeEnd,
+                range,
+                req;
+
+            if (!buffer) return;
+
+            // we need to remove data that is more than one fragment before the video currentTime
+            req = self.fragmentController.getExecutedRequestForTime(self.streamProcessor.getFragmentModel(), currentTime);
+            removeEnd = (req && !isNaN(req.startTime)) ? req.startTime : Math.floor(currentTime);
+
+            range = self.sourceBufferExt.getBufferRange(buffer, currentTime);
+
+            if ((range === null) && (buffer.buffered.length > 0)) {
+                removeEnd = buffer.buffered.end(buffer.buffered.length -1 );
+            }
+
+            removeStart = buffer.buffered.start(0);
+            self.sourceBufferExt.remove(buffer, removeStart, removeEnd, mediaSource);
+        },
+
+        onRemoved = function(sender, sourceBuffer, removeStart, removeEnd) {
+            if (buffer !== sourceBuffer) return;
+
+            updateBufferLevel.call(this);
+            this.notify(this.eventList.ENAME_BUFFER_CLEARED, removeStart, removeEnd, hasEnoughSpaceToAppend.call(this));
+            if (hasEnoughSpaceToAppend.call(this)) return;
+
+            setTimeout(clearBuffer.bind(this), minBufferTime * 1000);
+        },
+
+        getTotalBufferedTime = function() {
+            var self = this,
+                ranges = self.sourceBufferExt.getAllRanges(buffer),
+                totalBufferedTime = 0,
+                ln,
+                i;
+
+            if (!ranges) return totalBufferedTime;
+
+            for (i = 0, ln = ranges.length; i < ln; i += 1) {
+                totalBufferedTime += ranges.end(i) - ranges.start(i);
+            }
+
+            return totalBufferedTime;
+        },
+
+        checkIfBufferingCompleted = function() {
+            var isLastIdxAppended = maxAppendedIndex === (lastIndex - 1);
+
+            if (!isLastIdxAppended || isBufferingCompleted) return;
+
+            isBufferingCompleted = true;
+            this.notify(this.eventList.ENAME_BUFFERING_COMPLETED);
+        },
+
+        checkIfSufficientBuffer = function () {
+            var timeToEnd = this.playbackController.getTimeToStreamEnd(),
+                minLevel = this.streamProcessor.isDynamic() ? minBufferTime / 2 : minBufferTime;
+
+            if ((bufferLevel < minLevel) && ((minBufferTime < timeToEnd) || (minBufferTime >= timeToEnd && !isBufferingCompleted))) {
+                notifyIfSufficientBufferStateChanged.call(this, false);
+            } else {
+                notifyIfSufficientBufferStateChanged.call(this, true);
+            }
+        },
+
+        notifyIfSufficientBufferStateChanged = function(state) {
+            if (hasSufficientBuffer === state) return;
+
+            hasSufficientBuffer = state;
+
+            this.debug.log(hasSufficientBuffer ? ("Got enough " + type + " buffer to start.") : ("Waiting for more " + type + " buffer before starting playback."));
+
+            this.eventBus.dispatchEvent({
+                type: hasSufficientBuffer ? "bufferLoaded" : "bufferStalled",
+                data: {
+                    bufferType: type
+                }
+            });
+
+            this.notify(this.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED, state);
+        },
+
+        updateBufferTimestampOffset = function(MSETimeOffset) {
+            // each track can have its own @presentationTimeOffset, so we should set the offset
+            // if it has changed after switching the quality or updating an mpd
+            if (buffer.timestampOffset !== MSETimeOffset) {
+                buffer.timestampOffset = MSETimeOffset;
+            }
+        },
+
+        updateBufferState = function() {
+            var self = this;
+
+            updateBufferLevel.call(self);
+            appendNext.call(self);
+        },
+
+        appendNext = function() {
+            if (waitingForInit.call(this)) {
+                switchInitData.call(this);
+            } else {
+                appendNextMedia.call(this);
+            }
+        },
+
+        onAppendToBufferCompleted = function(quality, index) {
+            isAppendingInProgress = false;
+
+            if (!isNaN(index)) {
+                onMediaAppended.call(this, index);
+            } else {
+                onInitAppended.call(this, quality);
+            }
+
+            appendNext.call(this);
+        },
+
+        onMediaRejected = function(quality, index) {
+            isAppendingInProgress = false;
+            this.notify(this.eventList.ENAME_BYTES_REJECTED, quality, index);
+            appendNext.call(this);
+        },
+
+        onInitAppended = function(quality) {
+            currentQuality = quality;
+        },
+
+        onMediaAppended = function(index) {
+            maxAppendedIndex = Math.max(index,maxAppendedIndex);
+            checkIfBufferingCompleted.call(this);
+        },
+
+        appendNextMedia = function() {
+            var data;
+
+            if (pendingMedia.length === 0 || isBufferLevelOutrun || isAppendingInProgress || waitingForInit.call(this) || !hasEnoughSpaceToAppend.call(this)) return;
+
+            data = pendingMedia.shift();
+            appendToBuffer.call(this, data.bytes, data.quality, data.index);
+        },
+
+        onDataUpdateCompleted = function(sender, data, trackData) {
+            var self = this,
+                bufferLength;
+
+            updateBufferTimestampOffset.call(self, trackData.MSETimeOffset);
+
+            bufferLength = self.streamProcessor.getStreamInfo().manifestInfo.minBufferTime;
+            //self.debug.log("Min Buffer time: " + bufferLength);
+            if (minBufferTime !== bufferLength) {
+                self.setMinBufferTime(bufferLength);
+                self.notify(self.eventList.ENAME_MIN_BUFFER_TIME_UPDATED, bufferLength);
+            }
+        },
+
+        onStreamCompleted = function (sender, model, request) {
+            var self = this;
+
+            if (model !== self.streamProcessor.getFragmentModel()) return;
+
+            lastIndex = request.index;
+            checkIfBufferingCompleted.call(self);
+        },
+
+        onQualityChanged = function(sender, typeValue, streamInfo, oldQuality, newQuality) {
+            if (type !== typeValue || this.streamProcessor.getStreamInfo().id !== streamInfo.id) return;
+
+            var self = this;
+
+            // if the quality has changed we should append the initialization data again. We get it
+            // from the cached array instead of sending a new request
+            if (requiredQuality === newQuality) return;
+
+            updateBufferTimestampOffset.call(self, self.streamProcessor.getTrackForQuality(newQuality).MSETimeOffset);
+
+            requiredQuality = newQuality;
+            if (!waitingForInit.call(self)) return;
+
+            switchInitData.call(self);
+        },
+
+        switchInitData = function() {
+            var self = this;
+
+            if (initializationData[requiredQuality]) {
+                if (isAppendingInProgress) return;
+
+                appendToBuffer.call(self, initializationData[requiredQuality], requiredQuality);
+            } else {
+                // if we have not loaded the init fragment for the current quality, do it
+                self.notify(self.eventList.ENAME_INIT_REQUESTED, requiredQuality);
+            }
+        },
+
+        onWallclockTimeUpdated = function(/*sender*/) {
+            appendNext.call(this);
+        },
+
+        onPlaybackRateChanged = function(/*sender*/) {
+            checkIfSufficientBuffer.call(this);
+        };
+
+    return {
+        manifestModel: undefined,
+        sourceBufferExt: undefined,
+        eventBus: undefined,
+        bufferMax: undefined,
+        mediaSourceExt: undefined,
+        metricsModel: undefined,
+        metricsExt: undefined,
+        adapter: undefined,
+        debug: undefined,
+        system: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_CLOSED_CAPTIONING_REQUESTED: "closedCaptioningRequested",
+            ENAME_BUFFER_LEVEL_STATE_CHANGED: "bufferLevelStateChanged",
+            ENAME_BUFFER_LEVEL_UPDATED: "bufferLevelUpdated",
+            ENAME_QUOTA_EXCEEDED: "quotaExceeded",
+            ENAME_BYTES_APPENDED: "bytesAppended",
+            ENAME_BYTES_REJECTED: "bytesRejected",
+            ENAME_BUFFERING_COMPLETED: "bufferingCompleted",
+            ENAME_BUFFER_CLEARED: "bufferCleared",
+            ENAME_INIT_REQUESTED: "initRequested",
+            ENAME_BUFFER_LEVEL_OUTRUN: "bufferLevelOutrun",
+            ENAME_BUFFER_LEVEL_BALANCED: "bufferLevelBalanced",
+            ENAME_MIN_BUFFER_TIME_UPDATED: "minBufferTimeUpdated"
+        },
+
+        setup: function() {
+            this.dataUpdateCompleted = onDataUpdateCompleted;
+
+            this.initFragmentLoaded = onInitializationLoaded;
+            this.mediaFragmentLoaded =  onMediaLoaded;
+            this.streamCompleted = onStreamCompleted;
+
+            this.qualityChanged = onQualityChanged;
+
+            this.playbackProgress = updateBufferState;
+            this.playbackSeeking = updateBufferState;
+            this.playbackTimeUpdated = updateBufferState;
+            this.playbackRateChanged = onPlaybackRateChanged;
+            this.wallclockTimeUpdated = onWallclockTimeUpdated;
+
+            onAppended = onAppended.bind(this);
+            onRemoved = onRemoved.bind(this);
+            this.sourceBufferExt.subscribe(this.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED, this, onAppended);
+            this.sourceBufferExt.subscribe(this.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED, this, onRemoved);
+        },
+
+        initialize: function (typeValue, buffer, source, streamProcessor) {
+            var self = this;
+
+            type = typeValue;
+            self.setMediaSource(source);
+            self.setBuffer(buffer);
+            self.streamProcessor = streamProcessor;
+            self.fragmentController = streamProcessor.fragmentController;
+            self.scheduleController = streamProcessor.scheduleController;
+            self.playbackController = streamProcessor.playbackController;
+        },
+
+        getStreamProcessor: function() {
+            return this.streamProcessor;
+        },
+
+        setStreamProcessor: function(value) {
+            this.streamProcessor = value;
+        },
+
+        getBuffer: function () {
+            return buffer;
+        },
+
+        setBuffer: function (value) {
+            buffer = value;
+        },
+
+        getBufferLevel: function() {
+            return bufferLevel;
+        },
+
+        getMinBufferTime: function () {
+            return minBufferTime;
+        },
+
+        setMinBufferTime: function (value) {
+            minBufferTime = value;
+        },
+
+        getCriticalBufferLevel: function(){
+            return criticalBufferLevel;
+        },
+
+        setMediaSource: function(value) {
+            mediaSource = value;
+        },
+
+        isBufferingCompleted : function() {
+            return isBufferingCompleted;
+        },
+
+        reset: function(errored) {
+            var self = this;
+
+            initializationData = [];
+            criticalBufferLevel = Number.POSITIVE_INFINITY;
+            hasSufficientBuffer = null;
+            minBufferTime = null;
+            currentQuality = -1;
+            requiredQuality = 0;
+            self.sourceBufferExt.unsubscribe(self.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED, self, onAppended);
+            self.sourceBufferExt.unsubscribe(self.sourceBufferExt.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED, self, onRemoved);
+            appendedBytesInfo = null;
+
+            isBufferLevelOutrun = false;
+            isAppendingInProgress = false;
+            pendingMedia = [];
+
+            if (!errored) {
+                self.sourceBufferExt.abort(mediaSource, buffer);
+                self.sourceBufferExt.removeSourceBuffer(mediaSource, buffer);
+            }
+
+            buffer = null;
+        }
+    };
+};
+
+MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED = "required";
+MediaPlayer.dependencies.BufferController.BUFFER_SIZE_MIN = "min";
+MediaPlayer.dependencies.BufferController.BUFFER_SIZE_INFINITY = "infinity";
+MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME = 8;
+MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY = 30;
+MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY_LONG_FORM = 300;
+MediaPlayer.dependencies.BufferController.LONG_FORM_CONTENT_DURATION_THRESHOLD = 600;
+
+MediaPlayer.dependencies.BufferController.prototype = {
+    constructor: MediaPlayer.dependencies.BufferController
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.utils.Capabilities = function () {
+    "use strict";
+};
+
+MediaPlayer.utils.Capabilities.prototype = {
+    constructor: MediaPlayer.utils.Capabilities,
+
+    supportsMediaSource: function () {
+        "use strict";
+
+        var hasWebKit = ("WebKitMediaSource" in window),
+            hasMediaSource = ("MediaSource" in window);
+
+        return (hasWebKit || hasMediaSource);
+    },
+
+    supportsMediaKeys: function () {
+        "use strict";
+
+        var hasWebKit = ("WebKitMediaKeys" in window),
+            hasMs = ("MSMediaKeys" in window),
+            hasMediaSource = ("MediaKeys" in window),
+            hasWebkitGenerateKeyRequest = ('webkitGenerateKeyRequest' in document.createElement('video'));
+
+        return (hasWebKit || hasMs || hasMediaSource || hasWebkitGenerateKeyRequest);
+    },
+
+    supportsCodec: function (element, codec) {
+        "use strict";
+
+        if (!(element instanceof HTMLMediaElement)) {
+            throw "element must be of type HTMLMediaElement.";
+        }
+
+        var canPlay = element.canPlayType(codec);
+        return (canPlay === "probably" || canPlay === "maybe");
+    }
+};;/**
+ * @copyright The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * @license THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * @namespace MediaPlayer.utils.Debug
+ *
+ */
+MediaPlayer.utils.Debug = function () {
+    "use strict";
+
+    var logToBrowserConsole = true;
+
+    return {
+        eventBus: undefined,
+        /**
+         * Toggles logging to the browser's javascript console.  If you set to false you will still receive a log event with the same message.
+         * @param {boolean} value Set to false if you want to turn off logging to the browser's console.
+         * @default true
+         * @memberof MediaPlayer.utils.Debug#
+         */
+        setLogToBrowserConsole: function(value) {
+            logToBrowserConsole = value;
+        },
+        /**
+         * Use this method to get the state of logToBrowserConsole.
+         * @returns {boolean} The current value of logToBrowserConsole
+         * @memberof MediaPlayer.utils.Debug#
+         */
+        getLogToBrowserConsole: function() {
+            return logToBrowserConsole;
+        },
+        /**
+         * This method will allow you send log messages to either the browser's console and/or dispatch an event to capture at the media player level.
+         * @param {string} message The message you want to log. (Does not currently support comma separated values.)
+         * @memberof MediaPlayer.utils.Debug#
+         * @todo - add args... and allow comma separated logging values that will auto concat.
+         */
+        log: function (message) {
+            if (logToBrowserConsole){
+                console.log(message);
+            }
+
+            this.eventBus.dispatchEvent({
+                type: "log",
+                message: message
+            });
+        }
+    };
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+MediaPlayer.dependencies.ErrorHandler = function () {
+    "use strict";
+
+    return {
+        eventBus: undefined,
+
+        // "mediasource"|"mediakeys"
+        capabilityError: function (err) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "capability",
+                event: err
+            });
+        },
+
+        // {id: "manifest"|"SIDX"|"content"|"initialization", url: "", request: {XMLHttpRequest instance}}
+        downloadError: function (id, url, request) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "download",
+                event: {id: id, url: url, request: request}
+            });
+        },
+
+        // {message: "", id: "codec"|"parse"|"nostreams", manifest: {parsed manifest}}
+        manifestError: function (message, id, manifest) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "manifestError",
+                event: {message: message, id: id, manifest: manifest}
+            });
+        },
+
+        closedCaptionsError: function (message, id, ccContent) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "cc",
+                event: {message: message, id: id, cc: ccContent}
+            });
+        },
+
+        mediaSourceError: function (err) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "mediasource",
+                event: err
+            });
+        },
+
+        mediaKeySessionError: function (err) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "key_session",
+                event: err
+            });
+        },
+
+        mediaKeyMessageError: function (err) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "key_message",
+                event: err
+            });
+        },
+
+        mediaKeySystemSelectionError: function (err) {
+            this.eventBus.dispatchEvent({
+                type: "error",
+                error: "key_system_selection",
+                event: err
+            });
+        }
+    };
+};
+
+MediaPlayer.dependencies.ErrorHandler.prototype = {
+    constructor: MediaPlayer.dependencies.ErrorHandler
+};
+;MediaPlayer.utils.EventBus = function () {
+    "use strict";
+
+    var registrations,
+
+        getListeners = function (type, useCapture) {
+            var captype = (useCapture? '1' : '0') + type;
+
+            if (!(captype in registrations)) {
+                registrations[captype]= [];
+            }
+
+            return registrations[captype];
+        },
+
+        init = function () {
+            registrations = {};
+        };
+
+    init();
+
+    return {
+        addEventListener: function (type, listener, useCapture) {
+            var listeners = getListeners(type, useCapture);
+            var idx = listeners.indexOf(listener);
+            if (idx === -1) {
+                listeners.push(listener);
+            }
+        },
+
+        removeEventListener: function (type, listener, useCapture) {
+            var listeners = getListeners(type, useCapture);
+            var idx= listeners.indexOf(listener);
+            if (idx !== -1) {
+                listeners.splice(idx, 1);
+            }
+        },
+
+        dispatchEvent: function (evt) {
+            var listeners = getListeners(evt.type, false).slice();
+            for (var i= 0; i < listeners.length; i++) {
+                listeners[i].call(this, evt);
+            }
+            return !evt.defaultPrevented;
+        }
+    };
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Fraunhofer Fokus
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.EventController = function(){
+    "use strict";
+
+
+    var inlineEvents = [], // Holds all Inline Events not triggered yet
+        inbandEvents = [], // Holds all Inband Events not triggered yet
+        activeEvents = [], // Holds all Events currently running
+        eventInterval = null, // variable holding the setInterval
+        refreshDelay = 100, // refreshTime for the setInterval
+        presentationTimeThreshold = refreshDelay / 1000,
+        MPD_RELOAD_SCHEME = "urn:mpeg:dash:event:2012",
+        MPD_RELOAD_VALUE = 1,
+
+        reset = function() {
+            if(eventInterval !== null) {
+                clearInterval(eventInterval);
+                eventInterval = null;
+            }
+            inlineEvents = null;
+            inbandEvents = null;
+            activeEvents = null;
+        },
+
+        clear = function() {
+            if(eventInterval !== null) {
+                clearInterval(eventInterval);
+                eventInterval = null;
+            }
+        },
+
+        start = function () {
+            var self = this;
+
+            self.debug.log("Start Event Controller");
+            if (!isNaN(refreshDelay)) {
+                eventInterval = setInterval(onEventTimer.bind(this), refreshDelay);
+            }
+        },
+
+        /**
+         * Add events to the eventList. Events that are not in the mpd anymore but not triggered yet will still be deleted
+         * @param values
+         */
+        addInlineEvents = function(values) {
+            var self = this;
+            inlineEvents = [];
+
+            if(values && values.length > 0){
+                inlineEvents = values;
+            }
+            self.debug.log("Added "+values.length+ " inline events");
+        },
+
+        /**
+         * i.e. processing of any one event message box with the same id is sufficient
+         * @param values
+         */
+        addInbandEvents = function(values) {
+            var self = this;
+            for(var i=0;i<values.length;i++) {
+                var event = values[i];
+                inbandEvents[event.id] = event;
+                self.debug.log("Add inband event with id "+event.id);
+            }
+        },
+
+        /**
+         * Itereate through the eventList and trigger/remove the events
+         */
+        onEventTimer = function () {
+            triggerEvents.call(this,inbandEvents);
+            triggerEvents.call(this,inlineEvents);
+            removeEvents.call(this);
+        },
+
+        triggerEvents = function(events) {
+            var self = this,
+                currentVideoTime = this.videoModel.getCurrentTime(),
+                presentationTime;
+
+            /* == Trigger events that are ready == */
+            if(events) {
+                for (var j = 0; j < events.length; j++) {
+                    var curr = events[j];
+
+                    if (curr !== undefined) {
+                        presentationTime = curr.presentationTime / curr.eventStream.timescale;
+                        if (presentationTime === 0 || (presentationTime <= currentVideoTime && presentationTime + presentationTimeThreshold > currentVideoTime)) {
+                            self.debug.log("Start Event at " + currentVideoTime);
+                            if (curr.duration > 0) activeEvents.push(curr);
+                            if (curr.eventStream.schemeIdUri == MPD_RELOAD_SCHEME && curr.eventStream.value == MPD_RELOAD_VALUE) refreshManifest.call(this);
+                            events.splice(j, 1);
+                        }
+                    }
+                }
+            }
+        },
+
+        /**
+         * Remove events from the list that are over
+         */
+        removeEvents = function() {
+            var self = this;
+
+            if(activeEvents) {
+                var currentVideoTime = this.videoModel.getCurrentTime();
+
+                for (var i = 0; i < activeEvents.length; i++) {
+                    var curr = activeEvents[i];
+                    if (curr !== null && (curr.duration + curr.presentationTime) / curr.eventStream.timescale < currentVideoTime) {
+                        self.debug.log("Remove Event at time " + currentVideoTime);
+                        curr = null;
+                        activeEvents.splice(i, 1);
+                    }
+                }
+            }
+
+        },
+
+        refreshManifest = function () {
+            var self = this,
+                manifest = self.manifestModel.getValue(),
+                url = manifest.url;
+
+            if (manifest.hasOwnProperty("Location")) {
+                url = manifest.Location;
+            }
+            self.debug.log("Refresh manifest @ " + url);
+            self.manifestLoader.load(url);
+        };
+
+    return {
+        manifestModel: undefined,
+        manifestLoader:undefined,
+        debug: undefined,
+        system: undefined,
+        errHandler: undefined,
+        videoModel:undefined,
+        addInlineEvents : addInlineEvents,
+        addInbandEvents : addInbandEvents,
+        reset : reset,
+        clear : clear,
+        start: start,
+        getVideoModel: function() {
+            return this.videoModel;
+        },
+        setVideoModel:function(value) {
+            this.videoModel = value;
+        },
+        initialize:function(videoModel) {
+            this.setVideoModel(videoModel);
+        }
+    };
+
+};
+
+MediaPlayer.dependencies.EventController.prototype = {
+    constructor: MediaPlayer.dependencies.EventController
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.FragmentController = function () {
+    "use strict";
+
+    var fragmentModels = [],
+        inProgress = false,
+
+        findModel = function(context) {
+            var ln = fragmentModels.length;
+            // We expect one-to-one relation between FragmentModel and context,
+            // so just compare the given context object with the one that stored in the model to find the model for it
+            for (var i = 0; i < ln; i++) {
+                if (fragmentModels[i].getContext() == context) {
+                    return fragmentModels[i];
+                }
+            }
+
+            return null;
+        },
+
+        getRequestsToLoad = function(current, callback) {
+            var self =this,
+                streamProcessor = fragmentModels[0].getContext().streamProcessor,
+                streamId = streamProcessor.getStreamInfo().id,
+                rules = self.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_EXECUTE_RULES);
+
+            if (rules.indexOf(this.scheduleRulesCollection.sameTimeRequestRule) !== -1) {
+                this.scheduleRulesCollection.sameTimeRequestRule.setFragmentModels(fragmentModels, streamId);
+            }
+
+            self.rulesController.applyRules(rules, streamProcessor, callback, current, function(currentValue, newValue) {
+                return newValue;
+            });
+        },
+
+        onFragmentLoadingStart = function(sender, request) {
+            var self = this;
+
+            if (self.isInitializationRequest(request)) {
+                self.notify(self.eventList.ENAME_INIT_FRAGMENT_LOADING_START, sender, request);
+            }else {
+                self.notify(self.eventList.ENAME_MEDIA_FRAGMENT_LOADING_START, sender, request);
+            }
+        },
+
+        onFragmentLoadingCompleted = function(sender, request, response) {
+            var self = this,
+                bytes = self.process(response);
+
+            if (bytes === null) {
+                self.debug.log("No " + request.mediaType + " bytes to push.");
+                return;
+            }
+
+            if (self.isInitializationRequest(request)) {
+                self.notify(self.eventList.ENAME_INIT_FRAGMENT_LOADED, sender, bytes, request.quality);
+            }else {
+                self.notify(self.eventList.ENAME_MEDIA_FRAGMENT_LOADED, sender, bytes, request.quality, request.index);
+            }
+
+            executeRequests.call(this);
+        },
+
+        onStreamCompleted = function(sender, request) {
+            this.notify(this.eventList.ENAME_STREAM_COMPLETED, sender, request);
+        },
+
+        onBufferLevelBalanced = function(/*sender*/) {
+            executeRequests.call(this);
+        },
+
+        onGetRequests = function(result) {
+            var reqsToExecute = result.value,
+                mediaType,
+                r,
+                m,
+                i,
+                j;
+
+            for (i = 0; i < reqsToExecute.length; i += 1) {
+                r = reqsToExecute[i];
+
+                if (!r) continue;
+
+                for (j = 0; j < fragmentModels.length; j += 1) {
+                    m = fragmentModels[j];
+                    mediaType = m.getContext().streamProcessor.getType();
+
+                    if (r.mediaType !== mediaType) continue;
+
+                    if (!(r instanceof MediaPlayer.vo.FragmentRequest)) {
+                        r = m.getPendingRequestForTime(r.startTime);
+                    }
+
+                    m.executeRequest(r);
+                }
+            }
+
+            inProgress = false;
+        },
+
+        executeRequests = function(request) {
+            if (inProgress) return;
+
+            inProgress = true;
+
+            getRequestsToLoad.call(this, request, onGetRequests.bind(this));
+        };
+
+    return {
+        system: undefined,
+        debug: undefined,
+        scheduleRulesCollection: undefined,
+        rulesController: undefined,
+        fragmentLoader: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_STREAM_COMPLETED: "streamCompleted",
+            ENAME_INIT_FRAGMENT_LOADING_START: "initFragmentLoadingStart",
+            ENAME_MEDIA_FRAGMENT_LOADING_START: "mediaFragmentLoadingStart",
+            ENAME_INIT_FRAGMENT_LOADED: "initFragmentLoaded",
+            ENAME_MEDIA_FRAGMENT_LOADED: "mediaFragmentLoaded"
+        },
+
+        setup: function() {
+            this.fragmentLoadingStarted = onFragmentLoadingStart;
+            this.fragmentLoadingCompleted = onFragmentLoadingCompleted;
+            this.streamCompleted = onStreamCompleted;
+
+            this.bufferLevelBalanced = onBufferLevelBalanced;
+        },
+
+        process: function (bytes) {
+            var result = null;
+
+            if (bytes !== null && bytes !== undefined && bytes.byteLength > 0) {
+                result = new Uint8Array(bytes);
+            }
+
+            return result;
+        },
+
+        getModel: function(context) {
+            if (!context) return null;
+            // Wrap the buffer controller into model and store it to track the loading state and execute the requests
+            var model = findModel(context);
+
+            if (!model){
+                model = this.system.getObject("fragmentModel");
+                model.setContext(context);
+                fragmentModels.push(model);
+            }
+
+            return model;
+        },
+
+        detachModel: function(model) {
+            var idx = fragmentModels.indexOf(model);
+            // If we have the model for the given buffer just remove it from array
+            if (idx > -1) {
+                fragmentModels.splice(idx, 1);
+            }
+        },
+
+        isFragmentLoadedOrPending: function(context, request) {
+            var fragmentModel = findModel(context),
+                isLoaded;
+
+            if (!fragmentModel) {
+                return false;
+            }
+
+            isLoaded = fragmentModel.isFragmentLoadedOrPending(request);
+
+            return isLoaded;
+        },
+
+        getPendingRequests: function(context) {
+            var fragmentModel = findModel(context);
+
+            if (!fragmentModel) {
+                return null;
+            }
+
+            return fragmentModel.getPendingRequests();
+        },
+
+        getLoadingRequests: function(context) {
+            var fragmentModel = findModel(context);
+
+            if (!fragmentModel) {
+                return null;
+            }
+
+            return fragmentModel.getLoadingRequests();
+        },
+
+		isInitializationRequest: function(request){
+			return (request && request.type && request.type.toLowerCase().indexOf("initialization") !== -1);
+		},
+
+        getLoadingTime: function(context) {
+            var fragmentModel = findModel(context);
+
+            if (!fragmentModel) {
+                return null;
+            }
+
+            return fragmentModel.getLoadingTime();
+        },
+
+        getExecutedRequestForTime: function(model, time) {
+            if (model) {
+                return model.getExecutedRequestForTime(time);
+            }
+
+            return null;
+        },
+
+        removeExecutedRequest: function(model, request) {
+            if (model) {
+                model.removeExecutedRequest(request);
+            }
+        },
+
+        removeExecutedRequestsBeforeTime: function(model, time) {
+            if (model) {
+                model.removeExecutedRequestsBeforeTime(time);
+            }
+        },
+
+        cancelPendingRequestsForModel: function(model) {
+            if (model) {
+                model.cancelPendingRequests();
+            }
+        },
+
+        abortRequestsForModel: function(model) {
+            if (model) {
+                model.abortRequests();
+            }
+
+            executeRequests.call(this);
+        },
+
+        prepareFragmentForLoading: function(context, request) {
+            var fragmentModel = findModel(context);
+
+            if (!fragmentModel || !request) return;
+            // Store the request and all the necessary callbacks in the model for deferred execution
+            if (fragmentModel.addRequest(request)) {
+                executeRequests.call(this, request);
+            }
+        },
+
+        executePendingRequests: function() {
+            executeRequests.call(this);
+        },
+
+        resetModel: function(model) {
+            this.abortRequestsForModel(model);
+            this.cancelPendingRequestsForModel(model);
+        }
+    };
+};
+
+MediaPlayer.dependencies.FragmentController.prototype = {
+    constructor: MediaPlayer.dependencies.FragmentController
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.FragmentLoader = function () {
+    "use strict";
+
+    var RETRY_ATTEMPTS = 3,
+        RETRY_INTERVAL = 500,
+        xhrs = [],
+
+        doLoad = function (request, remainingAttempts) {
+            var req = new XMLHttpRequest(),
+                httpRequestMetrics = null,
+                firstProgress = true,
+                needFailureReport = true,
+                lastTraceTime = null,
+                self = this;
+
+                xhrs.push(req);
+                request.requestStartDate = new Date();
+
+                httpRequestMetrics = self.metricsModel.addHttpRequest(request.mediaType,
+                                                                      null,
+                                                                      request.type,
+                                                                      request.url,
+                                                                      null,
+                                                                      request.range,
+                                                                      request.requestStartDate,
+                                                                      null,
+                                                                      null,
+                                                                      null,
+                                                                      null,
+                                                                      request.duration);
+
+                self.metricsModel.appendHttpTrace(httpRequestMetrics,
+                                                  request.requestStartDate,
+                                                  request.requestStartDate.getTime() - request.requestStartDate.getTime(),
+                                                  [0]);
+                lastTraceTime = request.requestStartDate;
+
+                req.open("GET", self.tokenAuthentication.addTokenAsQueryArg(request.url), true);
+                req.responseType = "arraybuffer";
+                req = self.tokenAuthentication.setTokenInRequestHeader(req);
+/*
+                req.setRequestHeader("Cache-Control", "no-cache");
+                req.setRequestHeader("Pragma", "no-cache");
+                req.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
+*/
+                if (request.range) {
+                    req.setRequestHeader("Range", "bytes=" + request.range);
+                }
+
+                req.onprogress = function (event) {
+                    var currentTime = new Date();
+                    if (firstProgress) {
+                        firstProgress = false;
+                        if (!event.lengthComputable || (event.lengthComputable && event.total != event.loaded)) {
+                            request.firstByteDate = currentTime;
+                            httpRequestMetrics.tresponse = currentTime;
+                        }
+                    }
+                    self.metricsModel.appendHttpTrace(httpRequestMetrics,
+                                                      currentTime,
+                                                      currentTime.getTime() - lastTraceTime.getTime(),
+                                                      [req.response ? req.response.byteLength : 0]);
+                    lastTraceTime = currentTime;
+                };
+
+                req.onload = function () {
+                    if (req.status < 200 || req.status > 299)
+                    {
+                      return;
+                    }
+                    needFailureReport = false;
+
+                    var currentTime = new Date(),
+                        bytes = req.response,
+                        latency,
+                        download;
+
+                    if (!request.firstByteDate) {
+                        request.firstByteDate = request.requestStartDate;
+                    }
+                    request.requestEndDate = currentTime;
+
+                    latency = (request.firstByteDate.getTime() - request.requestStartDate.getTime());
+                    download = (request.requestEndDate.getTime() - request.firstByteDate.getTime());
+
+                    self.debug.log("loaded " + request.mediaType + ":" + request.type + ":" + request.startTime + " (" + req.status + ", " + latency + "ms, " + download + "ms)");
+
+                    httpRequestMetrics.tresponse = request.firstByteDate;
+                    httpRequestMetrics.tfinish = request.requestEndDate;
+                    httpRequestMetrics.responsecode = req.status;
+
+                    self.metricsModel.appendHttpTrace(httpRequestMetrics,
+                                                      currentTime,
+                                                      currentTime.getTime() - lastTraceTime.getTime(),
+                                                      [bytes ? bytes.byteLength : 0]);
+                    lastTraceTime = currentTime;
+
+                    self.notify(self.eventList.ENAME_LOADING_COMPLETED, request, bytes);
+                };
+
+                req.onloadend = req.onerror = function () {
+                    if (xhrs.indexOf(req) === -1) {
+                        return;
+                    } else {
+                        xhrs.splice(xhrs.indexOf(req), 1);
+                    }
+
+                    if (!needFailureReport)
+                    {
+                      return;
+                    }
+                    needFailureReport = false;
+
+                    var currentTime = new Date(),
+                        bytes = req.response,
+                        latency,
+                        download;
+
+                    if (!request.firstByteDate) {
+                        request.firstByteDate = request.requestStartDate;
+                    }
+                    request.requestEndDate = currentTime;
+
+                    latency = (request.firstByteDate.getTime() - request.requestStartDate.getTime());
+                    download = (request.requestEndDate.getTime() - request.firstByteDate.getTime());
+
+                    self.debug.log("failed " + request.mediaType + ":" + request.type + ":" + request.startTime + " (" + req.status + ", " + latency + "ms, " + download + "ms)");
+
+                    httpRequestMetrics.tresponse = request.firstByteDate;
+                    httpRequestMetrics.tfinish = request.requestEndDate;
+                    httpRequestMetrics.responsecode = req.status;
+
+                    self.metricsModel.appendHttpTrace(httpRequestMetrics,
+                                                      currentTime,
+                                                      currentTime.getTime() - lastTraceTime.getTime(),
+                                                      [bytes ? bytes.byteLength : 0]);
+                    lastTraceTime = currentTime;
+
+
+                    if (remainingAttempts > 0) {
+                        self.debug.log("Failed loading fragment: " + request.mediaType + ":" + request.type + ":" + request.startTime + ", retry in " + RETRY_INTERVAL + "ms" + " attempts: " + remainingAttempts);
+                        remainingAttempts--;
+                        setTimeout(function() {
+                            doLoad.call(self, request, remainingAttempts);
+                        }, RETRY_INTERVAL);
+                    } else {
+                        self.debug.log("Failed loading fragment: " + request.mediaType + ":" + request.type + ":" + request.startTime + " no retry attempts left");
+                        self.errHandler.downloadError("content", request.url, req);
+                        self.notify(self.eventList.ENAME_LOADING_COMPLETED, request, null, new Error("failed loading fragment"));
+                    }
+                };
+
+                req.send();
+        },
+
+        checkForExistence = function(request) {
+            var self = this,
+                req = new XMLHttpRequest(),
+                isSuccessful = false;
+
+            req.open("HEAD", request.url, true);
+
+            req.onload = function () {
+                if (req.status < 200 || req.status > 299) return;
+
+                isSuccessful = true;
+
+                self.notify(self.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED, true, request);
+            };
+
+            req.onloadend = req.onerror = function () {
+                if (isSuccessful) return;
+
+                self.notify(self.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED, false, request);
+            };
+
+            req.send();
+        };
+
+    return {
+        metricsModel: undefined,
+        errHandler: undefined,
+        debug: undefined,
+        tokenAuthentication:undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_LOADING_COMPLETED: "loadingCompleted",
+            ENAME_CHECK_FOR_EXISTENCE_COMPLETED: "checkForExistenceCompleted"
+        },
+
+        load: function (req) {
+
+            if (!req) {
+                this.notify(this.eventList.ENAME_LOADING_COMPLETED, req, null, new Error("request is null"));
+            } else {
+                doLoad.call(this, req, RETRY_ATTEMPTS);
+            }
+        },
+
+        checkForExistence: function(req) {
+            if (!req) {
+                this.notify(this.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED, false, req);
+                return;
+            }
+
+            checkForExistence.call(this, req);
+        },
+
+        abort: function() {
+            var i,
+                req,
+                ln = xhrs.length;
+
+            for (i = 0; i < ln; i +=1) {
+                req = xhrs[i];
+                xhrs[i] = null;
+                req.abort();
+                req = null;
+            }
+
+            xhrs = [];
+        }
+    };
+};
+
+MediaPlayer.dependencies.FragmentLoader.prototype = {
+    constructor: MediaPlayer.dependencies.FragmentLoader
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+MediaPlayer.dependencies.FragmentModel = function () {
+    "use strict";
+
+    var context,
+        executedRequests = [],
+        pendingRequests = [],
+        loadingRequests = [],
+        rejectedRequests = [],
+
+        isLoadingPostponed = false,
+
+        loadCurrentFragment = function(request) {
+            var self = this;
+
+            // We are about to start loading the fragment, so execute the corresponding callback
+            self.notify(self.eventList.ENAME_FRAGMENT_LOADING_STARTED, request);
+            self.fragmentLoader.load(request);
+        },
+
+        removeExecutedRequest = function(request) {
+            var idx = executedRequests.indexOf(request);
+
+            if (idx !== -1) {
+                executedRequests.splice(idx, 1);
+            }
+        },
+
+        getRequestForTime = function(arr, time) {
+            var lastIdx = arr.length - 1,
+                THRESHOLD = 0.001,
+                start = NaN,
+                end = NaN,
+                req = null,
+                i;
+
+            // loop through the executed requests and pick the one for which the playback interval matches the given time
+            for (i = lastIdx; i >= 0; i -=1) {
+                req = arr[i];
+                start = req.startTime;
+                end = start + req.duration;
+                if ((!isNaN(start) && !isNaN(end) && ((time + THRESHOLD) >= start) && (time < end)) || (isNaN(start) && isNaN(time))) {
+                    return req;
+                }
+            }
+
+            return null;
+        },
+
+        addSchedulingInfoMetrics = function(request, state) {
+            if (!request) return;
+
+            var mediaType = request.mediaType,
+                now = new Date(),
+                type = request.type,
+                startTime = request.startTime,
+                availabilityStartTime = request.availabilityStartTime,
+                duration = request.duration,
+                quality = request.quality,
+                range = request.range;
+
+            this.metricsModel.addSchedulingInfo(mediaType, now, type, startTime, availabilityStartTime, duration, quality, range, state);
+        },
+
+        onLoadingCompleted = function(sender, request, response, error) {
+            loadingRequests.splice(loadingRequests.indexOf(request), 1);
+
+            if (response && !error) {
+                executedRequests.push(request);
+                addSchedulingInfoMetrics.call(this, request, MediaPlayer.vo.metrics.SchedulingInfo.EXECUTED_STATE);
+                this.notify(this.eventList.ENAME_FRAGMENT_LOADING_COMPLETED, request, response);
+            } else {
+                addSchedulingInfoMetrics.call(this, request, MediaPlayer.vo.metrics.SchedulingInfo.FAILED_STATE);
+                this.notify(this.eventList.ENAME_FRAGMENT_LOADING_FAILED, request);
+            }
+        },
+
+        onBytesRejected = function(sender, quality, index) {
+            var req = this.getExecutedRequestForQualityAndIndex(quality, index);
+            // if request for an unappropriate quality has not been removed yet, do it now
+            if (req) {
+                this.removeExecutedRequest(req);
+                // if index is not a number it means that this is a media fragment, so we should
+                // request the fragment for the same time but with an appropriate quality
+                // If this is init fragment do nothing, because it will be requested in loadInitialization method
+                if (!isNaN(index)) {
+                    rejectedRequests.push(req);
+                    addSchedulingInfoMetrics.call(this, req, MediaPlayer.vo.metrics.SchedulingInfo.REJECTED_STATE);
+                }
+            }
+        },
+
+        onBufferLevelOutrun = function() {
+            isLoadingPostponed = true;
+        },
+
+        onBufferLevelBalanced = function() {
+            isLoadingPostponed = false;
+        };
+
+    return {
+        system: undefined,
+        debug: undefined,
+        metricsModel: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_STREAM_COMPLETED: "streamCompleted",
+            ENAME_FRAGMENT_LOADING_STARTED: "fragmentLoadingStarted",
+            ENAME_FRAGMENT_LOADING_COMPLETED: "fragmentLoadingCompleted",
+            ENAME_FRAGMENT_LOADING_FAILED: "fragmentLoadingFailed"
+        },
+
+        setup: function() {
+            this.bufferLevelOutrun = onBufferLevelOutrun;
+            this.bufferLevelBalanced = onBufferLevelBalanced;
+            this.bytesRejected = onBytesRejected;
+            this.loadingCompleted = onLoadingCompleted;
+        },
+
+        setLoader: function(value) {
+            this.fragmentLoader = value;
+        },
+
+        setContext: function(value) {
+            context = value;
+        },
+
+        getContext: function() {
+            return context;
+        },
+
+        getIsPostponed: function() {
+            return isLoadingPostponed;
+        },
+
+        addRequest: function(value) {
+            if (!value || this.isFragmentLoadedOrPending(value)) return false;
+
+            pendingRequests.push(value);
+            addSchedulingInfoMetrics.call(this, value, MediaPlayer.vo.metrics.SchedulingInfo.PENDING_STATE);
+
+            return true;
+        },
+
+        isFragmentLoadedOrPending: function(request) {
+            var isEqualComplete = function(req1, req2) {
+                    return ((req1.action === "complete") && (req1.action === req2.action));
+                },
+
+                isEqualMedia = function(req1, req2) {
+                    return ((req1.url === req2.url) && (req1.startTime === req2.startTime));
+                },
+
+                isEqualInit = function(req1, req2) {
+                    return isNaN(req1.index) && isNaN(req2.index) && (req1.quality === req2.quality);
+                },
+
+                check = function(arr) {
+                    var req,
+                        isLoaded = false,
+                        ln = arr.length,
+                        i;
+
+                    for (i = 0; i < ln; i += 1) {
+                        req = arr[i];
+
+                        if (isEqualMedia(request, req) || isEqualInit(request, req) || isEqualComplete(request, req)) {
+                            //self.debug.log(request.mediaType + " Fragment already loaded for time: " + request.startTime);
+                            isLoaded = true;
+                            break;
+                        }
+                    }
+
+                    return isLoaded;
+                };
+
+            return (check(pendingRequests) || check(loadingRequests) || check(executedRequests));
+        },
+
+        getPendingRequests: function() {
+            return pendingRequests;
+        },
+
+        getLoadingRequests: function() {
+            return loadingRequests;
+        },
+
+        getExecutedRequests: function() {
+            return executedRequests;
+        },
+
+        getRejectedRequests: function() {
+            return rejectedRequests;
+        },
+
+        getLoadingTime: function() {
+            var loadingTime = 0,
+                req,
+                i;
+
+            // get the latest loaded request and calculate its loading time. In case requestEndDate/firstByteDate properties
+            // have not been set (e.g. for a request with action='complete') we should get the previous request.
+            for (i = executedRequests.length - 1; i >= 0; i -= 1) {
+                req = executedRequests[i];
+
+                if ((req.requestEndDate instanceof Date) && (req.firstByteDate instanceof Date)) {
+                    loadingTime = req.requestEndDate.getTime() - req.firstByteDate.getTime();
+                    break;
+                }
+            }
+
+            return loadingTime;
+        },
+
+        getExecutedRequestForTime: function(time) {
+            return getRequestForTime(executedRequests, time);
+        },
+
+        getPendingRequestForTime: function(time) {
+            return getRequestForTime(pendingRequests, time);
+        },
+
+        getLoadingRequestForTime: function(time) {
+            return getRequestForTime(loadingRequests, time);
+        },
+
+        getExecutedRequestForQualityAndIndex: function(quality, index) {
+            var lastIdx = executedRequests.length - 1,
+                req = null,
+                i;
+
+            for (i = lastIdx; i >= 0; i -=1) {
+                req = executedRequests[i];
+                if ((req.quality === quality) && (req.index === index)) {
+                    return req;
+                }
+            }
+
+            return null;
+        },
+
+        removeExecutedRequest: function(request) {
+            removeExecutedRequest.call(this, request);
+        },
+
+        removeExecutedRequestsBeforeTime: function(time) {
+            var lastIdx = executedRequests.length - 1,
+                start = NaN,
+                req = null,
+                i;
+
+            // loop through the executed requests and remove the ones for which startTime is less than the given time
+            for (i = lastIdx; i >= 0; i -=1) {
+                req = executedRequests[i];
+                start = req.startTime;
+                if (!isNaN(start) && (start < time)) {
+                    removeExecutedRequest.call(this, req);
+                }
+            }
+        },
+
+        cancelPendingRequests: function(quality) {
+            var self = this,
+                reqs = pendingRequests,
+                canceled = reqs;
+
+            pendingRequests = [];
+
+            if (quality !== undefined) {
+                pendingRequests = reqs.filter(function(request) {
+                    if (request.quality === quality) {
+                        return false;
+                    }
+
+                    canceled.splice(canceled.indexOf(request), 1);
+                    return true;
+                });
+            }
+
+            canceled.forEach(function(request) {
+                addSchedulingInfoMetrics.call(self, request, MediaPlayer.vo.metrics.SchedulingInfo.CANCELED_STATE);
+            });
+
+            return canceled;
+        },
+
+        abortRequests: function() {
+            this.fragmentLoader.abort();
+
+            for (var i = 0, ln = loadingRequests.length; i < ln; i += 1) {
+                this.removeExecutedRequest(loadingRequests[i]);
+            }
+
+            loadingRequests = [];
+        },
+
+        executeRequest: function(request) {
+            var self = this,
+                idx = pendingRequests.indexOf(request);
+
+            if (!request || idx === -1) return;
+
+            pendingRequests.splice(idx, 1);
+
+            switch (request.action) {
+                case "complete":
+                    // Stream has completed, execute the correspoinding callback
+                    executedRequests.push(request);
+                    addSchedulingInfoMetrics.call(self, request, MediaPlayer.vo.metrics.SchedulingInfo.EXECUTED_STATE);
+                    self.notify(self.eventList.ENAME_STREAM_COMPLETED, request);
+                    break;
+                case "download":
+                    loadingRequests.push(request);
+                    addSchedulingInfoMetrics.call(self, request, MediaPlayer.vo.metrics.SchedulingInfo.LOADING_STATE);
+                    loadCurrentFragment.call(self, request);
+                    break;
+                default:
+                    this.debug.log("Unknown request action.");
+            }
+        }
+    };
+};
+
+MediaPlayer.dependencies.FragmentModel.prototype = {
+    constructor: MediaPlayer.dependencies.FragmentModel
+};;
+MediaPlayer.dependencies.LiveEdgeFinder = function () {
+    "use strict";
+
+    var isSearchStarted = false,
+        rules,
+
+        onSearchCompleted = function(req) {
+            var liveEdge = req.value,
+                searchTime = (new Date().getTime() - this.streamProcessor.getStreamInfo().manifestInfo.loadedTime.getTime()) / 1000;
+
+            if (liveEdge !== null) {
+                this.notify(this.eventList.ENAME_LIVE_EDGE_FOUND, liveEdge, searchTime);
+            } else {
+                this.notify(this.eventList.ENAME_LIVE_EDGE_SEARCH_ERROR, searchTime);
+            }
+        },
+
+        onStreamUpdated = function(/*sender*/) {
+            if (!this.streamProcessor.isDynamic() || isSearchStarted) return;
+
+            var self = this;
+
+            rules = self.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.LIVE_EDGE_RULES);
+            isSearchStarted = true;
+
+            this.rulesController.applyRules(rules, self.streamProcessor, onSearchCompleted.bind(self), null, function(currentValue, newValue) {
+                return newValue;
+            });
+        };
+
+    return {
+        system: undefined,
+        scheduleRulesCollection: undefined,
+        rulesController: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_LIVE_EDGE_FOUND: "liveEdgeFound",
+            ENAME_LIVE_EDGE_SEARCH_ERROR: "liveEdgeSearchError"
+        },
+
+        setup: function() {
+            this.streamUpdated = onStreamUpdated;
+        },
+
+        initialize: function(streamProcessor) {
+            this.streamProcessor = streamProcessor;
+            this.fragmentLoader = streamProcessor.fragmentLoader;
+
+            if (this.scheduleRulesCollection.liveEdgeBinarySearchRule) {
+                this.scheduleRulesCollection.liveEdgeBinarySearchRule.setFinder(this);
+            }
+        },
+
+        abortSearch: function() {
+            isSearchStarted = false;
+
+            if (!rules) return;
+
+            for (var i = 0, ln = rules.length; i < ln; i += 1) {
+                rules[i].reset();
+            }
+        }
+    };
+};
+
+MediaPlayer.dependencies.LiveEdgeFinder.prototype = {
+    constructor: MediaPlayer.dependencies.LiveEdgeFinder
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.ManifestLoader = function () {
+    "use strict";
+
+    var RETRY_ATTEMPTS = 3,
+        RETRY_INTERVAL = 500,
+        parseBaseUrl = function (url) {
+            var base = null;
+
+            if (url.indexOf("/") !== -1)
+            {
+                if (url.indexOf("?") !== -1) {
+                    url = url.substring(0, url.indexOf("?"));
+                }
+                base = url.substring(0, url.lastIndexOf("/") + 1);
+            }
+
+            return base;
+        },
+
+        doLoad = function (url, remainingAttempts) {
+            var baseUrl = parseBaseUrl(url),
+                request = new XMLHttpRequest(),
+                requestTime = new Date(),
+                loadedTime = null,
+                needFailureReport = true,
+                manifest,
+                onload = null,
+                report = null,
+                self = this;
+
+
+            onload = function () {
+                if (request.status < 200 || request.status > 299)
+                {
+                  return;
+                }
+                needFailureReport = false;
+                loadedTime = new Date();
+
+                self.tokenAuthentication.checkRequestHeaderForToken(request);
+                self.metricsModel.addHttpRequest("stream",
+                                                 null,
+                                                 "MPD",
+                                                 url,
+                                                 null,
+                                                 null,
+                                                 requestTime,
+                                                 loadedTime,
+                                                 request.status,
+                                                 null,
+                                                 null);
+
+                manifest = self.parser.parse(request.responseText, baseUrl);
+
+                if (manifest) {
+                    manifest.url = url;
+                    manifest.loadedTime = loadedTime;
+                    self.metricsModel.addManifestUpdate("stream", manifest.type, requestTime, loadedTime, manifest.availabilityStartTime);
+                    self.notify(self.eventList.ENAME_MANIFEST_LOADED, manifest);
+                } else {
+                    self.notify(self.eventList.ENAME_MANIFEST_LOADED, null, new Error("Failed loading manifest: " + url));
+                }
+            };
+
+            report = function () {
+                if (!needFailureReport)
+                {
+                  return;
+                }
+                needFailureReport = false;
+
+                self.metricsModel.addHttpRequest("stream",
+                                                 null,
+                                                 "MPD",
+                                                 url,
+                                                 null,
+                                                 null,
+                                                 requestTime,
+                                                 new Date(),
+                                                 request.status,
+                                                 null,
+                                                 null);
+                if (remainingAttempts > 0) {
+                    self.debug.log("Failed loading manifest: " + url + ", retry in " + RETRY_INTERVAL + "ms" + " attempts: " + remainingAttempts);
+                    remainingAttempts--;
+                    setTimeout(function() {
+                        doLoad.call(self, url, remainingAttempts);
+                    }, RETRY_INTERVAL);
+                } else {
+                    self.debug.log("Failed loading manifest: " + url + " no retry attempts left");
+                    self.errHandler.downloadError("manifest", url, request);
+                    self.notify(self.eventList.ENAME_MANIFEST_LOADED, null, new Error("Failed loading manifest: " + url + " no retry attempts left"));
+                }
+            };
+
+            try {
+                //this.debug.log("Start loading manifest: " + url);
+                request.onload = onload;
+                request.onloadend = report;
+                request.onerror = report;
+                request.open("GET", url, true);
+                request.send();
+            } catch(e) {
+                request.onerror();
+            }
+        };
+
+    return {
+        debug: undefined,
+        parser: undefined,
+        errHandler: undefined,
+        metricsModel: undefined,
+        tokenAuthentication:undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_MANIFEST_LOADED: "manifestLoaded"
+        },
+
+        load: function(url) {
+            doLoad.call(this, url, RETRY_ATTEMPTS);
+        }
+    };
+};
+
+MediaPlayer.dependencies.ManifestLoader.prototype = {
+    constructor: MediaPlayer.dependencies.ManifestLoader
+};
+
+
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.models.ManifestModel = function () {
+    "use strict";
+
+    var manifest;
+
+    return {
+        system: undefined,
+        eventBus: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_MANIFEST_UPDATED: "manifestUpdated"
+        },
+
+        getValue:  function () {
+            return manifest;
+        },
+
+        setValue: function (value) {
+            manifest = value;
+
+            this.eventBus.dispatchEvent({
+                type: "manifestLoaded",
+                data: value
+            });
+
+            this.notify(this.eventList.ENAME_MANIFEST_UPDATED, value);
+        }
+    };
+};
+
+MediaPlayer.models.ManifestModel.prototype = {
+    constructor: MediaPlayer.models.ManifestModel
+};
+
+
+
+
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.ManifestUpdater = function () {
+    "use strict";
+
+    var refreshDelay = NaN,
+        refreshTimer = null,
+        isStopped = false,
+        isUpdating = false,
+
+        clear = function () {
+            if (refreshTimer !== null) {
+                clearInterval(refreshTimer);
+                refreshTimer = null;
+            }
+        },
+
+        start = function () {
+            clear.call(this);
+
+            if (!isNaN(refreshDelay)) {
+                this.debug.log("Refresh manifest in " + refreshDelay + " seconds.");
+                refreshTimer = setTimeout(onRefreshTimer.bind(this), Math.min(refreshDelay * 1000, Math.pow(2, 31) - 1), this);
+            }
+        },
+
+        update = function () {
+            var self = this,
+                manifest = self.manifestModel.getValue(),
+                delay,
+                timeSinceLastUpdate;
+
+            if (manifest !== undefined && manifest !== null) {
+                delay = self.manifestExt.getRefreshDelay(manifest);
+                timeSinceLastUpdate = (new Date().getTime() - manifest.loadedTime.getTime()) / 1000;
+                refreshDelay = Math.max(delay - timeSinceLastUpdate, 0);
+                start.call(self);
+            }
+        },
+
+        onRefreshTimer = function () {
+            var self = this,
+                manifest,
+                url;
+
+            if (isUpdating) return;
+
+            isUpdating = true;
+            manifest = self.manifestModel.getValue();
+            url = manifest.url;
+
+            if (manifest.hasOwnProperty("Location")) {
+                url = manifest.Location;
+            }
+
+            //self.debug.log("Refresh manifest @ " + url);
+
+            self.manifestLoader.load(url);
+        },
+
+        onManifestLoaded = function(sender, manifest, error) {
+            if (error) return;
+
+            this.manifestModel.setValue(manifest);
+            this.debug.log("Manifest has been refreshed.");
+            //self.debug.log(manifestResult);
+            if (isStopped) return;
+
+            update.call(this);
+        },
+
+        onPlaybackStarted = function() {
+            this.start();
+        },
+
+        onPlaybackPaused = function() {
+            this.stop();
+        },
+
+        onStreamsComposed = function() {
+            // When streams are ready we can consider manifest update completed. Resolve the update promise.
+            isUpdating = false;
+        };
+
+    return {
+        debug: undefined,
+        system: undefined,
+        manifestModel: undefined,
+        manifestExt: undefined,
+        manifestLoader: undefined,
+
+        setup: function () {
+            update.call(this);
+            // Listen to streamsComposed event to be aware that the streams have been composed
+            this.streamsComposed = onStreamsComposed;
+            this.manifestLoaded = onManifestLoaded;
+            this.playbackStarted = onPlaybackStarted;
+            this.playbackPaused = onPlaybackPaused;
+        },
+
+        start: function () {
+            isStopped = false;
+            update.call(this);
+        },
+
+        stop: function() {
+            isStopped = true;
+            clear.call(this);
+        }
+    };
+};
+
+MediaPlayer.dependencies.ManifestUpdater.prototype = {
+    constructor: MediaPlayer.dependencies.ManifestUpdater
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.MediaSourceExtensions = function () {
+    "use strict";
+};
+
+MediaPlayer.dependencies.MediaSourceExtensions.prototype = {
+    constructor: MediaPlayer.dependencies.MediaSourceExtensions,
+
+    createMediaSource: function () {
+        "use strict";
+
+        var hasWebKit = ("WebKitMediaSource" in window),
+            hasMediaSource = ("MediaSource" in window);
+
+        if (hasMediaSource) {
+            return new MediaSource();
+        } else if (hasWebKit) {
+            return new WebKitMediaSource();
+        }
+
+        return null;
+    },
+
+    attachMediaSource: function (source, videoModel) {
+        "use strict";
+
+        videoModel.setSource(window.URL.createObjectURL(source));
+    },
+
+    detachMediaSource: function (videoModel) {
+        "use strict";
+        // it seems that any value passed to the setSource is cast to a sting when setting element.src,
+        // so we cannot use null or undefined to reset the element. Use empty string instead.
+        videoModel.setSource("");
+    },
+
+    setDuration: function (source, value) {
+        "use strict";
+
+        source.duration = value;
+
+        return source.duration;
+    },
+
+    signalEndOfStream: function(source) {
+        "use strict";
+
+        var buffers = source.sourceBuffers,
+            ln = buffers.length,
+            i = 0;
+
+        if (source.readyState !== "open") return;
+
+        for (i; i < ln; i += 1) {
+            if (buffers[i].updating) return;
+        }
+
+        source.endOfStream();
+    }
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.models.MetricsModel = function () {
+    "use strict";
+
+    return {
+        system : undefined,
+        eventBus: undefined,
+        adapter: undefined,
+        streamMetrics: {},
+        metricsChanged: function () {
+            this.eventBus.dispatchEvent({
+                type: "metricsChanged",
+                data: {}
+            });
+        },
+
+        metricChanged: function (mediaType) {
+            this.eventBus.dispatchEvent({
+                type: "metricChanged",
+                data: {stream: mediaType}
+            });
+            this.metricsChanged();
+        },
+
+        metricUpdated: function (mediaType, metricType, vo) {
+            this.eventBus.dispatchEvent({
+                type: "metricUpdated",
+                data: {stream: mediaType, metric: metricType, value: vo}
+            });
+            this.metricChanged(mediaType);
+        },
+
+        metricAdded: function (mediaType, metricType, vo) {
+            this.eventBus.dispatchEvent({
+                type: "metricAdded",
+                data: {stream: mediaType, metric: metricType, value: vo}
+            });
+            this.metricChanged(mediaType);
+        },
+
+        clearCurrentMetricsForType: function (type) {
+            delete this.streamMetrics[type];
+            this.metricChanged(type);
+        },
+
+        clearAllCurrentMetrics: function () {
+            var self = this;
+            this.streamMetrics = {};
+            this.metricsChanged.call(self);
+        },
+
+        getReadOnlyMetricsFor: function(type) {
+            if (this.streamMetrics.hasOwnProperty(type)) {
+                return this.streamMetrics[type];
+            }
+
+            return null;
+        },
+
+        getMetricsFor: function(type) {
+            var metrics;
+
+            if (this.streamMetrics.hasOwnProperty(type)) {
+                metrics = this.streamMetrics[type];
+            } else {
+                metrics = this.system.getObject("metrics");
+                this.streamMetrics[type] = metrics;
+            }
+
+            return metrics;
+        },
+
+        addTcpConnection: function (mediaType, tcpid, dest, topen, tclose, tconnect) {
+            var vo = new MediaPlayer.vo.metrics.TCPConnection();
+
+            vo.tcpid = tcpid;
+            vo.dest = dest;
+            vo.topen = topen;
+            vo.tclose = tclose;
+            vo.tconnect = tconnect;
+
+            this.getMetricsFor(mediaType).TcpList.push(vo);
+
+            this.metricAdded(mediaType, this.adapter.metricsList.TCP_CONNECTION, vo);
+            return vo;
+        },
+
+        addHttpRequest: function (mediaType, tcpid, type, url, actualurl, range, trequest, tresponse, tfinish, responsecode, interval, mediaduration) {
+            var vo = new MediaPlayer.vo.metrics.HTTPRequest();
+
+            vo.stream = mediaType;
+            vo.tcpid = tcpid;
+            vo.type = type;
+            vo.url = url;
+            vo.actualurl = actualurl;
+            vo.range = range;
+            vo.trequest = trequest;
+            vo.tresponse = tresponse;
+            vo.tfinish = tfinish;
+            vo.responsecode = responsecode;
+            vo.interval = interval;
+            vo.mediaduration = mediaduration;
+
+            this.getMetricsFor(mediaType).HttpList.push(vo);
+
+            this.metricAdded(mediaType, this.adapter.metricsList.HTTP_REQUEST, vo);
+            return vo;
+        },
+
+        appendHttpTrace: function (httpRequest, s, d, b) {
+            var vo = new MediaPlayer.vo.metrics.HTTPRequest.Trace();
+
+            vo.s = s;
+            vo.d = d;
+            vo.b = b;
+
+            httpRequest.trace.push(vo);
+
+            this.metricUpdated(httpRequest.stream, this.adapter.metricsList.HTTP_REQUEST_TRACE, httpRequest);
+            return vo;
+        },
+
+        addTrackSwitch: function (mediaType, t, mt, to, lto) {
+            var vo = new MediaPlayer.vo.metrics.TrackSwitch();
+
+            vo.t = t;
+            vo.mt = mt;
+            vo.to = to;
+            vo.lto = lto;
+
+            this.getMetricsFor(mediaType).RepSwitchList.push(vo);
+
+            this.metricAdded(mediaType, this.adapter.metricsList.TRACK_SWITCH, vo);
+            return vo;
+        },
+
+        addBufferLevel: function (mediaType, t, level) {
+            var vo = new MediaPlayer.vo.metrics.BufferLevel();
+
+            vo.t = t;
+            vo.level = level;
+
+            this.getMetricsFor(mediaType).BufferLevel.push(vo);
+
+            this.metricAdded(mediaType, this.adapter.metricsList.BUFFER_LEVEL, vo);
+            return vo;
+        },
+
+
+        addDVRInfo: function (mediaType, currentTime, mpd, range)
+        {
+            var vo = new MediaPlayer.vo.metrics.DVRInfo();
+
+            vo.time = currentTime ;
+            vo.range = range;
+            vo.manifestInfo = mpd;
+
+            this.getMetricsFor(mediaType).DVRInfo.push(vo);
+            this.metricAdded(mediaType, this.adapter.metricsList.DVR_INFO, vo);
+
+            return vo;
+        },
+
+        addDroppedFrames: function (mediaType, quality) {
+            var vo = new MediaPlayer.vo.metrics.DroppedFrames(),
+                list = this.getMetricsFor(mediaType).DroppedFrames;
+
+            vo.time = quality.creationTime;
+            vo.droppedFrames = quality.droppedVideoFrames;
+
+            if (list.length > 0 && list[list.length - 1] == vo) {
+                return list[list.length - 1];
+            }
+
+            list.push(vo);
+
+            this.metricAdded(mediaType, this.adapter.metricsList.DROPPED_FRAMES, vo);
+            return vo;
+        },
+
+        addSchedulingInfo: function(mediaType, t, type, startTime, availabilityStartTime, duration, quality, range, state) {
+            var vo = new MediaPlayer.vo.metrics.SchedulingInfo();
+
+            vo.mediaType = mediaType;
+            vo.t = t;
+
+            vo.type = type;
+            vo.startTime = startTime;
+            vo.availabilityStartTime = availabilityStartTime;
+            vo.duration = duration;
+            vo.quality = quality;
+            vo.range = range;
+
+            vo.state = state;
+
+            this.getMetricsFor(mediaType).SchedulingInfo.push(vo);
+
+            this.metricAdded(mediaType, this.adapter.metricsList.SCHEDULING_INFO, vo);
+            return vo;
+        },
+
+        addManifestUpdate: function(mediaType, type, requestTime, fetchTime, availabilityStartTime, presentationStartTime, clientTimeOffset, currentTime, buffered, latency) {
+            var vo = new MediaPlayer.vo.metrics.ManifestUpdate(),
+                metrics = this.getMetricsFor("stream");
+
+            vo.mediaType = mediaType;
+            vo.type = type;
+            vo.requestTime = requestTime; // when this manifest update was requested
+            vo.fetchTime = fetchTime; // when this manifest update was received
+            vo.availabilityStartTime = availabilityStartTime;
+            vo.presentationStartTime = presentationStartTime; // the seek point (liveEdge for dynamic, Stream[0].startTime for static)
+            vo.clientTimeOffset = clientTimeOffset; // the calculated difference between the server and client wall clock time
+            vo.currentTime = currentTime; // actual element.currentTime
+            vo.buffered = buffered; // actual element.ranges
+            vo.latency = latency; // (static is fixed value of zero. dynamic should be ((Now-@availabilityStartTime) - currentTime)
+
+            metrics.ManifestUpdate.push(vo);
+            this.metricAdded(mediaType, this.adapter.metricsList.MANIFEST_UPDATE, vo);
+
+            return vo;
+        },
+
+        updateManifestUpdateInfo: function(manifestUpdate, updatedFields) {
+            for (var field in updatedFields) {
+                manifestUpdate[field] = updatedFields[field];
+            }
+
+            this.metricUpdated(manifestUpdate.mediaType, this.adapter.metricsList.MANIFEST_UPDATE, manifestUpdate);
+        },
+
+        addManifestUpdateStreamInfo: function(manifestUpdate, id, index, start, duration) {
+            var vo = new MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo();
+
+            vo.id = id;
+            vo.index = index;
+            vo.start = start;
+            vo.duration = duration;
+
+            manifestUpdate.streamInfo.push(vo);
+            this.metricUpdated(manifestUpdate.mediaType, this.adapter.metricsList.MANIFEST_UPDATE_STREAM_INFO, manifestUpdate);
+
+            return vo;
+        },
+
+        addManifestUpdateTrackInfo: function(manifestUpdate, id, index, streamIndex, mediaType, presentationTimeOffset, startNumber, fragmentInfoType) {
+            var vo = new MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo();
+
+            vo.id = id;
+            vo.index = index;
+            vo.streamIndex = streamIndex;
+            vo.mediaType = mediaType;
+            vo.startNumber = startNumber;
+            vo.fragmentInfoType = fragmentInfoType;
+            vo.presentationTimeOffset = presentationTimeOffset;
+
+            manifestUpdate.trackInfo.push(vo);
+            this.metricUpdated(manifestUpdate.mediaType, this.adapter.metricsList.MANIFEST_UPDATE_TRACK_INFO, manifestUpdate);
+
+            return vo;
+        },
+
+        addPlayList: function (mediaType, start, mstart, starttype) {
+            var vo = new MediaPlayer.vo.metrics.PlayList();
+
+            vo.stream = mediaType;
+            vo.start = start;
+            vo.mstart = mstart;
+            vo.starttype = starttype;
+
+            this.getMetricsFor(mediaType).PlayList.push(vo);
+
+            this.metricAdded(mediaType, this.adapter.metricsList.PLAY_LIST, vo);
+            return vo;
+        },
+
+        appendPlayListTrace: function (playList, trackId, subreplevel, start, mstart, duration, playbackspeed, stopreason) {
+            var vo = new MediaPlayer.vo.metrics.PlayList.Trace();
+
+            vo.representationid = trackId;
+            vo.subreplevel = subreplevel;
+            vo.start = start;
+            vo.mstart = mstart;
+            vo.duration = duration;
+            vo.playbackspeed = playbackspeed;
+            vo.stopreason = stopreason;
+
+            playList.trace.push(vo);
+
+            this.metricUpdated(playList.stream, this.adapter.metricsList.PLAY_LIST_TRACE, playList);
+            return vo;
+        }
+    };
+};
+
+MediaPlayer.models.MetricsModel.prototype = {
+    constructor: MediaPlayer.models.MetricsModel
+};;MediaPlayer.dependencies.Notifier = function () {
+    "use strict";
+
+    var system,
+        id = 0,
+
+        getId = function() {
+            if (!this.id) {
+                id += 1;
+                this.id = "_id_" + id;
+            }
+
+            return this.id;
+        },
+
+        isEventSupported = function(eventName) {
+            var event,
+                events = this.eventList;
+
+            for (event in events) {
+                if (events[event] === eventName) return true;
+            }
+
+            return false;
+        };
+
+    return {
+        system : undefined,
+
+        setup: function() {
+            system = this.system;
+            system.mapValue('notify', this.notify);
+            system.mapValue('subscribe', this.subscribe);
+            system.mapValue('unsubscribe', this.unsubscribe);
+        },
+
+        notify: function (/*eventName[, args]*/) {
+            var args = [].slice.call(arguments);
+            args.splice(1, 0, this);
+
+            args[0] += getId.call(this);
+
+            system.notify.apply(system, args);
+        },
+
+        subscribe: function(eventName, observer, handler, oneShot) {
+            if (!handler && observer[eventName]) {
+                handler = observer[eventName] = observer[eventName].bind(observer);
+            }
+
+            if(!isEventSupported.call(this, eventName)) throw ("object does not support given event " + eventName);
+
+            if(!observer) throw "observer object cannot be null or undefined";
+
+            if(!handler) throw "event handler cannot be null or undefined";
+
+            eventName += getId.call(this);
+
+            system.mapHandler(eventName, undefined, handler, oneShot);
+        },
+
+        unsubscribe: function(eventName, observer, handler) {
+            handler = handler || observer[eventName];
+            eventName += getId.call(this);
+
+            system.unmapHandler(eventName, undefined, handler);
+        }
+    };
+};
+
+MediaPlayer.dependencies.Notifier.prototype = {
+    constructor: MediaPlayer.dependencies.Notifier
+};;MediaPlayer.dependencies.PlaybackController = function () {
+    "use strict";
+
+    var WALLCLOCK_TIME_UPDATE_INTERVAL = 1000,
+        currentTime = 0,
+        liveStartTime = NaN,
+        wallclockTimeIntervalId,
+        commonEarliestTime = null,
+        streamInfo,
+        videoModel,
+        trackInfo,
+        isDynamic,
+
+        getStreamStartTime = function (streamInfo) {
+            var presentationStartTime,
+                startTimeOffset = parseInt(this.uriQueryFragModel.getURIFragmentData.s);
+
+            if (isDynamic) {
+
+                if (!isNaN(startTimeOffset) && startTimeOffset > 1262304000) {
+
+                    presentationStartTime = startTimeOffset - (streamInfo.manifestInfo.availableFrom.getTime()/1000);
+
+                    if (presentationStartTime > liveStartTime ||
+                        presentationStartTime < (liveStartTime - streamInfo.manifestInfo.DVRWindowSize)) {
+
+                        presentationStartTime = null;
+                    }
+                }
+                presentationStartTime = presentationStartTime || liveStartTime;
+
+            } else {
+                if (!isNaN(startTimeOffset) && startTimeOffset < streamInfo.duration && startTimeOffset >= 0) {
+                    presentationStartTime = startTimeOffset;
+                }else{
+                    presentationStartTime = streamInfo.start;
+                }
+            }
+
+            return presentationStartTime;
+        },
+
+        getActualPresentationTime = function() {
+            var self = this,
+                currentTime = self.getTime(),
+                metrics = self.metricsModel.getMetricsFor(trackInfo.mediaInfo.type),
+                DVRMetrics = self.metricsExt.getCurrentDVRInfo(metrics),
+                DVRWindow = DVRMetrics ? DVRMetrics.range : null,
+                actualTime;
+
+            if (!DVRWindow) return NaN;
+
+            if ((currentTime >= DVRWindow.start) && (currentTime <= DVRWindow.end)) {
+                return currentTime;
+            }
+
+            actualTime = Math.max(DVRWindow.end - streamInfo.manifestInfo.minBufferTime * 2, DVRWindow.start);
+
+            return actualTime;
+        },
+
+        startUpdatingWallclockTime = function() {
+            var self = this,
+                tick = function() {
+                    onWallclockTime.call(self);
+                };
+
+            if (wallclockTimeIntervalId !== null) {
+                stopUpdatingWallclockTime.call(this);
+            }
+
+            wallclockTimeIntervalId = setInterval(tick, WALLCLOCK_TIME_UPDATE_INTERVAL);
+        },
+
+        stopUpdatingWallclockTime = function() {
+            clearInterval(wallclockTimeIntervalId);
+            wallclockTimeIntervalId = null;
+        },
+
+        initialStart = function() {
+            var initialSeekTime = getStreamStartTime.call(this, streamInfo);
+            this.debug.log("Starting playback at offset: " + initialSeekTime);
+            this.seek(initialSeekTime);
+        },
+
+        updateCurrentTime = function() {
+            if (this.isPaused() || !isDynamic) return;
+
+            var currentTime = this.getTime(),
+                actualTime = getActualPresentationTime.call(this),
+                timeChanged = (!isNaN(actualTime) && actualTime !== currentTime);
+
+            if (timeChanged) {
+                this.seek(actualTime);
+            }
+        },
+
+        onDataUpdateCompleted = function(sender, mediaData, TrackData) {
+            trackInfo = this.adapter.convertDataToTrack(TrackData);
+            streamInfo = trackInfo.mediaInfo.streamInfo;
+            isDynamic = sender.streamProcessor.isDynamic();
+            updateCurrentTime.call(this);
+        },
+
+        onLiveEdgeFound = function(/*sender, liveEdgeTime, searchTime*/) {
+            if (videoModel.getElement().readyState !== 0) {
+                initialStart.call(this);
+            }
+        },
+
+        removeAllListeners = function() {
+            if (!videoModel) return;
+
+            videoModel.unlisten("play", onPlaybackStart);
+            videoModel.unlisten("pause", onPlaybackPaused);
+            videoModel.unlisten("error", onPlaybackError);
+            videoModel.unlisten("seeking", onPlaybackSeeking);
+            videoModel.unlisten("seeked", onPlaybackSeeked);
+            videoModel.unlisten("timeupdate", onPlaybackTimeUpdated);
+            videoModel.unlisten("progress", onPlaybackProgress);
+            videoModel.unlisten("ratechange", onPlaybackRateChanged);
+            videoModel.unlisten("loadedmetadata", onPlaybackMetaDataLoaded);
+        },
+
+        onPlaybackStart = function() {
+            //this.debug.log("Got play event.");
+            updateCurrentTime.call(this);
+            this.notify(this.eventList.ENAME_PLAYBACK_STARTED, this.getTime());
+        },
+
+        onPlaybackPaused = function() {
+            //this.debug.log("Got pause event.");
+            this.notify(this.eventList.ENAME_PLAYBACK_PAUSED);
+        },
+
+        onPlaybackSeeking = function() {
+            //this.debug.log("Got seeking event.");
+            this.notify(this.eventList.ENAME_PLAYBACK_SEEKING, this.getTime(), false);
+        },
+
+        onPlaybackSeeked = function() {
+            //this.debug.log("Seek complete.");
+            this.notify(this.eventList.ENAME_PLAYBACK_SEEKED);
+        },
+
+        onPlaybackTimeUpdated = function() {
+            var time = this.getTime();
+
+            if (time === currentTime) return;
+
+            currentTime = time;
+            this.notify(this.eventList.ENAME_PLAYBACK_TIME_UPDATED, this.getTimeToStreamEnd());
+        },
+
+        onPlaybackProgress = function() {
+            var ranges = videoModel.getElement().buffered,
+                lastRange,
+                bufferEndTime,
+                remainingUnbufferedDuration;
+
+            if (ranges.length) {
+                lastRange = ranges.length -1;
+                bufferEndTime = ranges.end(lastRange);
+                remainingUnbufferedDuration = getStreamStartTime.call(this, streamInfo) + streamInfo.duration - bufferEndTime;
+            }
+
+            this.notify(this.eventList.ENAME_PLAYBACK_PROGRESS, videoModel.getElement().buffered, remainingUnbufferedDuration);
+        },
+
+        onPlaybackRateChanged = function() {
+            this.notify(this.eventList.ENAME_PLAYBACK_RATE_CHANGED);
+        },
+
+        onPlaybackMetaDataLoaded = function() {
+            this.debug.log("Got loadmetadata event.");
+
+            if (!isDynamic || this.timelineConverter.isTimeSyncCompleted()) {
+                initialStart.call(this);
+            }
+
+            this.notify(this.eventList.ENAME_PLAYBACK_METADATA_LOADED);
+            startUpdatingWallclockTime.call(this);
+        },
+
+        onPlaybackError = function(event) {
+            this.notify(this.eventList.ENAME_PLAYBACK_ERROR, event.srcElement.error);
+        },
+
+        onWallclockTime = function() {
+            this.notify(this.eventList.ENAME_WALLCLOCK_TIME_UPDATED,isDynamic, new Date());
+        },
+
+        onBytesAppended = function(sender, quality, index, ranges) {
+            var bufferedStart,
+                currentEarliestTime = commonEarliestTime,
+                playbackStart = getStreamStartTime.call(this, streamInfo),
+                req;
+
+            if (!ranges || !ranges.length) return;
+
+            // since segments are appended out of order, we cannot blindly seek after the first appended segment.
+            // Do nothing till we make sure that the segment for initial time has been appended.
+            req = this.adapter.getFragmentRequestForTime(sender.streamProcessor, trackInfo, playbackStart, false);
+
+            if (!req || req.index !== index) return;
+
+            bufferedStart = ranges.start(0);
+            commonEarliestTime = (commonEarliestTime === null) ? bufferedStart : Math.max(commonEarliestTime, bufferedStart);
+
+            if (currentEarliestTime === commonEarliestTime) return;
+
+            // seek to the start of buffered range to avoid stalling caused by a shift between audio and video media time
+            this.seek(commonEarliestTime);
+        },
+
+        setupVideoModel = function(model) {
+            videoModel = model;
+
+            videoModel.listen("play", onPlaybackStart);
+            videoModel.listen("pause", onPlaybackPaused);
+            videoModel.listen("error", onPlaybackError);
+            videoModel.listen("seeking", onPlaybackSeeking);
+            videoModel.listen("seeked", onPlaybackSeeked);
+            videoModel.listen("timeupdate", onPlaybackTimeUpdated);
+            videoModel.listen("progress", onPlaybackProgress);
+            videoModel.listen("ratechange", onPlaybackRateChanged);
+            videoModel.listen("loadedmetadata", onPlaybackMetaDataLoaded);
+        };
+
+    return {
+        debug: undefined,
+        timelineConverter: undefined,
+        uriQueryFragModel: undefined,
+        metricsModel: undefined,
+        metricsExt: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        adapter: undefined,
+
+        eventList: {
+            ENAME_PLAYBACK_STARTED: "playbackStarted",
+            ENAME_PLAYBACK_STOPPED: "playbackStopped",
+            ENAME_PLAYBACK_PAUSED: "playbackPaused",
+            ENAME_PLAYBACK_SEEKING: "playbackSeeking",
+            ENAME_PLAYBACK_SEEKED: "playbackSeeked",
+            ENAME_PLAYBACK_TIME_UPDATED: "playbackTimeUpdated",
+            ENAME_PLAYBACK_PROGRESS: "playbackProgress",
+            ENAME_PLAYBACK_RATE_CHANGED: "playbackRateChanged",
+            ENAME_PLAYBACK_METADATA_LOADED: "playbackMetaDataLoaded",
+            ENAME_PLAYBACK_ERROR: "playbackError",
+            ENAME_WALLCLOCK_TIME_UPDATED: "wallclockTimeUpdated"
+        },
+
+        setup: function() {
+            this.dataUpdateCompleted = onDataUpdateCompleted;
+            this.liveEdgeFound = onLiveEdgeFound;
+            this.bytesAppended = onBytesAppended;
+
+            onPlaybackStart = onPlaybackStart.bind(this);
+            onPlaybackPaused = onPlaybackPaused.bind(this);
+            onPlaybackError = onPlaybackError.bind(this);
+            onPlaybackSeeking = onPlaybackSeeking.bind(this);
+            onPlaybackSeeked = onPlaybackSeeked.bind(this);
+            onPlaybackTimeUpdated = onPlaybackTimeUpdated.bind(this);
+            onPlaybackProgress = onPlaybackProgress.bind(this);
+            onPlaybackRateChanged = onPlaybackRateChanged.bind(this);
+            onPlaybackMetaDataLoaded = onPlaybackMetaDataLoaded.bind(this);
+        },
+
+        initialize: function(streamInfoValue, model) {
+            streamInfo = streamInfoValue;
+
+            if (videoModel === model) return;
+
+            removeAllListeners.call(this);
+            setupVideoModel.call(this, model);
+        },
+
+        getTimeToStreamEnd: function() {
+            var currentTime = videoModel.getCurrentTime();
+
+            return ((getStreamStartTime.call(this, streamInfo) + streamInfo.duration) - currentTime);
+        },
+
+        getStreamId: function() {
+            return streamInfo.id;
+        },
+
+        getStreamDuration: function() {
+            return streamInfo.duration;
+        },
+
+        getTime: function() {
+            return videoModel.getCurrentTime();
+        },
+
+        getPlaybackRate: function() {
+            return videoModel.getPlaybackRate();
+        },
+
+        setLiveStartTime: function(value) {
+            liveStartTime = value;
+        },
+
+        getLiveStartTime: function() {
+            return liveStartTime;
+        },
+
+        start: function() {
+            videoModel.play();
+        },
+
+        isPaused: function() {
+            return videoModel.isPaused();
+        },
+
+        pause: function() {
+            if (videoModel) {
+                videoModel.pause();
+            }
+        },
+
+        isSeeking: function(){
+            return videoModel.getElement().seeking;
+        },
+
+        seek: function(time) {
+            if (time === this.getTime()) return;
+            videoModel.setCurrentTime(time);
+            this.notify(this.eventList.ENAME_PLAYBACK_SEEKING, time, true);
+        },
+
+        reset: function() {
+            stopUpdatingWallclockTime.call(this);
+            removeAllListeners.call(this);
+            videoModel = null;
+            streamInfo = null;
+            currentTime = 0;
+            liveStartTime = NaN;
+            commonEarliestTime = null;
+        }
+    };
+};
+
+MediaPlayer.dependencies.PlaybackController.prototype = {
+    constructor: MediaPlayer.dependencies.PlaybackController
+};;// The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+//
+// Copyright (c) 2013, Microsoft Open Technologies, Inc.
+//
+// All rights reserved.
+// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//     -             Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//     -             Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+//     -             Neither the name of the Microsoft Open Technologies, Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+MediaPlayer.dependencies.ProtectionController = function () {
+    "use strict";
+
+    var element = null,
+        keySystems = null,
+
+        teardownKeySystem = function (kid) {
+            var self = this;
+            self.protectionModel.removeKeySystem(kid);
+        },
+
+        selectKeySystem = function (mediaInfo) {
+            var self = this,
+                codec = mediaInfo.codec,
+                contentProtection = mediaInfo.contentProtection;
+
+            for(var ks = 0; ks < keySystems.length; ++ks) {
+                for(var cp = 0; cp < contentProtection.length; ++cp) {
+                    if (keySystems[ks].isSupported(contentProtection[cp]) &&
+                        self.protectionExt.supportsCodec(keySystems[ks].keysTypeString, codec)) {
+
+                        var kid = contentProtection[cp].KID;
+                        if (!kid) {
+                            kid = "unknown";
+                        }
+
+                        self.protectionModel.addKeySystem(kid, contentProtection[cp], keySystems[ks]);
+
+                        self.debug.log("DRM: Selected Key System: " + keySystems[ks].keysTypeString + " For KID: " + kid);
+
+                        return kid;
+                    }
+                }
+            }
+            throw new Error("DRM: The protection system for this content is not supported.");
+        },
+
+        ensureKeySession = function (kid, codec, event) {
+            var self = this,
+                session = null,
+                eventInitData = event.initData,
+                initData = null;
+
+            if (!self.protectionModel.needToAddKeySession(kid, event)) {
+                return;
+            }
+
+            initData = self.protectionModel.getInitData(kid);
+
+            if (!initData && !!eventInitData) {
+                initData = eventInitData;
+                self.debug.log("DRM: Using initdata from needskey event. length: " + initData.length);
+            }
+            else if (!!initData){
+                self.debug.log("DRM: Using initdata from prheader in mpd. length: " + initData.length);
+            }
+
+            if (!!initData) {
+                session = self.protectionModel.addKeySession(kid, codec, initData);
+                if (session) {
+                    self.debug.log("DRM: Added Key Session [" + session.sessionId + "] for KID: " + kid + " type: " + codec + " initData length: " + initData.length);
+                } else {
+                    self.debug.log("DRM: Added Key Session for KID: " + kid + " type: " + codec + " initData length: " + initData.length);
+                }
+            }
+            else {
+                self.debug.log("DRM: initdata is null.");
+            }
+        },
+
+        updateFromMessage = function (kid, session, event) {
+            this.protectionModel.updateFromMessage(kid, session, event);
+        };
+
+    return {
+        system : undefined,
+        debug : undefined,
+        capabilities : undefined,
+        protectionModel : undefined,
+        protectionExt : undefined,
+
+        setup : function () {
+        },
+
+        init: function (videoModel, protectionModel, protectionData) {
+            keySystems = this.protectionExt.getKeySystems(protectionData);
+            this.videoModel = videoModel;
+            this.protectionModel = protectionModel;
+            element = this.videoModel.getElement();
+        },
+
+        getBearerToken: function(keySystem) {
+            var i = 0,
+                ln = keySystems.length,
+                ks;
+
+            for (i; i < ln; i += 1) {
+                ks = keySystems[i];
+                if (ks.keysTypeString === keySystem) return ks.bearerToken;
+            }
+
+            return null;
+        },
+
+        setBearerToken: function(tokenObj) {
+            var i = 0,
+                ln = keySystems.length,
+                ks;
+
+            for (i; i < ln; i += 1) {
+                ks = keySystems[i];
+                if (ks.keysTypeString === tokenObj.keySystem){
+                    ks.bearerToken = tokenObj.token;
+                }
+            }
+        },
+
+        selectKeySystem : selectKeySystem,
+        ensureKeySession : ensureKeySession,
+        updateFromMessage : updateFromMessage,
+        teardownKeySystem : teardownKeySystem
+    };
+};
+
+MediaPlayer.dependencies.ProtectionController.prototype = {
+    constructor: MediaPlayer.dependencies.ProtectionController
+};
+;// The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+//
+// Copyright (c) 2013, Microsoft Open Technologies, Inc. 
+//
+// All rights reserved.
+// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//     -             Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//     -             Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+//     -             Neither the name of the Microsoft Open Technologies, Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+MediaPlayer.dependencies.ProtectionExtensions = function () {
+    "use strict";
+};
+
+MediaPlayer.dependencies.ProtectionExtensions.prototype = {
+    constructor: MediaPlayer.dependencies.ProtectionExtensions,
+    notify: undefined,
+    subscribe: undefined,
+    unsubscribe: undefined,
+    eventList: {
+        ENAME_KEY_SYSTEM_UPDATE_COMPLETED: "keySystemUpdateCompleted"
+    },
+
+    supportsCodec: function (mediaKeysString, codec) {
+        "use strict";
+
+        var hasWebKit = ("WebKitMediaKeys" in window),
+            hasMs = ("MSMediaKeys" in window),
+            hasMediaSource = ("MediaKeys" in window),
+            hasWebkitGenerateKeyRequest = ('webkitGenerateKeyRequest' in document.createElement('video'));
+
+        if (hasMediaSource) {
+            return MediaKeys.isTypeSupported(mediaKeysString, codec);
+        } else if (hasWebKit) {
+            return WebKitMediaKeys.isTypeSupported(mediaKeysString, codec);
+        } else if (hasMs) {
+            return MSMediaKeys.isTypeSupported(mediaKeysString, codec);
+        } else if (hasWebkitGenerateKeyRequest) {
+            // Chrome doesn't currently support a way to check for isTypeSupported, so we are assuming it is
+            return true;
+        }
+
+        return false;
+    },
+
+    createMediaKeys: function (mediaKeysString) {
+        "use strict";
+
+        var hasWebKit = ("WebKitMediaKeys" in window),
+            hasMs = ("MSMediaKeys" in window),
+            hasMediaSource = ("MediaKeys" in window);
+
+        if (hasMediaSource) {
+            return new MediaKeys(mediaKeysString);
+        } else if (hasWebKit) {
+            return new WebKitMediaKeys(mediaKeysString);
+        } else if (hasMs) {
+            return new MSMediaKeys(mediaKeysString);
+        }
+
+        return null;
+    },
+
+    setMediaKey: function (element, mediaKeys) {
+        var hasWebKit = ("WebKitSetMediaKeys" in element),
+            hasMs = ("msSetMediaKeys" in element),
+            hasStd = ("SetMediaKeys" in element),
+            hasWebkitGenerateKeyRequest = ('webkitGenerateKeyRequest' in document.createElement('video'));
+
+        if (hasStd) {
+            return element.SetMediaKeys(mediaKeys);
+        } else if (hasWebKit) {
+            return element.WebKitSetMediaKeys(mediaKeys);
+        } else if (hasMs) {
+            return element.msSetMediaKeys(mediaKeys);
+        } else if (hasWebkitGenerateKeyRequest) {
+            // Not yet supported by Chrome, and not necessary for the current Widevine implementation
+            return true;
+        } else {
+            this.debug.log("no setmediakeys function in element");
+        }
+    },
+
+    createSession: function (mediaKeys, mediaCodec, initData, cdmData) {
+        if (null !== cdmData) {
+            return mediaKeys.createSession(mediaCodec, initData, cdmData);
+        }
+        return mediaKeys.createSession(mediaCodec, initData);
+    },
+
+    getKeySystems: function (protectionData) {
+        var self = this,
+            _protectionData = protectionData,
+            getLAUrl = function (laUrl, keysystem) {
+                if (protectionData[keysystem] != undefined) {
+                    if (protectionData[keysystem].laUrl != null && protectionData[keysystem].laUrl != '') {
+                        return protectionData[keysystem].laUrl;
+                    }
+                }
+                return laUrl;
+            }
+            playreadyGetUpdate = function (event) {
+                var decodedChallenge = null,
+                    headers = [],
+                    parser = new DOMParser(),
+                    xmlDoc,
+                    msg,
+                    laURL;
+
+                bytes = new Uint16Array(event.message.buffer);
+                msg = String.fromCharCode.apply(null, bytes);
+                xmlDoc = parser.parseFromString(msg, "application/xml");
+                laURL = event.destinationURL;
+
+                if (xmlDoc.getElementsByTagName("Challenge")[0]) {
+                    var Challenge = xmlDoc.getElementsByTagName("Challenge")[0].childNodes[0].nodeValue;
+                    if (Challenge) {
+                        decodedChallenge = BASE64.decode(Challenge);
+                    }
+                }
+                else {
+                    self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: playready update, can not find Challenge in keyMessage'));
+                }
+
+                var headerNameList = xmlDoc.getElementsByTagName("name");
+                var headerValueList = xmlDoc.getElementsByTagName("value");
+
+                if (headerNameList.length != headerValueList.length) {
+                    self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: playready update, invalid header name/value pair in keyMessage'));
+                }
+
+                for (var i = 0; i < headerNameList.length; i++) {
+                    headers[i] = {
+                        name: headerNameList[i].childNodes[0].nodeValue,
+                        value: headerValueList[i].childNodes[0].nodeValue
+                    };
+                }
+
+                if (this.bearerToken) {
+                    headers.push({name: "Authorization", value: this.bearerToken});
+                }
+
+                var xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    if (xhr.status == 200) {
+                        self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, new Uint8Array(xhr.response));
+                    } else {
+                        self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: playready update, XHR status is "' + xhr.statusText + '" (' + xhr.status + '), expected to be 200. readyState is ' + xhr.readyState));
+                    }
+                };
+                xhr.onabort = function () {
+                    self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: playready update, XHR aborted. status is "' + xhr.statusText + '" (' + xhr.status + '), readyState is ' + xhr.readyState));
+                };
+                xhr.onerror = function () {
+                    self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: playready update, XHR error. status is "' + xhr.statusText + '" (' + xhr.status + '), readyState is ' + xhr.readyState));
+                };
+
+                xhr.open('POST', getLAUrl(laURL, "com.microsoft.playready"));
+                xhr.responseType = 'arraybuffer';
+                var key, headerOverrides = (_protectionData["com.microsoft.playready"]) ? _protectionData["com.microsoft.playready"].headers : null;
+                if (headerOverrides) {
+                    for (key in headerOverrides) {
+                        headers.push({name: key, value: headerOverrides[key]});
+                    }
+                }
+                if (headers) {
+                    headers.forEach(function(hdr) {
+                        if ('authorization' === hdr.name.toLowerCase()) {
+                            xhr.withCredentials = true;
+                        }
+
+                        xhr.setRequestHeader(hdr.name, hdr.value);
+                    });
+                }
+                xhr.send(decodedChallenge);
+            },
+            playReadyNeedToAddKeySession = function (initData, keySessions, event) {
+                return initData === null && keySessions.length === 0;
+            },
+            playreadyGetInitData = function (data) {
+                    // * desc@ getInitData
+                    // *   generate PSSH data from PROHeader defined in MPD file
+                    // *   PSSH format:
+                    // *   size (4)
+                    // *   box type(PSSH) (8)
+                    // *   Protection SystemID (16)
+                    // *   protection system data size (4) - length of decoded PROHeader
+                    // *   decoded PROHeader data from MPD file  
+                    var byteCursor = 0,
+                        PROSize = 0,
+                        PSSHSize = 0,
+                        PSSHBoxType =  new Uint8Array([0x70, 0x73, 0x73, 0x68, 0x00, 0x00, 0x00, 0x00 ]), //'PSSH' 8 bytes
+                        playreadySystemID = new Uint8Array([0x9a, 0x04, 0xf0, 0x79, 0x98, 0x40, 0x42, 0x86, 0xab, 0x92, 0xe6, 0x5b, 0xe0, 0x88, 0x5f, 0x95]),
+                        uint8arraydecodedPROHeader = null,
+                        PSSHBoxBuffer = null,
+                        PSSHBox = null,
+                        PSSHData = null;
+
+                    if ("pro" in data) {
+                        uint8arraydecodedPROHeader = BASE64.decodeArray(data.pro.__text);
+                    }
+                    else if ("prheader" in data) {
+                        uint8arraydecodedPROHeader = BASE64.decodeArray(data.prheader.__text);
+                    }
+                    else {
+                        return null;
+                    }
+
+                    PROSize = uint8arraydecodedPROHeader.length;
+                    PSSHSize = 0x4 + PSSHBoxType.length + playreadySystemID.length + 0x4 + PROSize;
+
+                    PSSHBoxBuffer = new ArrayBuffer(PSSHSize);
+
+                    PSSHBox = new Uint8Array(PSSHBoxBuffer);
+                    PSSHData = new DataView(PSSHBoxBuffer);
+
+                    PSSHData.setUint32(byteCursor, PSSHSize);
+                    byteCursor += 0x4;
+
+                    PSSHBox.set(PSSHBoxType, byteCursor);
+                    byteCursor += PSSHBoxType.length;
+
+                    PSSHBox.set(playreadySystemID, byteCursor);
+                    byteCursor += playreadySystemID.length;
+
+                    PSSHData.setUint32(byteCursor, PROSize);
+                    byteCursor += 0x4;
+
+                    PSSHBox.set(uint8arraydecodedPROHeader, byteCursor);
+                    byteCursor += PROSize;
+
+                    return PSSHBox;
+            },
+            playReadyCdmData = function () {
+                if (protectionData["com.microsoft.playready"] != undefined) {
+                    if (protectionData["com.microsoft.playready"].cdmData != null && protectionData["com.microsoft.playready"].cdmData != '') {
+
+                        var cdmDataArray = [],
+                            charCode,
+                            cdmData = protectionData["com.microsoft.playready"].cdmData;
+                        cdmDataArray.push(239);
+                        cdmDataArray.push(187);
+                        cdmDataArray.push(191);
+                        for (var i = 0, j = cdmData.length; i < j; ++i) {
+                            charCode = cdmData.charCodeAt(i);
+                            cdmDataArray.push((charCode & 0xFF00) >> 8);
+                            cdmDataArray.push(charCode & 0xFF);
+                        }
+
+                        return new Uint8Array(cdmDataArray);
+                    }
+                }
+                return null;
+            },
+            widevineNeedToAddKeySession = function(initData, keySession, event){
+                event.target.webkitGenerateKeyRequest("com.widevine.alpha", event.initData);
+
+                return true;
+            },
+            widevineGetUpdate =  function (event) {
+                var xhr = new XMLHttpRequest(),
+                    headers = [];
+                xhr.open("POST", getLAUrl("", "com.widevine.alpha"), true);
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function(e) {
+                    if (this.status == 200) {
+                        var key = new Uint8Array(this.response);
+                        event.target.webkitAddKey("com.widevine.alpha", key, event.initData, event.sessionId);
+
+                        self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, key);
+                    } else {
+                        self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: widevine update, XHR status is "' + xhr.statusText + '" (' + xhr.status + '), expected to be 200. readyState is ' + xhr.readyState));
+                    }
+                }
+                xhr.onabort = function () {
+                    self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: widevine update, XHR aborted. status is "' + xhr.statusText + '" (' + xhr.status + '), readyState is ' + xhr.readyState));
+                };
+                xhr.onerror = function () {
+                    self.notify(self.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, null, new Error('DRM: widevine update, XHR error. status is "' + xhr.statusText + '" (' + xhr.status + '), readyState is ' + xhr.readyState));
+                };
+
+                var key, headerOverrides = (_protectionData["com.widevine.alpha"]) ? _protectionData["com.widevine.alpha"].headers : null;
+                if (headerOverrides) {
+                    for (key in headerOverrides) {
+                        headers.push({name: key, value: headerOverrides[key]});
+                    }
+                }
+                if (headers) {
+                    headers.forEach(function(hdr) {
+                        if ('authorization' === hdr.name.toLowerCase()) {
+                            xhr.withCredentials = true;
+                        }
+
+                        xhr.setRequestHeader(hdr.name, hdr.value);
+                    });
+                }
+
+                xhr.send(event.message);
+            }
+
+        //
+        // order by priority. if an mpd contains more than one the first match will win.
+        // Entries with the same schemeIdUri can appear multiple times with different keysTypeStrings.
+        //
+        return [
+            {
+                schemeIdUri: "urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed",
+                keysTypeString: "com.widevine.alpha",
+                isSupported: function (data) {
+                    return this.schemeIdUri === data.schemeIdUri.toLowerCase();},
+                needToAddKeySession: widevineNeedToAddKeySession,
+                getInitData: function (/*data*/) {
+                    // the cenc element in mpd does not contain initdata
+                    return null;},
+                getUpdate: widevineGetUpdate,
+                cdmData: function() {return null;}
+            },
+            {
+                schemeIdUri: "urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95",
+                keysTypeString: "com.microsoft.playready",
+                isSupported: function (data) {
+                    return this.schemeIdUri === data.schemeIdUri.toLowerCase();},
+                needToAddKeySession: playReadyNeedToAddKeySession,
+                getInitData: playreadyGetInitData,
+                getUpdate: playreadyGetUpdate,
+                cdmData: playReadyCdmData
+            },
+            {
+                schemeIdUri: "urn:mpeg:dash:mp4protection:2011",
+                keysTypeString: "com.widevine.alpha",
+                isSupported: function (data) {
+                    return this.schemeIdUri === data.schemeIdUri.toLowerCase() && data.value.toLowerCase() === "cenc";},
+                needToAddKeySession: widevineNeedToAddKeySession,
+                getInitData: function (/*data*/) {
+                    // the cenc element in mpd does not contain initdata
+                    return null;},
+                getUpdate: widevineGetUpdate,
+                cdmData: function() {return null;}
+            },
+            {
+                schemeIdUri: "urn:mpeg:dash:mp4protection:2011",
+                keysTypeString: "com.microsoft.playready",
+                isSupported: function (data) {
+                    return this.schemeIdUri === data.schemeIdUri.toLowerCase() && data.value.toLowerCase() === "cenc";},
+                needToAddKeySession: playReadyNeedToAddKeySession,
+                getInitData: function (/*data*/) {
+                    // the cenc element in mpd does not contain initdata
+                    return null;},
+                getUpdate: playreadyGetUpdate,
+                cdmData: playReadyCdmData
+            },
+            {
+                schemeIdUri: "urn:uuid:00000000-0000-0000-0000-000000000000",
+                keysTypeString: "webkit-org.w3.clearkey",
+                isSupported: function (data) {
+                    return this.schemeIdUri === data.schemeIdUri.toLowerCase();},
+                needToAddKeySession: function (/*initData, keySessions*/) {
+                    return true;},
+                getInitData: function (/*data*/) {
+                    return null;},
+                getUpdate: function (event) {
+                    bytes = new Uint16Array(event.message.buffer);
+                    msg = String.fromCharCode.apply(null, bytes);
+                    return msg;
+                },
+                cdmData: function() {return null;}
+            }
+        ];
+    },
+
+    addKey: function (element, type, key, data, id) {
+        element.webkitAddKey(type, key, data, id);
+    },
+
+    generateKeyRequest: function(element, type, data) {
+        element.webkitGenerateKeyRequest(type, data);
+    },
+
+    listenToNeedKey: function(videoModel, listener) {
+        videoModel.listen("webkitneedkey", listener);
+        videoModel.listen("msneedkey", listener);
+        videoModel.listen("needKey", listener);
+    },
+
+    listenToKeyError: function(source, listener) {
+        source.addEventListener("webkitkeyerror", listener, false);
+        source.addEventListener("mskeyerror", listener, false);
+        source.addEventListener("keyerror", listener, false);
+    },
+
+    listenToKeyMessage: function(source, listener) {
+        source.addEventListener("webkitkeymessage", listener, false);
+        source.addEventListener("mskeymessage", listener, false);
+        source.addEventListener("keymessage", listener, false);
+    },
+
+    listenToKeyAdded: function(source, listener) {
+        source.addEventListener("webkitkeyadded", listener, false);
+        source.addEventListener("mskeyadded", listener, false);
+        source.addEventListener("keyadded", listener, false);
+    },
+
+    unlistenToKeyError: function(source, listener) {
+        source.removeEventListener("webkitkeyerror", listener);
+        source.removeEventListener("mskeyerror", listener);
+        source.removeEventListener("keyerror", listener);
+    },
+
+    unlistenToKeyMessage: function(source, listener) {
+        source.removeEventListener("webkitkeymessage", listener);
+        source.removeEventListener("mskeymessage", listener);
+        source.removeEventListener("keymessage", listener);
+    },
+
+    unlistenToKeyAdded: function(source, listener) {
+        source.removeEventListener("webkitkeyadded", listener);
+        source.removeEventListener("mskeyadded", listener);
+        source.removeEventListener("keyadded", listener);
+    }
+
+};;// The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+//
+// Copyright (c) 2013, Microsoft Open Technologies, Inc. 
+//
+// All rights reserved.
+// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//     -             Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//     -             Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+//     -             Neither the name of the Microsoft Open Technologies, Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+MediaPlayer.models.ProtectionModel = function () {
+    "use strict";
+
+    var element = null,
+        keyAddedListener = null,
+        keyErrorListener = null,
+        keyMessageListener = null,
+        session,
+        keySystems = [],
+
+        onKeySystemUpdateCompleted = function(sender, data, error) {
+            var hasWebkitGenerateKeyRequest = ('webkitGenerateKeyRequest' in document.createElement('video'));
+
+            if (error) return;
+
+            if (!hasWebkitGenerateKeyRequest) {
+                session.update(data);
+            }
+        };
+
+    return {
+        system : undefined,
+        protectionExt : undefined,
+
+        setup: function() {
+            this.keySystemUpdateCompleted = onKeySystemUpdateCompleted;
+        },
+
+        init: function (videoModel) {
+            this.videoModel = videoModel;
+            element = this.videoModel.getElement();
+        },
+
+        addKeySession: function (kid, mediaCodec, initData) {
+            var session = null,
+                hasWebkitGenerateKeyRequest = ('webkitGenerateKeyRequest' in document.createElement('video'));
+
+            if (!hasWebkitGenerateKeyRequest) {
+                session = this.protectionExt.createSession(keySystems[kid].keys, mediaCodec, initData, keySystems[kid].keySystem.cdmData());
+
+                this.protectionExt.listenToKeyAdded(session, keyAddedListener);
+                this.protectionExt.listenToKeyError(session, keyErrorListener);
+                this.protectionExt.listenToKeyMessage(session, keyMessageListener);
+            } else {
+                this.protectionExt.listenToKeyMessage(this.videoModel.getElement(), keyMessageListener);
+            }
+
+            keySystems[kid].initData = initData;
+            keySystems[kid].keySessions.push(session);
+
+            return session;
+        },
+
+        addKeySystem: function (kid, contentProtectionData, keySystemDesc) {
+            var keysLocal = null;
+
+            keysLocal = this.protectionExt.createMediaKeys(keySystemDesc.keysTypeString);
+
+            this.protectionExt.setMediaKey(element, keysLocal);
+
+            keySystems[kid] = {
+                kID : kid,
+                contentProtection : contentProtectionData,
+                keySystem : keySystemDesc,
+                keys : keysLocal,
+                initData : null,
+                keySessions : []
+            };
+        },
+
+        removeKeySystem: function (kid) {
+            if (kid !== null && keySystems[kid] !== undefined && keySystems[kid].keySessions.length !== 0) {
+                var keySessions = keySystems[kid].keySessions;
+
+                for(var kss = 0; kss < keySessions.length; ++kss) {
+                    this.protectionExt.unlistenToKeyError(keySessions[kss], keyErrorListener);
+                    this.protectionExt.unlistenToKeyAdded(keySessions[kss], keyAddedListener);
+                    this.protectionExt.unlistenToKeyMessage(keySessions[kss], keyMessageListener);
+                    keySessions[kss].close();
+                }
+
+                keySystems[kid] = undefined;
+            }
+        },
+
+        needToAddKeySession: function (kid, event) {
+            var keySystem = null;
+            keySystem = keySystems[kid];
+            return keySystem.keySystem.needToAddKeySession(keySystem.initData, keySystem.keySessions, event);
+        },
+
+        getInitData: function (kid) {
+            var keySystem = null;
+            keySystem = keySystems[kid];
+            return keySystem.keySystem.getInitData(keySystem.contentProtection);
+        },
+
+        updateFromMessage: function (kid, sessionValue, event) {
+            session = sessionValue;
+            keySystems[kid].keySystem.getUpdate(event);
+        },
+/*
+        addKey: function (type, key, data, id) {
+            this.protectionExt.addKey(element, type, key, data, id);
+        },
+
+        generateKeyRequest: function(type, data) {
+            this.protectionExt.webkitGenerateKeyRequest(element, type, data);
+        },
+*/
+        listenToNeedKey: function(listener) {
+            this.protectionExt.listenToNeedKey(this.videoModel, listener);
+        },
+
+        listenToKeyError: function(listener) {
+            keyErrorListener = listener;
+
+            for(var ks = 0; ks < keySystems.length; ++ks) {
+                var keySessions = keySystems[ks].keySessions;
+
+                for(var kss = 0; kss < keySessions.length; ++kss) {
+                    this.protectionExt.listenToKeyError(keySessions[kss], listener);
+                }
+            }
+        },
+
+        listenToKeyMessage: function(listener) {
+            keyMessageListener = listener;
+
+            for(var ks = 0; ks < keySystems.length; ++ks) {
+                var keySessions = keySystems[ks].keySessions;
+
+                for(var kss = 0; kss < keySessions.length; ++kss) {
+                    this.protectionExt.listenToKeyMessage(keySessions[kss], listener);
+                }
+            }
+        },
+
+        listenToKeyAdded: function(listener) {
+            keyAddedListener = listener;
+
+            for(var ks = 0; ks < keySystems.length; ++ks) {
+                var keySessions = keySystems[ks].keySessions;
+
+                for(var kss = 0; kss < keySessions.length; ++kss) {
+                    this.protectionExt.listenToKeyAdded(keySessions[kss], listener);
+                }
+            }
+        }
+    };
+};
+
+MediaPlayer.models.ProtectionModel.prototype = {
+    constructor: MediaPlayer.models.ProtectionModel
+};;MediaPlayer.dependencies.ScheduleController = function () {
+    "use strict";
+
+    var fragmentsToLoad = 0,
+        type,
+        ready,
+        fragmentModel,
+        isDynamic,
+        currentTrackInfo,
+        initialPlayback = true,
+        lastValidationTime = null,
+
+        isStopped = false,
+
+        playListMetrics = null,
+        playListTraceMetrics = null,
+        playListTraceMetricsClosed = true,
+
+        clearPlayListTraceMetrics = function (endTime, stopreason) {
+            var duration = 0,
+                startTime = null;
+
+            if (playListTraceMetricsClosed === false) {
+                startTime = playListTraceMetrics.start;
+                duration = endTime.getTime() - startTime.getTime();
+
+                playListTraceMetrics.duration = duration;
+                playListTraceMetrics.stopreason = stopreason;
+
+                playListTraceMetricsClosed = true;
+            }
+        },
+
+        doStart = function () {
+            if (!ready) return;
+
+            isStopped = false;
+
+            var currentTime = new Date();
+            clearPlayListTraceMetrics(currentTime, MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON);
+            playListMetrics = this.metricsModel.addPlayList(type, currentTime, 0, MediaPlayer.vo.metrics.PlayList.INITIAL_PLAY_START_REASON);
+
+            if (initialPlayback) {
+                initialPlayback = false;
+            }
+
+            this.debug.log("ScheduleController " + type + " start.");
+
+            //this.debug.log("ScheduleController begin " + type + " validation");
+            validate.call(this);
+        },
+
+        startOnReady = function() {
+            if (initialPlayback) {
+                getInitRequest.call(this, currentTrackInfo.quality);
+            }
+
+            doStart.call(this);
+        },
+
+        doStop = function (cancelPending) {
+            if (isStopped) return;
+
+            isStopped = true;
+
+            this.debug.log("ScheduleController " + type + " stop.");
+            // cancel the requests that have already been created, but not loaded yet.
+            if (cancelPending) {
+                this.fragmentController.cancelPendingRequestsForModel(fragmentModel);
+            }
+
+            clearPlayListTraceMetrics(new Date(), MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON);
+        },
+
+        getNextFragment = function (callback) {
+            var self =this,
+                rules = self.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.NEXT_FRAGMENT_RULES);
+
+            self.rulesController.applyRules(rules, self.streamProcessor, callback, null, function(currentValue, newValue) {
+                return newValue;
+            });
+        },
+
+        getInitRequest = function(quality) {
+            var self = this,
+                request;
+
+            request = self.adapter.getInitRequest(self.streamProcessor, quality);
+
+            if (request !== null) {
+                //self.debug.log("Loading initialization: " + request.mediaType + ":" + request.startTime);
+                //self.debug.log(request);
+                self.fragmentController.prepareFragmentForLoading(self, request);
+            }
+
+            return request;
+        },
+
+        getRequiredFragmentCount = function(callback) {
+            var self =this,
+                rules = self.scheduleRulesCollection.getRules(MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_SCHEDULE_RULES);
+
+            self.rulesController.applyRules(rules, self.streamProcessor, callback, fragmentsToLoad, function(currentValue, newValue) {
+                return Math.min(currentValue, newValue);
+            });
+        },
+
+        replaceCanceledPendingRequests = function(canceledRequests) {
+            var ln = canceledRequests.length,
+            // EPSILON is used to avoid javascript floating point issue, e.g. if request.startTime = 19.2,
+            // request.duration = 3.83, than request.startTime + request.startTime = 19.2 + 1.92 = 21.119999999999997
+                EPSILON = 0.1,
+                request,
+                time,
+                i;
+
+            for (i = 0; i < ln; i += 1) {
+                request = canceledRequests[i];
+                time = request.startTime + (request.duration / 2) + EPSILON;
+                request = this.adapter.getFragmentRequestForTime(this.streamProcessor, currentTrackInfo, time, false);
+                this.fragmentController.prepareFragmentForLoading(this, request);
+            }
+        },
+
+        onGetRequiredFragmentCount = function(result) {
+            var self = this;
+
+            fragmentsToLoad = result.value;
+
+            if (fragmentsToLoad <= 0) {
+                self.fragmentController.executePendingRequests();
+                return;
+            }
+
+            self.abrController.getPlaybackQuality(self.streamProcessor);
+            getNextFragment.call(self, onNextFragment.bind(self));
+        },
+
+        onNextFragment = function(result) {
+            var request = result.value;
+
+            if ((request !== null) && !(request instanceof MediaPlayer.vo.FragmentRequest)) {
+                request = this.adapter.getFragmentRequestForTime(this.streamProcessor, currentTrackInfo, request.startTime);
+            }
+
+            if (request) {
+                fragmentsToLoad--;
+                //self.debug.log("Loading fragment: " + request.mediaType + ":" + request.startTime);
+                this.fragmentController.prepareFragmentForLoading(this, request);
+            } else {
+                this.fragmentController.executePendingRequests();
+            }
+        },
+
+        validate = function () {
+            var now = new Date().getTime(),
+                isEnoughTimeSinceLastValidation = lastValidationTime ? (now - lastValidationTime > this.fragmentController.getLoadingTime(this)) : true;
+
+            if (!isEnoughTimeSinceLastValidation || isStopped || (this.playbackController.isPaused() && (!this.scheduleWhilePaused || isDynamic))) return;
+
+            lastValidationTime = now;
+            getRequiredFragmentCount.call(this, onGetRequiredFragmentCount.bind(this));
+        },
+
+        clearMetrics = function () {
+            var self = this;
+
+            if (type === null || type === "") {
+                return;
+            }
+
+            self.metricsModel.clearCurrentMetricsForType(type);
+        },
+
+        onDataUpdateCompleted = function(sender, mediaData, trackData) {
+            currentTrackInfo = this.adapter.convertDataToTrack(trackData);
+
+            if (!isDynamic) {
+                ready = true;
+            }
+
+            if (ready) {
+                startOnReady.call(this);
+            }
+        },
+
+        onStreamCompleted = function(sender, model /*, request*/) {
+            if (model !== this.streamProcessor.getFragmentModel()) return;
+
+            this.debug.log(type + " Stream is complete.");
+            clearPlayListTraceMetrics(new Date(), MediaPlayer.vo.metrics.PlayList.Trace.END_OF_CONTENT_STOP_REASON);
+        },
+
+        onMediaFragmentLoadingStart = function(sender, model/*, request*/) {
+            var self = this;
+
+            if (model !== self.streamProcessor.getFragmentModel()) return;
+
+            validate.call(self);
+        },
+
+        onBytesError = function (/*sender, request*/) {
+            doStop.call(this);
+        },
+
+        onBytesAppended = function(/*sender, quality, index, ranges*/) {
+            addPlaylistTraceMetrics.call(this);
+        },
+
+        onDataUpdateStarted = function(/*sender*/) {
+            doStop.call(this, false);
+        },
+
+        onInitRequested = function(sender, quality) {
+            getInitRequest.call(this, quality);
+        },
+
+        onBufferCleared = function(sender, startTime, endTime, hasEnoughSpace) {
+            // after the data has been removed from the buffer we should remove the requests from the list of
+            // the executed requests for which playback time is inside the time interval that has been removed from the buffer
+            this.fragmentController.removeExecutedRequestsBeforeTime(fragmentModel, endTime);
+
+            if (hasEnoughSpace) {
+                doStart.call(this);
+            }
+        },
+
+        onBufferLevelStateChanged = function(sender, hasSufficientBuffer) {
+            var self = this;
+
+            if (!hasSufficientBuffer && !self.playbackController.isSeeking()) {
+                self.debug.log("Stalling " + type + " Buffer: " + type);
+                clearPlayListTraceMetrics(new Date(), MediaPlayer.vo.metrics.PlayList.Trace.REBUFFERING_REASON);
+            }
+        },
+
+        onBufferLevelUpdated = function(sender, newBufferLevel) {
+            var self = this;
+
+            self.metricsModel.addBufferLevel(type, new Date(), newBufferLevel);
+            validate.call(this);
+        },
+
+        onQuotaExceeded = function(/*sender, criticalBufferLevel*/) {
+            doStop.call(this, false);
+        },
+
+        onQualityChanged = function(sender, typeValue, streamInfo, oldQuality, newQuality) {
+            if (type !== typeValue || this.streamProcessor.getStreamInfo().id !== streamInfo.id) return;
+
+            var self = this,
+                canceledReqs;
+
+            canceledReqs = fragmentModel.cancelPendingRequests(oldQuality);
+            currentTrackInfo = self.streamProcessor.getTrackForQuality(newQuality);
+
+            if (currentTrackInfo === null || currentTrackInfo === undefined) {
+                throw "Unexpected error!";
+            }
+
+            replaceCanceledPendingRequests.call(self, canceledReqs);
+            clearPlayListTraceMetrics(new Date(), MediaPlayer.vo.metrics.PlayList.Trace.REPRESENTATION_SWITCH_STOP_REASON);
+        },
+
+        addPlaylistTraceMetrics = function() {
+            var self = this,
+                currentVideoTime = self.playbackController.getTime(),
+                rate = self.playbackController.getPlaybackRate(),
+                currentTime = new Date();
+
+            if (playListTraceMetricsClosed === true && currentTrackInfo && playListMetrics) {
+                playListTraceMetricsClosed = false;
+                playListTraceMetrics = self.metricsModel.appendPlayListTrace(playListMetrics, currentTrackInfo.id, null, currentTime, currentVideoTime, null, rate, null);
+            }
+        },
+
+        onClosedCaptioningRequested = function(sender, quality) {
+            var self = this,
+                req = getInitRequest.call(self, quality);
+
+            fragmentModel.executeRequest(req);
+        },
+
+        onPlaybackStarted = function(/*sender, startTime*/) {
+            doStart.call(this);
+        },
+
+        onPlaybackSeeking = function(sender, time) {
+            if (!initialPlayback) {
+                this.fragmentController.cancelPendingRequestsForModel(fragmentModel);
+            }
+
+            var currentTime,
+                metrics = this.metricsModel.getMetricsFor("stream"),
+                manifestUpdateInfo = this.metricsExt.getCurrentManifestUpdate(metrics);
+
+            this.debug.log("ScheduleController " + type + " seek: " + time);
+            currentTime = new Date();
+            clearPlayListTraceMetrics(currentTime, MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON);
+            playListMetrics = this.metricsModel.addPlayList(type, currentTime, time, MediaPlayer.vo.metrics.PlayList.SEEK_START_REASON);
+            doStart.call(this);
+
+            this.metricsModel.updateManifestUpdateInfo(manifestUpdateInfo, {latency: currentTrackInfo.DVRWindow.end - this.playbackController.getTime()});
+        },
+
+        onPlaybackRateChanged = function() {
+            addPlaylistTraceMetrics.call(this);
+        },
+
+        onWallclockTimeUpdated = function(/*sender*/) {
+            validate.call(this);
+        },
+
+        onLiveEdgeFound = function(sender, liveEdgeTime/*, searchTime*/) {
+            // step back from a found live edge time to be able to buffer some data
+            var self = this,
+                manifestInfo = currentTrackInfo.mediaInfo.streamInfo.manifestInfo,
+                startTime = liveEdgeTime - Math.min((manifestInfo.minBufferTime * 2), manifestInfo.DVRWindowSize / 2),
+                request,
+                metrics = self.metricsModel.getMetricsFor("stream"),
+                manifestUpdateInfo = self.metricsExt.getCurrentManifestUpdate(metrics),
+                currentLiveStart = self.playbackController.getLiveStartTime(),
+                actualStartTime;
+            // get a request for a start time
+            request = self.adapter.getFragmentRequestForTime(self.streamProcessor, currentTrackInfo, startTime);
+            actualStartTime = request.startTime;
+
+            if (isNaN(currentLiveStart) || (actualStartTime > currentLiveStart)) {
+                self.playbackController.setLiveStartTime(actualStartTime);
+            }
+
+            self.metricsModel.updateManifestUpdateInfo(manifestUpdateInfo, {currentTime: actualStartTime, presentationStartTime: liveEdgeTime, latency: liveEdgeTime - actualStartTime, clientTimeOffset: self.timelineConverter.getClientTimeOffset()});
+            ready = true;
+            startOnReady.call(self);
+        };
+
+    return {
+        debug: undefined,
+        system: undefined,
+        metricsModel: undefined,
+        metricsExt: undefined,
+        scheduleWhilePaused: undefined,
+        timelineConverter: undefined,
+        abrController: undefined,
+        adapter: undefined,
+        scheduleRulesCollection: undefined,
+        rulesController: undefined,
+        eventList: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+
+        setup: function() {
+            this.liveEdgeFound = onLiveEdgeFound;
+
+            this.qualityChanged = onQualityChanged;
+
+            this.dataUpdateStarted = onDataUpdateStarted;
+            this.dataUpdateCompleted = onDataUpdateCompleted;
+
+            this.mediaFragmentLoadingStart = onMediaFragmentLoadingStart;
+            this.fragmentLoadingFailed = onBytesError;
+            this.streamCompleted = onStreamCompleted;
+
+            this.bufferCleared = onBufferCleared;
+            this.bytesAppended = onBytesAppended;
+            this.bufferLevelStateChanged = onBufferLevelStateChanged;
+            this.bufferLevelUpdated = onBufferLevelUpdated;
+            this.initRequested = onInitRequested;
+            this.quotaExceeded = onQuotaExceeded;
+
+            this.closedCaptioningRequested = onClosedCaptioningRequested;
+
+            this.playbackStarted = onPlaybackStarted;
+            this.playbackSeeking = onPlaybackSeeking;
+            this.playbackRateChanged = onPlaybackRateChanged;
+            this.wallclockTimeUpdated = onWallclockTimeUpdated;
+        },
+
+        initialize: function(typeValue, streamProcessor) {
+            var self = this;
+
+            type = typeValue;
+            self.streamProcessor = streamProcessor;
+            self.playbackController = streamProcessor.playbackController;
+            self.fragmentController = streamProcessor.fragmentController;
+            self.liveEdgeFinder = streamProcessor.liveEdgeFinder;
+            self.bufferController = streamProcessor.bufferController;
+            isDynamic = streamProcessor.isDynamic();
+            fragmentModel = this.fragmentController.getModel(this);
+
+            if (self.scheduleRulesCollection.bufferLevelRule) {
+                self.scheduleRulesCollection.bufferLevelRule.setScheduleController(self);
+            }
+
+            if (self.scheduleRulesCollection.pendingRequestsRule) {
+                self.scheduleRulesCollection.pendingRequestsRule.setScheduleController(self);
+            }
+
+            if (self.scheduleRulesCollection.playbackTimeRule) {
+                self.scheduleRulesCollection.playbackTimeRule.setScheduleController(self);
+            }
+        },
+
+        getFragmentModel: function() {
+            return fragmentModel;
+        },
+
+        reset: function() {
+            var self = this;
+
+            doStop.call(self, true);
+            self.bufferController.unsubscribe(self.bufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN, self.scheduleRulesCollection.bufferLevelRule);
+            self.bufferController.unsubscribe(self.bufferController.eventList.ENAME_BUFFER_LEVEL_BALANCED, self.scheduleRulesCollection.bufferLevelRule);
+            self.fragmentController.abortRequestsForModel(fragmentModel);
+            self.fragmentController.detachModel(fragmentModel);
+            clearMetrics.call(self);
+            fragmentsToLoad = 0;
+        },
+
+        start: doStart,
+        stop: doStop
+    };
+};
+
+MediaPlayer.dependencies.ScheduleController.prototype = {
+    constructor: MediaPlayer.dependencies.ScheduleController
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.SourceBufferExtensions = function () {
+    "use strict";
+    this.system = undefined;
+    this.errHandler = undefined;
+    this.notify = undefined;
+    this.subscribe = undefined;
+    this.unsubscribe = undefined;
+    this.eventList = {
+        ENAME_SOURCEBUFFER_REMOVE_COMPLETED: "sourceBufferRemoveCompleted",
+        ENAME_SOURCEBUFFER_APPEND_COMPLETED: "sourceBufferAppendCompleted"
+    };
+};
+
+MediaPlayer.dependencies.SourceBufferExtensions.prototype = {
+
+    constructor: MediaPlayer.dependencies.SourceBufferExtensions,
+
+    createSourceBuffer: function (mediaSource, mediaInfo) {
+        "use strict";
+        var self = this,
+            codec = mediaInfo.codec,
+            buffer = null;
+        try {
+            buffer = mediaSource.addSourceBuffer(codec);
+        } catch(ex) {
+            if (mediaInfo.isText) {
+                buffer = self.system.getObject("textSourceBuffer");
+            } else {
+                throw ex;
+            }
+        }
+
+        return buffer;
+    },
+
+    removeSourceBuffer: function (mediaSource, buffer) {
+        "use strict";
+
+        try {
+            mediaSource.removeSourceBuffer(buffer);
+        } catch(ex){
+        }
+    },
+
+    getBufferRange: function (buffer, time, tolerance) {
+        "use strict";
+
+        var ranges = null,
+            start = 0,
+            end = 0,
+            firstStart = null,
+            lastEnd = null,
+            gap = 0,
+            toler = (tolerance || 0.15),
+            len,
+            i;
+
+        try {
+            ranges = buffer.buffered;
+        } catch(ex) {
+            return null;
+        }
+
+        if (ranges !== null) {
+            for (i = 0, len = ranges.length; i < len; i += 1) {
+                start = ranges.start(i);
+                end = ranges.end(i);
+                if (firstStart === null) {
+                    gap = Math.abs(start - time);
+                    if (time >= start && time < end) {
+                        // start the range
+                        firstStart = start;
+                        lastEnd = end;
+                    } else if (gap <= toler) {
+                        // start the range even though the buffer does not contain time 0
+                        firstStart = start;
+                        lastEnd = end;
+                    }
+                } else {
+                    gap = start - lastEnd;
+                    if (gap <= toler) {
+                        // the discontinuity is smaller than the tolerance, combine the ranges
+                        lastEnd = end;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            if (firstStart !== null) {
+                return {start: firstStart, end: lastEnd};
+            }
+        }
+
+        return null;
+    },
+
+    getAllRanges: function(buffer) {
+        var ranges = null;
+
+        try{
+            ranges = buffer.buffered;
+            return ranges;
+        } catch (ex) {
+            return null;
+        }
+    },
+
+    getBufferLength: function (buffer, time, tolerance) {
+        "use strict";
+
+        var self = this,
+            range,
+            length;
+
+        range = self.getBufferRange(buffer, time, tolerance);
+
+        if (range === null) {
+            length = 0;
+        } else {
+            length = range.end - time;
+        }
+
+        return length;
+    },
+
+    waitForUpdateEnd: function(buffer, callback) {
+        "use strict";
+        var intervalId,
+            CHECK_INTERVAL = 50,
+            checkIsUpdateEnded = function() {
+                // if undating is still in progress do nothing and wait for the next check again.
+                if (buffer.updating) return;
+                // updating is completed, now we can stop checking and resolve the promise
+                clearInterval(intervalId);
+                callback(true);
+            },
+            updateEndHandler = function() {
+                if (buffer.updating) return;
+
+                buffer.removeEventListener("updateend", updateEndHandler, false);
+                callback(true);
+            };
+
+        if (!buffer.updating) {
+            callback(true);
+            return;
+        }
+
+        // use updateend event if possible
+        if (typeof buffer.addEventListener === "function") {
+            try {
+                buffer.addEventListener("updateend", updateEndHandler, false);
+            } catch (err) {
+                // use setInterval to periodically check if updating has been completed
+                intervalId = setInterval(checkIsUpdateEnded, CHECK_INTERVAL);
+            }
+        } else {
+            // use setInterval to periodically check if updating has been completed
+            intervalId = setInterval(checkIsUpdateEnded, CHECK_INTERVAL);
+        }
+    },
+
+    append: function (buffer, bytes) {
+        var self = this,
+            appendMethod = ("append" in buffer) ? "append" : (("appendBuffer" in buffer) ? "appendBuffer" : null);
+
+        if (!appendMethod) return;
+
+        try {
+            self.waitForUpdateEnd(buffer, function() {
+                buffer[appendMethod](bytes);
+
+                // updating is in progress, we should wait for it to complete before signaling that this operation is done
+                self.waitForUpdateEnd(buffer, function() {
+                    self.notify(self.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED, buffer, bytes);
+                });
+            });
+        } catch (err) {
+            self.notify(self.eventList.ENAME_SOURCEBUFFER_APPEND_COMPLETED, buffer, bytes, err);
+        }
+    },
+
+    remove: function (buffer, start, end, mediaSource) {
+        var self = this;
+
+        try {
+            // make sure that the given time range is correct. Otherwise we will get InvalidAccessError
+            if ((start >= 0) && (end > start) && (mediaSource.readyState !== "ended")) {
+                buffer.remove(start, end);
+            }
+            // updating is in progress, we should wait for it to complete before signaling that this operation is done
+            this.waitForUpdateEnd(buffer, function() {
+                self.notify(self.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED, buffer, start, end);
+            });
+        } catch (err) {
+            self.notify(self.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED, buffer, start, end, err);
+        }
+    },
+
+    abort: function (mediaSource, buffer) {
+        "use strict";
+        try {
+            if (mediaSource.readyState === "open") {
+                buffer.abort();
+            }
+        } catch(ex){
+        }
+    }
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.Stream = function () {
+    "use strict";
+
+    var manifest,
+        mediaSource,
+        mediaInfos = {},
+        streamProcessors = [],
+        autoPlay = true,
+        initialized = false,
+        loaded = false,
+        errored = false,
+        kid = null,
+        initData = [],
+        updating = true,
+        streamInfo = null,
+
+        needKeyListener,
+        keyMessageListener,
+        keyAddedListener,
+        keyErrorListener,
+
+        eventController = null,
+
+        play = function () {
+            //this.debug.log("Attempting play...");
+
+            if (!initialized) {
+                return;
+            }
+
+            //this.debug.log("Do play.");
+            this.playbackController.start();
+        },
+
+        pause = function () {
+            //this.debug.log("Do pause.");
+            this.playbackController.pause();
+        },
+
+        seek = function (time) {
+            //this.debug.log("Attempting seek...");
+
+            if (!initialized) {
+                return;
+            }
+
+            this.debug.log("Do seek: " + time);
+
+            this.playbackController.seek(time);
+        },
+
+        // Encrypted Media Extensions
+
+        onMediaSourceNeedsKey = function (event) {
+            var self = this,
+                mediaInfo = mediaInfos.video,
+                videoCodec = mediaInfos ? mediaInfos.video.codec : null,
+                type;
+
+            type = (event.type !== "msneedkey") ? event.type : videoCodec;
+            initData.push({type: type, initData: event.initData});
+
+            this.debug.log("DRM: Key required for - " + type);
+            //this.debug.log("DRM: Generating key request...");
+            //this.protectionModel.generateKeyRequest(DEFAULT_KEY_TYPE, event.initData);
+            if (mediaInfo && !!videoCodec && !kid) {
+                try
+                {
+                    kid = self.protectionController.selectKeySystem(mediaInfo);
+                }
+                catch (error)
+                {
+                    pause.call(self);
+                    self.debug.log(error);
+                    self.errHandler.mediaKeySystemSelectionError(error);
+                }
+            }
+
+            if (!!kid) {
+                self.protectionController.ensureKeySession(kid, type, event);
+            }
+        },
+
+        onMediaSourceKeyMessage = function (event) {
+            var self = this,
+                session = null,
+                bytes = null,
+                msg = null,
+                laURL = null;
+
+            this.debug.log("DRM: Got a key message...");
+
+            session = event.target;
+
+            self.protectionController.updateFromMessage(kid, session, event);
+
+            //if (event.keySystem !== DEFAULT_KEY_TYPE) {
+            //    this.debug.log("DRM: Key type not supported!");
+            //}
+            // else {
+                // todo : request license?
+                //requestLicense(e.message, e.sessionId, this);
+            // }
+        },
+
+        onMediaSourceKeyAdded = function () {
+            this.debug.log("DRM: Key added.");
+        },
+
+        onMediaSourceKeyError = function () {
+            var session = event.target,
+                msg;
+            msg = 'DRM: MediaKeyError - sessionId: ' + session.sessionId + ' errorCode: ' + session.error.code + ' systemErrorCode: ' + session.error.systemCode + ' [';
+            switch (session.error.code) {
+                case 1:
+                    msg += "MEDIA_KEYERR_UNKNOWN - An unspecified error occurred. This value is used for errors that don't match any of the other codes.";
+                    break;
+                case 2:
+                    msg += "MEDIA_KEYERR_CLIENT - The Key System could not be installed or updated.";
+                    break;
+                case 3:
+                    msg += "MEDIA_KEYERR_SERVICE - The message passed into update indicated an error from the license service.";
+                    break;
+                case 4:
+                    msg += "MEDIA_KEYERR_OUTPUT - There is no available output device with the required characteristics for the content protection system.";
+                    break;
+                case 5:
+                    msg += "MEDIA_KEYERR_HARDWARECHANGE - A hardware configuration change caused a content protection error.";
+                    break;
+                case 6:
+                    msg += "MEDIA_KEYERR_DOMAIN - An error occurred in a multi-device domain licensing configuration. The most common error is a failure to join the domain.";
+                    break;
+            }
+            msg += "]";
+            //pause.call(this);
+            this.debug.log(msg);
+            this.errHandler.mediaKeySessionError(msg);
+        },
+
+        // Media Source
+
+        setUpMediaSource = function (mediaSourceArg, callback) {
+            var self = this,
+
+                onMediaSourceOpen = function (e) {
+                    self.debug.log("MediaSource is open!");
+                    self.debug.log(e);
+
+                    mediaSourceArg.removeEventListener("sourceopen", onMediaSourceOpen);
+                    mediaSourceArg.removeEventListener("webkitsourceopen", onMediaSourceOpen);
+
+                    callback(mediaSourceArg);
+                };
+
+            //self.debug.log("MediaSource should be closed. The actual readyState is: " + mediaSourceArg.readyState);
+
+            mediaSourceArg.addEventListener("sourceopen", onMediaSourceOpen, false);
+            mediaSourceArg.addEventListener("webkitsourceopen", onMediaSourceOpen, false);
+
+            self.mediaSourceExt.attachMediaSource(mediaSourceArg, self.videoModel);
+
+            //self.debug.log("MediaSource attached to video.  Waiting on open...");
+        },
+
+        tearDownMediaSource = function () {
+            var self = this,
+                ln = streamProcessors.length,
+                i = 0,
+                processor;
+
+            for (i; i < ln; i += 1) {
+                processor = streamProcessors[i];
+                processor.reset(errored);
+                processor = null;
+            }
+            if(!!eventController) {
+                eventController.reset();
+            }
+
+            streamProcessors = [];
+
+            if (!!mediaSource) {
+                self.mediaSourceExt.detachMediaSource(self.videoModel);
+            }
+
+            initialized = false;
+
+            kid = null;
+            initData = [];
+
+            mediaInfos = {};
+
+            mediaSource = null;
+            manifest = null;
+        },
+
+        initializeMediaForType = function(type, manifest) {
+            var self = this,
+                mimeType,
+                codec,
+                getCodecOrMimeType = function(mediaInfo) {
+                    return mediaInfo.codec;
+                },
+                processor,
+                mediaInfo = self.adapter.getMediaInfoForType(manifest, streamInfo, type);
+
+            if (type === "text") {
+                getCodecOrMimeType = function(mediaInfo) {
+                    mimeType = mediaInfo.mimeType;
+
+                    return mimeType;
+                };
+            }
+
+            if (mediaInfo !== null) {
+                //self.debug.log("Create " + type + " buffer.");
+                var codecOrMime = getCodecOrMimeType.call(self, mediaInfo),
+                    contentProtectionData,
+                    buffer = null;
+
+                if (codecOrMime === mimeType) {
+                    try{
+                        buffer = self.sourceBufferExt.createSourceBuffer(mediaSource, mediaInfo);
+                    } catch (e) {
+                        self.errHandler.mediaSourceError("Error creating " + type +" source buffer.");
+                    }
+                } else {
+                    codec = codecOrMime;
+                    self.debug.log(type + " codec: " + codec);
+                    mediaInfos[type] = mediaInfo;
+
+                    contentProtectionData = mediaInfo.contentProtection;
+
+                    if (!!contentProtectionData && !self.capabilities.supportsMediaKeys()) {
+                        self.errHandler.capabilityError("mediakeys");
+                    } else {
+                        //kid = self.protectionController.selectKeySystem(codec, contentProtection);
+                        //self.protectionController.ensureKeySession(kid, codec, null);
+
+                        if (!self.capabilities.supportsCodec(self.videoModel.getElement(), codec)) {
+                            var msg = type + "Codec (" + codec + ") is not supported.";
+                            self.errHandler.manifestError(msg, "codec", manifest);
+                            self.debug.log(msg);
+                        } else {
+                            try {
+                                buffer = self.sourceBufferExt.createSourceBuffer(mediaSource, mediaInfo);
+                            } catch (e) {
+                                self.errHandler.mediaSourceError("Error creating " + type +" source buffer.");
+                            }
+                        }
+                    }
+                }
+
+                if (buffer === null) {
+                    self.debug.log("No buffer was created, skipping " + type + " data.");
+                } else {
+                    // TODO : How to tell index handler live/duration?
+                    // TODO : Pass to controller and then pass to each method on handler?
+
+                    processor = self.system.getObject("streamProcessor");
+                    streamProcessors.push(processor);
+                    processor.initialize(mimeType || type, buffer, self.videoModel, self.fragmentController, self.playbackController, mediaSource, self, eventController);
+                    processor.setMediaInfo(mediaInfo);
+                    self.adapter.updateData(processor);
+                    //self.debug.log(type + " is ready!");
+                }
+
+
+            } else {
+                self.debug.log("No " + type + " data.");
+            }
+        },
+
+        initializeMediaSource = function () {
+            //this.debug.log("Getting MediaSource ready...");
+
+            var self = this,
+                events;
+
+            eventController = self.system.getObject("eventController");
+            eventController.initialize(self.videoModel);
+            events = self.adapter.getEventsFor(streamInfo);
+            eventController.addInlineEvents(events);
+            // Figure out some bits about the stream before building anything.
+            //self.debug.log("Gathering information for buffers. (1)");
+
+            initializeMediaForType.call(self, "video", manifest);
+            initializeMediaForType.call(self, "audio", manifest);
+            initializeMediaForType.call(self, "text", manifest);
+
+            //this.debug.log("MediaSource initialized!");
+        },
+
+        initializePlayback = function () {
+            var self = this,
+                manifestDuration,
+                mediaDuration;
+
+            //self.debug.log("Getting ready for playback...");
+
+            manifestDuration = streamInfo.manifestInfo.duration;
+            mediaDuration = self.mediaSourceExt.setDuration(mediaSource, manifestDuration);
+            self.debug.log("Duration successfully set to: " + mediaDuration);
+            initialized = true;
+            checkIfInitializationCompleted.call(self);
+        },
+
+        onLoad = function () {
+            this.debug.log("element loaded!");
+            loaded = true;
+            startAutoPlay.call(this);
+        },
+
+        startAutoPlay = function() {
+            if (!initialized || !loaded) return;
+
+            // only first stream must be played automatically during playback initialization
+            if (streamInfo.index === 0) {
+                eventController.start();
+                if (autoPlay) {
+                    play.call(this);
+                }
+            }
+        },
+
+        checkIfInitializationCompleted = function() {
+            var self = this,
+                ln = streamProcessors.length,
+                i = 0;
+
+            if (!initialized) return;
+
+            for (i; i < ln; i += 1) {
+                if (streamProcessors[i].isUpdating()) return;
+            }
+
+            updating = false;
+            self.notify(self.eventList.ENAME_STREAM_UPDATED);
+        },
+
+        onError = function (sender, error) {
+            var code = error.code,
+                msg = "";
+
+            if (code === -1) {
+                // not an error!
+                return;
+            }
+
+            switch (code) {
+                case 1:
+                    msg = "MEDIA_ERR_ABORTED";
+                    break;
+                case 2:
+                    msg = "MEDIA_ERR_NETWORK";
+                    break;
+                case 3:
+                    msg = "MEDIA_ERR_DECODE";
+                    break;
+                case 4:
+                    msg = "MEDIA_ERR_SRC_NOT_SUPPORTED";
+                    break;
+                case 5:
+                    msg = "MEDIA_ERR_ENCRYPTED";
+                    break;
+            }
+
+            errored = true;
+
+            this.debug.log("Video Element Error: " + msg);
+            this.debug.log(error);
+            this.errHandler.mediaSourceError(msg);
+            this.reset();
+        },
+
+        doLoad = function (manifestResult) {
+
+            var self = this,
+                onMediaSourceSetup = function (mediaSourceResult) {
+                    mediaSource = mediaSourceResult;
+                    //self.debug.log("MediaSource set up.");
+                    initializeMediaSource.call(self);
+
+                    if (streamProcessors.length === 0) {
+                        var msg = "No streams to play.";
+                        self.errHandler.manifestError(msg, "nostreams", manifest);
+                        self.debug.log(msg);
+                    } else {
+                        self.liveEdgeFinder.initialize(streamProcessors[0]);
+                        self.liveEdgeFinder.subscribe(self.liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, self.playbackController);
+                        initializePlayback.call(self);
+                        //self.debug.log("Playback initialized!");
+                        startAutoPlay.call(self);
+                    }
+                },
+                mediaSourceResult;
+
+            //self.debug.log("Stream start loading.");
+
+            manifest = manifestResult;
+            mediaSourceResult = self.mediaSourceExt.createMediaSource();
+            //self.debug.log("MediaSource created.");
+
+            setUpMediaSource.call(self, mediaSourceResult, onMediaSourceSetup);
+        },
+
+        onBufferingCompleted = function() {
+            var processors = getAudioVideoProcessors(),
+                ln = processors.length,
+                i = 0;
+
+            // if there is at least one buffer controller that has not completed buffering yet do nothing
+            for (i; i < ln; i += 1) {
+                if (!processors[i].isBufferingCompleted()) return;
+            }
+
+            // buffering has been complted, now we can signal end of stream
+            if (mediaSource && streamInfo.isLast) {
+                this.mediaSourceExt.signalEndOfStream(mediaSource);
+            }
+        },
+
+        onDataUpdateCompleted = function(/*sender, mediaData, trackData*/) {
+            checkIfInitializationCompleted.call(this);
+        },
+
+        onKeySystemUpdateCompleted = function(sender, data, error) {
+            if (!error) return;
+
+            pause.call(this);
+            this.debug.log(error);
+            this.errHandler.mediaKeyMessageError(error);
+        },
+
+        getAudioVideoProcessors = function() {
+            var arr = [],
+                i = 0,
+                ln = streamProcessors.length,
+                type,
+                proc;
+
+            for (i; i < ln; i += 1) {
+                proc = streamProcessors[i];
+                type = proc.getType();
+
+                if (type === "audio" || type === "video") {
+                    arr.push(proc);
+                }
+            }
+
+            return arr;
+        },
+
+        updateData = function (updatedStreamInfo) {
+            var self = this,
+                ln = streamProcessors.length,
+                i = 0,
+                mediaInfo,
+                events,
+                processor;
+
+            updating = true;
+            manifest = self.manifestModel.getValue();
+            streamInfo = updatedStreamInfo;
+            self.debug.log("Manifest updated... set new data on buffers.");
+
+            if (eventController) {
+                events = self.adapter.getEventsFor(streamInfo);
+                eventController.addInlineEvents(events);
+            }
+
+            for (i; i < ln; i +=1) {
+                processor = streamProcessors[i];
+                mediaInfo = self.adapter.getMediaInfoForType(manifest, streamInfo, processor.getType());
+                processor.setMediaInfo(mediaInfo);
+                this.adapter.updateData(processor);
+            }
+        };
+
+    return {
+        system: undefined,
+        manifestModel: undefined,
+        mediaSourceExt: undefined,
+        sourceBufferExt: undefined,
+        adapter: undefined,
+        fragmentController: undefined,
+        playbackController: undefined,
+        protectionModel: undefined,
+        protectionController: undefined,
+        protectionExt: undefined,
+        capabilities: undefined,
+        debug: undefined,
+        errHandler: undefined,
+        liveEdgeFinder: undefined,
+        abrController: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_STREAM_UPDATED: "streamUpdated"
+        },
+
+        setup: function () {
+            this.bufferingCompleted = onBufferingCompleted;
+            this.dataUpdateCompleted = onDataUpdateCompleted;
+            this.playbackError = onError;
+            this.playbackMetaDataLoaded = onLoad;
+            this.keySystemUpdateCompleted = onKeySystemUpdateCompleted;
+        },
+
+        load: function(manifest) {
+            doLoad.call(this, manifest);
+        },
+
+        setVideoModel: function(value) {
+            this.videoModel = value;
+        },
+
+        initProtection: function(protectionData) {
+            needKeyListener = onMediaSourceNeedsKey.bind(this);
+            keyMessageListener = onMediaSourceKeyMessage.bind(this);
+            keyAddedListener = onMediaSourceKeyAdded.bind(this);
+            keyErrorListener = onMediaSourceKeyError.bind(this);
+
+            this.protectionModel = this.system.getObject("protectionModel");
+            this.protectionModel.init(this.getVideoModel());
+            this.protectionController = this.system.getObject("protectionController");
+            this.protectionController.init(this.videoModel, this.protectionModel, protectionData);
+
+            this.protectionModel.listenToNeedKey(needKeyListener);
+            this.protectionModel.listenToKeyMessage(keyMessageListener);
+            this.protectionModel.listenToKeyError(keyErrorListener);
+            this.protectionModel.listenToKeyAdded(keyAddedListener);
+
+            this.protectionExt.subscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, this.protectionModel);
+            this.protectionExt.subscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, this);
+        },
+
+        getVideoModel: function() {
+            return this.videoModel;
+        },
+
+        setAutoPlay: function (value) {
+            autoPlay = value;
+        },
+
+        getAutoPlay: function () {
+            return autoPlay;
+        },
+
+        reset: function () {
+            pause.call(this);
+
+            tearDownMediaSource.call(this);
+            if (!!this.protectionController) {
+                this.protectionController.teardownKeySystem(kid);
+            }
+
+            if (this.protectionModel) {
+                this.protectionExt.unsubscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, this.protectionModel);
+            }
+
+            this.protectionExt.unsubscribe(this.protectionExt.eventList.ENAME_KEY_SYSTEM_UPDATE_COMPLETED, this);
+            this.protectionController = undefined;
+            this.protectionModel = undefined;
+            this.fragmentController = undefined;
+            this.playbackController.unsubscribe(this.playbackController.eventList.ENAME_PLAYBACK_ERROR, this);
+            this.playbackController.unsubscribe(this.playbackController.eventList.ENAME_PLAYBACK_METADATA_LOADED, this);
+            this.playbackController.reset();
+            this.liveEdgeFinder.abortSearch();
+            this.liveEdgeFinder.unsubscribe(this.liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, this.playbackController);
+
+            // streamcontroller expects this to be valid
+            //this.videoModel = null;
+
+            loaded = false;
+        },
+
+        getDuration: function () {
+            return streamInfo.duration;
+        },
+
+        getStartTime: function() {
+            return streamInfo.start;
+        },
+
+        getStreamIndex: function() {
+            return streamInfo.index;
+        },
+
+        getId: function() {
+            return streamInfo.id;
+        },
+
+        setStreamInfo: function(stream) {
+            streamInfo = stream;
+        },
+
+        getStreamInfo: function() {
+            return streamInfo;
+        },
+        startEventController: function() {
+            eventController.start();
+        },
+        resetEventController: function() {
+            eventController.reset();
+        },
+
+        setPlaybackController: function(value) {
+            this.playbackController = value;
+            value.initialize(streamInfo, this.videoModel);
+        },
+
+        getPlaybackController: function() {
+            return this.playbackController;
+        },
+
+        isUpdating: function() {
+            return updating;
+        },
+
+        updateData: updateData,
+        play: play,
+        seek: seek,
+        pause: pause
+    };
+};
+
+MediaPlayer.dependencies.Stream.prototype = {
+    constructor: MediaPlayer.dependencies.Stream
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ MediaPlayer.dependencies.StreamController = function () {
+    "use strict";
+
+    /*
+     * StreamController aggregates all streams defined in the manifest file
+     * and implements corresponding logic to switch between them.
+     */
+
+    var streams = [],
+        activeStream,
+        //TODO set correct value for threshold
+        STREAM_BUFFER_END_THRESHOLD = 6,
+        STREAM_END_THRESHOLD = 0.2,
+        autoPlay = true,
+        protectionData,
+        isStreamSwitchingInProgress = false,
+
+        play = function () {
+            activeStream.play();
+        },
+
+        pause = function () {
+            activeStream.pause();
+        },
+
+        seek = function (time) {
+            activeStream.seek(time);
+        },
+
+        /*
+         * Replaces the currently displayed <video> with a new data and corresponding <video> element.
+         *
+         * @param fromVideoModel Currently used video data
+         * @param toVideoModel New video data to be displayed
+         *
+         * TODO - move method to appropriate place - VideoModelExtensions??
+         */
+        switchVideoModel = function (fromStream, toStream) {
+            var activeVideoElement = fromStream.getVideoModel().getElement(),
+                newVideoElement = toStream.getVideoModel().getElement();
+
+            if (!newVideoElement.parentNode) {
+                activeVideoElement.parentNode.insertBefore(newVideoElement, activeVideoElement);
+            }
+
+            // We use width property to hide/show video element because when using display="none"/"block" playback
+            // sometimes stops after switching.
+            activeVideoElement.style.width = "0px";
+            newVideoElement.style.width = "100%";
+
+            copyVideoProperties(activeVideoElement, newVideoElement);
+            detachVideoEvents.call(this, fromStream);
+            attachVideoEvents.call(this, toStream);
+        },
+
+        attachVideoEvents = function (stream) {
+            var playbackCtrl = stream.getPlaybackController();
+
+            playbackCtrl.subscribe(playbackCtrl.eventList.ENAME_PLAYBACK_STARTED, this.manifestUpdater);
+            playbackCtrl.subscribe(playbackCtrl.eventList.ENAME_PLAYBACK_PAUSED, this.manifestUpdater);
+            playbackCtrl.subscribe(playbackCtrl.eventList.ENAME_PLAYBACK_SEEKING, this);
+            playbackCtrl.subscribe(playbackCtrl.eventList.ENAME_PLAYBACK_TIME_UPDATED, this);
+            playbackCtrl.subscribe(playbackCtrl.eventList.ENAME_PLAYBACK_PROGRESS, this);
+        },
+
+        detachVideoEvents = function (stream) {
+            var self = this,
+                playbackCtrl = stream.getPlaybackController();
+            // setTimeout is used to avoid an exception caused by unsubscibing from PLAYBACK_TIME_UPDATED event
+            // inside the event handler
+            setTimeout(function(){
+                playbackCtrl.unsubscribe(playbackCtrl.eventList.ENAME_PLAYBACK_STARTED, self.manifestUpdater);
+                playbackCtrl.unsubscribe(playbackCtrl.eventList.ENAME_PLAYBACK_PAUSED, self.manifestUpdater);
+                playbackCtrl.unsubscribe(playbackCtrl.eventList.ENAME_PLAYBACK_SEEKING, self);
+                playbackCtrl.unsubscribe(playbackCtrl.eventList.ENAME_PLAYBACK_TIME_UPDATED, self);
+                playbackCtrl.unsubscribe(playbackCtrl.eventList.ENAME_PLAYBACK_PROGRESS, self);
+            },1);
+        },
+
+        copyVideoProperties = function (fromVideoElement, toVideoElement) {
+            ["controls", "loop", "muted", "volume"].forEach( function(prop) {
+                toVideoElement[prop] = fromVideoElement[prop];
+            });
+        },
+
+        /*
+         * Called when more data is buffered.
+         * Used to determine the time current stream is almost buffered and we can start buffering of the next stream.
+         * TODO move to ???Extensions class
+         */
+        onProgress = function(sender, ranges, remainingUnbufferedDuration) {
+            if (!remainingUnbufferedDuration || (remainingUnbufferedDuration >= STREAM_BUFFER_END_THRESHOLD)) return;
+
+            onStreamBufferingEnd();
+        },
+
+        /*
+         * Called when current playback positon is changed.
+         * Used to determine the time current stream is finished and we should switch to the next stream.
+         * TODO move to ???Extensions class
+         */
+        onTimeupdate = function(sender, timeToStreamEnd) {
+            var self = this;
+
+            self.metricsModel.addDroppedFrames("video", self.videoExt.getPlaybackQuality(activeStream.getVideoModel().getElement()));
+
+            if (!getNextStream()) return;
+
+            // Sometimes after seeking timeUpdateHandler is called before seekingHandler and a new stream starts
+            // from beginning instead of from a chosen position. So we do nothing if the player is in the seeking state
+            if (activeStream.getVideoModel().getElement().seeking) return;
+
+            // check if stream end is reached
+            if (timeToStreamEnd < STREAM_END_THRESHOLD) {
+                switchStream.call(this, activeStream, getNextStream());
+            }
+        },
+
+        /*
+         * Called when Seeking event is occured.
+         * TODO move to ???Extensions class
+         */
+        onSeeking = function(sender, seekingTime/*, isProgrammatic*/) {
+            var seekingStream = getStreamForTime(seekingTime);
+
+            if (seekingStream && seekingStream !== activeStream) {
+                switchStream.call(this, activeStream, seekingStream, seekingTime);
+            }
+        },
+
+        /*
+         * Handles the current stream buffering end moment to start the next stream buffering
+         */
+        onStreamBufferingEnd = function() {
+            var nextStream = getNextStream();
+            if (nextStream) {
+                nextStream.seek(nextStream.getStartTime());
+            }
+        },
+
+        getNextStream = function() {
+            var nextIndex = activeStream.getStreamIndex() + 1;
+            return (nextIndex < streams.length) ? streams[nextIndex] : null;
+        },
+
+        getStreamForTime = function(time) {
+            var duration = 0,
+                stream = null,
+                ln = streams.length;
+
+            if (ln > 0) {
+                duration += streams[0].getStartTime();
+            }
+
+            for (var i = 0; i < ln; i++) {
+                stream = streams[i];
+                duration += stream.getDuration();
+
+                if (time < duration) {
+                    return stream;
+                }
+            }
+
+            return null;
+        },
+
+        //  TODO move to ???Extensions class
+        createVideoModel = function() {
+            var model = this.system.getObject("videoModel"),
+                video = document.createElement("video");
+            model.setElement(video);
+            return model;
+        },
+
+        removeVideoElement = function(element) {
+            if (element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
+        },
+
+        switchStream = function(from, to, seekTo) {
+
+            if(isStreamSwitchingInProgress || !from || !to || from === to) return;
+
+            isStreamSwitchingInProgress = true;
+
+            from.pause();
+            activeStream = to;
+
+            switchVideoModel.call(this, from, to);
+
+            if (seekTo) {
+                seek(from.getPlaybackController().getTime());
+            } else {
+                seek(to.getStartTime());
+            }
+
+            play();
+            from.resetEventController();
+            activeStream.startEventController();
+            isStreamSwitchingInProgress = false;
+        },
+
+        composeStreams = function() {
+            var self = this,
+                manifest = self.manifestModel.getValue(),
+                metrics = self.metricsModel.getMetricsFor("stream"),
+                manifestUpdateInfo = self.metricsExt.getCurrentManifestUpdate(metrics),
+                playbackCtrl,
+                streamInfo,
+                pLen,
+                sLen,
+                pIdx,
+                sIdx,
+                streamsInfo,
+                stream;
+
+            if (!manifest) return;
+
+            streamsInfo = self.adapter.getStreamsInfo(manifest);
+
+            try {
+                if (streamsInfo.length === 0) {
+                    throw new Error("There are no streams");
+                }
+
+                self.metricsModel.updateManifestUpdateInfo(manifestUpdateInfo, {currentTime: self.videoModel.getCurrentTime(),
+                    buffered: self.videoModel.getElement().buffered, presentationStartTime: streamsInfo[0].start,
+                    clientTimeOffset: self.timelineConverter.getClientTimeOffset()});
+
+                for (pIdx = 0, pLen = streamsInfo.length; pIdx < pLen; pIdx += 1) {
+                    streamInfo = streamsInfo[pIdx];
+                    for (sIdx = 0, sLen = streams.length; sIdx < sLen; sIdx += 1) {
+                        // If the stream already exists we just need to update the values we got from the updated manifest
+                        if (streams[sIdx].getId() === streamInfo.id) {
+                            stream = streams[sIdx];
+                            stream.updateData(streamInfo);
+                        }
+                    }
+                    // If the Stream object does not exist we probably loaded the manifest the first time or it was
+                    // introduced in the updated manifest, so we need to create a new Stream and perform all the initialization operations
+                    if (!stream) {
+                        stream = self.system.getObject("stream");
+                        playbackCtrl = self.system.getObject("playbackController");
+                        stream.setStreamInfo(streamInfo);
+                        stream.setVideoModel(pIdx === 0 ? self.videoModel : createVideoModel.call(self));
+                        stream.setPlaybackController(playbackCtrl);
+                        playbackCtrl.subscribe(playbackCtrl.eventList.ENAME_PLAYBACK_ERROR, stream);
+                        playbackCtrl.subscribe(playbackCtrl.eventList.ENAME_PLAYBACK_METADATA_LOADED, stream);
+                        stream.initProtection(protectionData);
+                        stream.setAutoPlay(autoPlay);
+                        stream.load(manifest);
+                        stream.subscribe(stream.eventList.ENAME_STREAM_UPDATED, self);
+                        streams.push(stream);
+                    }
+                    self.metricsModel.addManifestUpdateStreamInfo(manifestUpdateInfo, streamInfo.id, streamInfo.index, streamInfo.start, streamInfo.duration);
+                    stream = null;
+                }
+
+                // If the active stream has not been set up yet, let it be the first Stream in the list
+                if (!activeStream) {
+                    activeStream = streams[0];
+                    attachVideoEvents.call(self, activeStream);
+                    activeStream.subscribe(activeStream.eventList.ENAME_STREAM_UPDATED, this.liveEdgeFinder);
+                }
+            } catch(e) {
+                self.errHandler.manifestError(e.message, "nostreamscomposed", self.manifestModel.getValue());
+                self.reset();
+            }
+        },
+
+        onStreamUpdated = function() {
+            var self = this,
+                ln = streams.length,
+                i = 0;
+
+            for (i; i < ln; i += 1) {
+                if (streams[i].isUpdating()) return;
+            }
+
+            self.notify(self.eventList.ENAME_STREAMS_COMPOSED);
+        },
+
+        onManifestLoaded = function(sender, manifest, error) {
+            if (!error) {
+                this.manifestModel.setValue(manifest);
+                this.debug.log("Manifest has loaded.");
+                //self.debug.log(self.manifestModel.getValue());
+                composeStreams.call(this);
+            } else {
+                this.reset();
+            }
+        };
+
+    return {
+        system: undefined,
+        videoModel: undefined,
+        manifestLoader: undefined,
+        manifestUpdater: undefined,
+        manifestModel: undefined,
+        adapter: undefined,
+        debug: undefined,
+        metricsModel: undefined,
+        metricsExt: undefined,
+        videoExt: undefined,
+        liveEdgeFinder: undefined,
+        timelineConverter: undefined,
+        errHandler: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_STREAMS_COMPOSED: "streamsComposed"
+        },
+
+        setup: function() {
+            this.manifestLoaded = onManifestLoaded;
+            this.streamUpdated = onStreamUpdated;
+
+            this.playbackSeeking = onSeeking;
+            this.playbackProgress = onProgress;
+            this.playbackTimeUpdated = onTimeupdate;
+        },
+
+        setAutoPlay: function (value) {
+            autoPlay = value;
+        },
+
+        getAutoPlay: function () {
+            return autoPlay;
+        },
+
+        setProtectionData: function (value) {
+            protectionData = value;
+        },
+
+        getVideoModel: function () {
+            return this.videoModel;
+        },
+
+        setVideoModel: function (value) {
+            this.videoModel = value;
+        },
+
+        getActiveStreamInfo: function() {
+            return activeStream ? activeStream.getStreamInfo() : null;
+        },
+
+        load: function (url) {
+            this.manifestLoader.load(url);
+        },
+
+        reset: function () {
+
+            if (!!activeStream) {
+                detachVideoEvents.call(this, activeStream);
+            }
+
+            for (var i = 0, ln = streams.length; i < ln; i++) {
+                var stream = streams[i];
+                stream.unsubscribe(stream.eventList.ENAME_STREAM_UPDATED, this);
+                stream.reset();
+                // we should not remove the video element for the active stream since it is the element users see at the page
+                if (stream !== activeStream) {
+                    removeVideoElement(stream.getVideoModel().getElement());
+                }
+            }
+
+            streams = [];
+            this.manifestUpdater.stop();
+            this.metricsModel.clearAllCurrentMetrics();
+            this.manifestModel.setValue(null);
+            this.timelineConverter.reset();
+            this.adapter.reset();
+            isStreamSwitchingInProgress = false;
+            activeStream = null;
+        },
+
+        play: play,
+        seek: seek,
+        pause: pause
+    };
+};
+
+MediaPlayer.dependencies.StreamController.prototype = {
+    constructor: MediaPlayer.dependencies.StreamController
+};
+;MediaPlayer.dependencies.StreamProcessor = function () {
+    "use strict";
+
+    var isDynamic,
+        stream,
+        mediaInfo,
+        type,
+        eventController,
+
+        createBufferControllerForType = function(type) {
+            var self = this,
+            controllerName = (type === "video" || type === "audio") ? "bufferController" : "textController";
+
+            return self.system.getObject(controllerName);
+        };
+
+    return {
+        system : undefined,
+        indexHandler: undefined,
+        liveEdgeFinder: undefined,
+        timelineConverter: undefined,
+        eventList: undefined,
+        abrController: undefined,
+        baseURLExt: undefined,
+        adapter: undefined,
+
+        initialize: function (typeValue, buffer, videoModel, fragmentController, playbackController, mediaSource, streamValue, eventControllerValue) {
+
+            var self = this,
+                trackController = self.system.getObject("trackController"),
+                scheduleController = self.system.getObject("scheduleController"),
+                liveEdgeFinder = self.liveEdgeFinder,
+                abrController = self.abrController,
+                indexHandler = self.indexHandler,
+                baseUrlExt = self.baseURLExt,
+                fragmentModel,
+                fragmentLoader = this.system.getObject("fragmentLoader"),
+                bufferController = createBufferControllerForType.call(self, typeValue);
+
+            stream = streamValue;
+            type = typeValue;
+            eventController = eventControllerValue;
+
+            isDynamic = stream.getStreamInfo().manifestInfo.isDynamic;
+            self.bufferController = bufferController;
+            self.playbackController = playbackController;
+            self.scheduleController = scheduleController;
+            self.trackController = trackController;
+            self.videoModel = videoModel;
+            self.fragmentController = fragmentController;
+            self.fragmentLoader = fragmentLoader;
+
+            trackController.subscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, bufferController);
+            fragmentController.subscribe(fragmentController.eventList.ENAME_INIT_FRAGMENT_LOADED, bufferController);
+            bufferController.subscribe(bufferController.eventList.ENAME_CLOSED_CAPTIONING_REQUESTED, scheduleController);
+
+            if (type === "video" || type === "audio") {
+                abrController.subscribe(abrController.eventList.ENAME_QUALITY_CHANGED, bufferController);
+                abrController.subscribe(abrController.eventList.ENAME_QUALITY_CHANGED, trackController);
+                abrController.subscribe(abrController.eventList.ENAME_QUALITY_CHANGED, scheduleController);
+
+                liveEdgeFinder.subscribe(liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, this.timelineConverter);
+                liveEdgeFinder.subscribe(liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, trackController);
+                liveEdgeFinder.subscribe(liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, scheduleController);
+
+                trackController.subscribe(trackController.eventList.ENAME_DATA_UPDATE_STARTED, scheduleController);
+
+                trackController.subscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, scheduleController);
+                trackController.subscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, abrController);
+                trackController.subscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, stream);
+
+                if (!playbackController.streamProcessor) {
+                    playbackController.streamProcessor = self;
+                    trackController.subscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, playbackController);
+                }
+
+                fragmentController.subscribe(fragmentController.eventList.ENAME_MEDIA_FRAGMENT_LOADED, bufferController);
+                fragmentController.subscribe(fragmentController.eventList.ENAME_MEDIA_FRAGMENT_LOADING_START, scheduleController);
+                fragmentController.subscribe(fragmentController.eventList.ENAME_STREAM_COMPLETED, scheduleController);
+                fragmentController.subscribe(fragmentController.eventList.ENAME_STREAM_COMPLETED, bufferController);
+                fragmentController.subscribe(fragmentController.eventList.ENAME_STREAM_COMPLETED, scheduleController.scheduleRulesCollection.bufferLevelRule);
+
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED, videoModel);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_CLEARED, scheduleController);
+                bufferController.subscribe(bufferController.eventList.ENAME_BYTES_APPENDED, scheduleController);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_UPDATED, scheduleController);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_UPDATED, trackController);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED, scheduleController);
+                bufferController.subscribe(bufferController.eventList.ENAME_INIT_REQUESTED, scheduleController);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFERING_COMPLETED, stream);
+                bufferController.subscribe(bufferController.eventList.ENAME_QUOTA_EXCEEDED, scheduleController);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN, scheduleController.scheduleRulesCollection.bufferLevelRule);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_BALANCED, scheduleController.scheduleRulesCollection.bufferLevelRule);
+                bufferController.subscribe(bufferController.eventList.ENAME_BYTES_APPENDED, playbackController);
+
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_PROGRESS, bufferController);
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_TIME_UPDATED, bufferController);
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_RATE_CHANGED, bufferController);
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_RATE_CHANGED, scheduleController);
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_SEEKING, bufferController);
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_SEEKING, scheduleController);
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_STARTED, scheduleController);
+                playbackController.subscribe(playbackController.eventList.ENAME_PLAYBACK_SEEKING, scheduleController.scheduleRulesCollection.playbackTimeRule);
+
+                if (isDynamic) {
+                    playbackController.subscribe(playbackController.eventList.ENAME_WALLCLOCK_TIME_UPDATED, trackController);
+                }
+
+                playbackController.subscribe(playbackController.eventList.ENAME_WALLCLOCK_TIME_UPDATED, bufferController);
+                playbackController.subscribe(playbackController.eventList.ENAME_WALLCLOCK_TIME_UPDATED, scheduleController);
+
+                baseUrlExt.subscribe(baseUrlExt.eventList.ENAME_INITIALIZATION_LOADED, indexHandler);
+                baseUrlExt.subscribe(baseUrlExt.eventList.ENAME_SEGMENTS_LOADED, indexHandler);
+            }
+
+            indexHandler.initialize(this);
+            bufferController.initialize(type, buffer, mediaSource, self);
+            scheduleController.initialize(type, this);
+
+            fragmentModel = this.getFragmentModel();
+            fragmentModel.setLoader(fragmentLoader);
+            fragmentModel.subscribe(fragmentModel.eventList.ENAME_FRAGMENT_LOADING_STARTED, fragmentController);
+            fragmentModel.subscribe(fragmentModel.eventList.ENAME_FRAGMENT_LOADING_COMPLETED, fragmentController);
+            fragmentModel.subscribe(fragmentModel.eventList.ENAME_STREAM_COMPLETED, fragmentController);
+            fragmentModel.subscribe(fragmentModel.eventList.ENAME_FRAGMENT_LOADING_FAILED, scheduleController);
+            fragmentLoader.subscribe(fragmentLoader.eventList.ENAME_LOADING_COMPLETED, fragmentModel);
+
+            if (type === "video" || type === "audio") {
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN, fragmentModel);
+                bufferController.subscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_BALANCED, fragmentModel);
+                bufferController.subscribe(bufferController.eventList.ENAME_BYTES_REJECTED, fragmentModel);
+            }
+
+            trackController.initialize(this);
+        },
+
+        isUpdating: function() {
+            return this.trackController.isUpdating();
+        },
+
+        getType: function() {
+            return type;
+        },
+
+        getFragmentModel: function() {
+            return this.scheduleController.getFragmentModel();
+        },
+
+        getStreamInfo: function() {
+            return stream.getStreamInfo();
+        },
+
+        setMediaInfo: function(value) {
+            mediaInfo = value;
+        },
+
+        getMediaInfo: function() {
+            return mediaInfo;
+        },
+
+        getEventController: function() {
+            return eventController;
+        },
+
+        start: function() {
+            this.scheduleController.start();
+        },
+
+        stop: function() {
+            this.scheduleController.stop();
+        },
+
+        getCurrentTrack: function() {
+            return this.adapter.getCurrentTrackInfo(this.trackController);
+        },
+
+        getTrackForQuality: function(quality) {
+            return this.adapter.getTrackInfoForQuality(this.trackController, quality);
+        },
+
+        isBufferingCompleted: function() {
+            return this.bufferController.isBufferingCompleted();
+        },
+
+        isDynamic: function(){
+            return isDynamic;
+        },
+
+        reset: function(errored) {
+            var self = this,
+                bufferController = self.bufferController,
+                trackController = self.trackController,
+                scheduleController = self.scheduleController,
+                liveEdgeFinder = self.liveEdgeFinder,
+                fragmentController = self.fragmentController,
+                abrController = self.abrController,
+                playbackController = self.playbackController,
+                indexHandler = this.indexHandler,
+                baseUrlExt = this.baseURLExt,
+                fragmentModel = this.getFragmentModel(),
+                fragmentLoader = this.fragmentLoader,
+                videoModel = self.videoModel;
+
+            abrController.unsubscribe(abrController.eventList.ENAME_QUALITY_CHANGED, bufferController);
+            abrController.unsubscribe(abrController.eventList.ENAME_QUALITY_CHANGED, trackController);
+            abrController.unsubscribe(abrController.eventList.ENAME_QUALITY_CHANGED, scheduleController);
+
+            liveEdgeFinder.unsubscribe(liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, this.timelineConverter);
+            liveEdgeFinder.unsubscribe(liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, scheduleController);
+            liveEdgeFinder.unsubscribe(liveEdgeFinder.eventList.ENAME_LIVE_EDGE_FOUND, trackController);
+
+            trackController.unsubscribe(trackController.eventList.ENAME_DATA_UPDATE_STARTED, scheduleController);
+            trackController.unsubscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, bufferController);
+            trackController.unsubscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, scheduleController);
+            trackController.unsubscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, abrController);
+            trackController.unsubscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, stream);
+            trackController.unsubscribe(trackController.eventList.ENAME_DATA_UPDATE_COMPLETED, playbackController);
+
+            fragmentController.unsubscribe(fragmentController.eventList.ENAME_INIT_FRAGMENT_LOADED, bufferController);
+            fragmentController.unsubscribe(fragmentController.eventList.ENAME_MEDIA_FRAGMENT_LOADED, bufferController);
+            fragmentController.unsubscribe(fragmentController.eventList.ENAME_MEDIA_FRAGMENT_LOADING_START, scheduleController);
+            fragmentController.unsubscribe(fragmentController.eventList.ENAME_STREAM_COMPLETED, scheduleController);
+            fragmentController.unsubscribe(fragmentController.eventList.ENAME_STREAM_COMPLETED, bufferController);
+            fragmentController.unsubscribe(fragmentController.eventList.ENAME_STREAM_COMPLETED, scheduleController.scheduleRulesCollection.bufferLevelRule);
+
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED, videoModel);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_CLEARED, scheduleController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BYTES_APPENDED, scheduleController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BYTES_REJECTED, scheduleController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_UPDATED, scheduleController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_UPDATED, trackController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_STATE_CHANGED, scheduleController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_INIT_REQUESTED, scheduleController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFERING_COMPLETED, stream);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_CLOSED_CAPTIONING_REQUESTED, scheduleController);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN, scheduleController.scheduleRulesCollection.bufferLevelRule);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_BALANCED, scheduleController.scheduleRulesCollection.bufferLevelRule);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BYTES_APPENDED, playbackController);
+
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_PROGRESS, bufferController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_TIME_UPDATED, bufferController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_RATE_CHANGED, bufferController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_RATE_CHANGED, scheduleController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_SEEKING, bufferController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_SEEKING, scheduleController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_STARTED, scheduleController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_WALLCLOCK_TIME_UPDATED, trackController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_WALLCLOCK_TIME_UPDATED, bufferController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_WALLCLOCK_TIME_UPDATED, scheduleController);
+            playbackController.unsubscribe(playbackController.eventList.ENAME_PLAYBACK_SEEKING, scheduleController.scheduleRulesCollection.playbackTimeRule);
+
+            baseUrlExt.unsubscribe(baseUrlExt.eventList.ENAME_INITIALIZATION_LOADED, indexHandler);
+            baseUrlExt.unsubscribe(baseUrlExt.eventList.ENAME_SEGMENTS_LOADED, indexHandler);
+
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN, fragmentModel);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BUFFER_LEVEL_BALANCED, fragmentModel);
+            bufferController.unsubscribe(bufferController.eventList.ENAME_BYTES_REJECTED, fragmentModel);
+
+            fragmentModel.unsubscribe(fragmentModel.eventList.ENAME_FRAGMENT_LOADING_STARTED, fragmentController);
+            fragmentModel.unsubscribe(fragmentModel.eventList.ENAME_FRAGMENT_LOADING_COMPLETED, fragmentController);
+            fragmentModel.unsubscribe(fragmentModel.eventList.ENAME_STREAM_COMPLETED, fragmentController);
+            fragmentModel.unsubscribe(fragmentModel.eventList.ENAME_FRAGMENT_LOADING_FAILED, scheduleController);
+            fragmentLoader.unsubscribe(fragmentLoader.eventList.ENAME_LOADING_COMPLETED, fragmentModel);
+            fragmentController.resetModel(fragmentModel);
+
+            indexHandler.reset();
+            this.bufferController.reset(errored);
+            this.scheduleController.reset();
+            this.bufferController = null;
+            this.scheduleController = null;
+            this.trackController = null;
+            this.videoModel = null;
+            this.fragmentController = null;
+        }
+
+    };
+};
+
+MediaPlayer.dependencies.StreamProcessor.prototype = {
+    constructor: MediaPlayer.dependencies.StreamProcessor
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2014, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.utils.TokenAuthentication = function () {
+    "use strict";
+    var tokenAuthentication = {type:MediaPlayer.utils.TokenAuthentication.TYPE_QUERY};
+    return {
+        debug:undefined,
+        getTokenAuthentication:function () {
+
+            return tokenAuthentication;
+
+        },
+        setTokenAuthentication:function (object) {
+
+            tokenAuthentication = object;
+
+        },
+        checkRequestHeaderForToken:function(request) {
+
+            if (tokenAuthentication.name !== undefined &&
+                request.getResponseHeader(tokenAuthentication.name) !== null) {
+
+                tokenAuthentication.token = request.getResponseHeader(tokenAuthentication.name);
+                this.debug.log(tokenAuthentication.name+" received: " + tokenAuthentication.token);
+
+           }
+        },
+        addTokenAsQueryArg:function(url) {
+
+            if(tokenAuthentication.name !== undefined && tokenAuthentication.token !== undefined) {
+                if (tokenAuthentication.type === MediaPlayer.utils.TokenAuthentication.TYPE_QUERY) {
+
+                    var modifier = url.indexOf('?') === -1 ? '?' : '&';
+                    url += modifier + tokenAuthentication.name +"=" + tokenAuthentication.token;
+                    this.debug.log(tokenAuthentication.name+" is being appended on the request url with a value of : " + tokenAuthentication.token);
+
+                }
+            }
+
+            return url;
+        },
+        setTokenInRequestHeader:function(request) {
+
+            if (tokenAuthentication.type === MediaPlayer.utils.TokenAuthentication.TYPE_HEADER) {
+
+                request.setRequestHeader(tokenAuthentication.name, tokenAuthentication.token);
+                this.debug.log(tokenAuthentication.name+" is being set in the request header with a value of : " + tokenAuthentication.token);
+
+            }
+
+            return request;
+        }
+    };
+};
+
+MediaPlayer.utils.TokenAuthentication.TYPE_QUERY = "query";
+MediaPlayer.utils.TokenAuthentication.TYPE_HEADER = "header";;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2014, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.models.URIQueryAndFragmentModel = function () {
+    "use strict";
+
+    var URIFragmentDataVO = new MediaPlayer.vo.URIFragmentData(),
+        URIQueryData = [],
+
+        parseURI = function (uri) {
+            if (!uri) return null;
+
+            var URIFragmentData = [],
+                testQuery = new RegExp(/[?]/),
+                testFragment = new RegExp(/[#]/),
+                isQuery = testQuery.test(uri),
+                isFragment = testFragment.test(uri),
+                mappedArr;
+
+            function reduceArray(previousValue, currentValue, index, array) {
+                var arr =  array[0].split(/[=]/);
+                array.push({key:arr[0], value:arr[1]});
+                array.shift();
+                return array;
+            }
+
+            function mapArray(currentValue, index, array) {
+                if (index > 0)
+                {
+                    if (isQuery && URIQueryData.length === 0) {
+                        URIQueryData = array[index].split(/[&]/);
+                    } else if (isFragment) {
+                        URIFragmentData = array[index].split(/[&]/);
+                    }
+                }
+
+                return array;
+            }
+
+            mappedArr = uri.split(/[?#]/).map(mapArray);
+
+            if (URIQueryData.length > 0) {
+                URIQueryData = URIQueryData.reduce(reduceArray, null);
+            }
+
+            if (URIFragmentData.length > 0) {
+                URIFragmentData = URIFragmentData.reduce(reduceArray, null);
+                URIFragmentData.forEach(function (object) {
+                    URIFragmentDataVO[object.key] = object.value;
+                });
+            }
+
+            return uri;
+        };
+
+    return {
+        parseURI:parseURI,
+        getURIFragmentData:URIFragmentDataVO,
+        getURIQueryData:URIQueryData,
+
+        reset: function() {
+            URIFragmentDataVO = new MediaPlayer.vo.URIFragmentData();
+            URIQueryData = [];
+        }
+    };
+};
+
+MediaPlayer.models.URIQueryAndFragmentModel.prototype = {
+    constructor: MediaPlayer.models.URIQueryAndFragmentModel
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.models.VideoModel = function () {
+    "use strict";
+
+    var element,
+        stalledStreams = [],
+        //_currentTime = 0,
+
+        isStalled = function () {
+            return (stalledStreams.length > 0);
+        },
+
+        addStalledStream = function (type) {
+            if (type === null) {
+                return;
+            }
+
+            // Halt playback until nothing is stalled.
+            element.playbackRate = 0;
+
+            if (stalledStreams[type] === true) {
+                return;
+            }
+
+            stalledStreams.push(type);
+            stalledStreams[type] = true;
+        },
+
+        removeStalledStream = function (type) {
+            if (type === null) {
+                return;
+            }
+
+            stalledStreams[type] = false;
+            var index = stalledStreams.indexOf(type);
+            if (index !== -1) {
+                stalledStreams.splice(index, 1);
+            }
+
+            // If nothing is stalled resume playback.
+            if (isStalled() === false) {
+                element.playbackRate = 1;
+            }
+        },
+
+        stallStream = function (type, isStalled) {
+            if (isStalled) {
+                addStalledStream(type);
+            } else {
+                removeStalledStream(type);
+            }
+        },
+
+        onBufferLevelStateChanged = function(sender, hasSufficientBuffer) {
+            var type = sender.streamProcessor.getType();
+
+            stallStream.call(this, type, !hasSufficientBuffer);
+        }
+        /*,
+        handleSetCurrentTimeNotification = function () {
+            if (element.currentTime !== _currentTime) {
+                element.currentTime = _currentTime;
+            }
+        }*/;
+
+    return {
+        system : undefined,
+
+        setup : function () {
+            this.bufferLevelStateChanged = onBufferLevelStateChanged;
+            //this.system.mapHandler("setCurrentTime", undefined, handleSetCurrentTimeNotification.bind(this));
+        },
+
+        play: function () {
+            element.play();
+        },
+
+        pause: function () {
+            element.pause();
+        },
+
+        isPaused: function () {
+            return element.paused;
+        },
+
+        getPlaybackRate:  function () {
+            return element.playbackRate;
+        },
+
+        setPlaybackRate: function (value) {
+            element.playbackRate = value;
+        },
+
+        getCurrentTime: function () {
+            return element.currentTime;
+        },
+
+        setCurrentTime: function (currentTime) {
+            //_currentTime = currentTime;
+
+            // We don't set the same currentTime because it can cause firing unexpected Pause event in IE11
+            // providing playbackRate property equals to zero.
+            if (element.currentTime == currentTime) return;
+
+            element.currentTime = currentTime;
+        },
+
+        listen: function (type, callback) {
+            element.addEventListener(type, callback, false);
+        },
+
+        unlisten: function (type, callback) {
+            element.removeEventListener(type, callback, false);
+        },
+
+        getElement: function () {
+            return element;
+        },
+
+        setElement: function (value) {
+            element = value;
+        },
+
+        setSource: function (source) {
+            element.src = source;
+        }
+    };
+};
+
+MediaPlayer.models.VideoModel.prototype = {
+    constructor: MediaPlayer.models.VideoModel
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.VideoModelExtensions = function () {
+    "use strict";
+
+    return {
+        getPlaybackQuality: function (videoElement) {
+            var hasWebKit = ("webkitDroppedFrameCount" in videoElement),
+                hasQuality = ("getVideoPlaybackQuality" in videoElement),
+                result = null;
+
+            if (hasQuality) {
+                result = videoElement.getVideoPlaybackQuality();
+            }
+            else if (hasWebKit) {
+                result = {droppedVideoFrames: videoElement.webkitDroppedFrameCount, creationTime: new Date()};
+            }
+
+            return result;
+        }
+    };
+};
+
+MediaPlayer.dependencies.VideoModelExtensions.prototype = {
+    constructor: MediaPlayer.dependencies.VideoModelExtensions
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Akamai Technologies nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.utils.TTMLParser = function () {
+    "use strict";
+
+    /*
+    * This TTML parser follows "TTML Simple Delivery Profile for Closed Captions (US)" spec - http://www.w3.org/TR/ttml10-sdp-us/
+    * */
+
+    var SECONDS_IN_HOUR = 60 * 60,
+        SECONDS_IN_MIN = 60,
+        // R0028 - A document must not contain a <timeExpression> value that does not conform to the subset of clock-time that
+        // matches either of the following patterns: hh:mm:ss.mss or hh:mm:ss:ff, where hh denotes hours (00-23),
+        // mm denotes minutes (00-59), ss denotes seconds (00-59), mss denotes milliseconds (000-999), and ff denotes frames (00-frameRate - 1).
+        // R0030 - For time expressions that use the hh:mm:ss.mss format, the following constraints apply:
+        // - Exactly 2 digits must be used in each of the hours, minutes, and second components (include leading zeros).
+        // - Exactly 3 decimal places must be used for the milliseconds component (include leading zeros).
+        // R0031 -For time expressions that use the hh:mm:ss:ff format, the following constraints apply:
+        // - Exactly 2 digits must be used in each of the hours, minutes, second, and frame components (include leading zeros).
+        timingRegex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])((\.[0-9][0-9][0-9])|(:[0-9][0-9]))$/,
+        ttml,
+
+        parseTimings = function(timingStr) {
+            var test = timingRegex.test(timingStr),
+                timeParts,
+                parsedTime,
+                frameRate;
+
+            if (!test) {
+                return NaN;
+            }
+
+            timeParts = timingStr.split(":");
+
+            parsedTime = (parseFloat(timeParts[0]) * SECONDS_IN_HOUR +
+                parseFloat(timeParts[1]) * SECONDS_IN_MIN +
+                parseFloat(timeParts[2]));
+
+            // R0031 -For time expressions that use the hh:mm:ss:ff format, the following constraints apply:
+            //  - A ttp:frameRate attribute must be present on the tt element.
+            //  - A ttp:frameRateMultiplier attribute may be present on the tt element.
+            if (timeParts[3]) {
+                frameRate = ttml.tt.frameRate;
+
+                if (frameRate && !isNaN(frameRate)) {
+                    parsedTime += parseFloat(timeParts[3]) / frameRate;
+                } else {
+                    return NaN;
+                }
+            }
+
+            return parsedTime;
+        },
+
+        passStructuralConstraints = function () {
+            var passed = false,
+                hasTt = ttml.hasOwnProperty("tt"),
+                hasHead = hasTt ? ttml.tt.hasOwnProperty("head") : false,
+                hasLayout = hasHead ? ttml.tt.head.hasOwnProperty("layout") : false,
+                hasStyling = hasHead ? ttml.tt.head.hasOwnProperty("styling") : false,
+                hasBody = hasTt ? ttml.tt.hasOwnProperty("body") : false,
+                hasProfile = hasHead ? ttml.tt.head.hasOwnProperty("profile") : false;
+
+            // R001 - A document must contain a tt element.
+            // R002 - A document must contain both a head and body element.
+            // R003 - A document must contain both a styling and a layout element.
+            if (hasTt && hasHead && hasLayout && hasStyling && hasBody) {
+                passed = true;
+            }
+
+            // R0008 - A document must contain a ttp:profile element where the use attribute of that element is specified as http://www.w3.org/ns/ttml/profile/sdp-us.
+            if (passed) {
+                passed = hasProfile && (ttml.tt.head.profile.use === "http://www.w3.org/ns/ttml/profile/sdp-us");
+            }
+
+            return passed;
+        },
+
+        getNamespacePrefix = function(json, ns) {
+            var r = Object.keys(json)
+                .filter(function(k){
+                    return k.split(":")[0] === "xmlns" && json[k] === ns;
+                }).map(function(k){
+                    return k.split(":")[1];
+                });
+            if (r.length != 1) {
+                return null;
+            }
+            return r[0];
+        },
+
+        internalParse = function(data) {
+            var captionArray = [],
+                converter = new X2JS([], "", false),
+                errorMsg,
+                cues,
+                cue,
+                startTime,
+                endTime,
+                nsttp,
+                i;
+
+            ttml = converter.xml_str2json(data);
+
+            if (!passStructuralConstraints()) {
+                errorMsg = "TTML document has incorrect structure";
+                throw errorMsg;
+            }
+
+            nsttp = getNamespacePrefix(ttml.tt, "http://www.w3.org/ns/ttml#parameter");
+
+            if (ttml.tt.hasOwnProperty(nsttp + ":frameRate")) {
+                ttml.tt.frameRate = parseInt(ttml.tt[nsttp + ":frameRate"], 10);
+            }
+
+            cues = ttml.tt.body.div_asArray[0].p_asArray;
+
+            if (!cues || cues.length === 0) {
+                errorMsg = "TTML document does not contain any cues";
+                throw errorMsg;
+            }
+
+            for (i = 0; i < cues.length; i += 1) {
+                cue = cues[i];
+                startTime = parseTimings(cue.begin);
+                endTime = parseTimings(cue.end);
+
+                if (isNaN(startTime) || isNaN(endTime)) {
+                    errorMsg = "TTML document has incorrect timing value";
+                    throw errorMsg;
+                }
+
+                captionArray.push({
+                    start: startTime,
+                    end: endTime,
+                    data: cue.__text
+                });
+            }
+
+            return captionArray;
+    };
+
+    return {
+        parse: internalParse
+    };
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Akamai Technologies nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.TextController = function () {
+
+     var initialized = false,
+         mediaSource,
+         buffer,
+         type,
+
+         onDataUpdateCompleted = function(/*sender ,data, trackData*/) {
+             if (!initialized) {
+                 if (buffer.hasOwnProperty('initialize')) {
+                     buffer.initialize(type, this);
+                 }
+                 initialized = true;
+             }
+             this.notify(this.eventList.ENAME_CLOSED_CAPTIONING_REQUESTED, 0);
+         },
+
+         onInitFragmentLoaded = function (sender, model, bytes/*, quality*/) {
+             var self = this;
+
+             if (model !== self.streamProcessor.getFragmentModel()) return;
+
+             if (bytes !== null) {
+                 //self.debug.log("Push text track bytes: " + data.byteLength);
+                 self.sourceBufferExt.append(buffer, bytes, self.videoModel);
+             }
+         };
+
+    return {
+        sourceBufferExt: undefined,
+        debug: undefined,
+        system: undefined,
+        notify: undefined,
+        subscribe: undefined,
+        unsubscribe: undefined,
+        eventList: {
+            ENAME_CLOSED_CAPTIONING_REQUESTED: "closedCaptioningRequested"
+        },
+
+        setup: function() {
+            this.dataUpdateCompleted = onDataUpdateCompleted;
+            this.initFragmentLoaded = onInitFragmentLoaded;
+        },
+
+        initialize: function (typeValue, buffer, source, streamProcessor) {
+            var self = this;
+
+            type = typeValue;
+            self.setBuffer(buffer);
+            self.setMediaSource(source);
+            self.videoModel = streamProcessor.videoModel;
+            self.trackController = streamProcessor.trackController;
+            self.streamProcessor = streamProcessor;
+        },
+
+        getBuffer: function () {
+            return buffer;
+        },
+
+        setBuffer: function (value) {
+            buffer = value;
+        },
+
+        setMediaSource: function(value) {
+            mediaSource = value;
+        },
+
+        reset: function (errored) {
+            if (!errored) {
+                this.sourceBufferExt.abort(mediaSource, buffer);
+                this.sourceBufferExt.removeSourceBuffer(mediaSource, buffer);
+            }
+        }
+    };
+};
+
+MediaPlayer.dependencies.TextController.prototype = {
+    constructor: MediaPlayer.dependencies.TextController
+};
+
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Akamai Technologies nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.dependencies.TextSourceBuffer = function () {
+
+    var mediaInfo,
+        mimeType;
+
+    return {
+        system:undefined,
+        eventBus:undefined,
+        errHandler: undefined,
+
+        initialize: function (type, bufferController) {
+            mimeType = type;
+            this.videoModel = bufferController.videoModel;
+            mediaInfo = bufferController.streamProcessor.getCurrentTrack().mediaInfo;
+        },
+
+        append: function (bytes) {
+            var self = this,
+                result,
+                label,
+                lang,
+                ccContent = String.fromCharCode.apply(null, new Uint16Array(bytes));
+
+            try {
+                result = self.getParser().parse(ccContent);
+                label = mediaInfo.id;
+                lang = mediaInfo.lang;
+
+                self.getTextTrackExtensions().addTextTrack(self.videoModel.getElement(), result, label, lang, true);
+                self.eventBus.dispatchEvent({type:"updateend"});
+            } catch(e) {
+                self.errHandler.closedCaptionsError(e, "parse", ccContent);
+            }
+        },
+
+        abort:function() {
+            this.getTextTrackExtensions().deleteCues(this.videoModel.getElement());
+        },
+
+        getParser:function() {
+            var parser;
+
+            if (mimeType === "text/vtt") {
+                parser = this.system.getObject("vttParser");
+            } else if (mimeType === "application/ttml+xml") {
+                parser = this.system.getObject("ttmlParser");
+            }
+
+            return parser;
+        },
+
+        getTextTrackExtensions:function() {
+            return this.system.getObject("textTrackExtensions");
+        },
+
+        addEventListener: function (type, listener, useCapture) {
+            this.eventBus.addEventListener(type, listener, useCapture);
+        },
+
+        removeEventListener: function (type, listener, useCapture) {
+            this.eventBus.removeEventListener(type, listener, useCapture);
+        }
+    };
+};
+
+MediaPlayer.dependencies.TextSourceBuffer.prototype = {
+    constructor: MediaPlayer.dependencies.TextSourceBuffer
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Akamai Technologies nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.utils.TextTrackExtensions = function () {
+    "use strict";
+    var Cue;
+
+    return {
+        setup: function() {
+            Cue = window.VTTCue || window.TextTrackCue;
+        },
+
+        addTextTrack: function(video, captionData,  label, scrlang, isDefaultTrack) {
+
+            //TODO: Ability to define the KIND in the MPD - ie subtitle vs caption....
+            var track = video.addTextTrack("captions", label, scrlang);
+            // track.default is an object property identifier that is a reserved word
+            // The following jshint directive is used to suppressed the warning "Expected an identifier and instead saw 'default' (a reserved word)"
+            /*jshint -W024 */
+            track.default = isDefaultTrack;
+            track.mode = "showing";
+
+            for(var item in captionData) {
+                var currentItem = captionData[item];
+                track.addCue(new Cue(currentItem.start, currentItem.end, currentItem.data));
+            }
+
+            return track;
+        },
+        deleteCues: function(video) {
+            //when multiple tracks are supported - iterate through and delete all cues from all tracks.
+
+            var i = 0,
+                firstValidTrack = false;
+
+            while (!firstValidTrack)
+            {
+                if (video.textTracks[i].cues !== null)
+                {
+                    firstValidTrack = true;
+                    break;
+                }
+                i++;
+            }
+
+            var track = video.textTracks[i],
+                cues = track.cues,
+                lastIdx = cues.length - 1;
+
+            for (i = lastIdx; i >= 0 ; i--) {
+                track.removeCue(cues[i]);
+            }
+
+            track.mode = "disabled";
+            // The following jshint directive is used to suppressed the warning "Expected an identifier and instead saw 'default' (a reserved word)"
+            /*jshint -W024 */
+            track.default = false;
+        }
+
+    };
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2013, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Akamai Technologies nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.utils.VTTParser = function () {
+    "use strict";
+
+    var convertCuePointTimes = function(time) {
+        var timeArray = time.split( ":"),
+            len = timeArray.length - 1;
+
+        time = parseInt( timeArray[len-1], 10 ) * 60 + parseFloat( timeArray[len], 10 );
+
+        if ( len === 2 ) {
+            time += parseInt( timeArray[0], 10 ) * 3600;
+        }
+
+        return time;
+    };
+
+    return {
+
+        parse: function (data)
+        {
+            var regExNewLine = /(?:\r\n|\r|\n)/gm,
+                regExToken = /-->/,
+                regExWhiteSpace = /(^[\s]+|[\s]+$)/g,
+                captionArray = [],
+                len;
+
+            data = data.split( regExNewLine );
+            len = data.length;
+
+            for (var i = 0 ; i < len; i++)
+            {
+                var item = data[i];
+
+                if (item.length > 0 && item !== "WEBVTT")
+                {
+                    if (item.match(regExToken))
+                    {
+                        var cuePoints = item.split(regExToken);
+                        //vtt has sublines so more will need to be done here
+                        var sublines = data[i+1];
+
+                        //TODO Make VO external so other parsers can use.
+                        captionArray.push({
+                            start:convertCuePointTimes(cuePoints[0].replace(regExWhiteSpace, '')),
+                            end:convertCuePointTimes(cuePoints[1].replace(regExWhiteSpace, '')),
+                            data:sublines
+                        });
+                    }
+                }
+            }
+
+            return captionArray;
+        }
+    };
+};
+;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.rules.ABRRulesCollection = function () {
+    "use strict";
+
+    var qualitySwitchRules = [];
+
+    return {
+        downloadRatioRule: undefined,
+        insufficientBufferRule: undefined,
+        limitSwitchesRule: undefined,
+
+        getRules: function (type) {
+            switch (type) {
+                case MediaPlayer.rules.ABRRulesCollection.prototype.QUALITY_SWITCH_RULES:
+                    return qualitySwitchRules;
+                default:
+                    return null;
+            }
+        },
+
+        setup: function () {
+            qualitySwitchRules.push(this.downloadRatioRule);
+            qualitySwitchRules.push(this.insufficientBufferRule);
+            qualitySwitchRules.push(this.limitSwitchesRule);
+        }
+    };
+};
+
+MediaPlayer.rules.ABRRulesCollection.prototype = {
+    constructor: MediaPlayer.rules.ABRRulesCollection,
+    QUALITY_SWITCH_RULES: "qualitySwitchRules"
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.rules.DownloadRatioRule = function () {
+    "use strict";
+
+    /*
+     * This rule is intended to be sure that we can download fragments in a
+     * timely manner.  The general idea is that it should take longer to download
+     * a fragment than it will take to play the fragment.
+     *
+     * This rule is not sufficient by itself.  We may be able to download a fragment
+     * fine, but if the buffer is not sufficiently long playback hiccups will happen.
+     * Be sure to use this rule in conjuction with the InsufficientBufferRule.
+     */
+
+    var streamProcessors = {},
+
+        checkRatio = function (sp, newIdx, currentBandwidth) {
+            var newBandwidth = sp.getTrackForQuality(newIdx).bandwidth;
+
+            return (newBandwidth / currentBandwidth);
+        };
+
+    return {
+        debug: undefined,
+        metricsExt: undefined,
+        metricsModel: undefined,
+
+        setStreamProcessor: function(streamProcessorValue) {
+            var type = streamProcessorValue.getType(),
+                id = streamProcessorValue.getStreamInfo().id;
+
+            streamProcessors[id] = streamProcessors[id] || {};
+            streamProcessors[id][type] = streamProcessorValue;
+        },
+
+        execute: function (context, callback) {
+            var self = this,
+                streamId = context.getStreamInfo().id,
+                mediaInfo = context.getMediaInfo(),
+                mediaType = mediaInfo.type,
+                current = context.getCurrentValue(),
+                sp = streamProcessors[streamId][mediaType],
+                metrics = self.metricsModel.getReadOnlyMetricsFor(mediaType),
+                lastRequest = self.metricsExt.getCurrentHttpRequest(metrics),
+                downloadTime,
+                totalTime,
+                downloadRatio,
+                totalRatio,
+                switchRatio,
+                oneDownBandwidth,
+                oneUpBandwidth,
+                currentBandwidth,
+                i,
+                max,
+                switchRequest,
+                DOWNLOAD_RATIO_SAFETY_FACTOR = 0.75;
+
+            //self.debug.log("Checking download ratio rule...");
+
+            if (!metrics) {
+                //self.debug.log("No metrics, bailing.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            if (lastRequest === null) {
+                //self.debug.log("No requests made for this stream yet, bailing.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            totalTime = (lastRequest.tfinish.getTime() - lastRequest.trequest.getTime()) / 1000;
+            downloadTime = (lastRequest.tfinish.getTime() - lastRequest.tresponse.getTime()) / 1000;
+
+            if (totalTime <= 0) {
+                //self.debug.log("Don't know how long the download of the last fragment took, bailing.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            if (lastRequest.mediaduration === null ||
+                lastRequest.mediaduration === undefined ||
+                lastRequest.mediaduration <= 0 ||
+                isNaN(lastRequest.mediaduration)) {
+                //self.debug.log("Don't know the duration of the last media fragment, bailing.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            // TODO : I structured this all goofy and messy.  fix plz
+
+            totalRatio = lastRequest.mediaduration / totalTime;
+            downloadRatio = (lastRequest.mediaduration / downloadTime) * DOWNLOAD_RATIO_SAFETY_FACTOR;
+
+            if (isNaN(downloadRatio) || isNaN(totalRatio)) {
+                //self.debug.log("Total time: " + totalTime + "s");
+                //self.debug.log("Download time: " + downloadTime + "s");
+                self.debug.log("The ratios are NaN, bailing.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            //self.debug.log("Total ratio: " + totalRatio);
+            //self.debug.log("Download ratio: " + downloadRatio);
+
+            if (isNaN(downloadRatio)) {
+                //self.debug.log("Invalid ratio, bailing.");
+                switchRequest = new MediaPlayer.rules.SwitchRequest();
+            } else if (downloadRatio < 4.0) {
+                //self.debug.log("Download ratio is poor.");
+                if (current > 0) {
+                    self.debug.log("We are not at the lowest bitrate, so switch down.");
+                    oneDownBandwidth = sp.getTrackForQuality(current - 1).bandwidth;
+                    currentBandwidth = sp.getTrackForQuality(current).bandwidth;
+                    switchRatio = oneDownBandwidth / currentBandwidth;
+                    //self.debug.log("Switch ratio: " + switchRatio);
+
+                    if (downloadRatio < switchRatio) {
+                        self.debug.log("Things must be going pretty bad, switch all the way down.");
+                        switchRequest = new MediaPlayer.rules.SwitchRequest(0);
+                    } else {
+                        self.debug.log("Things could be better, so just switch down one index.");
+                        switchRequest = new MediaPlayer.rules.SwitchRequest(current - 1);
+                    }
+                } else {
+                    //self.debug.log("We are at the lowest bitrate and cannot switch down, use current.");
+                    switchRequest = new MediaPlayer.rules.SwitchRequest(current);
+                }
+            } else {
+                //self.debug.log("Download ratio is good.");
+                max = mediaInfo.trackCount - 1; // 0 based
+
+                if (current < max) {
+                    //self.debug.log("We are not at the highest bitrate, so switch up.");
+                    oneUpBandwidth = sp.getTrackForQuality(current + 1).bandwidth;
+                    currentBandwidth = sp.getTrackForQuality(current).bandwidth;
+                    switchRatio = oneUpBandwidth / currentBandwidth;
+                    //self.debug.log("Switch ratio: " + switchRatio);
+
+                    if (downloadRatio >= switchRatio) {
+                        if (downloadRatio > 100.0) {
+                            self.debug.log("Tons of bandwidth available, go all the way up.");
+                            switchRequest = new MediaPlayer.rules.SwitchRequest(max);
+                        }
+                        else if (downloadRatio > 10.0) {
+                            self.debug.log("Just enough bandwidth available, switch up one.");
+                            switchRequest = new MediaPlayer.rules.SwitchRequest(current + 1);
+                        }
+                        else {
+                            //self.debug.log("Not exactly sure where to go, so do some math.");
+                            i = -1;
+                            while ((i += 1) < max) {
+                                if (downloadRatio < checkRatio.call(self, sp, i, currentBandwidth)) {
+                                    break;
+                                }
+                            }
+
+                            self.debug.log("Calculated ideal new quality index is: " + i);
+                            switchRequest = new MediaPlayer.rules.SwitchRequest(i);
+                        }
+                    } else {
+                        //self.debug.log("Not enough bandwidth to switch up.");
+                        switchRequest = new MediaPlayer.rules.SwitchRequest();
+                    }
+                } else {
+                    //self.debug.log("We are at the highest bitrate and cannot switch up, use current.");
+                    switchRequest = new MediaPlayer.rules.SwitchRequest(max);
+                }
+            }
+
+            callback(switchRequest);
+        },
+
+        reset: function() {
+            streamProcessors = {};
+        }
+    };
+};
+
+MediaPlayer.rules.DownloadRatioRule.prototype = {
+    constructor: MediaPlayer.rules.DownloadRatioRule
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.rules.InsufficientBufferRule = function () {
+    "use strict";
+
+    /*
+     * This rule is intended to be sure that our buffer doesn't run dry.
+     * If the buffer runs dry playback halts until more data is downloaded.
+     * The buffer will run dry when the fragments are taking too long to download.
+     * The player may have sufficient bandwidth to download a fragment is a reasonable time,
+     * but the play may not leave enough time in the buffer to allow for longer fragments.
+     * A dry buffer is a good indication of this use case, so we want to switch down to
+     * smaller fragments to decrease download time.
+     *
+     * TODO
+     * An alternative would be to increase the size of the buffer.
+     * Is there a good way to handle this?
+     * Maybe the BufferExtensions should have some monitoring built into the
+     * shouldBufferMore method to increase the buffer over time...
+     */
+
+    var dryBufferHits = 0,
+        DRY_BUFFER_LIMIT = 3;
+
+    return {
+        debug: undefined,
+        metricsModel: undefined,
+
+        execute: function (context, callback) {
+            var self = this,
+                mediaType = context.getMediaInfo().type,
+                current = context.getCurrentValue(),
+                metrics = self.metricsModel.getReadOnlyMetricsFor(mediaType),
+                playlist,
+                trace,
+                shift = false,
+                p = MediaPlayer.rules.SwitchRequest.prototype.DEFAULT;
+
+            //self.debug.log("Checking insufficient buffer rule...");
+
+            if (metrics.PlayList === null || metrics.PlayList === undefined || metrics.PlayList.length === 0) {
+                //self.debug.log("Not enough information for rule.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            playlist = metrics.PlayList[metrics.PlayList.length - 1];
+
+            if (playlist === null || playlist === undefined || playlist.trace.length === 0) {
+                //self.debug.log("Not enough information for rule.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            // The last trace is the currently playing fragment.
+            // So get the trace *before* that one.
+            trace = playlist.trace[playlist.trace.length - 2];
+
+            if (trace === null || trace === undefined || trace.stopreason === null || trace.stopreason === undefined) {
+                //self.debug.log("Not enough information for rule.");
+                callback(new MediaPlayer.rules.SwitchRequest());
+                return;
+            }
+
+            if (trace.stopreason === MediaPlayer.vo.metrics.PlayList.Trace.REBUFFERING_REASON) {
+                shift = true;
+                dryBufferHits += 1;
+                self.debug.log("Number of times the buffer has run dry: " + dryBufferHits);
+            }
+
+            // if we've hit a dry buffer too many times, become strong to override whatever is
+            // causing the stream to switch up
+            if (dryBufferHits > DRY_BUFFER_LIMIT) {
+                p = MediaPlayer.rules.SwitchRequest.prototype.STRONG;
+                self.debug.log("Apply STRONG to buffer rule.");
+            }
+
+            if (shift) {
+                self.debug.log("The buffer ran dry recently, switch down.");
+                callback(new MediaPlayer.rules.SwitchRequest(current - 1, p));
+            } else if (dryBufferHits > DRY_BUFFER_LIMIT) {
+                self.debug.log("Too many dry buffer hits, quit switching bitrates.");
+                callback(new MediaPlayer.rules.SwitchRequest(current, p));
+            } else {
+                callback(new MediaPlayer.rules.SwitchRequest(MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE, p));
+            }
+        }
+    };
+};
+
+MediaPlayer.rules.InsufficientBufferRule.prototype = {
+    constructor: MediaPlayer.rules.InsufficientBufferRule
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.rules.LimitSwitchesRule = function () {
+    "use strict";
+
+    /*
+     * This rule is intended to limit the number of switches that can happen.
+     * We might get into a situation where there quality is bouncing around a ton.
+     * This can create an unpleasant experience, so let the stream settle down.
+     */
+    var lastCheckTime = 0,
+        qualitySwitchThreshold = 2000;
+
+    return {
+        debug: undefined,
+        metricsModel: undefined,
+
+        execute: function (context, callback) {
+            var self = this,
+                mediaType = context.getMediaInfo().type,
+                current = context.getCurrentValue(),
+                metrics = this.metricsModel.getReadOnlyMetricsFor(mediaType),
+                manifestInfo = context.getManifestInfo(),
+                lastIdx = metrics.RepSwitchList.length - 1,
+                rs = metrics.RepSwitchList[lastIdx],
+                now = new Date().getTime(),
+                delay;
+
+            //self.debug.log("Checking limit switches rule...");
+            qualitySwitchThreshold = Math.min(manifestInfo.minBufferTime, manifestInfo.maxFragmentDuration) * 1000;
+
+            delay = now - lastCheckTime;
+
+            if (delay < qualitySwitchThreshold && (now - rs.t.getTime()) < qualitySwitchThreshold) {
+                self.debug.log("Wait some time before allowing another switch.");
+                callback(new MediaPlayer.rules.SwitchRequest(current, MediaPlayer.rules.SwitchRequest.prototype.STRONG));
+                return;
+            }
+
+            lastCheckTime = now;
+
+            callback(new MediaPlayer.rules.SwitchRequest(MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE, MediaPlayer.rules.SwitchRequest.prototype.STRONG));
+        }
+    };
+};
+
+MediaPlayer.rules.LimitSwitchesRule.prototype = {
+    constructor: MediaPlayer.rules.LimitSwitchesRule
+};;MediaPlayer.rules.RulesContext = function (streamProcessor, currentValue) {
+    "use strict";
+    var trackInfo = streamProcessor.getCurrentTrack();
+
+    return {
+        getStreamInfo: function() {
+            return trackInfo.mediaInfo.streamInfo;
+        },
+
+        getMediaInfo: function() {
+            return trackInfo.mediaInfo;
+        },
+
+        getTrackInfo: function() {
+            return trackInfo;
+        },
+
+        getCurrentValue: function() {
+            return currentValue;
+        },
+
+        getManifestInfo: function() {
+            return trackInfo.mediaInfo.streamInfo.manifestInfo;
+        }
+    };
+};
+
+MediaPlayer.rules.RulesContext.prototype = {
+    constructor: MediaPlayer.rules.RulesContext
+};;MediaPlayer.rules.BufferLevelRule = function () {
+    "use strict";
+
+    var isBufferLevelOutran = {},
+        isCompleted = {},
+        scheduleController = {},
+
+        getCurrentHttpRequestLatency = function(metrics) {
+            var httpRequest = this.metricsExt.getCurrentHttpRequest(metrics);
+            if (httpRequest !== null) {
+                return (httpRequest.tresponse.getTime() - httpRequest.trequest.getTime()) / 1000;
+            }
+            return 0;
+        },
+
+        decideBufferLength = function (minBufferTime, duration) {
+            var minBufferTarget;
+
+            if (isNaN(duration) || MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME < duration && minBufferTime < duration) {
+                minBufferTarget = Math.max(MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME, minBufferTime);
+            } else if (minBufferTime >= duration) {
+                minBufferTarget = Math.min(duration, MediaPlayer.dependencies.BufferController.DEFAULT_MIN_BUFFER_TIME);
+            } else {
+                minBufferTarget = Math.min(duration, minBufferTime);
+            }
+
+            return minBufferTarget;
+        },
+
+        getRequiredBufferLength = function (isDynamic, duration, scheduleController) {
+            var self = this,
+                criticalBufferLevel = scheduleController.bufferController.getCriticalBufferLevel(),
+                minBufferTarget = decideBufferLength.call(this, scheduleController.bufferController.getMinBufferTime(), duration),
+                currentBufferTarget = minBufferTarget,
+                bufferMax = scheduleController.bufferController.bufferMax,
+                vmetrics = self.metricsModel.getReadOnlyMetricsFor("video"),
+                ametrics = self.metricsModel.getReadOnlyMetricsFor("audio"),
+                isLongFormContent = (duration >= MediaPlayer.dependencies.BufferController.LONG_FORM_CONTENT_DURATION_THRESHOLD),
+                requiredBufferLength = 0;
+
+            if (bufferMax === MediaPlayer.dependencies.BufferController.BUFFER_SIZE_MIN) {
+                requiredBufferLength = minBufferTarget;
+            } else if (bufferMax === MediaPlayer.dependencies.BufferController.BUFFER_SIZE_INFINITY) {
+                requiredBufferLength = duration;
+            } else if (bufferMax === MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED) {
+                if (!isDynamic && self.abrController.isPlayingAtTopQuality(scheduleController.streamProcessor.getStreamInfo())) {
+                    currentBufferTarget = isLongFormContent ?
+                        MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY_LONG_FORM :
+                        MediaPlayer.dependencies.BufferController.BUFFER_TIME_AT_TOP_QUALITY;
+                }
+
+                requiredBufferLength = currentBufferTarget + Math.max(getCurrentHttpRequestLatency.call(self, vmetrics),
+                    getCurrentHttpRequestLatency.call(self, ametrics));
+            }
+
+            requiredBufferLength = Math.min(requiredBufferLength, criticalBufferLevel);
+
+            return requiredBufferLength;
+        },
+
+        isCompletedT = function(streamId, type) {
+            return (isCompleted[streamId] && isCompleted[streamId][type]);
+        },
+
+        isBufferLevelOutranT = function(streamId, type) {
+            return (isBufferLevelOutran[streamId] && isBufferLevelOutran[streamId][type]);
+        },
+
+        onStreamCompleted = function(sender, model , request) {
+            var streamId = model.getContext().streamProcessor.getStreamInfo().id;
+            isCompleted[streamId] = isCompleted[streamId] || {};
+            isCompleted[streamId][request.mediaType] = true;
+        },
+
+        onBufferLevelOutrun = function(sender) {
+            var streamId = sender.streamProcessor.getStreamInfo().id;
+            isBufferLevelOutran[streamId] = isBufferLevelOutran[streamId] || {};
+            isBufferLevelOutran[streamId][sender.streamProcessor.getType()] = true;
+        },
+
+        onBufferLevelBalanced = function(sender) {
+            var streamId = sender.streamProcessor.getStreamInfo().id;
+            isBufferLevelOutran[streamId] = isBufferLevelOutran[streamId] || {};
+            isBufferLevelOutran[streamId][sender.streamProcessor.getType()] = false;
+        };
+
+    return {
+        metricsExt: undefined,
+        metricsModel: undefined,
+        abrController: undefined,
+
+        setup: function() {
+            this.bufferLevelOutrun = onBufferLevelOutrun;
+            this.bufferLevelBalanced = onBufferLevelBalanced;
+            this.streamCompleted = onStreamCompleted;
+        },
+
+        setScheduleController: function(scheduleControllerValue) {
+            var id = scheduleControllerValue.streamProcessor.getStreamInfo().id;
+            scheduleController[id] = scheduleController[id] || {};
+            scheduleController[id][scheduleControllerValue.streamProcessor.getType()] = scheduleControllerValue;
+        },
+
+        execute: function(context, callback) {
+            var streamInfo = context.getStreamInfo(),
+                streamId = streamInfo.id,
+                mediaType = context.getMediaInfo().type;
+
+            if (isBufferLevelOutranT(streamId, mediaType)) {
+                callback(new MediaPlayer.rules.SwitchRequest(0, MediaPlayer.rules.SwitchRequest.prototype.STRONG));
+                return;
+            }
+
+            var metrics = this.metricsModel.getReadOnlyMetricsFor(mediaType),
+                bufferLevel = this.metricsExt.getCurrentBufferLevel(metrics) ? this.metricsExt.getCurrentBufferLevel(metrics).level : 0,
+                scheduleCtrl = scheduleController[streamId][mediaType],
+                track = scheduleCtrl.streamProcessor.getCurrentTrack(),
+                isDynamic = scheduleCtrl.streamProcessor.isDynamic(),
+                rate = this.metricsExt.getCurrentPlaybackRate(metrics),
+                duration = streamInfo.duration,
+                bufferedDuration = bufferLevel / Math.max(rate, 1),
+                fragmentDuration = track.fragmentDuration,
+                currentTime = scheduleCtrl.playbackController.getTime(),
+                timeToEnd = isDynamic ? Number.POSITIVE_INFINITY : duration - currentTime,
+                requiredBufferLength = Math.min(getRequiredBufferLength.call(this, isDynamic, duration, scheduleCtrl), timeToEnd),
+                remainingDuration = Math.max(requiredBufferLength - bufferedDuration, 0),
+                fragmentCount;
+
+            fragmentCount = Math.ceil(remainingDuration/fragmentDuration);
+
+            if (bufferedDuration >= timeToEnd  && !isCompletedT(streamId,mediaType)) {
+                fragmentCount = fragmentCount || 1;
+            }
+
+            callback(new MediaPlayer.rules.SwitchRequest(fragmentCount, MediaPlayer.rules.SwitchRequest.prototype.DEFAULT));
+        },
+
+        reset: function() {
+            isBufferLevelOutran = {};
+            isCompleted = {};
+            scheduleController = {};
+        }
+    };
+};
+
+MediaPlayer.rules.BufferLevelRule.prototype = {
+    constructor: MediaPlayer.rules.BufferLevelRule
+};;MediaPlayer.rules.LiveEdgeBinarySearchRule = function () {
+    "use strict";
+
+    var SEARCH_TIME_SPAN = 12 * 60 * 60, // set the time span that limits our search range to a 12 hours in seconds
+        liveEdgeInitialSearchPosition = NaN,
+        liveEdgeSearchRange = null,
+        liveEdgeSearchStep = NaN,
+        trackInfo = null,
+        useBinarySearch = false,
+        fragmentDuration = NaN,
+        p = MediaPlayer.rules.SwitchRequest.prototype.DEFAULT,
+        finder,
+        callback,
+
+        findLiveEdge = function (searchTime, onSuccess, onError, request) {
+            var self = this,
+                req;
+            if (request === null) {
+                // request can be null because it is out of the generated list of request. In this case we need to
+                // update the list and the DVRWindow
+                // try to get request object again
+                req = self.adapter.generateFragmentRequestForTime(finder.streamProcessor, trackInfo, searchTime);
+                findLiveEdge.call(self, searchTime, onSuccess, onError, req);
+            } else {
+                var handler = function(sender, isExist, request) {
+                    finder.fragmentLoader.unsubscribe(finder.fragmentLoader.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED, self, handler);
+                    if (isExist) {
+                        onSuccess.call(self, request, searchTime);
+                    } else {
+                        onError.call(self, request, searchTime);
+                    }
+                };
+
+                finder.fragmentLoader.subscribe(finder.fragmentLoader.eventList.ENAME_CHECK_FOR_EXISTENCE_COMPLETED, self, handler);
+                finder.fragmentLoader.checkForExistence(request);
+            }
+        },
+
+        onSearchForFragmentFailed = function(request, lastSearchTime) {
+            var searchTime,
+                req,
+                searchInterval;
+
+            if (useBinarySearch) {
+                binarySearch.call(this, false, lastSearchTime);
+                return;
+            }
+
+            // we have not found any available fragments yet, update the search interval
+            searchInterval = lastSearchTime - liveEdgeInitialSearchPosition;
+            // we search forward and backward from the start position, increasing the search interval by the value of the half of the availability interavl - liveEdgeSearchStep
+            searchTime = searchInterval > 0 ? (liveEdgeInitialSearchPosition - searchInterval) : (liveEdgeInitialSearchPosition + Math.abs(searchInterval) + liveEdgeSearchStep);
+
+            // if the search time is out of the range bounds we have not be able to find live edge, stop trying
+            if (searchTime < liveEdgeSearchRange.start && searchTime > liveEdgeSearchRange.end) {
+                callback(new MediaPlayer.rules.SwitchRequest(null, p));
+            } else {
+                // continue searching for a first available fragment
+                req = this.adapter.getFragmentRequestForTime(finder.streamProcessor, trackInfo, searchTime);
+                findLiveEdge.call(this, searchTime, onSearchForFragmentSucceeded, onSearchForFragmentFailed, req);
+            }
+        },
+
+        onSearchForFragmentSucceeded = function (request, lastSearchTime) {
+            var startTime = request.startTime,
+                self = this,
+                req,
+                searchTime;
+
+            if (!useBinarySearch) {
+                // if the fragment duration is unknown we cannot use binary search because we will not be able to
+                // decide when to stop the search, so let the start time of the current fragment be a liveEdge
+                if (!trackInfo.fragmentDuration) {
+                    callback(new MediaPlayer.rules.SwitchRequest(startTime, p));
+                    return;
+                }
+                useBinarySearch = true;
+                liveEdgeSearchRange.end = startTime + (2 * liveEdgeSearchStep);
+
+                //if the first request has succeeded we should check next fragment - if it does not exist we have found live edge,
+                // otherwise start binary search to find live edge
+                if (lastSearchTime === liveEdgeInitialSearchPosition) {
+                    searchTime = lastSearchTime + fragmentDuration;
+                    req = self.adapter.getFragmentRequestForTime(finder.streamProcessor, trackInfo, searchTime);
+                    findLiveEdge.call(self, searchTime, function() {
+                        binarySearch.call(self, true, searchTime);
+                    }, function(){
+                        callback(new MediaPlayer.rules.SwitchRequest(searchTime, p));
+                    }, req);
+
+                    return;
+                }
+            }
+
+            binarySearch.call(this, true, lastSearchTime);
+        },
+
+        binarySearch = function(lastSearchSucceeded, lastSearchTime) {
+            var isSearchCompleted,
+                req,
+                searchTime;
+
+            if (lastSearchSucceeded) {
+                liveEdgeSearchRange.start = lastSearchTime;
+            } else {
+                liveEdgeSearchRange.end = lastSearchTime;
+            }
+
+            isSearchCompleted = (Math.floor(liveEdgeSearchRange.end - liveEdgeSearchRange.start)) <= fragmentDuration;
+
+            if (isSearchCompleted) {
+                // search completed, we should take the time of the last found fragment. If the last search succeded we
+                // take this time. Otherwise, we should subtract the time of the search step which is equal to fragment duaration
+                callback(new MediaPlayer.rules.SwitchRequest((lastSearchSucceeded ? lastSearchTime : (lastSearchTime - fragmentDuration)), p));
+            } else {
+                // update the search time and continue searching
+                searchTime = ((liveEdgeSearchRange.start + liveEdgeSearchRange.end) / 2);
+                req = this.adapter.getFragmentRequestForTime(finder.streamProcessor, trackInfo, searchTime);
+                findLiveEdge.call(this, searchTime, onSearchForFragmentSucceeded, onSearchForFragmentFailed, req);
+            }
+        };
+
+    return {
+        metricsExt: undefined,
+        adapter: undefined,
+        timelineConverter: undefined,
+
+        setFinder: function(liveEdgeFinder) {
+            finder = liveEdgeFinder;
+        },
+
+        execute: function(context, callbackFunc) {
+            var self = this,
+                request,
+                DVRWindow; // all fragments are supposed to be available in this interval
+
+            callback = callbackFunc;
+            trackInfo = finder.streamProcessor.getCurrentTrack();
+            fragmentDuration = trackInfo.fragmentDuration;
+            DVRWindow = trackInfo.DVRWindow; // all fragments are supposed to be available in this interval
+
+            // start position of the search, it is supposed to be a live edge - the last available fragment for the current mpd
+            liveEdgeInitialSearchPosition = DVRWindow.end;
+
+            if (trackInfo.useCalculatedLiveEdgeTime) {
+                //By default an expected live edge is the end of the last segment.
+                // A calculated live edge ('end' property of a range returned by TimelineConverter.calcSegmentAvailabilityRange)
+                // is used as an initial point for finding the actual live edge.
+                // But for SegmentTimeline mpds (w/o a negative @r) the end of the
+                // last segment is the actual live edge. At the same time, calculated live edge is an expected live edge.
+                // Thus, we need to switch an expected live edge and actual live edge for SegmentTimelne streams.
+                var actualLiveEdge = self.timelineConverter.getExpectedLiveEdge();
+                self.timelineConverter.setExpectedLiveEdge(liveEdgeInitialSearchPosition);
+                callback(new MediaPlayer.rules.SwitchRequest(actualLiveEdge, p));
+                return;
+            }
+
+            // we should search for a live edge in a time range which is limited by SEARCH_TIME_SPAN.
+            liveEdgeSearchRange = {start: Math.max(0, (liveEdgeInitialSearchPosition - SEARCH_TIME_SPAN)), end: liveEdgeInitialSearchPosition + SEARCH_TIME_SPAN};
+            // we have to use half of the availability interval (window) as a search step to ensure that we find a fragment in the window
+            liveEdgeSearchStep = Math.floor((DVRWindow.end - DVRWindow.start) / 2);
+            // start search from finding a request for the initial search time
+            request = self.adapter.getFragmentRequestForTime(finder.streamProcessor, trackInfo, liveEdgeInitialSearchPosition);
+            findLiveEdge.call(self, liveEdgeInitialSearchPosition, onSearchForFragmentSucceeded, onSearchForFragmentFailed, request);
+        },
+
+        reset: function() {
+            liveEdgeInitialSearchPosition = NaN;
+            liveEdgeSearchRange = null;
+            liveEdgeSearchStep = NaN;
+            trackInfo = null;
+            useBinarySearch = false;
+            fragmentDuration = NaN;
+            finder = null;
+        }
+    };
+};
+
+MediaPlayer.rules.LiveEdgeBinarySearchRule.prototype = {
+    constructor: MediaPlayer.rules.LiveEdgeBinarySearchRule
+};;MediaPlayer.rules.PendingRequestsRule = function () {
+    "use strict";
+
+    var LIMIT = 3,
+        scheduleController = {};
+
+    return {
+        metricsExt: undefined,
+
+        setScheduleController: function(scheduleControllerValue) {
+            var streamId = scheduleControllerValue.streamProcessor.getStreamInfo().id;
+            scheduleController[streamId] = scheduleController[streamId] || {};
+            scheduleController[streamId][scheduleControllerValue.streamProcessor.getType()] = scheduleControllerValue;
+        },
+
+        execute: function(context, callback) {
+            var mediaType = context.getMediaInfo().type,
+                streamId = context.getStreamInfo().id,
+                current = context.getCurrentValue(),
+                sc = scheduleController[streamId][mediaType],
+                model = sc.getFragmentModel(),
+                pendingRequests = model.getPendingRequests(),
+                loadingRequests = model.getLoadingRequests(),
+                rejectedRequests = model.getRejectedRequests(),
+                rLn = rejectedRequests.length,
+                ln = pendingRequests.length + loadingRequests.length,
+                count = Math.max(current - ln, 0);
+
+            if (rLn > 0) {
+                callback(new MediaPlayer.rules.SwitchRequest(rLn, MediaPlayer.rules.SwitchRequest.prototype.DEFAULT));
+                return;
+            }
+
+            if (ln > LIMIT) {
+                callback(new MediaPlayer.rules.SwitchRequest(0, MediaPlayer.rules.SwitchRequest.prototype.DEFAULT));
+                return;
+            }
+
+            if (current === 0) {
+                callback(new MediaPlayer.rules.SwitchRequest(count, MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE));
+                return;
+            }
+
+            callback(new MediaPlayer.rules.SwitchRequest(count, MediaPlayer.rules.SwitchRequest.prototype.DEFAULT));
+        },
+
+        reset: function() {
+            scheduleController = {};
+        }
+    };
+};
+
+MediaPlayer.rules.PendingRequestsRule.prototype = {
+    constructor: MediaPlayer.rules.PendingRequestsRule
+};;MediaPlayer.rules.PlaybackTimeRule = function () {
+    "use strict";
+
+    var seekTarget = {},
+        scheduleController = {},
+
+        onPlaybackSeeking = function(sender, time) {
+            var streamId = sender.getStreamId();
+            seekTarget[streamId] = seekTarget[streamId] || {};
+            seekTarget[streamId].audio = time;
+            seekTarget[streamId].video = time;
+        };
+
+    return {
+        adapter: undefined,
+        sourceBufferExt: undefined,
+
+        setup: function() {
+            this.playbackSeeking = onPlaybackSeeking;
+        },
+
+        setScheduleController: function(scheduleControllerValue) {
+            var streamId = scheduleControllerValue.streamProcessor.getStreamInfo().id;
+            scheduleController[streamId] = scheduleController[streamId] || {};
+            scheduleController[streamId][scheduleControllerValue.streamProcessor.getType()] = scheduleControllerValue;
+        },
+
+        execute: function(context, callback) {
+            var mediaType = context.getMediaInfo().type,
+                streamId = context.getStreamInfo().id,
+                sc = scheduleController[streamId][mediaType],
+                // EPSILON is used to avoid javascript floating point issue, e.g. if request.startTime = 19.2,
+                // request.duration = 3.83, than request.startTime + request.startTime = 19.2 + 1.92 = 21.119999999999997
+                EPSILON = 0.1,
+                streamProcessor = scheduleController[streamId][mediaType].streamProcessor,
+                track = streamProcessor.getCurrentTrack(),
+                st = seekTarget[streamId] ? seekTarget[streamId][mediaType] : null,
+                p = st ? MediaPlayer.rules.SwitchRequest.prototype.STRONG  : MediaPlayer.rules.SwitchRequest.prototype.DEFAULT,
+                rejected = sc.getFragmentModel().getRejectedRequests().shift(),
+                keepIdx = !!rejected && !st,
+                currentTime = this.adapter.getIndexHandlerTime(streamProcessor),
+                playbackTime = streamProcessor.playbackController.getTime(),
+                rejectedEnd = rejected ? rejected.startTime + rejected.duration : null,
+                useRejected = rejected && ((rejectedEnd > playbackTime) && (rejected.startTime <= currentTime) || isNaN(currentTime)),
+                range,
+                time,
+                request;
+
+            time = st || (useRejected ? (rejected.startTime) : currentTime);
+
+            if (isNaN(time)) {
+                callback(new MediaPlayer.rules.SwitchRequest(null, p));
+                return;
+            }
+
+            if (seekTarget[streamId]) {
+                seekTarget[streamId][mediaType] = null;
+            }
+
+            range = this.sourceBufferExt.getBufferRange(streamProcessor.bufferController.getBuffer(), time);
+
+            if (range !== null) {
+                time = range.end;
+            }
+
+            request = this.adapter.getFragmentRequestForTime(streamProcessor, track, time, keepIdx);
+
+            if (useRejected && request && request.index !== rejected.index) {
+                request = this.adapter.getFragmentRequestForTime(streamProcessor, track, rejected.startTime + (rejected.duration / 2) + EPSILON, keepIdx);
+            }
+
+            while (request && streamProcessor.fragmentController.isFragmentLoadedOrPending(sc, request)) {
+                if (request.action === "complete") {
+                    request = null;
+                    this.adapter.setIndexHandlerTime(streamProcessor, NaN);
+                    break;
+                }
+
+                request = this.adapter.getNextFragmentRequest(streamProcessor, track);
+            }
+
+            if (request && !useRejected) {
+                this.adapter.setIndexHandlerTime(streamProcessor, request.startTime + request.duration);
+            }
+
+            callback(new MediaPlayer.rules.SwitchRequest(request, p));
+        },
+
+        reset: function() {
+            seekTarget = {};
+            scheduleController = {};
+        }
+    };
+};
+
+MediaPlayer.rules.PlaybackTimeRule.prototype = {
+    constructor: MediaPlayer.rules.PlaybackTimeRule
+};;MediaPlayer.rules.RulesController = function () {
+    "use strict";
+
+    var rules = {},
+
+        ruleMandatoryProperties = ["execute"],
+
+        isRuleTypeSupported = function(ruleType) {
+            return ((ruleType === this.SCHEDULING_RULE) || (ruleType === this.ABR_RULE));
+        },
+
+        isRule = function(obj) {
+            var ln = ruleMandatoryProperties.length,
+                i = 0;
+
+            for (i; i < ln; i += 1) {
+                if (!obj.hasOwnProperty(ruleMandatoryProperties[i])) return false;
+            }
+
+            return true;
+        },
+
+        getRulesContext = function(streamProcessor, currentValue) {
+            return new MediaPlayer.rules.RulesContext(streamProcessor, currentValue);
+        },
+
+        normalizeRule = function(rule) {
+            var exec = rule.execute.bind(rule);
+
+            rule.execute = function(context, callback) {
+                var normalizedCallback = function(result) {
+                    callback.call(rule, new MediaPlayer.rules.SwitchRequest(result.value, result.priority));
+                };
+
+                exec(context, normalizedCallback);
+            };
+
+            if (typeof(rule.reset) !== "function") {
+                rule.reset = function(){
+                    //TODO do some default clearing
+                };
+            }
+
+            return rule;
+        },
+
+        updateRules = function(currentRulesCollection, newRulesCollection, override) {
+            var rule,
+                ruleSubType,
+                subTypeRuleSet,
+                ruleArr,
+                ln,
+                i;
+
+            for (ruleSubType in newRulesCollection) {
+                ruleArr = newRulesCollection[ruleSubType];
+                ln = ruleArr.length;
+
+                if (!ln) continue;
+
+                for (i = 0; i < ln; i += 1) {
+                    rule = ruleArr[i];
+
+                    if (!isRule.call(this, rule)) continue;
+
+                    rule = normalizeRule.call(this, rule);
+
+                    subTypeRuleSet = currentRulesCollection.getRules(ruleSubType);
+
+                    if (override) {
+                        subTypeRuleSet.length = 0;
+                    }
+
+                    subTypeRuleSet.push(rule);
+                }
+            }
+        };
+
+    return {
+        system: undefined,
+        debug: undefined,
+
+        SCHEDULING_RULE: 0,
+        ABR_RULE: 1,
+
+        initialize: function() {
+            rules[this.ABR_RULE] = this.system.getObject("abrRulesCollection");
+            rules[this.SCHEDULING_RULE] = this.system.getObject("scheduleRulesCollection");
+        },
+
+        setRules: function(ruleType, rulesCollection) {
+            if (!isRuleTypeSupported.call(this, ruleType) || !rulesCollection) return;
+
+            updateRules.call(this, rules[ruleType], rulesCollection, true);
+        },
+
+        addRules: function(ruleType, rulesCollection) {
+            if (!isRuleTypeSupported.call(this, ruleType) || !rulesCollection) return;
+
+            updateRules.call(this, rules[ruleType], rulesCollection, false);
+        },
+
+        applyRules: function(rulesArr, streamProcessor, callback, current, overrideFunc) {
+            var rulesCount = rulesArr.length,
+                ln = rulesCount,
+                values = {},
+                rulesContext = getRulesContext.call(this, streamProcessor, current),
+                rule,
+                i,
+
+                callbackFunc = function(result) {
+                    var value,
+                        confidence;
+
+                    if (result.value !== MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE) {
+                        values[result.priority] = overrideFunc(values[result.priority], result.value);
+                    }
+
+                    if (--rulesCount) return;
+
+                    if (values[MediaPlayer.rules.SwitchRequest.prototype.WEAK] !== MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE) {
+                        confidence = MediaPlayer.rules.SwitchRequest.prototype.WEAK;
+                        value = values[MediaPlayer.rules.SwitchRequest.prototype.WEAK];
+                    }
+
+                    if (values[MediaPlayer.rules.SwitchRequest.prototype.DEFAULT] !== MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE) {
+                        confidence = MediaPlayer.rules.SwitchRequest.prototype.DEFAULT;
+                        value = values[MediaPlayer.rules.SwitchRequest.prototype.DEFAULT];
+                    }
+
+                    if (values[MediaPlayer.rules.SwitchRequest.prototype.STRONG] !== MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE) {
+                        confidence = MediaPlayer.rules.SwitchRequest.prototype.STRONG;
+                        value = values[MediaPlayer.rules.SwitchRequest.prototype.STRONG];
+                    }
+
+                    if (confidence != MediaPlayer.rules.SwitchRequest.prototype.STRONG &&
+                        confidence != MediaPlayer.rules.SwitchRequest.prototype.WEAK) {
+                        confidence = MediaPlayer.rules.SwitchRequest.prototype.DEFAULT;
+                    }
+
+                    callback({value: (value !== undefined) ? value : current, confidence: confidence});
+                };
+
+            values[MediaPlayer.rules.SwitchRequest.prototype.STRONG] = MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE;
+            values[MediaPlayer.rules.SwitchRequest.prototype.WEAK] = MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE;
+            values[MediaPlayer.rules.SwitchRequest.prototype.DEFAULT] = MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE;
+
+            for (i = 0; i < ln; i += 1) {
+                rule = rulesArr[i];
+
+                if (!isRule.call(this, rule)) {
+                    rulesCount--;
+                    continue;
+                }
+
+                rule.execute(rulesContext, callbackFunc);
+            }
+        },
+
+        reset: function() {
+            rules = {};
+        }
+    };
+};
+
+MediaPlayer.rules.RulesController.prototype = {
+    constructor: MediaPlayer.rules.RulesController
+};;MediaPlayer.rules.SameTimeRequestRule = function () {
+    "use strict";
+
+    var LOADING_REQUEST_THRESHOLD = 4,
+
+        findClosestToTime = function(fragmentModels, time) {
+            var req,
+                r,
+                pendingReqs,
+                i = 0,
+                j,
+                pln,
+                ln = fragmentModels.length;
+
+            for (i; i < ln; i += 1) {
+                pendingReqs = fragmentModels[i].getPendingRequests();
+                sortRequestsByProperty.call(this, pendingReqs, "index");
+
+                for (j = 0, pln = pendingReqs.length; j < pln; j++) {
+                    req = pendingReqs[j];
+
+                    if (isNaN(req.startTime) && (req.action !== "complete")) {
+                        r = req;
+                        break;
+                    }
+
+                    if ((req.startTime > time) && (!r || req.startTime < r.startTime)) {
+                        r = req;
+                    }
+                }
+            }
+
+            return r || req;
+        },
+
+        getForTime = function(fragmentModels, currentTime) {
+            var ln = fragmentModels.length,
+                req,
+                r = null,
+                i;
+
+            for (i = 0; i < ln; i += 1) {
+                req = fragmentModels[i].getPendingRequestForTime(currentTime);
+
+                if (req && (!r || req.startTime > r.startTime)) {
+                    r = req;
+                }
+            }
+
+            return r;
+        },
+
+        sortRequestsByProperty = function(requestsArray, sortProp) {
+            var compare = function (req1, req2){
+                if (req1[sortProp] < req2[sortProp] || (isNaN(req1[sortProp]) && req1.action !== "complete")) return -1;
+                if (req1[sortProp] > req2[sortProp]) return 1;
+                return 0;
+            };
+
+            requestsArray.sort(compare);
+
+        };
+
+    return {
+
+        setFragmentModels: function(fragmentModels, streamid) {
+            this.fragmentModels = this.fragmentModels || {};
+            this.fragmentModels[streamid] = fragmentModels;
+        },
+
+        execute: function(context, callback) {
+            var streamId = context.getStreamInfo().id,
+                current = context.getCurrentValue(),
+                p = MediaPlayer.rules.SwitchRequest.prototype.DEFAULT,
+                fragmentModels = this.fragmentModels[streamId],
+                type,
+                model,
+                sameTimeReq,
+                mIdx,
+                req,
+                currentTime,
+                wallclockTime = new Date(),
+                time = null,
+                reqForCurrentTime,
+                mLength = fragmentModels ? fragmentModels.length : null,
+                shouldWait = false,
+                reqsToExecute = [],
+                pendingReqs,
+                loadingLength;
+
+            if (!fragmentModels || !mLength) {
+                callback(new MediaPlayer.rules.SwitchRequest([], p));
+                return;
+            }
+
+            currentTime = fragmentModels[0].getContext().playbackController.getTime();
+            reqForCurrentTime = getForTime(fragmentModels, currentTime);
+            req = reqForCurrentTime || findClosestToTime(fragmentModels, currentTime) || current;
+
+            if (!req) {
+                callback(new MediaPlayer.rules.SwitchRequest([], p));
+                return;
+            }
+
+            for (mIdx = 0; mIdx < mLength; mIdx += 1) {
+                model = fragmentModels[mIdx];
+                type = model.getContext().streamProcessor.getType();
+
+                if (type !== "video" && type !== "audio") continue;
+
+                pendingReqs = model.getPendingRequests();
+                loadingLength = model.getLoadingRequests().length;
+
+                if (model.getIsPostponed() && !isNaN(req.startTime)) continue;
+
+                if (loadingLength > LOADING_REQUEST_THRESHOLD) {
+                    callback(new MediaPlayer.rules.SwitchRequest([], p));
+                    return;
+                }
+
+                time = time || ((req === reqForCurrentTime) ? currentTime : req.startTime);
+
+                if (pendingReqs.indexOf(req) !== -1) {
+                    reqsToExecute.push(req);
+                    continue;
+                }
+
+                sameTimeReq = model.getPendingRequestForTime(time);
+
+                if (sameTimeReq) {
+                    reqsToExecute.push(sameTimeReq);
+                    continue;
+                }
+
+                sameTimeReq = model.getLoadingRequestForTime(time) || model.getExecutedRequestForTime(time);
+
+                if (!sameTimeReq) {
+                    shouldWait = true;
+                    break;
+                }
+            }
+
+            reqsToExecute = reqsToExecute.filter( function(req) {
+                return (req.action === "complete") || (wallclockTime.getTime() >= req.availabilityStartTime.getTime());
+            });
+
+            if (shouldWait) {
+                callback(new MediaPlayer.rules.SwitchRequest([], p));
+                return;
+            }
+
+            callback(new MediaPlayer.rules.SwitchRequest(reqsToExecute, p));
+        }
+    };
+};
+
+MediaPlayer.rules.SameTimeRequestRule.prototype = {
+    constructor: MediaPlayer.rules.SameTimeRequestRule
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.rules.ScheduleRulesCollection = function () {
+    "use strict";
+
+    var fragmentsToScheduleRules = [],
+        fragmentsToExecuteRules = [],
+        liveEdgeRules = [],
+        nextFragmentRules = [];
+
+    return {
+        bufferLevelRule: undefined,
+        pendingRequestsRule: undefined,
+        playbackTimeRule: undefined,
+        sameTimeRequestRule: undefined,
+        liveEdgeBinarySearchRule: undefined,
+
+        getRules: function (type) {
+            switch (type) {
+                case MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_SCHEDULE_RULES:
+                    return fragmentsToScheduleRules;
+                case MediaPlayer.rules.ScheduleRulesCollection.prototype.NEXT_FRAGMENT_RULES:
+                    return nextFragmentRules;
+                case MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_EXECUTE_RULES:
+                    return fragmentsToExecuteRules;
+                case MediaPlayer.rules.ScheduleRulesCollection.prototype.LIVE_EDGE_RULES:
+                    return liveEdgeRules;
+                default:
+                    return null;
+            }
+        },
+
+        setup: function () {
+            fragmentsToScheduleRules.push(this.bufferLevelRule);
+            fragmentsToScheduleRules.push(this.pendingRequestsRule);
+            nextFragmentRules.push(this.playbackTimeRule);
+            fragmentsToExecuteRules.push(this.sameTimeRequestRule);
+            liveEdgeRules.push(this.liveEdgeBinarySearchRule);
+        }
+    };
+};
+
+MediaPlayer.rules.ScheduleRulesCollection.prototype = {
+    constructor: MediaPlayer.rules.ScheduleRulesCollection,
+    FRAGMENTS_TO_SCHEDULE_RULES: "fragmentsToScheduleRules",
+    NEXT_FRAGMENT_RULES: "nextFragmentRules",
+    FRAGMENTS_TO_EXECUTE_RULES: "fragmentsToExecuteRules",
+    LIVE_EDGE_RULES: "liveEdgeRules"
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.rules.SwitchRequest = function (v, p) {
+    "use strict";
+    this.value = v;
+    this.priority = p;
+
+    if (this.value === undefined) {
+        this.value = 999;
+    }
+
+    if (this.priority === undefined) {
+        this.priority = 0.5;
+    }
+};
+
+MediaPlayer.rules.SwitchRequest.prototype = {
+    constructor: MediaPlayer.rules.SwitchRequest,
+    NO_CHANGE: 999,
+    DEFAULT: 0.5,
+    STRONG: 1,
+    WEAK: 0
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.FragmentRequest = function () {
+    "use strict";
+    this.action = "download";
+    this.startTime = NaN;
+    this.mediaType = null;
+    this.type = null;
+    this.duration = NaN;
+    this.timescale = NaN;
+    this.range = null;
+    this.url = null;
+    this.requestStartDate = null;
+    this.firstByteDate = null;
+    this.requestEndDate = null;
+    this.quality = NaN;
+    this.index = NaN;
+    this.availabilityStartTime = null;
+    this.availabilityEndTime = null;
+    this.wallStartTime = null;
+};
+
+MediaPlayer.vo.FragmentRequest.prototype = {
+    constructor: MediaPlayer.vo.FragmentRequest,
+    ACTION_DOWNLOAD: "download",
+    ACTION_COMPLETE: "complete"
+};;MediaPlayer.vo.ManifestInfo = function () {
+    "use strict";
+    this.DVRWindowSize = NaN;
+    this.loadedTime = null;
+    this.availableFrom = null;
+    this.minBufferTime = NaN;
+    this.duration = NaN;
+    this.isDynamic = false;
+    this.maxFragmentDuration = null;
+};
+
+MediaPlayer.vo.ManifestInfo.prototype = {
+    constructor: MediaPlayer.vo.ManifestInfo
+};;MediaPlayer.vo.MediaInfo = function () {
+    "use strict";
+    this.id = null;
+    this.index = null;
+    this.type = null;
+    this.streamInfo = null;
+    this.trackCount = 0;
+    this.lang = null;
+    this.codec = null;
+    this.mimeType = null;
+    this.contentProtection = null;
+    this.isText = false;
+    this.KID = null;
+};
+
+MediaPlayer.vo.MediaInfo.prototype = {
+    constructor: MediaPlayer.vo.MediaInfo
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.models.MetricsList = function () {
+    "use strict";
+
+    return {
+        TcpList: [],
+        HttpList: [],
+        RepSwitchList: [],
+        BufferLevel: [],
+        PlayList: [],
+        DroppedFrames: [],
+        SchedulingInfo: [],
+        DVRInfo: [],
+        ManifestUpdate: []
+    };
+};
+
+MediaPlayer.models.MetricsList.prototype = {
+    constructor: MediaPlayer.models.MetricsList
+};;MediaPlayer.vo.StreamInfo = function () {
+    "use strict";
+    this.id = null;
+    this.index = null;
+    this.start = NaN;
+    this.duration = NaN;
+    this.manifestInfo = null;
+    this.isLast = true;
+};
+
+MediaPlayer.vo.StreamInfo.prototype = {
+    constructor: MediaPlayer.vo.StreamInfo
+};;MediaPlayer.vo.TrackInfo = function () {
+    "use strict";
+    this.id = null;
+    this.quality = null;
+    this.DVRWindow = null;
+    this.fragmentDuration = null;
+    this.mediaInfo = null;
+    this.MSETimeOffset = null;
+};
+
+MediaPlayer.vo.TrackInfo.prototype = {
+    constructor: MediaPlayer.vo.TrackInfo
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2014, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.URIFragmentData = function () {
+    "use strict";
+    this.t = null;
+    this.xywh = null;
+    this.track = null;
+    this.id = null;
+    this.s = null;
+};
+
+MediaPlayer.vo.URIFragmentData.prototype = {
+    constructor: MediaPlayer.vo.URIFragmentData
+};
+
+
+/*
+    From Spec http://www.w3.org/TR/media-frags/
+
+    temporal (t)     - This dimension denotes a specific time range in the original media, such as "starting at second 10, continuing until second 20";
+    spatial  (xywh)  - this dimension denotes a specific range of pixels in the original media, such as "a rectangle with size (100,100) with its top-left at coordinate (10,10)";
+                       Media fragments support also addressing the media along two additional dimensions (in the advanced version defined in Media Fragments 1.0 URI (advanced)):
+    track    (track) - this dimension denotes one or more tracks in the original media, such as "the english audio and the video track";
+    id       (id)    - this dimension denotes a named temporal fragment within the original media, such as "chapter 2", and can be seen as a convenient way of specifying a temporal fragment.
+
+
+    ## Note
+    Akamai is purposing to add #s=X to the ISO standard.
+        - (X) Value would be a start time to seek to at startup instead of starting at 0 or live edge
+        - Allows for seeking back before the start time unlike a temporal clipping.
+*/;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.metrics.BufferLevel = function () {
+    "use strict";
+
+    this.t = null;      // Real-Time | Time of the measurement of the buffer level.
+    this.level = null;  // Level of the buffer in milliseconds. Indicates the playout duration for which media data of all active media components is available starting from the current playout time.
+};
+
+MediaPlayer.vo.metrics.BufferLevel.prototype = {
+    constructor: MediaPlayer.vo.metrics.BufferLevel
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ *
+ * Copyright (c) 2014, Akamai Technologies
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.metrics.DVRInfo = function () {
+    "use strict";
+    this.time = null;
+    this.range = null;
+    this.manifestInfo = null;
+};
+
+MediaPlayer.vo.metrics.DVRInfo.prototype = {
+    constructor: MediaPlayer.vo.metrics.DVRInfo
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.metrics.DroppedFrames = function () {
+    "use strict";
+
+    this.time = null;      // Real-Time | Time of the measurement of the dropped frames.
+    this.droppedFrames = null;  // Number of dropped frames.
+};
+
+MediaPlayer.vo.metrics.DroppedFrames.prototype = {
+    constructor: MediaPlayer.vo.metrics.DroppedFrames
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.metrics.HTTPRequest = function () {
+    "use strict";
+
+    this.stream = null;         // type of stream ("audio" | "video" etc..)
+    this.tcpid = null;          // Identifier of the TCP connection on which the HTTP request was sent.
+    this.type = null;           // This is an optional parameter and should not be included in HTTP request/response transactions for progressive download.
+                                    // The type of the request:
+                                    // - MPD
+                                    // - XLink expansion
+                                    // - Initialization Fragment
+                                    // - Index Fragment
+                                    // - Media Fragment
+                                    // - Bitstream Switching Fragment
+                                    // - other
+    this.url = null;            // The original URL (before any redirects or failures)
+    this.actualurl = null;      // The actual URL requested, if different from above
+    this.range = null;          // The contents of the byte-range-spec part of the HTTP Range header.
+    this.trequest = null;       // Real-Time | The real time at which the request was sent.
+    this.tresponse = null;      // Real-Time | The real time at which the first byte of the response was received.
+    this.tfinish = null;        // Real-Time | The real time at which the request finshed.
+    this.responsecode = null;   // The HTTP response code.
+    this.interval = null;       // The duration of the throughput trace intervals (ms), for successful requests only.
+    this.mediaduration = null;  // The duration of the media requests, if available, in milliseconds.
+    this.trace = [];            // Throughput traces, for successful requests only.
+};
+
+MediaPlayer.vo.metrics.HTTPRequest.prototype = {
+    constructor: MediaPlayer.vo.metrics.HTTPRequest
+};
+
+MediaPlayer.vo.metrics.HTTPRequest.Trace = function () {
+    "use strict";
+
+    /*
+     * s - Real-Time | Measurement stream start.
+     * d - Measurement stream duration (ms).
+     * b - List of integers counting the bytes received in each trace interval within the measurement stream.
+     */
+    this.s = null;
+    this.d = null;
+    this.b = [];
+};
+
+MediaPlayer.vo.metrics.HTTPRequest.Trace.prototype = {
+    constructor : MediaPlayer.vo.metrics.HTTPRequest.Trace
+};
+;MediaPlayer.vo.metrics.ManifestUpdate = function () {
+    "use strict";
+
+    this.mediaType = null;
+    this.type = null;                       // static|dynamic
+    this.requestTime = null;                // when this manifest update was requested
+    this.fetchTime = null;                  // when this manifest update was received
+    this.availabilityStartTime = null;
+    this.presentationStartTime = 0;      // the seek point (liveEdge for dynamic, Stream[0].startTime for static)
+    this.clientTimeOffset = 0;           // the calculated difference between the server and client wall clock time
+    this.currentTime = null;                // actual element.currentTime
+    this.buffered = null;                   // actual element.ranges
+    this.latency = 0;                       // (static is fixed value of zero. dynamic should be ((Now-@availabilityStartTime) - elementCurrentTime)
+    this.streamInfo = [];
+    this.trackInfo = [];
+};
+
+MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo = function () {
+    "use strict";
+
+    this.id = null;         // Stream@id
+    this.index = null;
+    this.start = null;      // Stream@start
+    this.duration = null;   // Stream@duration
+};
+
+MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo = function () {
+    "use strict";
+
+    this.id = null;                         // Track@id
+    this.index = null;
+    this.mediaType = null;
+    this.streamIndex = null;
+    this.presentationTimeOffset = null;     // @presentationTimeOffset
+    this.startNumber = null;                // @startNumber
+    this.fragmentInfoType = null;            // list|template|timeline
+};
+
+MediaPlayer.vo.metrics.ManifestUpdate.prototype = {
+    constructor: MediaPlayer.vo.metrics.ManifestUpdate
+};
+
+MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo.prototype = {
+    constructor: MediaPlayer.vo.metrics.ManifestUpdate.StreamInfo
+};
+
+MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo.prototype = {
+    constructor: MediaPlayer.vo.metrics.ManifestUpdate.TrackInfo
+};;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.metrics.PlayList = function () {
+    "use strict";
+
+    this.stream = null;     // type of stream ("audio" | "video" etc..)
+    this.start = null;      // Real-Time | Timestamp of the user action that starts the playback stream...
+    this.mstart = null;     // Media-Time | Presentation time at which playout was requested by the user...
+    this.starttype = null;  // Type of user action which triggered playout
+                            //      - New playout request (e.g. initial playout or seeking)
+                            //      - Resume from pause
+                            //        - Other user request (e.g. user-requested quality change)
+                            //        - Start of a metrics collection stream (hence earlier entries in the play list not collected)
+    this.trace = [];        // List of streams of continuous rendering of decoded samples.
+};
+
+MediaPlayer.vo.metrics.PlayList.Trace = function () {
+    "use strict";
+
+    /*
+     * representationid - The value of the Representation@id of the Representation from which the samples were taken.
+     * subreplevel      - If not present, this metrics concerns the Representation as a whole. If present, subreplevel indicates the greatest value of any Subrepresentation@level being rendered.
+     * start            - Real-Time | The time at which the first sample was rendered.
+     * mstart           - Media-Time | The presentation time of the first sample rendered.
+     * duration         - The duration of the continuously presented samples (which is the same in real time and media time). ―Continuously presented‖ means that the media clock continued to advance at the playout speed throughout the interval.
+     * playbackspeed    - The playback speed relative to normal playback speed (i.e.normal forward playback speed is 1.0).
+     * stopreason       - The reason why continuous presentation of this Representation was stopped.
+     *                    Either:
+     *                    representation switch
+     *                    rebuffering
+     *                    user request
+     *                    end of Stream
+     *                    end of content
+     *                    end of a metrics collection stream
+     */
+    this.representationid = null;
+    this.subreplevel = null;
+    this.start = null;
+    this.mstart = null;
+    this.duration = null;
+    this.playbackspeed = null;
+    this.stopreason = null;
+};
+
+MediaPlayer.vo.metrics.PlayList.prototype = {
+    constructor: MediaPlayer.vo.metrics.PlayList
+};
+
+/* Public Static Constants */
+MediaPlayer.vo.metrics.PlayList.INITIAL_PLAY_START_REASON = "initial_start";
+MediaPlayer.vo.metrics.PlayList.SEEK_START_REASON = "seek";
+
+MediaPlayer.vo.metrics.PlayList.Trace.prototype = {
+    constructor: MediaPlayer.vo.metrics.PlayList.Trace()
+};
+
+/* Public Static Constants */
+MediaPlayer.vo.metrics.PlayList.Trace.USER_REQUEST_STOP_REASON = "user_request";
+MediaPlayer.vo.metrics.PlayList.Trace.REPRESENTATION_SWITCH_STOP_REASON = "representation_switch";
+MediaPlayer.vo.metrics.PlayList.Trace.END_OF_CONTENT_STOP_REASON = "end_of_content";
+MediaPlayer.vo.metrics.PlayList.Trace.REBUFFERING_REASON = "rebuffering";;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.metrics.TrackSwitch = function () {
+    "use strict";
+
+    this.t = null;      // Real-Time | Time of the switch event.
+    this.mt = null;     // Media-Time | The media presentation time of the earliest access unit (out of all media content components) played out from the Representation.
+    this.to = null;     // value of Representation@id identifying the switch-to Representation.
+    this.lto = null;    // If not present, this metrics concerns the Representation as a whole. If present, lto indicates the value of SubRepresentation@level within Representation identifying the switch-to level of the Representation.
+};
+
+MediaPlayer.vo.metrics.TrackSwitch.prototype = {
+    constructor: MediaPlayer.vo.metrics.TrackSwitch
+};;MediaPlayer.vo.metrics.SchedulingInfo = function () {
+    "use strict";
+
+    this.mediaType = null;                 // Type of stream ("audio" | "video" etc..)
+    this.t = null;                      // Real-Time | Time of the scheduling event.
+
+    this.type = null;                   // Type of fragment (initialization | media)
+    this.startTime = null;              // Presentation start time of fragment
+    this.availabilityStartTime = null;  // Availability start time of fragment
+    this.duration = null;               // Duration of fragment
+    this.quality = null;                // Quality of fragment
+    this.range = null;                  // Range of fragment
+
+    this.state = null;                  // Current state of fragment
+};
+
+MediaPlayer.vo.metrics.SchedulingInfo.prototype = {
+    constructor: MediaPlayer.vo.metrics.SchedulingInfo
+};
+
+/* Public Static Constants */
+MediaPlayer.vo.metrics.SchedulingInfo.PENDING_STATE = "pending";
+MediaPlayer.vo.metrics.SchedulingInfo.LOADING_STATE = "loading";
+MediaPlayer.vo.metrics.SchedulingInfo.EXECUTED_STATE = "executed";
+MediaPlayer.vo.metrics.SchedulingInfo.REJECTED_STATE = "rejected";
+MediaPlayer.vo.metrics.SchedulingInfo.CANCELED_STATE = "canceled";
+MediaPlayer.vo.metrics.SchedulingInfo.FAILED_STATE = "failed";;/*
+ * The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patent rights, and no such rights are granted under this license.
+ * 
+ * Copyright (c) 2013, Digital Primates
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * •  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * •  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * •  Neither the name of the Digital Primates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+MediaPlayer.vo.metrics.TCPConnection = function () {
+    "use strict";
+
+    this.tcpid = null;      // Identifier of the TCP connection on which the HTTP request was sent.
+    this.dest = null;       // IP Address of the interface over which the client is receiving the TCP data.
+    this.topen = null;      // Real-Time | The time at which the connection was opened (sending time of the initial SYN or connect socket operation).
+    this.tclose = null;     // Real-Time | The time at which the connection was closed (sending or reception time of FIN or RST or close socket operation).
+    this.tconnect = null;   // Connect time in ms (time from sending the initial SYN to receiving the ACK or completion of the connect socket operation).
+};
+
+MediaPlayer.vo.metrics.TCPConnection.prototype = {
+    constructor: MediaPlayer.vo.metrics.TCPConnection
+};

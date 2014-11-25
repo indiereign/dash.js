@@ -526,6 +526,11 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
     player = new MediaPlayer(context);
     $scope.version = player.getVersion();
 
+    var drm_key = "99a022da-c4b5-4c5c-945b-08fff0cf58ca_HD"; // shadows
+    var protectionData = {};
+    protectionData["com.widevine.alpha"] = { laUrl : "https://staging-demo.shift72.com/services/license/widevine/live/modular_fallback?context=" + window.btoa(drm_key) };
+    player.attachProtectionData(protectionData);
+
     player.startup();
     player.addEventListener("error", onError.bind(this));
     player.addEventListener("metricChanged", metricChanged.bind(this));
